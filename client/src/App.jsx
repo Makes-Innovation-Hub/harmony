@@ -19,8 +19,6 @@ const Router = createBrowserRouter([
 ]);
 function App() {
   const [showError, setShowError] = useState(false);
- 
-  
   if (showError) {
     setShowError(true);
     throw new Error("Oops! Something went wrong");
