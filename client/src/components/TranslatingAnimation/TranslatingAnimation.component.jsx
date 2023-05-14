@@ -1,12 +1,12 @@
 import Wrapped from './TranslationAnimation.styled'
 
-import animation from '../../assets/translating-animation.gif'
+import translatingAnimation from '../../assets/animations/translating-animation.gif'
 
 const TranslatingAnimation = () => {
     return (
         <Wrapped>
             <img
-                src={animation}
+                src={translatingAnimation}
                 alt="translating-gif"
                 className="translating-animation"
             />
