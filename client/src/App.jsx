@@ -10,7 +10,7 @@ const Router = createBrowserRouter([
   },
   {
     path: "/song",
-    element: <SongPage />,
+    element: <SongPage/>,
   },
   {
     path: "/Artist",
@@ -19,17 +19,17 @@ const Router = createBrowserRouter([
 ]);
 function App() {
   const [showError, setShowError] = useState(false);
-  const handleClick = () => {
-    setShowError(true);
-  };
+ 
+  
   if (showError) {
+    setShowError(true);
     throw new Error("Oops! Something went wrong");
   }
   return (
     <div>
       <RouterProvider router={Router} />
       <div>
-        <button onClick={handleClick}>Click me</button>
+      
       </div>
     </div>
   );
