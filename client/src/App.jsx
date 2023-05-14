@@ -17,19 +17,15 @@ const Router = createBrowserRouter([
     element: <ArtistPage />,
   },
 ]);
-
 function App() {
    // the comment lie is just to see if the error boundary work 
   const [showError, setShowError] = useState(false);
-
   const handleClick = () => {
     setShowError(true);
   };
-
   if (showError) {
     throw new Error("Oops! Something went wrong");
   }
-
   return (
     <div>
       <RouterProvider router={Router} />
@@ -39,5 +35,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
