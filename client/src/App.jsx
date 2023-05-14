@@ -18,7 +18,6 @@ const Router = createBrowserRouter([
   },
 ]);
 function App() {
-   // the comment lie is just to see if the error boundary work 
   const [showError, setShowError] = useState(false);
   const handleClick = () => {
     setShowError(true);
