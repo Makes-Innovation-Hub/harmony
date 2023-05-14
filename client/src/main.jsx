@@ -4,10 +4,11 @@ import store from './Redux/store';
 import App from "./App.jsx";
 import "./index.css";
 import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "./components/ErrorFallback";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
- <ErrorBoundary fallback={<h1>Something went wrong</h1>}>
+ <ErrorBoundary FallbackComponent={ErrorFallback}>
   <App />
 </ErrorBoundary>
 

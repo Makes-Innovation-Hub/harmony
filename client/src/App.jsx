@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home";
 import SongPage from "./Pages/SongPage";
 import ArtistPage from "./pages/ArtistPage";
+
 // import { useState } from "react";
 
 const Router = createBrowserRouter([
