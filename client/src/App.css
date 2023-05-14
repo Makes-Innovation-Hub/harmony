@@ -1,7 +1,11 @@
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 

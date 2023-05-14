@@ -2,6 +2,10 @@
   font-family: "ABeeZee";
   src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
 }
+@font-face {
+  font-family: "ABeeZee Italic";
+  src: url("../../assets/fonts/ABeeZee-Italic.ttf") format("truetype");
+}
 
 * {
   margin: 0;
@@ -15,24 +19,25 @@
     justify-content: center;
     align-items: center;
     min-width: 100%;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
-  .photoDetailsContainer {
+  /* .photoDetailsContainer {
     padding: 0.5rem;
-  }
+  } */
 
   .textDetailsContainer {
     font-family: "ABeeZee", sans-serif;
     display: flex;
     flex-direction: column;
     gap: 7px;
-    margin-right: 10px;
+    margin-right: 18px;
   }
 
   .artistName {
     color: gray;
     font-size: 1rem;
+    font-family: "ABeeZee Italic";
   }
 
   .translation-div {
@@ -43,6 +48,7 @@
 
   .btn {
     background-color: #d9d9d9;
-    border-radius: 50%;
+    border-radius: 100%;
+    padding: 10px 15px;
   }
 }
