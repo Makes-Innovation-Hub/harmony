@@ -1,7 +1,8 @@
+import TopSongGallary from "../components/TopSongGallary"
 
 function SongPage() {
     return (
-      <div>SongPage</div>
+     <TopSongGallary/>
     )
   }
   
