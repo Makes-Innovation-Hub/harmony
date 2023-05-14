@@ -28,9 +28,6 @@ function App() {
   return (
     <div>
       <RouterProvider router={Router} />
-      <div>
-      
-      </div>
     </div>
   );
 }
