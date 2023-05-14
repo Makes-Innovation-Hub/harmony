@@ -9,14 +9,6 @@ import Header from "./Components/Header";
 import Lyrics from "./components/Lyrics";
 import "./App.css";
 
-
-function App() {
-  return (
-    <>
-     <Header/>
-     <Lyrics/>
-    </>
-=======
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +32,8 @@ function App() {
   return (
     <div>
       <RouterProvider router={Router} />
+      <Header/>
+      <Lyrics/>
     </div>
   );
 }
