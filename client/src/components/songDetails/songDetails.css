@@ -1,0 +1,45 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+
+* {
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.songDetailsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  gap:1rem;
+}
+
+.photoDetailsContainer {
+padding: 0.5rem;
+}
+
+.textDetailsContainer {
+  font-family: 'ABeeZee', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap:7px;
+  margin-right: 10px;
+}
+
+.artistName {
+  color:gray;
+  font-size: 1rem;
+}
+
+.translation-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  background-color: #D9D9D9;
+  border-radius:50%;
+}
+
