@@ -1,7 +1,4 @@
 import styled from 'styled-components'
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
-</style>
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -29,6 +26,7 @@ export const Title = styled.h1`
 `;
 
 export const AppIcon = styled.div`
+ position: relative;
   font-size: 1.5rem;
   margin-right: 0.8rem;
 `;
@@ -48,3 +46,4 @@ export const LanguageSelect = styled.select`
 export const LanguageOption = styled.option`
   color: #333;
 `;
+

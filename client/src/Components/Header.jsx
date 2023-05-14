@@ -1,15 +1,20 @@
 import React from 'react';
 import { FaFlag } from 'react-icons/fa';
-import { HeaderContainer, Title, AppIcon, LanguageSelect, LanguageOption } from './HeaderStyles';
+import { Title, HeaderContainer, AppIcon } from './HeaderStyle';
+import Flag from '../assets/Flag.png'
+import Dove from '../assets/dove.png'
+import Ellipse3 from '../assets/Ellipse3.png'
+import './Header.css'
 
 const Header = () => {
   return (
     <HeaderContainer>
       <AppIcon>
-        
+        <img className='dove' src={Dove} alt="" />
+        <img className='ellipse' src={Ellipse3} alt="" />
       </AppIcon>
       <Title>harmony</Title>
-      <FaFlag className="flag-icon flag-icon-us" />
+        <img src={Flag} alt="Flag"/>
     </HeaderContainer>
   );
 };
