@@ -75,3 +75,20 @@ margin-top:13vh;
 
 }
 `;
+export const Box = styled.div`
+
+@media(min-width: 350px) and (max-width: 700px) {
+  position: absolute;
+height: 52px;
+left: 2vw;
+right: 0px;
+bottom: 0px;
+width: 133px;
+background: rgba(255, 255, 255, 0.28);
+box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
+backdrop-filter: blur(8px);
+border-radius: 8px 8px 0px 0px;
+  
+
+}
+`;

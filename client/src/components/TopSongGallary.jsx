@@ -1,4 +1,4 @@
-import { Image, ImageBox, ImageBoxContainer, Title, TopASongCountainer, TopHSongCountainer, } from './TopSongGallaryStyle';
+import { Box, Image, ImageBox, ImageBoxContainer, Title, TopASongCountainer, TopHSongCountainer, } from './TopSongGallaryStyle';
 import albumcover from '../assets/eden.jpg'
 import cover2 from '../assets/aden.jpg'
 import cover3 from '../assets/nasif.jpg'
@@ -12,9 +12,11 @@ export default function TopSongGallary() {
     <ImageBoxContainer>
     <ImageBox>
 <Image src={albumcover} ></Image>
+<Box></Box>
 </ImageBox>
 <ImageBox>
 <Image src={cover2} ></Image>
+<Box></Box>
 </ImageBox>
     </ImageBoxContainer>
     </TopHSongCountainer>
@@ -23,9 +25,11 @@ export default function TopSongGallary() {
 <ImageBoxContainer>
     <ImageBox>
 <Image src={cover3} ></Image>
+<Box></Box>
 </ImageBox>
 <ImageBox>
 <Image src={cover4} ></Image>
+<Box></Box>
 </ImageBox>
     </ImageBoxContainer>
 </TopASongCountainer>
