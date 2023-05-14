@@ -1,13 +1,13 @@
-## harmony
+# harmony
 
 
 ## dev checklist:
-# before development:
+### before development:
 - [ ] open a new branch for each feature.
 - [ ] name the branch with a similar name to the issue/task you are working on.
 for example - issue “15 add new header to login page”, branch: “15-new-header-login”
 
-# during development
+### during development
 - [ ] measure your work time per task.
 - [ ] files should not be longer than ~80 lines.
 - [ ] use good naming for files, functions and variables
@@ -16,7 +16,7 @@ commit and push often.
 - [ ] make sure you can always answer the question: how much of your task is done (40%, 80% etc)
 - [ ] frontend: check on different screen sizes that your design in not breaking
 
-# before PR:
+### before PR:
 - [ ] make sure to remove any commented out code and unneeded comments.
 - [ ] remove all console.log
 - [ ] change screen size to make sure that frontend design is not breaking
