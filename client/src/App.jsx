@@ -1,35 +1,32 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./Pages/Home";
+import SongPage from "./Pages/SongPage";
+import ArtistPage from "./pages/ArtistPage";
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-
+const Router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/song",
+    element: <SongPage/>,
+  },
+  {
+    path: "/Artist",
+    element: <ArtistPage />,
+  },
+]);
 function App() {
-  const [count, setCount] = useState(0);
-
+  const [showError, setShowError] = useState(false);
+  if (showError) {
+    setShowError(true);
+    throw new Error("Oops! Something went wrong");
+  }
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <RouterProvider router={Router} />
+    </div>
   );
 }
-
 export default App;
