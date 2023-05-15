@@ -10,7 +10,7 @@ const Router = createBrowserRouter([
   },
   {
     path: "/song",
-    element: <SongPage />,
+    element: <SongPage/>,
   },
   {
     path: "/Artist",
@@ -27,9 +27,6 @@ function App() {
   return (
     <div>
       <RouterProvider router={Router} />
-      <div>
-     
-      </div>
     </div>
   );
 }
