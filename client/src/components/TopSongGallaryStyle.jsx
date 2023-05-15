@@ -9,12 +9,13 @@ margin-top:-22vh;
   position:absolute
 
 }
+
 `;
  export const Title = styled.h2`
   font-weight: 400;
 ;
   @media(min-width: 350px) and (max-width: 700px){
-    font-size: 23px;
+    font-size: 22px;
     color: #333333;
     margin-bottom: 26vh;
     margin-left:6vw;
@@ -24,6 +25,12 @@ margin-top:-22vh;
   src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
 }
   }
+  :hover {
+    text-decoration: underline #4aa4e0;
+
+
+}
+  
 `;
  export const ImageBox = styled.div`
 
@@ -35,10 +42,11 @@ margin-top:-22vh;
     margin-left:4vw;
     position:relative
     
+    
   
   }
   :hover {
-      border: 1px solid black;
+      border: 2px solid #9570FF;
   }
 `;
 
@@ -87,8 +95,12 @@ width: 133px;
 background: rgba(255, 255, 255, 0.28);
 box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
 backdrop-filter: blur(8px);
-border-radius: 8px 8px 8px 8px;
+border-radius: 8px 8px 0px 0px;
 }
+:hover {
+      border: 2px solid #9570FF;
+  }
+
 `;
 export const SongP = styled.p`
 
