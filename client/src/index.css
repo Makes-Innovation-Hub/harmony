@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@1&family=M+PLUS+1&family=Rubik&family=Rubik+Gemstones&family=Tilt+Neon&display=swap');
+@font-face {
+    font-family: 'ABeeZee';
+    src: url('./assets/fonts/ABeeZee-Italic.ttf') format('truetype');
+}
 
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -15,7 +18,7 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
 
-    --translation-animation-font: ABeeZee;
+    --animation-font: ABeeZee;
 }
 
 a {

@@ -6,21 +6,20 @@ const Wrapped = styled.div`
     justify-content: center;
     align-items: center;
 
-    .translating-animation-text {
-        font-family: var(--translation-animation-font), sans-serif;
+    .animation-text {
+        font-family: var(--animation-font), sans-serif;
     }
 
     // Mobile phone screen
     @media only screen and (min-width: 320px) and (max-width: 480px) {
-        min-width: 330px;
-
-        .translating-animation {
+        .animation {
             width: 236px;
             height: 264px;
         }
 
-        .translating-animation-text {
+        .animation-text {
             font-size: 23px;
+            text-align: center;
             line-height: 133%;
             color: #333333;
         }
