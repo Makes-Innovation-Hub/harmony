@@ -1,3 +1,4 @@
+
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.div`
@@ -47,3 +48,25 @@ export const LanguageOption = styled.option`
   color: #333;
 `;
 
+export const LyricsSection = styled.section`
+  display: flex;
+  margin-bottom: 2rem;
+`;
+
+export const LyricsWrapper = styled.div`
+  width: 100%;
+  padding-right: 1rem;
+
+  &:last-child {
+    padding-right: 0;
+  }
+`;
+
+export const Header = styled.h4`
+  margin-bottom: 0.5rem;
+  font-family: 'ABeeZee', sans-serif;
+`;
+
+ export const Paragraph = styled.p`
+  font-family: 'ABeeZee', sans-serif;
+`
