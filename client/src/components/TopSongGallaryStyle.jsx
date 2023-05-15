@@ -87,8 +87,38 @@ width: 133px;
 background: rgba(255, 255, 255, 0.28);
 box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
 backdrop-filter: blur(8px);
-border-radius: 8px 8px 0px 0px;
-  
+border-radius: 8px 8px 8px 8px;
+}
+`;
+export const SongP = styled.p`
+
+@media(min-width: 350px) and (max-width: 700px) {
+font-size:13px;
+font-weight:400;
+font-style:italic;
+margin-left:2vw;
+margin-top:1vh;
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
+}
+
+
+}
+`;
+export const Songartist = styled.p`
+
+@media(min-width: 350px) and (max-width: 700px) {
+font-size:10px;
+font-weight:400;
+font-style:italic;
+margin-top:-2vh;
+margin-left:2vw;
+@font-face {
+  font-family: "ABeeZee";
+  src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
+}
+
 
 }
 `;

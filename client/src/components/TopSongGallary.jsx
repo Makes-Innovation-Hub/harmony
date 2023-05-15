@@ -1,4 +1,4 @@
-import { Box, Image, ImageBox, ImageBoxContainer, Title, TopASongCountainer, TopHSongCountainer, } from './TopSongGallaryStyle';
+import { Box, Image, ImageBox, ImageBoxContainer, SongP, Songartist, Title, TopASongCountainer, TopHSongCountainer, } from './TopSongGallaryStyle';
 import albumcover from '../assets/eden.jpg'
 import cover2 from '../assets/aden.jpg'
 import cover3 from '../assets/nasif.jpg'
@@ -12,11 +12,17 @@ export default function TopSongGallary() {
     <ImageBoxContainer>
     <ImageBox>
 <Image src={albumcover} ></Image>
-<Box></Box>
+<Box>
+<SongP> Eden Ben Zaken</SongP>
+<Songartist>To The Winner </Songartist>
+</Box>
 </ImageBox>
 <ImageBox>
 <Image src={cover2} ></Image>
-<Box></Box>
+<Box>
+<SongP> Eden Hason</SongP>
+<Songartist> SomeOne Stop Me </Songartist>
+</Box>
 </ImageBox>
     </ImageBoxContainer>
     </TopHSongCountainer>
@@ -25,11 +31,17 @@ export default function TopSongGallary() {
 <ImageBoxContainer>
     <ImageBox>
 <Image src={cover3} ></Image>
-<Box></Box>
+<Box>
+<SongP>Nassif Zayton </SongP>
+<Songartist> Fourth time </Songartist>
+</Box>
 </ImageBox>
 <ImageBox>
 <Image src={cover4} ></Image>
-<Box></Box>
+<Box> 
+<SongP>Amr Diab </SongP>
+<Songartist> Tonight </Songartist>
+</Box>
 </ImageBox>
     </ImageBoxContainer>
 </TopASongCountainer>
