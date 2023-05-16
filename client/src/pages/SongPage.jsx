@@ -1,9 +1,13 @@
-import SongGallary from "../components/SongGallary"
+import SongGallary from "../components/SongGallary";
+import SongDetails from "../components/songDetails/SongDetails";
 
 function SongPage() {
-    return (
-  <SongGallary/>
-    )
-  }
-  
-  export default SongPage
+  return (
+    <>
+      <SongDetails />
+      <SongGallary />
+    </>
+  );
+}
+
+export default SongPage;
