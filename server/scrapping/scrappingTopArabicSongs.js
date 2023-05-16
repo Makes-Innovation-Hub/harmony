@@ -1,7 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { arabTopSongsUrl } from "../constants/arabicTopSongs.js";
-
+import { arabTopSongsUrl } from "../constants/urls.js";
 
 async function scrapeTopArabicSongs() {
   try {
@@ -26,13 +25,9 @@ async function scrapeTopArabicSongs() {
     });
 
     const jsonResult = JSON.stringify(results, null, 2);
-    
+
     return jsonResult;
   } catch (error) {
     console.error(error);
   }
 }
-
-
-
-
