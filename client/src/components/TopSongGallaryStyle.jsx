@@ -3,22 +3,20 @@ import styled from "styled-components";
 export const TopHSongCountainer = styled.div`
 border-radius: 8px;
 @media(min-width: 350px) and (max-width: 700px) {
-  width: 98vw;
-margin-top:-22vh;
-  height:40vh;
-  position:absolute
-
+  width: 98%;
+margin-top: -24%;
+height: 30%;
+position: absolute;
 }
-
 `;
  export const Title = styled.h2`
   font-weight: 400;
 ;
   @media(min-width: 350px) and (max-width: 700px){
-    font-size: 22px;
+    font-size: 1.375rem;
     color: #333333;
-    margin-bottom: 26vh;
-    margin-left:6vw;
+    margin-bottom: 38%;
+    margin-left:6%;
     font-style: italic;
     @font-face {
   font-family: "ABeeZee";
@@ -27,23 +25,14 @@ margin-top:-22vh;
   }
   :hover {
     text-decoration: underline #4aa4e0;
-
-
-}
-  
-`;
+}`;
  export const ImageBox = styled.div`
-
-
   @media(min-width: 350px) and (max-width: 700px) {
-    width: 149px;
-    height: 145px;
-    margin-top:-24vh;
-    margin-left:4vw;
+    width: 29.8%;
+height: 48.3%;
+margin-top: -38%;
+    margin-left:4%;
     position:relative
-    
-    
-  
   }
   :hover {
       border: 2px solid #9570FF;
@@ -51,47 +40,37 @@ margin-top:-22vh;
 `;
 
 export const ImageBoxContainer = styled.div`
-
 @media(min-width: 350px) and (max-width: 700px) {
  display: flex;
  justify-content:center;
- margin-right:7vw
-
+ margin-right:7%
 }
-
 `;
-
 export const Image = styled.img`
-
 @media(min-width: 350px) and (max-width: 700px) {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius:25px
-
 }
 `;
 export const TopASongCountainer = styled.div`
 border-radius: 8px;
 @media(min-width: 350px) and (max-width: 700px) {
-  width: 98vw;
-margin-top:13vh;
-  height:40vh;
+  width: 98%;
+margin-top:22%;
+  height:30%;
   position:absolute;
-  
-  
-
 }
 `;
 export const Box = styled.div`
-
 @media(min-width: 350px) and (max-width: 700px) {
   position: absolute;
-height: 52px;
-left: 2vw;
+  height: 28%;
+left: 7%;
 right: 0px;
-bottom: 0px;
-width: 133px;
+bottom: -1%;
+width: 85%;
 background: rgba(255, 255, 255, 0.28);
 box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
 backdrop-filter: blur(8px);
@@ -100,37 +79,30 @@ border-radius: 8px 8px 0px 0px;
 :hover {
       border: 2px solid #9570FF;
   }
-
 `;
 export const SongP = styled.p`
-
 @media(min-width: 350px) and (max-width: 700px) {
-font-size:13px;
+  font-size: 0.8125rem;
 font-weight:400;
 font-style:italic;
-margin-left:2vw;
-margin-top:1vh;
+margin-left: 0.2%;
+margin-top: 0.125%;
 @font-face {
   font-family: "ABeeZee";
   src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
 }
-
-
 }
 `;
 export const Songartist = styled.p`
-
 @media(min-width: 350px) and (max-width: 700px) {
-font-size:10px;
+  font-size: 0.625rem;
 font-weight:400;
 font-style:italic;
-margin-top:-2vh;
-margin-left:2vw;
+margin-top:-12%;
+margin-left:2%;
 @font-face {
   font-family: "ABeeZee";
   src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
 }
-
-
 }
 `;
