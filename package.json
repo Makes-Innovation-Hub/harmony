@@ -26,8 +26,5 @@
     "lint-staged": "^13.2.2",
     "prettier": "2.8.8"
   },
-  "dependencies": {
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2"
-  }
+  "dependencies": {}
 }
