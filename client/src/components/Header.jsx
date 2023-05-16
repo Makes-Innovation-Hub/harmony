@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaFlag, FaUser } from 'react-icons/fa';
 import { HeaderContainer, Title, AppIcon, LanguageSelect, LanguageOption } from './HeadStyles.jsx';
 
 const Header = () => {
