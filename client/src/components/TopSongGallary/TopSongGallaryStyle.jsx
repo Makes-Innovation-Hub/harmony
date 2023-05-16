@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 export const TopHSongCountainer = styled.div`
 border-radius: 8px;
 @media(min-width: 350px) and (max-width: 700px) {

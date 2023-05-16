@@ -1,8 +1,8 @@
 import { Box, Image, ImageBox, ImageBoxContainer, SongP, Songartist, Title, TopASongCountainer, TopHSongCountainer } from './TopSongGallaryStyle';
-import albumcover from '../assets/eden.jpg';
-import cover2 from '../assets/aden.jpg';
-import cover3 from '../assets/nasif.jpg';
-import cover4 from '../assets/amrdiab.jpg';
+import albumcover from '../../assets/TopSong/eden.jpg';
+import cover2 from '../../assets/TopSong/aden.jpg';
+import cover3 from '../../assets/TopSong/nasif.jpg';
+import cover4 from '../../assets/TopSong/amrdiab.jpg';
 
 export default function TopSongGallary() {
   return (
