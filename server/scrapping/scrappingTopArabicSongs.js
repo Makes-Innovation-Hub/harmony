@@ -27,6 +27,7 @@ async function scrapeTopArabicSongs() {
 
     const jsonResult = JSON.stringify(results, null, 2);
     console.log(jsonResult);
+    
     return jsonResult;
   } catch (error) {
     console.error(error);
