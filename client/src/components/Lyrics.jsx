@@ -1,19 +1,21 @@
 import React from 'react';
-import { Header, LyricsSection, LyricsWrapper, Paragraph } from './HeaderStyle';
+import {LyricsSection, LyricsWrapper, SongTitle, Status, Paragraph} from './LyricsStyles'
 
 
 const Lyrics = () => {
   return (
     <LyricsSection>
       <LyricsWrapper>
-        <Header>Translation</Header>
+        <SongTitle>Song</SongTitle>
+        <Status>Translation</Status>
         <Paragraph>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab
           quod iure magni ut vitae dicta iste ad accusantium at.
         </Paragraph>
       </LyricsWrapper>
       <LyricsWrapper>
-        <Header>Original</Header>
+      <SongTitle>Song</SongTitle>
+        <Status>Original</Status>
         <Paragraph>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab
           quod iure magni ut vitae dicta iste ad accusantium at.

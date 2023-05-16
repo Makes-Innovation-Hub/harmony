@@ -48,3 +48,17 @@ export const LanguageSelect = styled.select`
 export const LanguageOption = styled.option`
   color: #333;
 `;
+
+export const SongTitle = styled.h3`
+  font-weight: bold;
+  text-align: center;
+  font-family: 'ABeeZee', sans-serif;
+  font-style: italic;
+`;
+
+export const Status = styled`
+   font-weight: bold;
+  text-align: center;
+  font-family: 'ABeeZee', sans-serif;
+  font-style: italic;
+`

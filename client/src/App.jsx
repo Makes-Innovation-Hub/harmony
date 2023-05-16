@@ -1,10 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./Pages/Home";
-import SongPage from "./Pages/SongPage";
+import Home from "./pages/Home";
+import SongPage from "./pages/SongPage";
 import ArtistPage from "./pages/ArtistPage";
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import Header from "./Components/Header";
 import Lyrics from "./components/Lyrics";
 import "./App.css";
