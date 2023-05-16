@@ -1,7 +1,3 @@
-
-
 export default function SongGallary() {
-  return (
-    <div>SongGallary</div>
-  )
+  return <div>SongGallary</div>;
 }
