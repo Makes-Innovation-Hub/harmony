@@ -6,7 +6,6 @@ border-radius: 8px;
 margin-top: -24%;
 height: 30%;
 margin-left: -50%;
-
 position: absolute;
 }
 `;
@@ -39,7 +38,6 @@ margin-top: -38%;
       border: 2px solid #9570FF;
   }
 `;
-
 export const ImageBoxContainer = styled.div`
 @media(min-width: 350px) and (max-width: 700px) {
  display: flex;

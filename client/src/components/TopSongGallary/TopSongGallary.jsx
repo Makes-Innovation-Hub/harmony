@@ -3,7 +3,6 @@ import albumcover from '../../assets/TopSong/eden.jpg';
 import cover2 from '../../assets/TopSong/aden.jpg';
 import cover3 from '../../assets/TopSong/nasif.jpg';
 import cover4 from '../../assets/TopSong/amrdiab.jpg';
-
 export default function TopSongGallary() {
   return (
     <>
