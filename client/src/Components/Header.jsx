@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaFlag } from 'react-icons/fa';
 import { Title, HeaderContainer, AppIcon } from './HeaderStyle';
 import Flag from '../assets/Flag.png'
 import Dove from '../assets/dove.png'
