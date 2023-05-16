@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { arabTopSongsUrl } from "../constants/arabicTopSongs.js";
+import { arabTopSongsUrl }  from '../constants/url/arabicTopSongs.js'
 
 
 async function scrapeTopArabicSongs() {

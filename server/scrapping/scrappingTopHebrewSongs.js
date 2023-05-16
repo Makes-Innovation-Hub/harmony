@@ -1,16 +1,16 @@
 import puppeteer from "puppeteer";
-import { hebrewTopSongsUrl } from "../constants/hebrewTopSongs.js";
+import { hebrewTopSongsUrl } from '../constants/url/hebrewTopSongs.js'
 
 const scrapeTopHebrewSongs = async () => {
   const browser = await puppeteer.launch({
-    headless: false,
-    defaultViewport: null,
+    headless: true,
+    defaultViewport: null,  
   });
 
   const page = await browser.newPage();
 
   await page.goto(hebrewTopSongsUrl, {
-    waitUntil: "domcontentloaded",
+    waitUntil: "networkidle2",
   });
 
 
@@ -32,10 +32,13 @@ const scrapeTopHebrewSongs = async () => {
   const formattedData = data.name.map((artist, index) => ({ [artist]: data.info[index] }));
 
   const jsonData = JSON.stringify(formattedData, null, 2);
-  
+  console.log(jsonData)
+
   await browser.close();
   return jsonData;
 
 };
+
+scrapeTopHebrewSongs();
 
 
