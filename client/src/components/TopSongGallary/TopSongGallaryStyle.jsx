@@ -37,7 +37,7 @@ export const Title = styled.h2`
   color: #333333;
   font-style: italic;
   margin-left: 4%;
-  line-height:30.59px;
+  line-height:1.912;
   @font-face {
 font-family: "ABeeZee";
 src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
@@ -87,10 +87,10 @@ export const SongP = styled.p`
 font-weight:400;
 color: #ffff;
 font-style:italic;
-margin-left: 0.1%;
-margin-top: 3%;
+margin-left: 2%;
+margin-top: 4%;
 padding: 0.4rem;
-line-height: 17.29px;
+line-height: 1.081rem;
 @font-face {
   font-family: "ABeeZee";
   src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
@@ -102,7 +102,7 @@ export const Songartist = styled.p`
 font-weight:300;
 font-style:italic;
 margin-left:0.6rem;
-line-height: 13.3px;
+line-height: 0.831rem;
 color: #ffff;
 @font-face {
   font-family: "ABeeZee";
