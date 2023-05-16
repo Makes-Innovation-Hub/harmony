@@ -1,4 +1,3 @@
-
 import TopSongGallary from "../components/TopSongGallary"
 function SongPage() {
   return (
@@ -7,6 +6,5 @@ function SongPage() {
     </>
   );
 }
-
 export default SongPage;
 
