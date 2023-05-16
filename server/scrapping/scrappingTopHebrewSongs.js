@@ -32,13 +32,13 @@ const scrapeTopHebrewSongs = async () => {
   const formattedData = data.name.map((artist, index) => ({ [artist]: data.info[index] }));
 
   const jsonData = JSON.stringify(formattedData, null, 2);
-  console.log(jsonData)
+
 
   await browser.close();
   return jsonData;
 
 };
 
-scrapeTopHebrewSongs();
+
 
 
