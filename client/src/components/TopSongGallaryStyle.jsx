@@ -1,10 +1,13 @@
 import styled from "styled-components";
+
 export const TopHSongCountainer = styled.div`
 border-radius: 8px;
 @media(min-width: 350px) and (max-width: 700px) {
   width: 98%;
 margin-top: -24%;
 height: 30%;
+margin-left: -50%;
+
 position: absolute;
 }
 `;
@@ -15,7 +18,7 @@ position: absolute;
     font-size: 1.375rem;
     color: #333333;
     margin-bottom: 38%;
-    margin-left:6%;
+    margin-left:-34%;
     font-style: italic;
     @font-face {
   font-family: "ABeeZee";
@@ -30,13 +33,14 @@ position: absolute;
     width: 29.8%;
 height: 48.3%;
 margin-top: -38%;
-    margin-left:4%;
+    margin-left:4vw;
     position:relative
   }
   :hover {
       border: 2px solid #9570FF;
   }
 `;
+
 export const ImageBoxContainer = styled.div`
 @media(min-width: 350px) and (max-width: 700px) {
  display: flex;
@@ -59,6 +63,7 @@ border-radius: 8px;
 margin-top:22%;
   height:30%;
   position:absolute;
+  margin-left: -50%;
 }
 `;
 export const Box = styled.div`
@@ -68,7 +73,7 @@ export const Box = styled.div`
 left: 7%;
 right: 0px;
 bottom: -1%;
-width: 85%;
+width: 90%;
 background: rgba(255, 255, 255, 0.28);
 box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
 backdrop-filter: blur(8px);
@@ -96,7 +101,7 @@ export const Songartist = styled.p`
   font-size: 0.625rem;
 font-weight:400;
 font-style:italic;
-margin-top:-12%;
+margin-top:-2%;
 margin-left:2%;
 @font-face {
   font-family: "ABeeZee";
