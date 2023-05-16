@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeaderContainer, Title, AppIcon, LanguageSelect, LanguageOption } from './HeaderStyles'
+import { HeaderContainer, Title, AppIcon, LanguageSelect, LanguageOption } from './HeadStyles.jsx';
 
 const Header = () => {
   return (
