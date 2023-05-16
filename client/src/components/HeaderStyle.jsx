@@ -16,10 +16,14 @@ export const Title = styled.h1`
   font-size: 1.5rem;
   font-family: 'ABeeZee', sans-serif;
   font-style: italic;
-  margin-right:10rem ;
+  margin-right:3.5rem ;
 
   @media screen and (min-width: 768px) {
     font-size: 2rem;
+    margin-right:1rem ;
+  }
+  @media screen and (max-width: 653px) {
+    margin-right:1rem ;
   }
 `;
 
