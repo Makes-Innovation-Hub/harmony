@@ -25,7 +25,7 @@ export const ImageBox = styled.div`
   }`;
 export const Image = styled.img`
   @media(min-width: 0px) and (max-width: 700px) {
-    max-width: 95%;
+    max-width: 100%;
     max-height: 95%; 
     object-fit: cover;
     border-radius: 35px;
