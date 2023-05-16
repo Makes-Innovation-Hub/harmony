@@ -1,0 +1,1 @@
+export const arabTopSongsUrl = "https://www.arabsounds.net/top20/";

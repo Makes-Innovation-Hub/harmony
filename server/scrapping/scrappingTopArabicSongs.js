@@ -1,11 +1,11 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
+import { arabTopSongsUrl } from "../constants/arabicTopSongs.js";
 
-const url = "https://www.arabsounds.net/top20/";
 
 async function scrapeTopArabicSongs() {
   try {
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(arabTopSongsUrl);
     const $ = cheerio.load(data);
 
     const h3Elements = $("h3");
@@ -26,7 +26,6 @@ async function scrapeTopArabicSongs() {
     });
 
     const jsonResult = JSON.stringify(results, null, 2);
-    console.log(jsonResult);
     
     return jsonResult;
   } catch (error) {
@@ -34,4 +33,6 @@ async function scrapeTopArabicSongs() {
   }
 }
 
-scrapeTopArabicSongs();
+
+
+
