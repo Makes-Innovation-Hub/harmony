@@ -1,34 +1,44 @@
-import  axios from 'axios';
-import dotenv from "dotenv";
+import  SpotifyWebApi from 'spotify-web-api-node';
+import dotenv from 'dotenv';
 dotenv.config({ path: './.env' });
-const clientId = process.env.SPOTIFY_CLIENT_ID;
-const clientSecret = process.env.SPOTIFY_CLIENT_SECRET; 
+// Set up the Spotify API client
+const spotifyApi = new SpotifyWebApi({
+  clientId: process.env.SPOTIFY_CLIENT_ID,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+});
+// Function to get the album from a song name and artist
+async function getAlbumFromSongAndArtist(songName, artistName) {
+  try {
+    // Retrieve an access token
+    const data = await spotifyApi.clientCredentialsGrant();
+    const accessToken = data.body.access_token;
+    console.log(accessToken);
 
-async function getAccessToken() {
-    const authResponse = await axios({
-      url: 'https://accounts.spotify.com/api/token',
-      method: 'POST',
-      params: {
-        grant_type: 'client_credentials'
-      },
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`
-      }
-    });
-  
-    return authResponse.data.access_token;
-  }
-  async function getLyrics(artist, song) {
-    try {
-      const response = await axios.get(`https://api.lyrics.com/v1/${encodeURIComponent(artist)}/${encodeURIComponent(song)}`);
-      const lyrics = response.data.lyrics;
-      console.log(lyrics)
-      return lyrics;
-    } catch (error) {
-      console.error('Error:', error.message);
-      throw new Error('Failed to retrieve lyrics');
+    // Set the access token on the API client
+    spotifyApi.setAccessToken(accessToken);
+
+    // Search for the song and artist
+    const searchResult = await spotifyApi.searchTracks(`${songName} artist:${artistName}`);
+    const track = searchResult.body.tracks.items[0];
+
+    if (track) {
+      // Get the album details
+      const albumId = track.album.id;
+      const albumResult = await spotifyApi.getAlbum(albumId);
+      const album = albumResult.body;
+
+      return album.name;
+    } else {
+      throw new Error('Song not found.');
     }
+  } catch (error) {
+    console.error('Error:', error.message);
   }
+}
 
-   export {getAccessToken,getLyrics}
+// Usage example
+getAlbumFromSongAndArtist('haifa', 'bigsam').then(albumName => {
+  console.log('Album:', albumName);
+});
+
+export { getAlbumFromSongAndArtist };
