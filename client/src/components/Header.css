@@ -1,3 +1,12 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 20px;
+}
+
 @font-face {
     font-family: "ABeeZee";
     src: url("../assets/ABeeZee-Italic.ttf") format("truetype");
@@ -17,5 +26,10 @@
     left: 80%;
     transform: translate(-50%, -50%);
     margin-left: 1.5rem;
+  }
+
+  .us{
+    background-color: red;
+    width: 10%;
   }
   
