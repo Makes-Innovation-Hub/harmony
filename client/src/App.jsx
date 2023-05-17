@@ -6,6 +6,8 @@ import ArtistPage from './pages/ArtistPage'
 import NotFoundPage from './pages/NotFoundPage'
 import TranslatingPage from './pages/TranslatingPage'
 import { useState } from 'react'
+import Header from "./components/Header";
+import "./App.css";
 
 const Router = createBrowserRouter([
     {
