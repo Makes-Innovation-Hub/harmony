@@ -1,17 +1,15 @@
 import {
-  Image,
-  ImageBox,
   ImageBoxContainer,
   SongGallary,
   Title,
   TopASongCountainer,
   TopHSongCountainer,
 } from "./TopSongGallaryStyle";
-import ImageBoxWithDetails from "./ImageBoxWithDetails";
 import cover1 from "../../assets/TopSongGallary/Rectangle 3.png";
 import cover2 from "../../assets/TopSongGallary/Rectangle 2.png";
 import cover4 from "../../assets/TopSongGallary/Rectangle 1.png";
 import cover5 from "../../assets/TopSongGallary/Rectangle 4.png";
+import ImageBoxWithDetails from './ImageBoxWithDetails'
 export default function TopSongGallary() {
   return (
     <SongGallary>
@@ -28,9 +26,12 @@ export default function TopSongGallary() {
             songName="I loved her"
             artist="Shlomo Artizi"
           />
-          <ImageBox>
-            <Image src={cover2}></Image>
-          </ImageBox>
+          <ImageBoxWithDetails 
+          img={cover2}
+          songName="I loved her"
+          artist="Shlomo Artizi"
+          >
+          </ImageBoxWithDetails>
         </ImageBoxContainer>
       </TopHSongCountainer>
       <TopASongCountainer>
@@ -46,9 +47,11 @@ export default function TopSongGallary() {
             songName="Freck In Me"
             artist="Muhammad Band"
           />
-          <ImageBox>
-            <Image src={cover5}></Image>
-          </ImageBox>
+          <ImageBoxWithDetails
+           img={cover5} 
+           songName="Freck In Me"
+            artist="Muhammad Band">
+          </ImageBoxWithDetails>
         </ImageBoxContainer>
       </TopASongCountainer>
     </SongGallary>
