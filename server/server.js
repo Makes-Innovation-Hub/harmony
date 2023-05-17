@@ -8,10 +8,11 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-dotenv.config({ path: join(__dirname, "config.env") });
+dotenv.config({ path: join(__dirname, "./config/config.env") });
 
 const PORT = process.env.PORT || 5000;
+const NODE_ENV = process.env.NODE_ENV
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`Server is running in ${NODE_ENV} mode on port ${PORT}`);
 });
