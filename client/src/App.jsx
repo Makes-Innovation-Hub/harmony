@@ -30,8 +30,6 @@ function App() {
   return (
     <div>
       <RouterProvider router={Router} />
-      <Header/>
-      <Lyrics/>
     </div>
   );
 }

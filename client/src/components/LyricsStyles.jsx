@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const LyricsSection = styled.section`
   display: flex;
-  flex-direction: column;
+  
   
   @media (min-width: 768px) {
     flex-direction: row;
@@ -14,25 +14,35 @@ export const LyricsWrapper = styled.div`
   
   @media (min-width: 768px) {
     width: 50%;
+    order: 2; 
+  }
+`;
+
+export const TranslationWrapper = styled.div`
+  width: 100%;
+  
+  @media (min-width: 768px) {
+    width: 50%;
+    order: 1; 
   }
 `;
 
 export const SongTitle = styled.h2`
-  font-weight: bold;
+  font-weight:400;
   text-align: center;
   font-family: 'ABeeZee';
   font-style: italic;
 `;
 
-export const Status = styled.h3`
-  font-weight: bold;
+export const Status = styled.p`
+  font-weight: 400;
   text-align: center;
   font-family: 'ABeeZee';
   font-style: italic;
 `;
 
 export const Paragraph = styled.p`
-  font-weight: bold;
+  font-weight: 400;
   text-align: center;
   font-family: 'ABeeZee';
   font-style: italic;
