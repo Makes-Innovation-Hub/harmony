@@ -1,35 +1,49 @@
-
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem;
-  background-color: #f2f2f2;
-
+  width: 100%;
+  overflow-x: hidden;
   @media screen and (min-width: 768px) {
-    padding: 1.2rem;
+    padding: 4rem;
   }
 `;
 
 export const Title = styled.h1`
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-align: center;
   font-family: 'ABeeZee', sans-serif;
   font-style: italic;
-  margin: 0;
-
-  @media screen and (min-width: 768px) {
-    font-size: 2rem;
+  font-weight: 400;
+  width: 50%;
+  margin-right: 6rem; 
+  padding-left: 0;
+  
+  @media screen and (max-width: 767px) {
+    width: auto;
+    margin-right: 1rem;
+    flex-grow: 1;
+  }
+  @media screen and (max-width: 280px) {
+    width: auto;
+    margin-right: 1rem;
   }
 `;
 
 export const AppIcon = styled.div`
- position: relative;
+  position: relative;
   font-size: 1.5rem;
-  margin-right: 0.8rem;
+  margin-right: 2rem;
+  width: 2%;
+  @media screen and (max-width: 280px) {
+    width: auto;
+    margin-right: 2.7rem;
+  }
+  @media screen and (max-width: 1280px) {
+    width: auto;
+    margin-right: 2.7rem;
+  }
 `;
 
 export const LanguageSelect = styled.select`
@@ -47,26 +61,3 @@ export const LanguageSelect = styled.select`
 export const LanguageOption = styled.option`
   color: #333;
 `;
-
-export const LyricsSection = styled.section`
-  display: flex;
-  margin-bottom: 2rem;
-`;
-
-export const LyricsWrapper = styled.div`
-  width: 100%;
-  padding-right: 1rem;
-
-  &:last-child {
-    padding-right: 0;
-  }
-`;
-
-export const Header = styled.h4`
-  margin-bottom: 0.5rem;
-  font-family: 'ABeeZee', sans-serif;
-`;
-
- export const Paragraph = styled.p`
-  font-family: 'ABeeZee', sans-serif;
-`

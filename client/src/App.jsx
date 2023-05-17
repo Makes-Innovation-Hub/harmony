@@ -4,8 +4,8 @@ import Home from "./pages/Home";
 import SongPage from "./pages/SongPage";
 import ArtistPage from "./pages/ArtistPage";
 import { useState } from "react";
+import Header from "./components/Header";
 import "./App.css";
-
 
 const Router = createBrowserRouter([
   {
