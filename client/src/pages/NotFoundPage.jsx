@@ -1,10 +1,12 @@
 import notFoundGif from '../assets/animations/not-found-animation.gif'
 
 import Animation from '../components/Animation/Animation.component'
+import Header from '../components/Header'
 
 const NotFoundPage = () => {
     return (
-        <div>
+        <div className="column-center">
+            <Header />
             <Animation
                 animationGif={notFoundGif}
                 animationText="No Results, Please search another Song or Artist"
