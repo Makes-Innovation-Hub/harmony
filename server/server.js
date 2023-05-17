@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
-import connectDB from "./config/db.js";
+import {connectDB, closeDBConnection} from "./config/db.js";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
 
@@ -28,6 +28,7 @@ connectDB().then(() => {
 process.on("unhandledRejection", (err, promise) => {
   console.log(`Error: ${err.message}`.red);
   server.close(() => process.exit(1));
+  closeDBConnection()
 });
 
 
