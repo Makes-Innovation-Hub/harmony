@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { hebrewTopSongsUrl } from "../constants/hebrewTopSongs.js";
+import { hebrewTopSongsUrl } from "../constants/urls.js";
 
 const scrapeTopHebrewSongs = async () => {
   const browser = await puppeteer.launch({
@@ -10,7 +10,7 @@ const scrapeTopHebrewSongs = async () => {
   const page = await browser.newPage();
 
   await page.goto(hebrewTopSongsUrl, {
-    waitUntil: "domcontentloaded",
+    waitUntil: "networkidle2",
   });
 
 
