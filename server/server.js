@@ -26,7 +26,7 @@ connectDB().then(() => {
 });
 
 process.on("unhandledRejection", (err, promise) => {
-  console.log(`Error: ${err.message}`.red);
+  console.error(`Error: ${err.message}`.red);
   server.close(() => process.exit(1));
   closeDBConnection()
 });
