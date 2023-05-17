@@ -1,4 +1,3 @@
-import ImageBoxWithDetails from "./ImageBoxWithDetails";
 import {
   Image,
   ImageBox,
@@ -8,6 +7,7 @@ import {
   TopASongCountainer,
   TopHSongCountainer,
 } from "./TopSongGallaryStyle";
+import ImageBoxWithDetails from "./ImageBoxWithDetails";
 import cover1 from "../../assets/TopSongGallary/Rectangle 3.png";
 import cover2 from "../../assets/TopSongGallary/Rectangle 2.png";
 import cover4 from "../../assets/TopSongGallary/Rectangle 1.png";
