@@ -23,3 +23,15 @@ commit and push often.
 - [ ] go over the task definition again and make sure you did everything.
 - [ ] pull from main/dev and resolve merge conflicts
 - [ ] before sending the PR in github, go over the code in the PR and make sure there are no weird stuff that don’t belong there.
+
+
+## How to connect to MongoDB and run the server locally 
+- in harmony repository, go to '/harmony/server/config' and create a 'config.env' file.
+- the 'config.env' file should contain the development environment, the port (on which the server runs locally) and the Mongo URI, as following:
+    NODE_ENV=development 
+    PORT=5000
+    MONGO_URI=mongodb+srv://<your username>:<your password>@harmony.btro83c.mongodb.net/
+- to run the server, write one of the following commands in the terminal:
+    1. To start the server normally: node server.js
+    2. To run with nodemon, make sure you have nodemon installed and run: npm run server.js
+
