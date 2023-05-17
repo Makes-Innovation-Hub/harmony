@@ -1,10 +1,12 @@
+import Header from "../components/Header";
 import TopSongGallary from "../components/TopSongGallary/TopSongGallary";
-
 export default function Home() {
-  return(
+  return (
     <>
-    <TopSongGallary/>
+      <Header />
+      <TopSongGallary/>
     </>
-  )
+  );
+
 }
 
