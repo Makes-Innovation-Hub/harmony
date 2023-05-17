@@ -1,10 +1,10 @@
+import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import SongPage from "./pages/SongPage";
 import ArtistPage from "./pages/ArtistPage";
 import { useState } from "react";
-import Header from "./Components/Header";
-import Lyrics from "./components/Lyrics";
+import Header from "./components/Header";
 import "./App.css";
 
 const Router = createBrowserRouter([
@@ -14,7 +14,7 @@ const Router = createBrowserRouter([
   },
   {
     path: "/song",
-    element: <SongPage/>,
+    element: <SongPage />,
   },
   {
     path: "/Artist",
