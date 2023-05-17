@@ -14,6 +14,10 @@
 .column-center {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+}
+
+.full-page {
+    height: 100vh;
 }

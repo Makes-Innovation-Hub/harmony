@@ -5,7 +5,7 @@ import Header from '../components/Header'
 
 const NotFoundPage = () => {
     return (
-        <div className="column-center">
+        <div className="column-center full-page">
             <Header />
             <Animation
                 animationGif={notFoundGif}

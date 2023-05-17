@@ -4,7 +4,7 @@ import Header from '../components/Header'
 
 const TranslatingPage = () => {
     return (
-        <div className="column-center">
+        <div className="column-center full-page">
             <Header />
             <Animation
                 animationGif={translatingGif}
