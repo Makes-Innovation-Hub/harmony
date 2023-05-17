@@ -8,7 +8,7 @@ export const SongGallary = styled.div`
   width: 100%;
   display:flex;
   flex-direction:column;
-  margin-top:50%;
+  margin-top:30%;
   }`;
 export const TopHSongCountainer = styled.div`
   border-radius: 8px;
@@ -38,17 +38,15 @@ export const Title = styled.h2`
   font-style: italic;
   margin-left: 4%;
   line-height:1.912;
-  @font-face {
-font-family: "ABeeZee";
-src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
-}
+  font-family: 'ABeeZee';
 }`;
 export const ImageBoxContainer = styled.div`
   overflow-x: auto;
   white-space: nowrap;
   margin-left: 2%;
+  overflow-y: hidden; 
   & > ${ImageBox} {
-    margin-right: -1rem;
+    margin-right: -0.25rem;
   }
   @media (max-width: 700px) {
     display: flex;
@@ -72,40 +70,35 @@ margin-top: 4%;
 }`;
 export const Box = styled.div`
   @media (min-width: 0px) and (max-width: 700px) {
-    min-height: 3.40rem;
-    background: rgba(234, 234, 234, 0.28);
+    min-height: 2rem;
+    background: rgba(223, 220, 220, 0.28);
     box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
     backdrop-filter: blur(8px);
-    border-radius: 8px 8px 18px 18px;
-    margin-top: -4.040rem;
-    width: 8.1rem;
+    border-radius: 8px 8px 12px 12px;
+    margin-top: -3.12rem;
+    width: 6.4rem;
     margin-left: 0.6rem;
   }`;
 export const SongP = styled.p`
 @media(min-width: 0px) and (max-width: 700px) {
-  font-size: 0.8125rem;
-font-weight:400;
+  font-size: 0.65rem;
+font-weight:300;
 color: #ffff;
 font-style:italic;
 margin-left: 2%;
 margin-top: 4%;
-padding: 0.4rem;
+padding: 0.43rem;
 line-height: 1.081rem;
-@font-face {
-  font-family: "ABeeZee";
-  src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
-}
+font-family: 'ABeeZee';
 }`;
 export const Songartist = styled.p`
 @media(min-width: 0px) and (max-width: 700px) {
-  font-size: 0.5rem;
-font-weight:300;
+  font-size: 0.4rem;
+font-weight:50;
 font-style:italic;
 margin-left:0.6rem;
 line-height: 0.831rem;
 color: #ffff;
-@font-face {
-  font-family: "ABeeZee";
-  src: url("../../assets/fonts/ABeeZee-Regular.ttf") format("truetype");
-}
+font-family: 'ABeeZee';
+margin-top: -0.3rem;
 }`;
