@@ -16,7 +16,8 @@ app.get('/album/:songName/:artistName', async (req, res) => {
 
   try {
     const albumName = await getAlbumFromSongAndArtist(songName, artistName);
-    res.json({ albumName });
+    const lyrics = await getLyricsForSong(songName, artistName);
+    res.json({ albumName, lyrics });
   } catch (error) {
     console.error('Error:', error.message);
     res.status(500).json({ error: 'An error occurred.' });
