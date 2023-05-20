@@ -1,12 +1,12 @@
 import Header from "../components/Header";
-import Lyrics from '../components/Lyrics'
-
+import TopSongGallary from "../components/TopSongGallary/TopSongGallary";
 export default function Home() {
   return (
     <>
       <Header />
-      <div>Home</div>
-      <Lyrics/>
+      <TopSongGallary/>
     </>
   );
+
 }
+
