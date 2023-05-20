@@ -1,8 +1,8 @@
 import puppeteer from "puppeteer";
-import { hebrewTopSongsUrl } from '../constants/url/hebrewTopSongs.js'
+import { hebrewTopSongsUrl } from '../constants/urls.js'
 
 const scrapeTopHebrewSongs = async (req,res) => {
-  const browser = await puppeteer.launch({
+    const browser = await puppeteer.launch({
     headless: true,
     defaultViewport: null,  
   });
@@ -31,12 +31,10 @@ const scrapeTopHebrewSongs = async (req,res) => {
 
   const formattedData = data.name.map((artist, index) => ({ [artist]: data.info[index] }));
 
+
   await browser.close();
   res.json(formattedData)
 
 };
 
 export default scrapeTopHebrewSongs;
-
-
-
