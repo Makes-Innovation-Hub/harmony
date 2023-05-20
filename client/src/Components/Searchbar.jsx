@@ -1,16 +1,21 @@
-import { Description, Container, SearchBar, Input, SearchIcon} from "./SearchStyles";
+import { Description, Container, SearchBar, Input, SearchIcon, SearchWrapper} from "./SearchStyles";
 import Ellipse2 from '../assets/Ellipse2.png';
 import Vector from '../assets/Vector.png';
+import '../components/Header.css'
 
 function Search({ topweight, bottomweight }) {
     return (
       <Container>
-          <Description>Translate songs between Hebrew and Arabic</Description>
-          <SearchBar>
-            <Input type="text" placeholder="Search..." />
-            <SearchIcon src={Vector} alt="Search icon" />
-          </SearchBar>
-      </Container>
+      <Description>translate Songs between Hebrew and Arabic </Description>
+
+      <SearchWrapper>
+        <SearchBar>
+          <SearchIcon src={Vector} alt="Search" />
+          <Input type="text" placeholder="Search..." />
+        </SearchBar>
+      </SearchWrapper>
+
+    </Container>
     );
   }
   
