@@ -1,5 +1,6 @@
 import React from 'react';
 import {LyricsSection, LyricsWrapper, SongTitle, Status, Paragraph} from './LyricsStyles'
+import './Header.css'
 
 
 const Lyrics = () => {
