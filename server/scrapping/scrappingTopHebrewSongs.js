@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { hebrewTopSongsUrl } from "../constants/urls.js";
+import { hebrewTopSongsUrl } from '../constants/urls.js'
 
 const scrapeTopHebrewSongs = async () => {
   const browser = await puppeteer.launch({
@@ -37,5 +37,6 @@ const scrapeTopHebrewSongs = async () => {
   return jsonData;
 
 };
+
 
 

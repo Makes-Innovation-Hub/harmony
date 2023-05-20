@@ -1,12 +1,12 @@
 import Header from "../components/Header";
-import Search from "../components/Searchbar";
-
+import TopSongGallary from "../components/TopSongGallary/TopSongGallary";
 export default function Home() {
   return (
     <>
       <Header />
-      <div>Home</div>
-      <Search/>
+      <TopSongGallary/>
     </>
   );
+
 }
+
