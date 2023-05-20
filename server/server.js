@@ -1,3 +1,4 @@
+import cors from 'cors'
 import dotenv from "dotenv";
 import express from "express";
 import {connectDB, closeDBConnection} from "./config/db.js";
@@ -8,6 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
+app.use(cors())
 
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
