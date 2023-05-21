@@ -1,2 +1,1 @@
-export const topHebrewSongsRoute = "http://localhost:5000/topHebrewSongs";
-export const topArabicSongsRoute = "http://localhost:5000/topArabicSongs";
+export const topSongsScrappingRoute = "http://localhost:5000/";
