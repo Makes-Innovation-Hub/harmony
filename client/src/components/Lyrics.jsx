@@ -7,19 +7,43 @@ const Lyrics = () => {
   return (
     <LyricsSection>
       <LyricsWrapper>
-        <SongTitle>Song</SongTitle>
         <Status>Translation</Status>
+        <SongTitle>Song</SongTitle>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab
-          quod iure magni ut vitae dicta iste ad accusantium at.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Ullam veritatis vitae 
+        </Paragraph>
+        <Paragraph>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Ullam veritatis vitae 
+        </Paragraph>
+        <Paragraph>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Ullam veritatis vitae 
+        </Paragraph>
+        <Paragraph>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Ullam veritatis vitae 
         </Paragraph>
       </LyricsWrapper>
       <LyricsWrapper>
-      <SongTitle>Song</SongTitle>
         <Status>Original</Status>
+      <SongTitle>Song</SongTitle>
+      <Paragraph>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Ullam veritatis vitae 
+        </Paragraph>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab
-          quod iure magni ut vitae dicta iste ad accusantium at.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Ullam veritatis vitae 
+        </Paragraph>
+        <Paragraph>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Ullam veritatis vitae 
+        </Paragraph>
+        <Paragraph>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Ullam veritatis vitae 
         </Paragraph>
       </LyricsWrapper>
     </LyricsSection>

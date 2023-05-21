@@ -28,11 +28,13 @@ export const TranslationWrapper = styled.div`
 
 export const SongTitle = styled.h2`
   font-weight:400;
-  text-align: center;
+  font-size: 1rem;
+  text-align: right;
   font-family: 'Aclonica';
   font-style: normal;
   text-decoration: underline;
   line-height: 154%;
+  margin-bottom: 1.5rem;
 `;
 
 export const Status = styled.p`
@@ -42,6 +44,7 @@ export const Status = styled.p`
   font-style: normal;
   text-decoration: underline;
   line-height: 154%;
+  margin-bottom: 2rem;
 `;
 
 export const Paragraph = styled.p`
@@ -51,4 +54,5 @@ export const Paragraph = styled.p`
   font-style: normal;
   line-height: 154%;
   font-size: 1rem;
+  margin-bottom: 2rem;
 `;
