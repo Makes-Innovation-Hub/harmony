@@ -28,14 +28,12 @@ let server;
 
 connectDB()
 
-.then(() => {
-  server = app.listen(
-    PORT,
-    console.log(
-      `Server is running in ${NODE_ENV} mode on port ${PORT}`
-    )
-  );
-});
+app.listen(
+  PORT,
+  console.log(`Server running in ${NODE_ENV}
+  mode on port ${PORT}`)
+);
+
 
 process.on("unhandledRejection", (err, promise) => {
   console.error(`Error: ${err.message}`);
