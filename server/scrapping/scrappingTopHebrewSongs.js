@@ -38,5 +38,3 @@ const scrapeTopHebrewSongs = async () => {
 
 };
 
-
-

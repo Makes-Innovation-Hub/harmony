@@ -32,3 +32,4 @@ async function scrapeTopArabicSongs() {
     console.error(error);
   }
 }
+
