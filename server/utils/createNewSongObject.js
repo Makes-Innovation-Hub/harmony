@@ -1,5 +1,5 @@
-const createNewSongObject = (req) => {
-    const {name, lyrics, artist, originalLang } = req.body
+const createNewSongObject = (scrapedData) => {
+    const {name, lyrics, artist, originalLang } = scrapedData.body
     const newSongObject = {
         name: {
         hebrew: name.hebrew,
