@@ -6,6 +6,7 @@ import { join, dirname } from "path";
 import {connectDB, closeDBConnection} from "./config/db.js";
 import scrapeTopArabicSongs from "./scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "./scrapping/scrappingTopHebrewSongs.js";
+import songsRouter from './routes/songRoutes.js';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -17,9 +18,15 @@ app.use(cors())
 
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
-
+app.get("/", (req, res) => {
+  res.json({
+    message: "Welcome to Harmony API",
+  });
+});
 app.get("/topArabicSongs", scrapeTopArabicSongs)
 app.get("/topHebrewSongs", scrapeTopHebrewSongs)
+
+app.use("api/v1/harmony/songs", songsRouter)
 
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV
