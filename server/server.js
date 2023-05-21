@@ -4,8 +4,8 @@ import express from "express";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
 import {connectDB, closeDBConnection} from "./config/db.js";
-import scrapeTopArabicSongs from "./scrapping/scrappingTopArabicSongs.js";
-import scrapeTopHebrewSongs from "./scrapping/scrappingTopHebrewSongs.js";
+import scrappingRoutes from './routes/scrappingRoutes.js'
+
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -18,19 +18,21 @@ app.use(cors())
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
 
-app.get("/topArabicSongs", scrapeTopArabicSongs)
-app.get("/topHebrewSongs", scrapeTopHebrewSongs)
+app.use("/api/v1/", scrappingRoutes)
+
 
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV
 
 let server;
-connectDB().then(() => {
+
+connectDB()
+
+.then(() => {
   server = app.listen(
     PORT,
     console.log(
       `Server is running in ${NODE_ENV} mode on port ${PORT}`
-        
     )
   );
 });
