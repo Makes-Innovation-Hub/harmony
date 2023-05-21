@@ -25,16 +25,9 @@ async function scrapeTopArabicSongs(req,res) {
       }
     });
 
-    
-
     res.json(results)
   } catch (error) {
     console.error(error);
   }
 }
-
 export default scrapeTopArabicSongs;
-
-
-
-
