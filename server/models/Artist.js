@@ -14,12 +14,19 @@ const ArtistSchema = new mongoose.Schema(
             trim: true,
             maxlength: [50, "Name can not be more than 50 characters"]
         },
+        nameEnglish: {
+            type: String,
+            required: [true, "please add artist name in English"],
+            trim: true,
+            maxlength: [50, "Name can not be more than 50 characters"]
+        },
         songs:[ 
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Song',
             }
         ],
+        // This field needs to be refractured:
         imgURL: {
             type: String,
         },
