@@ -9,21 +9,21 @@ const findSong = (async (req) => {
     if (song) return song
   });
 
-const getOrCreateSong = async(req) => {
-    const song = findSong(req)
-    if (!song){
+// const getOrCreateSong = async(req) => {
+//     const song = findSong(req)
+//     if (!song){
 
-    //find artist by name to find artist id. If non-existent create new
+//     //find artist by name to find artist id. If non-existent create new
 
-    //Add a function here that scrapes the song and returns the information bellow (name, lyrics...) in one object
-    // const scrapedData = scrapeSongData(req.body)
-    const newSongObject = createNewSongObject(scrapedData)
+//     //Add a function here that scrapes the song and returns the information bellow (name, lyrics...) in one object
+//     // const scrapedData = scrapeSongData(req.body)
+//     const newSongObject = createNewSongObject(scrapedData)
 
-    const newSong = await Song.create(newSongObject);
-    return newSong
-    }
-    return song
-  }
+//     const newSong = await Song.create(newSongObject);
+//     return newSong
+//     }
+//     return song
+//   }
 
 // @desc    Get a single song by name/artist/album
 //@route    GET /api/v1/harmony/songs
@@ -49,9 +49,16 @@ const getSong = asyncHandler(async (req, res, next) => {
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
 
-    const song = await getOrCreateSong(req)
+  //find artist by name to find artist id. If non-existent create new
+
+    //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics...) in one object
+    // const data = scrapeSongData(req.body)
+    const newSongObject = createNewSongObject(data)
+
+
+    const song = await Song.create(newSongObject);
     if (!song) {
-      return next(new ErrorResponse(`Server error, song not created!`));
+      return next(new ErrorResponse(`Server error, song not created! Song data: ${newSongObject}`));
     }
     res.status(200).json({
       success: true,

@@ -1,5 +1,20 @@
-const createNewSongObject = (scrapedData) => {
+const createSongOrArtistObject = (scrapedData) => {
     const {name, lyrics, artist, originalLang } = scrapedData.body
+    const filteredValues = {}
+    
+    if (name !== undefined){
+      filteredValues.name = name
+    }
+    if (lyrics !== undefined){
+      filteredValues.lyrics = lyrics
+    }
+    if (artist !== undefined){
+      filteredValues.artist = artist
+    }
+    if (originalLang !== undefined){
+      filteredValues.originalLang = originalLang
+    }
+    
     const newSongObject = {
         name: {
         hebrew: name.hebrew,
@@ -39,4 +54,4 @@ const createSearchFilterObject = (req) => {
 }
 
 
-export {createNewSongObject, createSearchFilterObject}
+export {createSongOrArtistObject, createSearchFilterObject}
