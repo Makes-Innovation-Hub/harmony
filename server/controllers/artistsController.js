@@ -5,7 +5,7 @@ import createSongOrArtistObject from "../utils/controllersUtils.js";
 
 const findArtist = (async (req) => {
     const filter = createSearchFilterObject(req.body)
-    const artist = await Artist.findOne(filter);
+    const artist = await Artist.find(filter);
     if (artist) return artist
   });
 
@@ -17,17 +17,17 @@ const getOrCreateArtist = async(req) => {
     const newArtistObject = createSongOrArtistObject(data)
 
     const newArtist = await Artist.create(newArtistObject);
-    return newArtist
+    return newArtist._id
     }
-    return artist
+    return artist._id
   }
 
-// @desc    Get a single song by name/artist/album
-//@route    GET /api/v1/harmony/songs
+// @desc    Get a single artist by name
+//@route    GET /api/v1/harmony/artists
 // @access  Public
 const getSong = asyncHandler(async (req, res, next) => {
-    const song = await findArtist(req)
-    if (!song) {
+    const artist = await findArtist(req)
+    if (!artist) {
       return next(
         new ErrorResponse(
           `song not found`,
