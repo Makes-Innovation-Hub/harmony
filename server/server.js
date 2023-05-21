@@ -7,7 +7,7 @@ import {connectDB, closeDBConnection} from "./config/db.js";
 import scrapeTopArabicSongs from "./scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "./scrapping/scrappingTopHebrewSongs.js";
 import songsRouter from './routes/songsRoutes.js';
-
+import errorHandler from './middleware/errorHandler.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,6 +27,8 @@ app.get("/topArabicSongs", scrapeTopArabicSongs)
 app.get("/topHebrewSongs", scrapeTopHebrewSongs)
 
 app.use("api/v1/harmony/songs", songsRouter)
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV
