@@ -39,8 +39,8 @@ const createSong = asyncHandler(async (req, res, next) => {
 
     //Finding the artist using the song data (cross-referencing with artist name and the album of the song)
     const artistName = data.artistName.toLowerCase()
-    const album = data.album.toLowerCase()
-    const artist = getOrCreateArtist({artistName, album})
+    const album = data.album
+    const artist = getOrCreateArtist(artistName, album)
 
     const newSongObject = createSongOrArtistObject(data)
 
