@@ -1,28 +1,25 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Artist from "../models/Artist.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
-import { createSongOrArtistObject, createSearchFilterObject } from "../utils/controllersUtils.js";
+import createSongOrArtistObject from "../utils/controllersUtils.js";
 
 const findArtist = (async (req) => {
-    const filter = createSearchFilterObject(req)
-    const song = await Song.findOne(filter);
-    if (song) return song
+    const filter = createSearchFilterObject(req.body)
+    const artist = await Artist.findOne(filter);
+    if (artist) return artist
   });
 
-const getOrCreateSong = async(req) => {
-    const song = findArtist(req)
-    if (!song){
+const getOrCreateArtist = async(req) => {
+    const artist = findArtist(req)
+    if (!artist){
+    //Add a function here that scrapes the artist's data (name, albums, image...) and returns it in one object
+    // const data = scrapeArtistData(req.body)
+    const newArtistObject = createSongOrArtistObject(data)
 
-    //find artist by name to find artist id. If non-existent create new
-
-    //Add a function here that scrapes the song and returns the information bellow (name, lyrics...) in one object
-    // const scrapedData = scrapeSongData(req.body)
-    const newSongObject = createSongOrArtistObject(scrapedData)
-
-    const newSong = await Song.create(newSongObject);
-    return newSong
+    const newArtist = await Artist.create(newArtistObject);
+    return newArtist
     }
-    return song
+    return artist
   }
 
 // @desc    Get a single song by name/artist/album
@@ -49,7 +46,7 @@ const getSong = asyncHandler(async (req, res, next) => {
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
 
-    const song = await getOrCreateSong(req)
+    const song = await getOrCreateArtist(req)
     if (!song) {
       return next(new ErrorResponse(`Server error, song not created!`));
     }
@@ -62,4 +59,4 @@ const createSong = asyncHandler(async (req, res, next) => {
   
 
 
-  export {getSong, createSong}
+  export {getSong, createSong, getOrCreateArtist}
