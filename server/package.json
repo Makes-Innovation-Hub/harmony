@@ -15,7 +15,7 @@
     "axios": "^1.4.0",
     "express": "^4.18.2",
     "path": "^0.12.7",
-    "spotify-web-api-node": "^5.0.2"
+    "spotify-web-api-node": "^5.0.2",
     "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
