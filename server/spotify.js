@@ -47,10 +47,10 @@ async function getLyricsForSong(songName, artistName) {
 }
 async function exampleUsage() {
   try {
-    const albumName = await getAlbumFromSongAndArtist('she', 'zayn');
+    const albumName = await getAlbumFromSongAndArtist('qusad einy', 'Amr Diab');
     console.log('Album:', albumName);
 
-    const lyrics = await getLyricsForSong('she', 'zayn');
+    const lyrics = await getLyricsForSong('qusad einy', 'Amr Diab');
     console.log('Lyrics:', lyrics);
   } catch (error) {
     console.error('Error:', error.message);
