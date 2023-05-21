@@ -14,6 +14,12 @@ const SongSchema = new mongoose.Schema(
             trim: true,
             maxlength: [50, "Name can not be more than 50 characters"]
         },
+        nameEnglish: {
+            type: String,
+            required: [true, "please add artist name in Arabic"],
+            trim: true,
+            maxlength: [50, "Name can not be more than 50 characters"]
+        },
         artist:[ 
             {
                 type: mongoose.Schema.Types.ObjectId,
