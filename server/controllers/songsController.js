@@ -37,7 +37,7 @@ const createSong = asyncHandler(async (req, res, next) => {
     //find artist by name to find artist id. If non-existent create new
 
     //Add a function here that scrapes the song and returns the information bellow (name, lyrics...) in one object
-    const newSongObject = createNewSongObject(req)
+    const newSongObject = createNewSongObject(scrapedData)
 
     const song = await Song.create(newSongObject);
     if (!song) {
@@ -51,6 +51,9 @@ const createSong = asyncHandler(async (req, res, next) => {
 
   const getOrCreateSong = async(req) => {
     const song = findSong(req)
+    if (!song){
+
+    }
     
 
   }
