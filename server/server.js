@@ -13,7 +13,6 @@ app.listen(PORT, () => {
 });
 app.get('/album/:songName/:artistName', async (req, res) => {
   const { songName, artistName } = req.params;
-
   try {
     const albumName = await getAlbumFromSongAndArtist(songName, artistName);
     const lyrics = await getLyricsForSong(songName, artistName);
