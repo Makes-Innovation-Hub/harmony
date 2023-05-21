@@ -4,13 +4,17 @@ import { fileURLToPath } from "url";
 import { join, dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const app = express();
 import { getAlbumFromSongAndArtist } from './spotify.js'; 
-dotenv.config({ path: join(__dirname, "config.env") });
+
+const app = express();
+dotenv.config({ path: join(__dirname, "./config/config.env") });
+
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
+
 app.get('/album/:songName/:artistName', async (req, res) => {
   const { songName, artistName } = req.params;
   try {

@@ -1,7 +1,7 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import dotenv from 'dotenv';
 import axios from 'axios';
-dotenv.config({ path: './.env' });
+dotenv.config({ path: './config/config.env' });
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
@@ -47,10 +47,10 @@ async function getLyricsForSong(songName, artistName) {
 }
 async function exampleUsage() {
   try {
-    const albumName = await getAlbumFromSongAndArtist('Hello', 'Adele');
+    const albumName = await getAlbumFromSongAndArtist('she', 'zayn');
     console.log('Album:', albumName);
 
-    const lyrics = await getLyricsForSong('Hello', 'Adele');
+    const lyrics = await getLyricsForSong('she', 'zayn');
     console.log('Lyrics:', lyrics);
   } catch (error) {
     console.error('Error:', error.message);
