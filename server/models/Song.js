@@ -23,10 +23,6 @@ const SongSchema = new mongoose.Schema(
                 maxlength: [100, "Name can not be more than 100 characters"]
             },
         },
-        originalLang: {
-            type: String,
-
-        },
         lyrics:
         {
             hebrew: {
@@ -41,6 +37,9 @@ const SongSchema = new mongoose.Schema(
                 type: String,
                 trim: true,
             },
+        },
+        originalLang: {
+            type: String,
         },
         artist:[ 
             {
