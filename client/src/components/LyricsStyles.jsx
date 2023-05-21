@@ -10,31 +10,26 @@ export const LyricsSection = styled.section`
 `;
 
 export const LyricsWrapper = styled.div`
-  width: 100%;
-  
   @media (min-width: 768px) {
-    width: 50%;
-    order: 2; 
+    width: 50%; 
   }
 `;
 
 export const TranslationWrapper = styled.div`
-  max-width: 100%;
   @media (min-width: 768px) {
     max-width: 50%;
-    order: 1; 
   }
 `;
 
 export const SongTitle = styled.h2`
   font-weight:400;
-  font-size: 1rem;
   text-align: right;
+  font-size: 1.1rem;
   font-family: 'Aclonica';
   font-style: normal;
   text-decoration: underline;
   line-height: 154%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
 `;
 
 export const Status = styled.p`
@@ -44,15 +39,15 @@ export const Status = styled.p`
   font-style: normal;
   text-decoration: underline;
   line-height: 154%;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 `;
 
 export const Paragraph = styled.p`
   font-weight: 400;
-  text-align: center;
+  text-align: right;
   font-family: 'Aclonica';
   font-style: normal;
   line-height: 154%;
   font-size: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 `;

@@ -1,49 +1,59 @@
 import React from 'react';
-import {LyricsSection, LyricsWrapper, SongTitle, Status, Paragraph} from './LyricsStyles'
+import {LyricsSection, LyricsWrapper,TranslationWrapper ,SongTitle, Status, Paragraph} from './LyricsStyles'
 import './Header.css'
 
 
 const Lyrics = () => {
   return (
     <LyricsSection>
-      <LyricsWrapper>
+      <TranslationWrapper>
         <Status>Translation</Status>
-        <SongTitle>Song</SongTitle>
+        <SongTitle>מול עיני</SongTitle>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Ullam veritatis vitae 
+        יש בינינו פגישה, גם אם אנחנו רחוקים
+        בטוח שאחזור גם אם ביני ובינו יש ארצות
+        מול עיני בכל מקום. 
         </Paragraph>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Ullam veritatis vitae 
+        ופעם הבאה בטח ניפגש
+        אני ממש וכולי אהבתינו   
+        ולא אמכור בחיים לאף אחד, מול עיני. 
         </Paragraph>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Ullam veritatis vitae 
+        ואני לא יכול עם הימים
+        ואין מילים לתאר את זה
+        והלילה שלי מתארך וכשאני נרדם, מול עיני.
+        מול עיני בכל מקום. 
         </Paragraph>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Ullam veritatis vitae 
+        ביום שניפגש, בינינו הבטחות
+        וגם בחסרונה עדיין התקווה נמצאת
+        מול עיני, בכל מקום 
         </Paragraph>
-      </LyricsWrapper>
+      </TranslationWrapper>
       <LyricsWrapper>
         <Status>Original</Status>
-      <SongTitle>Song</SongTitle>
-      <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Ullam veritatis vitae 
+      <SongTitle>قصاد عینی</SongTitle>
+        <Paragraph>
+        و بینا معاد، لو احنا بعاد
+        أکید راجع و لو بینی و بینه بلاد
+         قصاد عینی، فی کل مکان   
         </Paragraph>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Ullam veritatis vitae 
+        و من تانی أکید راجعین
+        أنا دایب و کللی حنین      
+        و لا عمری أبیع لو مین قصاد عینی  
         </Paragraph>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Ullam veritatis vitae 
+        و مش قادر على الأیام
+        و لا یوصف هوایا کلام
+        و طول لیلی و لما بنام، قصاد عینی
+        قصاد عینی، فی کل مکان    
         </Paragraph>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Ullam veritatis vitae 
+        فی یوم هنعود، ده بیننا وعود
+        و فی غیابه أکید لسه الأمل موجود
+        قصاد عینی، فی کل مکان   
         </Paragraph>
       </LyricsWrapper>
     </LyricsSection>
