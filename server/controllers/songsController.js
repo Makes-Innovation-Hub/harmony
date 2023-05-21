@@ -1,14 +1,29 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
-import createSearchFilterObject from "../utils/createSearchFilterObject.js";
-import createNewSongObject from "../utils/createNewSongObject.js";
+import { createNewSongObject, createSearchFilterObject } from "../utils/songsControllerUtils.js";
 
 const findSong = (async (req) => {
     const filter = createSearchFilterObject(req)
     const song = await Song.findOne(filter);
     if (song) return song
   });
+
+const getOrCreateSong = async(req) => {
+    const song = findSong(req)
+    if (!song){
+
+    //find artist by name to find artist id. If non-existent create new
+
+    //Add a function here that scrapes the song and returns the information bellow (name, lyrics...) in one object
+    // const scrapedData = scrapeSongData(req.body)
+    const newSongObject = createNewSongObject(scrapedData)
+
+    const newSong = await Song.create(newSongObject);
+    return newSong
+    }
+    return song
+  }
 
 // @desc    Get a single song by name/artist/album
 //@route    GET /api/v1/harmony/songs
@@ -29,20 +44,14 @@ const getSong = asyncHandler(async (req, res, next) => {
     });
   });
 
-// @desc    Create a Song
+// @desc    Create a Song if non-existent
 // @route   POST /api/v1/harmony/songs
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
 
-    //find artist by name to find artist id. If non-existent create new
-
-    //Add a function here that scrapes the song and returns the information bellow (name, lyrics...) in one object
-    // const scrapedData = scrapeSongData(req.body)
-    const newSongObject = createNewSongObject(scrapedData)
-
-    const song = await Song.create(newSongObject);
+    const song = await getOrCreateSong(req)
     if (!song) {
-      return next(new ErrorResponse(`Server error, song not created! song request details:${newSongObject}`));
+      return next(new ErrorResponse(`Server error, song not created!`));
     }
     res.status(200).json({
       success: true,
@@ -50,14 +59,7 @@ const createSong = asyncHandler(async (req, res, next) => {
     });
   });
 
-  const getOrCreateSong = async(req) => {
-    const song = findSong(req)
-    if (!song){
-
-    }
-    
-
-  }
+  
 
 
-  export {getSong, createSong, findSong}
+  export {getSong, createSong}
