@@ -10,6 +10,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@reduxjs/toolkit": "^1.9.5",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-error-boundary": "^4.0.4",
@@ -19,7 +20,6 @@
         "styled-components": "^6.0.0-rc.1"
     },
     "devDependencies": {
-        "@reduxjs/toolkit": "^1.9.5",
         "parse-conflict-json": "^3.0.1",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",
