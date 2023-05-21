@@ -2,23 +2,45 @@ import mongoose from "mongoose";
 
 const SongSchema = new mongoose.Schema(
     {
-        nameHebrew: {
-            type: String,
-            required: [true, "please add artist name in Hebrew"],
-            trim: true,
-            maxlength: [50, "Name can not be more than 50 characters"]
+        name:
+        {
+            hebrew: {
+                type: String,
+                required: [true, "please add song name in Hebrew"],
+                trim: true,
+                maxlength: [100, "Name can not be more than 100 characters"]
+            },
+            arabic: {
+                type: String,
+                required: [true, "please add song name in Arabic"],
+                trim: true,
+                maxlength: [100, "Name can not be more than 100 characters"]
+            },
+            english: {
+                type: String,
+                required: [true, "please add song name in English"],
+                trim: true,
+                maxlength: [100, "Name can not be more than 100 characters"]
+            },
         },
-        nameArabic: {
+        originalLang: {
             type: String,
-            required: [true, "please add artist name in Arabic"],
-            trim: true,
-            maxlength: [50, "Name can not be more than 50 characters"]
+
         },
-        nameEnglish: {
-            type: String,
-            required: [true, "please add artist name in Arabic"],
-            trim: true,
-            maxlength: [50, "Name can not be more than 50 characters"]
+        lyrics:
+        {
+            hebrew: {
+                type: String,
+                trim: true,
+            },
+            arabic: {
+                type: String,
+                trim: true,
+            },
+            english: {
+                type: String,
+                trim: true,
+            },
         },
         artist:[ 
             {
@@ -48,4 +70,4 @@ const SongSchema = new mongoose.Schema(
 
 )
 
-export default mongoose.model("Artist", SongSchema);
+export default mongoose.model("Song", SongSchema);
