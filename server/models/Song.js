@@ -53,6 +53,9 @@ const SongSchema = new mongoose.Schema(
         },
         album: {
             type: String,
+        },
+        youtubeURL: {
+            type: String,
         }
     },
     {
