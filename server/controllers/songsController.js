@@ -6,25 +6,9 @@ import { getOrCreateArtist } from "./artistsController.js";
 
 const findSong = (async (req) => {
     const filter = createSongOrArtistObject(req.body)
-    const song = await Song.find(filter);
+    const song = await Song.find(filter).populate('artist');
     if (song) return song
   });
-
-// const getOrCreateSong = async(req) => {
-//     const song = findSong(req)
-//     if (!song){
-
-//     //find artist by name to find artist id. If non-existent create new
-
-//     //Add a function here that scrapes the song and returns the information bellow (name, lyrics...) in one object
-//     // const scrapedData = scrapeSongData(req.body)
-//     const newSongObject = createNewSongObject(scrapedData)
-
-//     const newSong = await Song.create(newSongObject);
-//     return newSong
-//     }
-//     return song
-//   }
 
 // @desc    Get a single song by name/artist/album
 //@route    GET /api/v1/harmony/songs
@@ -45,18 +29,22 @@ const getSong = asyncHandler(async (req, res, next) => {
     });
   });
 
-// @desc    Create a Song if non-existent
+// @desc    Create a Song (only after check that is non-existent)
 // @route   POST /api/v1/harmony/songs
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
 
-  const artistId = getOrCreateArtist()
-
-    //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics...) in one object
+    //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics, album...) in one object
     // const data =  scrapeAndTranslateSong(req.body)
+
+    //Finding the artist using the song data (cross-referencing with artist name and the album of the song)
+    const artistName = data.artistName.toLowerCase()
+    const album = data.album.toLowerCase()
+    const artist = getOrCreateArtist({artistName, album})
+
     const newSongObject = createSongOrArtistObject(data)
 
-    const song = await Song.create({...newSongObject, artist: artistId});
+    const song = await Song.create({...newSongObject, artist: artist._id});
     if (!song) {
       return next(new ErrorResponse(`Server error, song not created! Song data: ${newSongObject}`));
     }

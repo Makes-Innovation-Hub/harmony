@@ -5,58 +5,62 @@ import createSongOrArtistObject from "../utils/controllersUtils.js";
 
 const findArtist = (async (req) => {
     const filter = createSearchFilterObject(req.body)
-    const artist = await Artist.find(filter);
-    if (artist) return artist
+    const artistArray = await Artist.find(filter).populate('songs');
+    if (artistArray) return artistArray
   });
 
-const getOrCreateArtist = async(req) => {
-    const artist = findArtist(req)
-    if (!artist){
-    //Add a function here that scrapes the artist's data (name, albums, image...) and returns it in one object
+const getOrCreateArtist = async(name, album) => {
+    const artistsArray = findArtist({body: {name}})
+    if (artistsArray.length === 0){
+      //Add a function here that scrapes the artist's data (name, albums, image...) and returns it in one object. 
     // const data = scrapeArtistData(req.body)
     const newArtistObject = createSongOrArtistObject(data)
 
     const newArtist = await Artist.create(newArtistObject);
-    return newArtist._id
-    }
-    return artist._id
+    return newArtist
+    } 
+    const searchedArtist = artistsArray.find(artistsArray.albums.toLowerCase().includes(album))
+    return searchedArtist
+    
   }
 
-// @desc    Get a single artist by name
+// @desc    Get artists by name
 //@route    GET /api/v1/harmony/artists
 // @access  Public
-const getSong = asyncHandler(async (req, res, next) => {
-    const artist = await findArtist(req)
-    if (!artist) {
+const getArtists = asyncHandler(async (req, res, next) => {
+    const artistsArray = await findArtist(req)
+    if (!artistsArray) {
       return next(
         new ErrorResponse(
-          `song not found`,
+          `Artist not found`,
           404
         )
       );
     }
     res.status(200).json({
       success: true,
-      data: song,
+      data: artistsArray,
     });
   });
 
-// @desc    Create a Song if non-existent
-// @route   POST /api/v1/harmony/songs
+// @desc    Create an Artist (only after check that is non-existent)
+// @route   POST /api/v1/harmony/artists
 // @access  dev
-const createSong = asyncHandler(async (req, res, next) => {
+const createArtist= asyncHandler(async (req, res, next) => {
 
-    const song = await getOrCreateArtist(req)
-    if (!song) {
-      return next(new ErrorResponse(`Server error, song not created!`));
-    }
-    res.status(200).json({
-      success: true,
-      data: song,
-    });
+  const newArtistObject = createSongOrArtistObject(data)
+
+  const song = await Song.create(newArtistObject);
+  if (!song) {
+    return next(new ErrorResponse(`Server error, song not created! Song data: ${newArtistObject}`));
+  }
+  res.status(200).json({
+    success: true,
+    data: song,
   });
+});
 
   
 
 
-  export {getSong, createSong, getOrCreateArtist}
+  export {getArtists, createArtist, getOrCreateArtist}
