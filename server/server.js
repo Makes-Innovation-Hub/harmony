@@ -1,15 +1,25 @@
+import cors from 'cors'
 import dotenv from "dotenv";
 import express from "express";
-import {connectDB, closeDBConnection} from "./config/db.js";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
+import {connectDB, closeDBConnection} from "./config/db.js";
+import scrapeTopArabicSongs from "./scrapping/scrappingTopArabicSongs.js";
+import scrapeTopHebrewSongs from "./scrapping/scrappingTopHebrewSongs.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
+app.use(cors())
+
 
 dotenv.config({ path: join(__dirname, "./config/config.env") });
+
+
+app.get("/topArabicSongs", scrapeTopArabicSongs)
+app.get("/topHebrewSongs", scrapeTopHebrewSongs)
 
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV
