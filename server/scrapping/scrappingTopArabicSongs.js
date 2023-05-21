@@ -1,9 +1,8 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { arabTopSongsUrl }  from '../constants/url/arabicTopSongs.js'
+import { arabTopSongsUrl } from "../constants/urls.js";
 
-
-async function scrapeTopArabicSongs(req,res) {
+async function scrapeTopArabicSongs(req, res) {
   try {
     const { data } = await axios.get(arabTopSongsUrl);
     const $ = cheerio.load(data);
@@ -25,7 +24,7 @@ async function scrapeTopArabicSongs(req,res) {
       }
     });
 
-    res.json(results)
+    res.json(results);
   } catch (error) {
     console.error(error);
   }
