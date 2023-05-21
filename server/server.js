@@ -6,7 +6,7 @@ import { join, dirname } from "path";
 import {connectDB, closeDBConnection} from "./config/db.js";
 import scrapeTopArabicSongs from "./scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "./scrapping/scrappingTopHebrewSongs.js";
-import songsRouter from './routes/songRoutes.js';
+import songsRouter from './routes/songsRoutes.js';
 
 
 const __filename = fileURLToPath(import.meta.url);
