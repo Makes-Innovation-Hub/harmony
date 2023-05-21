@@ -12,7 +12,7 @@ const findArtist = (async (req) => {
 const getOrCreateArtist = async(name, album) => {
     const artistsArray = findArtist({body: {name}})
     if (artistsArray.length === 0){
-    //Add a function here that scrapes the artist's data (name, albums, image...) and returns it in one object. This function is activated from the songsController, make sure that the song is somewhere in the artist's data, to double check it's the right one.
+    //Add a function here that scrapes the artist's data (name, albums, image...) and returns it in one object. This function is activated from the songsController, make sure that the searched song (in the activating function) is somewhere in the artist's data, to double check it's the right one.
     // const data = scrapeArtistData(req.body)
     const newArtistObject = createSongOrArtistObject(data)
 
