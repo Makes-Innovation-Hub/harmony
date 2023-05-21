@@ -2,6 +2,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createSongOrArtistObject from "../utils/controllersUtils.js";
+import { getOrCreateArtist } from "./artistsController.js";
 
 const findSong = (async (req) => {
     const filter = createSongOrArtistObject(req.body)
@@ -49,7 +50,7 @@ const getSong = asyncHandler(async (req, res, next) => {
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
 
-  //find artist by name to find artist id. If non-existent create new
+  const artist = getOrCreateArtist()
 
     //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics...) in one object
     // const data =  scrapeAndTranslateSong(req.body)
