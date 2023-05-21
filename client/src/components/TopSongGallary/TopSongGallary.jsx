@@ -6,52 +6,68 @@ import {
   TopHSongCountainer,
 } from "./TopSongGallaryStyle";
 import cover1 from "../../assets/TopSongGallary/Rectangle 3.png";
-import cover2 from "../../assets/TopSongGallary/Rectangle 2.png";
 import cover4 from "../../assets/TopSongGallary/Rectangle 1.png";
-import cover5 from "../../assets/TopSongGallary/Rectangle 4.png";
 import ImageBoxWithDetails from './ImageBoxWithDetails'
+import { useEffect, useState } from "react";
+
 export default function TopSongGallary() {
+  
+  const [ topArabicSingers, setTopArabicSingers ] = useState([])
+  const [ topArabicSongs, setTopArabicSongs ] = useState([])
+  const [ topHebrewSongs, setTopHebrewSongs ] = useState([])
+
+  async function fetchTopArabicSongs() {
+    try {
+      const response = await fetch('http://localhost:5000/topArabicSongs');
+      const data = await response.json();
+      setTopArabicSingers(Object.keys(data))
+      setTopArabicSongs(Object.values(data))
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+  
+  async function fetchTopHebrewSongs() {
+    try {
+      const response = await fetch('http://localhost:5000/topHebrewSongs');
+      const data = await response.json();
+      setTopHebrewSongs(data)
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+  
+  useEffect(()=> {
+    fetchTopArabicSongs();
+    fetchTopHebrewSongs();
+  },[])
+
   return (
     <SongGallary>
       <TopHSongCountainer>
         <Title>Top Hebrew Songs</Title>
         <ImageBoxContainer>
+        {topHebrewSongs?.map((song, index) => (
           <ImageBoxWithDetails
+            key={index}
             img={cover1}
-            songName="Body"
-            artist="Dance"
+            artist={Object.keys(song)[0]}
+            songName={Object.values(song)[0]}
           />
-          <ImageBoxWithDetails
-            img={cover2}
-            songName="I loved her"
-            artist="Shlomo Artizi"
-          />
-          <ImageBoxWithDetails 
-          img={cover2}
-          songName="I loved her"
-          artist="Shlomo Artizi"
-          >
-          </ImageBoxWithDetails>
+        ))}
         </ImageBoxContainer>
       </TopHSongCountainer>
       <TopASongCountainer>
         <Title>Top Arabic Songs</Title>
         <ImageBoxContainer>
-          <ImageBoxWithDetails
-            img={cover4}
-            songName="Out of my mind"
-            artist="Salim the great"
-          />
-          <ImageBoxWithDetails
-            img={cover5}
-            songName="Freck In Me"
-            artist="Muhammad Band"
-          />
-          <ImageBoxWithDetails
-           img={cover5} 
-           songName="Freck In Me"
-            artist="Muhammad Band">
-          </ImageBoxWithDetails>
+        {topArabicSongs?.map((singerName, index) => (
+        <ImageBoxWithDetails key={index}
+        img={cover4}
+        artist={topArabicSingers[index]}
+        songName={singerName}
+        >
+        </ImageBoxWithDetails>
+         ))}
         </ImageBoxContainer>
       </TopASongCountainer>
     </SongGallary>
