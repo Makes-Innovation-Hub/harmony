@@ -2,6 +2,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createSearchFilterObject from "../utils/createSearchFilterObject.js";
+import createNewSongObject from "../utils/createNewSongObject.js";
 
 const findSong = (async (req) => {
     const filter = createSearchFilterObject(req)
@@ -35,7 +36,7 @@ const createSong = asyncHandler(async (req, res, next) => {
     const { name, originalLang, lyrics, artist } = req.body;
 
     //find artist by name to find artist id. If non-existent create new
-    //Add a function here that scrapes the song and returns the information bellow (name, lyrics...)
+    //Add a function here that scrapes the song and returns the information bellow (name, lyrics...) in one object
   
     const song = await Song.create({
       name: {

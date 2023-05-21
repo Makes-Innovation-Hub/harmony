@@ -16,3 +16,5 @@ const createNewSongObject = (songData) => {
     }
     return newSongObject
 }
+
+export default createNewSongObject
