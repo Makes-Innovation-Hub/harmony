@@ -24,3 +24,5 @@ const getSong = asyncHandler(async (req, res, next) => {
       data: song,
     });
   });
+
+  export {getSong}
