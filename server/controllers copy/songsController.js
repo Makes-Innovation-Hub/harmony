@@ -1,23 +1,23 @@
 import asyncHandler from "../middleware/asyncHandler.js";
-import Artist from "../models/Artist.js";
+import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
-import { createSongOrArtistObject, createSearchFilterObject } from "../utils/controllersUtils.js";
+import { createNewSongObject, createSearchFilterObject } from "../utils/controllersUtils.js";
 
-const findArtist = (async (req) => {
+const findSong = (async (req) => {
     const filter = createSearchFilterObject(req)
     const song = await Song.findOne(filter);
     if (song) return song
   });
 
 const getOrCreateSong = async(req) => {
-    const song = findArtist(req)
+    const song = findSong(req)
     if (!song){
 
     //find artist by name to find artist id. If non-existent create new
 
     //Add a function here that scrapes the song and returns the information bellow (name, lyrics...) in one object
     // const scrapedData = scrapeSongData(req.body)
-    const newSongObject = createSongOrArtistObject(scrapedData)
+    const newSongObject = createNewSongObject(scrapedData)
 
     const newSong = await Song.create(newSongObject);
     return newSong
@@ -29,7 +29,7 @@ const getOrCreateSong = async(req) => {
 //@route    GET /api/v1/harmony/songs
 // @access  Public
 const getSong = asyncHandler(async (req, res, next) => {
-    const song = await findArtist(req)
+    const song = await findSong(req)
     if (!song) {
       return next(
         new ErrorResponse(

@@ -1,7 +1,7 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
-import createSongOrArtistObject from "../utils/songsControllerUtils.js";
+import createSongOrArtistObject from "../utils/controllersUtils.js";
 
 const findSong = (async (req) => {
     const filter = createSongOrArtistObject(req.body)
