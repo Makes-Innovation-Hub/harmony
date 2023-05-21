@@ -6,7 +6,6 @@ import Header from '../components/Header'
 const NotFoundPage = () => {
     return (
         <div className="column-center full-page">
-            <Header />
             <Animation
                 animationGif={notFoundGif}
                 animationText="No Results, Please search another Song or Artist"
