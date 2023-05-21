@@ -10,8 +10,8 @@ function Search({ topweight, bottomweight }) {
 
       <SearchWrapper>
         <SearchBar>
-          <SearchIcon src={Vector} alt="Search" />
           <Input type="text" placeholder="Search..." />
+          <SearchIcon src={Vector} alt="Search" />
         </SearchBar>
       </SearchWrapper>
 
