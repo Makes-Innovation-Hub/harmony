@@ -1,5 +1,5 @@
 const createSongOrArtistObject = (data) => {
-    const {name, lyrics, artist: artistId, originalLang, song: songId } = data
+    const {name, lyrics, artist, originalLang, song, albums, album, youtubeURL, imgURL } = data
     const filteredValues = {}
     
     if (name !== undefined){
@@ -18,14 +18,26 @@ const createSongOrArtistObject = (data) => {
         english:lyrics.english
       }
     }
-    if (artistId !== undefined){
-      filteredValues.artistId = artistId
+    if (artist !== undefined){
+      filteredValues.artist = artist
     }
-    if (songId !== undefined){
-      filteredValues.songId = songId
+    if (song !== undefined){
+      filteredValues.song = song
     }
     if (originalLang !== undefined){
       filteredValues.originalLang = originalLang
+    }
+    if (albums !== undefined){
+      filteredValues.albums = albums
+    }
+    if (album !== undefined){
+      filteredValues.album = album
+    }
+    if (youtubeURL !== undefined){
+      filteredValues.youtubeURL = youtubeURL
+    }
+    if (imgURL !== undefined){
+      filteredValues.imgURL = imgURL
     }
     
     return filteredValues
