@@ -6,7 +6,6 @@ export const HeaderContainer = styled.div`
     align-items: center;
     padding: 0.8rem;
     width: 100%;
-    overflow-x: hidden;
     @media screen and (min-width: 768px) {
         padding: 4rem;
     }
