@@ -16,7 +16,6 @@ const getOrCreateAllTopSongs = async (language) => {
     }
     //scrapedTopArabicSongs should be translated and massaged, to get an array of top songs. Each song should be an object with the exact structure and information in the model (Song.js)
     const massagedResults = dummySongsArray
-
     const createdSongsIdArray = []
    for (const result of massagedResults){
     const song = await getOrCreateSongAndReturn(result)
