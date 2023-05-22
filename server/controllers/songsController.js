@@ -2,6 +2,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createSongOrArtistObject from "../utils/controllersUtils.js";
+import scrapeAndTranslateSong from "../scrapping/scrapeAndTranslateSong.js";
 import { getOrCreateArtist } from "./artistsController.js";
 
 const findSong = (async (req) => {
@@ -10,6 +11,22 @@ const findSong = (async (req) => {
     if (songsArray.length > 0) return songsArray
   });
 
+const createSongAndReturnIt = async(req) => {
+  //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics, album...) in one object.
+  //The following function is a draft that returns a hard coded result:
+  const data = scrapeAndTranslateSong(req)
+
+  //Finding the artist using the song data (cross-referencing with artist name and the album of the song)
+  const artistName = data.artistName.toLowerCase()
+  const album = data.album
+  const artist = getOrCreateArtist(artistName, album)
+
+  const newSongObject = createSongOrArtistObject(data)
+
+  const song = await Song.create({...newSongObject, artist: artist._id});
+  
+  return song
+}
 
 // @desc    Get songs by name/artist/album
 //@route    GET /api/v1/harmony/songs
@@ -35,17 +52,7 @@ const getSong = asyncHandler(async (req, res, next) => {
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
 
-    //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics, album...) in one object
-    // const data =  scrapeAndTranslateSong(req.body)
-
-    //Finding the artist using the song data (cross-referencing with artist name and the album of the song)
-    const artistName = data.artistName.toLowerCase()
-    const album = data.album
-    const artist = getOrCreateArtist(artistName, album)
-
-    const newSongObject = createSongOrArtistObject(data)
-
-    const song = await Song.create({...newSongObject, artist: artist._id});
+    const song = await createSongAndReturnIt(req)
     if (!song) {
       return next(new ErrorResponse(`Server error, song not created! Song data: ${newSongObject}`));
     }
@@ -55,11 +62,13 @@ const createSong = asyncHandler(async (req, res, next) => {
     });
   });
 
+ 
+
   const getOrCreateSong = asyncHandler(async (req, res, next) => {
     const songsArray = findSong(req)
 
     if(!songsArray){
-      
+
     }
 
   })

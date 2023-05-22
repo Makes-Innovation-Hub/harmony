@@ -1,3 +1,5 @@
+
+//The following function is a draft that returns a hard coded result:
 const scrapeAndTranslateSong = () => {
     const song = {
         name: {
@@ -13,7 +15,10 @@ const scrapeAndTranslateSong = () => {
         origianlLang: 'English',
         imgURL: 'URL',
         album: 'album name',
-        youtubeURL: 'URL'
+        youtubeURL: 'URL',
+        artistName: 'Drake'
     }
     return song
 }
+
+export default scrapeAndTranslateSong
