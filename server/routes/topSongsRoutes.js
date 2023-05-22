@@ -1,10 +1,10 @@
 import express from 'express'
-import { getArtists, createArtist } from '../controllers/artistsController.js'
+import { getTopSongs, createTopSongs } from '../controllers/topSongsController.js'
 const topSongsRouter = express.Router()
 
 topSongsRouter
 .route("/")
-.get(getArtists)
-.post(createArtist)
+.get(getTopSongs)
+.post(createTopSongs)
 
 export default topSongsRouter
