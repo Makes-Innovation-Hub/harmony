@@ -12,7 +12,7 @@ const TopSongsSchema = new mongoose.Schema(
           enum: ['hebrew', 'arabic']
         },
         //Before creating the playlist first look for all the songs in Mongo. If a song doesn't exist, create it. When creating a playlist, use populate to refer to the songs by id
-        topSongs:[ 
+        songs:[ 
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Song',

@@ -7,7 +7,6 @@ const createObjectFromQuery = (data) => {
         filteredValues['name.hebrew'] = name.hebrew
       }
       if (name.english) {
-        console.log(name.english)
         filteredValues['name.english'] = name.english
       }
      
