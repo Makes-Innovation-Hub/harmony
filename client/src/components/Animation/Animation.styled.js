@@ -15,6 +15,7 @@ const Wrapped = styled.div`
         .animation {
             width: 236px;
             height: 264px;
+            margin-bottom: 58px;
         }
 
         .animation-text {

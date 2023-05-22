@@ -4,7 +4,11 @@ const Animation = ({ animationGif, animationText }) => {
     return (
         <Wrapped>
             <img src={animationGif} alt="animation" className="animation" />
-            <h2 className="animation-text">{animationText}</h2>
+            {animationText.map((text) => (
+                <h2 className="animation-text" key={text}>
+                    {text}
+                </h2>
+            ))}
         </Wrapped>
     )
 }
