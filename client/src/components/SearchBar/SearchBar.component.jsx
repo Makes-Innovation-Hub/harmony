@@ -11,7 +11,7 @@ const SearchBar = () => {
     }
 
     return (
-        <Wrapped isInputError={isInputError}>
+        <Wrapped>
             <div className="search-container">
                 <input
                     type="text"
