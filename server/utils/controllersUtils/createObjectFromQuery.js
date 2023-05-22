@@ -16,12 +16,7 @@ const createObjectFromQuery = (data) => {
       }
     }
     if (lyrics !== undefined){
-      filteredValues.lyrics = 
-      {
-        hebrew: lyrics.hebrew,
-        arabic:lyrics.arabic,
-        english:lyrics.english
-      }
+      filteredValues.lyrics = lyrics
     }
     if (song !== undefined){
       filteredValues.song = song

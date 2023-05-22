@@ -45,7 +45,7 @@ const getSongs = asyncHandler(async (req, res, next) => {
     if (!songsArray) {
       return next(
         new ErrorResponse(
-          `song not found`,
+          `Song not found`,
           404
         )
       );

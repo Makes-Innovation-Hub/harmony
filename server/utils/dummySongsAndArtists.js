@@ -67,7 +67,6 @@ const dummySongsArray = [
 const createDummySong = (newSongObject) => {
 
     const name = newSongObject['name.english']
-    const lyrics = newSongObject.lyrics.english
     const {album, originalLang} = newSongObject
 
     return {
@@ -79,7 +78,7 @@ const createDummySong = (newSongObject) => {
         lyrics:{
             hebrew: 'מילים',
             arabic: 'كلمات',
-            english: lyrics,
+            english: 'lyrics',
         },
         originalLang,
         imgURL: 'URL',

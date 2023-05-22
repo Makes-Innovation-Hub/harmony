@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import Artist from "./Artist.js";
+import asyncHandler from "../middleware/asyncHandler.js";
 
 const SongSchema = new mongoose.Schema(
     {
@@ -41,12 +43,12 @@ const SongSchema = new mongoose.Schema(
         originalLang: {
             type: String,
         },
-        artist:[ 
+        artist: 
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Artist',
             }
-        ],
+        ,
         imgURL: {
             type: String,
         },
@@ -71,5 +73,15 @@ const SongSchema = new mongoose.Schema(
       }
 
 )
+
+SongSchema.pre("save", async function asyncHandler(req, res, next){
+    const artist = await Artist.findById(this.artist)
+    if (!artist){
+        return next(new ErrorResponse(`Artist not found`, 404))
+    }
+    artist.songs.push(this._id)
+    await artist.save()
+})
+
 
 export default mongoose.model("Song", SongSchema);
