@@ -8,6 +8,7 @@ import scrapeTopArabicSongs from "./scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "./scrapping/scrappingTopHebrewSongs.js";
 import songsRouter from './routes/songsRoutes.js';
 import artistsRouter from './routes/artistsRoutes.js';
+import topSongsRouter from './routes/topSongsRoutes.js';
 import errorHandler from './middleware/errorHandler.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -29,6 +30,7 @@ app.get("/topHebrewSongs", scrapeTopHebrewSongs)
 
 app.use("api/v1/harmony/songs", songsRouter)
 app.use("api/v1/harmony/artists", artistsRouter)
+app.use("api/v1/harmony/topSongs", topSongsRouter)
 
 app.use(errorHandler);
 
