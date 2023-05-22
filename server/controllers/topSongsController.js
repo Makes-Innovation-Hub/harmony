@@ -23,7 +23,6 @@ const getOrCreateEachSong = async (language) => {
   const songId = song._id
   createdSongsIdArray.push(songId)
   }
-  console.log(createdSongsIdArray)
   return createdSongsIdArray
 };
 
