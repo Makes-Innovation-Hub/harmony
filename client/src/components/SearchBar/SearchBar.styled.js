@@ -13,6 +13,7 @@ const Wrapped = styled.div`
     }
 
     .search-input {
+        padding-left: 6px;
         margin: 17px;
         height: 38px;
         width: 272px;
