@@ -1,1 +1,1 @@
-export const topSongsScrappingRoute = "http://localhost:5000/";
+export const topSongsScrappingRoute = "http://localhost:5000/api/v1";
