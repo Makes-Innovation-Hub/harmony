@@ -27,7 +27,7 @@ async function getAlbumFromSongAndArtist(songName, artistName) {
 }
 async function getLyricsForSong(songName, artistName) {
   try {
-    const response = await axios.get('https://api.musixmatch.com/ws/1.1/matcher.lyrics.get', {
+    const response = await axios.get(process.env.MUSIXMATCH_URL, {
       params: {
         apikey: process.env.MUSIXMATCH_API_KEY,
         q_track: songName,
