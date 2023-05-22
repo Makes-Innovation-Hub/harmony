@@ -36,10 +36,27 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
     }
     const topSongs = TopSongs.create({language, songs: songsIdArray})
     if (!topSongs) {
-      return next(new ErrorResponse(`Server error! Error while creating topSongs`));
+      return next(new ErrorResponse(`Error while creating topSongs`));
     }
     res.status(200).json({
       success: true,
       data: topSongs,
     });
   });
+
+// @desc    get all top songs
+//@route    GET /api/v1/harmony/topSongs
+// @access  Public
+
+const getTopSongs = asyncHandler(async (req, res, next) => {
+    const topSongs = TopSongs.find()
+    if (!topSongs) {
+      return next(new ErrorResponse(`top songs not found`), 404);
+    }
+    res.status(200).json({
+      success: true,
+      data: topSongs,
+    });
+  });
+
+  export {getTopSongs, createTopSongs}
