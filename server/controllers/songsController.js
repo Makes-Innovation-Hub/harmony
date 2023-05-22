@@ -11,7 +11,7 @@ const findSong = (async (req) => {
     if (songsArray.length > 0) return songsArray
   });
 
-const createSongAndReturn = async(req) => {
+const createSongInDB = async(req) => {
   const newSongObject = createObjectFromQuery(req.body)
 
   //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics, album...) in one object.
@@ -28,10 +28,10 @@ const createSongAndReturn = async(req) => {
   return song
 }
 
-const getOrCreateSongAndReturn = async(req) =>{
+const findOrCreateSong = async(req) =>{
   const songsArray = await findSong(req)
   if (!songsArray){
-    const song = await createSongAndReturn(req)
+    const song = await createSongInDB(req)
     return song
   }
   return songsArray[0]
@@ -60,7 +60,7 @@ const getSongs = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/harmony/songs
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
-    const song = await createSongAndReturn(req)
+    const song = await createSongInDB(req)
     if (!song) {
       return next(new ErrorResponse(`Error while creating song`));
     }
@@ -70,4 +70,4 @@ const createSong = asyncHandler(async (req, res, next) => {
     });
   });
 
-  export {getSongs, createSong, findSong, getOrCreateSongAndReturn}
+  export {getSongs, createSong, findSong, findOrCreateSong as getOrCreateSongAndReturn}
