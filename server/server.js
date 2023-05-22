@@ -27,6 +27,7 @@ const NODE_ENV = process.env.NODE_ENV
 let server;
 
 connectDB()
+app.use(express.json())
 
 app.listen(
   PORT,
