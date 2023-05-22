@@ -6,7 +6,7 @@ import scrapeTopHebrewSongs from "../scrapping/scrappingTopHebrewSongs.js";
 import { getOrCreateSongAndReturn } from "./songsController.js";
 import { dummySongsArray } from "../utils/dummySongsAndArtists.js";
 
-const getOrCreateAllTopSongs = async (language) => {
+const getOrCreateEachSong = async (language) => {
         let scrapedTopSongs
     if (language === 'hebrew'){
         scrapedTopSongs = JSON.parse(await scrapeTopHebrewSongs())
@@ -30,11 +30,11 @@ const getOrCreateAllTopSongs = async (language) => {
 
 const createTopSongs = asyncHandler(async (req, res, next) => {
     const {language} = req.body
-    const songs = await getOrCreateAllTopSongs(language)
-    if (!songs) {
+    const songsIdArray = await getOrCreateEachSong(language)
+    if (!songsIdArray) {
       return next(new ErrorResponse(`Error while getting or creating top songs from scraped data`));
     }
-    const topSongs = TopSongs.create({language, songs})
+    const topSongs = TopSongs.create({language, songs: songsIdArray})
     if (!topSongs) {
       return next(new ErrorResponse(`Server error! Error while creating topSongs`));
     }

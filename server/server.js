@@ -7,6 +7,7 @@ import {connectDB, closeDBConnection} from "./config/db.js";
 import scrapeTopArabicSongs from "./scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "./scrapping/scrappingTopHebrewSongs.js";
 import songsRouter from './routes/songsRoutes.js';
+import artistsRouter from './routes/artistsRoutes.js';
 import errorHandler from './middleware/errorHandler.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -27,6 +28,7 @@ app.get("/topArabicSongs", scrapeTopArabicSongs)
 app.get("/topHebrewSongs", scrapeTopHebrewSongs)
 
 app.use("api/v1/harmony/songs", songsRouter)
+app.use("api/v1/harmony/artists", artistsRouter)
 
 app.use(errorHandler);
 
