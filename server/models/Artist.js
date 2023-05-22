@@ -33,9 +33,11 @@ const ArtistSchema = new mongoose.Schema(
         imgURL: {
             type: String,
         },
-        albums: {
-            type: String,
-        }
+        albums: [
+            {
+                type: String
+            }
+        ] 
     },
     {
         toJSON: {

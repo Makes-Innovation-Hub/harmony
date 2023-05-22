@@ -17,20 +17,13 @@ const dummySong = {
 }
 const dummyArtist = {
     name: {
-        hebrew: 'שיר',
-        arabic: 'قصيدة',
-        english: 'song'
+        hebrew: 'אמן',
+        arabic: 'فنان',
+        english: 'artist'
     },
-    lyrics:{
-        hebrew: 'מילים',
-        arabic: 'كلمات',
-        english: 'lyrics',
-    },
-    origianlLang: 'English',
+    
     imgURL: 'URL',
-    album: 'album name',
-    youtubeURL: 'URL',
-    artistName: 'Drake'
+    albums: ['first album', 'second album'],
 }
 
 const dummySongsArray = [
