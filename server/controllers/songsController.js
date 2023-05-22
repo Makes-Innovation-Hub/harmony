@@ -10,6 +10,7 @@ const findSong = (async (req) => {
     if (songsArray.length > 0) return songsArray
   });
 
+
 // @desc    Get songs by name/artist/album
 //@route    GET /api/v1/harmony/songs
 // @access  Public
@@ -54,5 +55,14 @@ const createSong = asyncHandler(async (req, res, next) => {
     });
   });
 
+  const getOrCreateSong = asyncHandler(async (req, res, next) => {
+    const songsArray = findSong(req)
 
-  export {getSong, createSong}
+    if(!songsArray){
+      
+    }
+
+  })
+
+
+  export {getSong, createSong, findSong}
