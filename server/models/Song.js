@@ -47,8 +47,9 @@ const SongSchema = new mongoose.Schema(
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Artist',
-            }
-        ,
+            },
+            
+        // This field needs to be refractured:
         imgURL: {
             type: String,
         },
