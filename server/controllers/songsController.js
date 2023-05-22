@@ -6,13 +6,13 @@ import { getOrCreateArtist } from "./artistsController.js";
 import { createDummySong } from "../utils/dummySongsAndArtists.js";
 
 const findSong = (async (req) => {
-    const filter = createObjectFromQuery(req)
+    const filter = createObjectFromQuery(req.body)
     const songsArray = await Song.find(filter).populate('artist');
     if (songsArray.length > 0) return songsArray
   });
 
 const createSongAndReturn = async(req) => {
-  const newSongObject = createObjectFromQuery(req)
+  const newSongObject = createObjectFromQuery(req.body)
 
   //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics, album...) in one object.
   const dummySong = createDummySong(newSongObject)

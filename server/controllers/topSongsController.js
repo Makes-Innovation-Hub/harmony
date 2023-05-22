@@ -19,7 +19,7 @@ const getOrCreateEachSong = async (language) => {
   const massagedResults = dummySongsArray
   const createdSongsIdArray = []
   for (const result of massagedResults){
-  const song = await getOrCreateSongAndReturn(result)
+  const song = await getOrCreateSongAndReturn({body: result})
   const songId = song._id
   createdSongsIdArray.push(songId)
   }

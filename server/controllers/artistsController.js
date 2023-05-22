@@ -54,7 +54,6 @@ const getArtists = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/harmony/artists
 // @access  dev
 //! This function is might create the wrong artist, if the artist's data is not unique
-
 const createArtist= asyncHandler(async (req, res, next) => {
 
   const newArtistObject = createObjectFromQuery(req.body)
