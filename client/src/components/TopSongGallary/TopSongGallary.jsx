@@ -6,52 +6,46 @@ import {
   TopHSongCountainer,
 } from "./TopSongGallaryStyle";
 import cover1 from "../../assets/TopSongGallary/Rectangle 3.png";
-import cover2 from "../../assets/TopSongGallary/Rectangle 2.png";
 import cover4 from "../../assets/TopSongGallary/Rectangle 1.png";
-import cover5 from "../../assets/TopSongGallary/Rectangle 4.png";
 import ImageBoxWithDetails from './ImageBoxWithDetails'
+import { useGetTopHebrewSongsQuery } from "../../api/hebrewApiSlice";
+import { useGetTopArabicSongsQuery } from '../../api/arabicApiSlice'
+
+
 export default function TopSongGallary() {
+  const { data: topHebrewSongs = [] } = useGetTopHebrewSongsQuery();
+  const { data: topArabicSongs = [] } = useGetTopArabicSongsQuery();
+  const topArabicSongsArray = Object.entries(topArabicSongs).map(([artist, song]) => ({
+    artist,
+    songName: song,
+  }));
+
   return (
     <SongGallary>
       <TopHSongCountainer>
         <Title>Top Hebrew Songs</Title>
         <ImageBoxContainer>
-          <ImageBoxWithDetails
-            img={cover1}
-            songName="Body"
-            artist="Dance"
-          />
-          <ImageBoxWithDetails
-            img={cover2}
-            songName="I loved her"
-            artist="Shlomo Artizi"
-          />
-          <ImageBoxWithDetails 
-          img={cover2}
-          songName="I loved her"
-          artist="Shlomo Artizi"
-          >
-          </ImageBoxWithDetails>
+        {topHebrewSongs.map((song, index) => (
+            <ImageBoxWithDetails
+              key={index}
+              img={cover1}
+              artist={Object.keys(song)[0]}
+              songName={Object.values(song)[0]}
+            />
+          ))}
         </ImageBoxContainer>
       </TopHSongCountainer>
       <TopASongCountainer>
         <Title>Top Arabic Songs</Title>
         <ImageBoxContainer>
-          <ImageBoxWithDetails
-            img={cover4}
-            songName="Out of my mind"
-            artist="Salim the great"
-          />
-          <ImageBoxWithDetails
-            img={cover5}
-            songName="Freck In Me"
-            artist="Muhammad Band"
-          />
-          <ImageBoxWithDetails
-           img={cover5} 
-           songName="Freck In Me"
-            artist="Muhammad Band">
-          </ImageBoxWithDetails>
+        {topArabicSongsArray.map((song, index) => (
+            <ImageBoxWithDetails
+              key={index}
+              img={cover4}
+              artist={song.artist}
+              songName={song.songName}
+            />
+          ))}
         </ImageBoxContainer>
       </TopASongCountainer>
     </SongGallary>
