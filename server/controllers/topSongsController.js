@@ -4,7 +4,7 @@ import ErrorResponse from "../utils/ErrorResponse.js";
 import scrapeTopArabicSongs from "../scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "../scrapping/scrappingTopHebrewSongs.js";
 import { getOrCreateSongAndReturn } from "./songsController.js";
-import { dummySongsArray } from "../utils/dummySongResults.js";
+import { dummySongsArray } from "../utils/dummySongsAndArtists.js";
 
 const getOrCreateAllTopSongs = async (language) => {
         let scrapedTopSongs

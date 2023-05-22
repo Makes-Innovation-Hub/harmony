@@ -43,24 +43,23 @@ const getArtists = asyncHandler(async (req, res, next) => {
     });
   });
 
-// @desc    Create an Artist (only after check that is non-existent)
+// @desc    Create an Artist (only after check that is non-existent with getArtists)
 // @route   POST /api/v1/harmony/artists
 // @access  dev
+//! This function is might create the wrong artist, if the artist's data is not unique
+
 const createArtist= asyncHandler(async (req, res, next) => {
 
-  const newArtistObject = createSongOrArtistObject(data)
+  const newArtistObject = createSongOrArtistObject(req.body)
 
-  const song = await Song.create(newArtistObject);
-  if (!song) {
-    return next(new ErrorResponse(`Server error, song not created! Song data: ${newArtistObject}`));
+  const artist = await Artist.create(newArtistObject);
+  if (!artist) {
+    return next(new ErrorResponse(`Error while creating artist. Artist data: ${newArtistObject}`));
   }
   res.status(200).json({
     success: true,
-    data: song,
+    data: artist,
   });
 });
 
-  
-
-
-  export {getArtists, createArtist, getOrCreateArtist}
+export {getArtists, createArtist, getOrCreateArtist}

@@ -3,7 +3,7 @@ import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createSongOrArtistObject from "../utils/controllersUtils.js";
 import { getOrCreateArtist } from "./artistsController.js";
-import { dummySong } from "../utils/dummySongResults.js";
+import { dummySong } from "../utils/dummySongsAndArtists.js";
 
 const findSong = (async (req) => {
     const filter = createSongOrArtistObject(req.body)
@@ -39,7 +39,7 @@ const getOrCreateSongAndReturn = async(req) =>{
 // @desc    Get songs by name/artist/album
 //@route    GET /api/v1/harmony/songs
 // @access  Public
-const getSong = asyncHandler(async (req, res, next) => {
+const getSongs = asyncHandler(async (req, res, next) => {
     const songsArray = await findSong(req)
     if (!songsArray) {
       return next(
@@ -55,14 +55,14 @@ const getSong = asyncHandler(async (req, res, next) => {
     });
   });
 
-// @desc    Create a Song (only after check that is non-existent)
+// @desc    Create a Song (only after check that is non-existent with getSongs)
 // @route   POST /api/v1/harmony/songs
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
 
     const song = await createSongAndReturn(req)
     if (!song) {
-      return next(new ErrorResponse(`Server error, song not created!`));
+      return next(new ErrorResponse(`Error while creating song`));
     }
     res.status(200).json({
       success: true,
@@ -70,4 +70,4 @@ const createSong = asyncHandler(async (req, res, next) => {
     });
   });
 
-  export {getSong, createSong, findSong, getOrCreateSongAndReturn}
+  export {getSongs, createSong, findSong, getOrCreateSongAndReturn}
