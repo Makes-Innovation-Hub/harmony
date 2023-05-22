@@ -30,10 +30,10 @@ const createSongAndReturn = async(req) => {
 const getOrCreateSongAndReturn = async(req) =>{
   const songsArray = await findSong(req)
   if (!songsArray){
-    const songsArray = await createSongAndReturn(req)
-    return songsArray
+    const song = await createSongAndReturn(req)
+    return song
   }
-  return songsArray
+  return songsArray[0]
 }
 
 // @desc    Get songs by name/artist/album
