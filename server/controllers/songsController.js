@@ -56,7 +56,7 @@ const getSongs = asyncHandler(async (req, res, next) => {
     });
   });
 
-// @desc    Create a Song (only after check that is non-existent with getSongs)
+// @desc    Create a Song
 // @route   POST /api/v1/harmony/songs
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
