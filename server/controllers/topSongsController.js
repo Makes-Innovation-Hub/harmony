@@ -34,7 +34,7 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
     if (!songsIdArray) {
       return next(new ErrorResponse(`Error while getting or creating top songs from scraped data`));
     }
-    const topSongs = TopSongs.create({language, songs: songsIdArray})
+    const topSongs = TopSongs.create({language, songsIdArray})
     if (!topSongs) {
       return next(new ErrorResponse(`Error while creating topSongs`));
     }
