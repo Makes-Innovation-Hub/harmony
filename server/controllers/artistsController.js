@@ -12,7 +12,7 @@ const findArtist = (async (req) => {
     }
   });
 
-const getOrCreateArtist = async(name, album) => {
+const findOrCreateArtist = async(name, album) => {
     const artistsArray = await findArtist({body: {name: { english: name }}})
     if (artistsArray){
       
@@ -68,4 +68,4 @@ const createArtist= asyncHandler(async (req, res, next) => {
   });
 });
 
-export {getArtists, createArtist, getOrCreateArtist}
+export {getArtists, createArtist, findOrCreateArtist as getOrCreateArtist}
