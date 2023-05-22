@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import Ellipse2 from '../assets/Ellipse2.png';
 
 export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.25rem;
+  padding: 1rem;
   overflow-x: hidden;
 `;
 
@@ -50,10 +51,14 @@ export const SearchBar = styled.div`
 
 export const SearchIcon = styled.img`
   margin-left: 0.5rem;
-  padding: 0.666rem;
-  background-color: rgba(149, 112, 255, 0.19);
+  font-size: 1.5rem;
+  padding: 0.65rem;
+  background-image: url(${Ellipse2}); 
+  background-size: cover;
+  background-repeat: no-repeat;
   border-radius: 50%;
 `;
+
 
 export const Input = styled.input`
   padding:0.4rem 2rem 0.4rem 2rem;
