@@ -62,7 +62,7 @@ const createSong = asyncHandler(async (req, res, next) => {
 
     const song = await createSongAndReturn(req)
     if (!song) {
-      return next(new ErrorResponse(`Server error, song not created! Song data: ${newSongObject}`));
+      return next(new ErrorResponse(`Server error, song not created!`));
     }
     res.status(200).json({
       success: true,
