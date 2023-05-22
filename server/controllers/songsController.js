@@ -3,7 +3,7 @@ import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createSongOrArtistObject from "../utils/controllersUtils.js";
 import { getOrCreateArtist } from "./artistsController.js";
-import { dummySong } from "../utils/dummySongsAndArtists.js";
+import { createDummySong, dummySong } from "../utils/dummySongsAndArtists.js";
 
 const findSong = (async (req) => {
     const filter = createSongOrArtistObject(req.body)
@@ -12,15 +12,18 @@ const findSong = (async (req) => {
   });
 
 const createSongAndReturn = async(req) => {
+
+  const newSongObject = createSongOrArtistObject(req.body)
+
+  
   //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics, album...) in one object.
+  const dummySong = createDummySong(newSongObject)
   const data = dummySong
 
   //Finding the artist using the song data (cross-referencing with artist name and the album of the song)
   const artistName = data.name.toLowerCase()
   const album = data.album.toLowerCase()
   const artist = getOrCreateArtist(artistName, album)
-
-  const newSongObject = createSongOrArtistObject(data)
 
   const song = await Song.create({...newSongObject, artist: artist._id});
   

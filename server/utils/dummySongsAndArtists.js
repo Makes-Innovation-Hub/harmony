@@ -9,12 +9,39 @@ const dummySong = {
         arabic: 'كلمات',
         english: 'lyrics',
     },
-    origianlLang: 'English',
+    originalLang: 'English',
     imgURL: 'URL',
     album: 'album name',
     youtubeURL: 'URL',
     artistName: 'Drake'
 }
+
+const createDummySong = (newSongObject) => {
+    
+    const name = newSongObject.name.english
+    const lyrics = newSongObject.lyrics.english
+    const {album, originalLang} = newSongObject
+
+    return {
+        name: {
+            hebrew: 'שיר',
+            arabic: 'قصيدة',
+            english: name
+        },
+        lyrics:{
+            hebrew: 'מילים',
+            arabic: 'كلمات',
+            english: lyrics,
+        },
+        originalLang,
+        imgURL: 'URL',
+        album: album,
+        youtubeURL: 'URL',
+        artistName: 'Drake'
+    }
+
+}
+
 const dummyArtist = {
     name: {
         hebrew: 'אמן',
@@ -76,4 +103,4 @@ const dummySongsArray = [
     }
 ]
 
-export {dummySong, dummySongsArray, dummyArtist, createDummyArtist}
+export {dummySong, dummySongsArray, dummyArtist, createDummyArtist, createDummySong}
