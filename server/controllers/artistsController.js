@@ -20,9 +20,11 @@ const getOrCreateArtist = async(name, album) => {
     const newArtist = await Artist.create(newArtistObject);
     return newArtist
     } 
-    const searchedArtist = artistsArray.find((artist)=> artist.albums.includes(album))
+    const searchedArtist = artistsArray.find((artist)=> {
+      const lowerCasedAlbums = artist.albums.map((album)=> album.toLowerCase())
+      return lowerCasedAlbums.includes(album)
+    })
     return searchedArtist
-    
   }
 
 // @desc    Get artists by name
