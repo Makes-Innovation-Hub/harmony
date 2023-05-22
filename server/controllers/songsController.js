@@ -62,16 +62,4 @@ const createSong = asyncHandler(async (req, res, next) => {
     });
   });
 
- 
-
-  const getOrCreateSong = asyncHandler(async (req, res, next) => {
-    const songsArray = findSong(req)
-
-    if(!songsArray){
-
-    }
-
-  })
-
-
-  export {getSong, createSong, findSong}
+  export {getSong, createSong, findSong, createSongAndReturnIt}
