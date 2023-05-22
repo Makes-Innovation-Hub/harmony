@@ -48,10 +48,10 @@ app.listen(
 );
 
 
-// process.on("unhandledRejection", (err, promise) => {
-//   console.error(`Error: ${err.message}`);
-//   server.close(() => process.exit(1));
-//   closeDBConnection()
-// });
+process.on("unhandledRejection", (err, promise) => {
+  console.error(`Error: ${err.message}`);
+  server.close(() => process.exit(1));
+  closeDBConnection()
+});
 
 
