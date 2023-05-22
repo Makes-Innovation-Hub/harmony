@@ -50,7 +50,7 @@ const getArtists = asyncHandler(async (req, res, next) => {
     });
   });
 
-// @desc    Create an Artist (only after check that is non-existent with getArtists)
+// @desc    Create an Artist 
 // @route   POST /api/v1/harmony/artists
 // @access  dev
 //! This function is might create the wrong artist, if the artist's data is not unique
