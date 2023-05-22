@@ -2,7 +2,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import Artist from "../models/Artist.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createObjectFromQuery from "../utils/controllersUtils/createObjectFromQuery.js";
-import { createDummyArtist } from "../utils/dummySongsAndArtists.js";
+import { createDummyArtist } from "../utils/createDummyData.js";
 
 const findArtist = (async (req) => {
     const filter = createObjectFromQuery(req.body)

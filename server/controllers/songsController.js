@@ -3,7 +3,7 @@ import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createObjectFromQuery from "../utils/controllersUtils/createObjectFromQuery.js";
 import { getOrCreateArtist } from "./artistsController.js";
-import { createDummySong } from "../utils/dummySongsAndArtists.js";
+import { createDummySong } from "../utils/createDummyData.js";
 
 const findSong = (async (req) => {
     const filter = createObjectFromQuery(req.body)
