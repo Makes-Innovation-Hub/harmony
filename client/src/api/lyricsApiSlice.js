@@ -1,14 +1,21 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { topSongsScrappingRoute } from '../constants/urls'
+import { topSongsScrappingRoute } from '../constants/urls';
 
 export const lyricsApi = createApi({
   reducerPath: "lyricsApi",
   baseQuery: fetchBaseQuery({ baseUrl: topSongsScrappingRoute }),
   endpoints: (builder) => ({
     getLyrics: builder.query({
-        query: ({ artistName, songName }) => `/${artistName}/${songName}`,
+      queryFn: async ({ artistName, songName }) => {
+        const response = await fetch(`${topSongsScrappingRoute}/${artistName}/${songName}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch lyrics");
+        }
+        const data = await response.json();
+        return { data };
+      },
     }),
   }),
 });
 
-export const { useGetLyricsQuery } = lyricsApi;
+export const { useLazyGetLyricsQuery } = lyricsApi;
