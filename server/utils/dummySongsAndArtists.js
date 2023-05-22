@@ -16,32 +16,6 @@ const dummySong = {
     artistName: 'Drake'
 }
 
-const createDummySong = (newSongObject) => {
-    
-    const name = newSongObject.name.english
-    const lyrics = newSongObject.lyrics.english
-    const {album, originalLang} = newSongObject
-
-    return {
-        name: {
-            hebrew: 'שיר',
-            arabic: 'قصيدة',
-            english: name
-        },
-        lyrics:{
-            hebrew: 'מילים',
-            arabic: 'كلمات',
-            english: lyrics,
-        },
-        originalLang,
-        imgURL: 'URL',
-        album: album,
-        youtubeURL: 'URL',
-        artistName: 'Drake'
-    }
-
-}
-
 const dummyArtist = {
     name: {
         hebrew: 'אמן',
@@ -51,19 +25,6 @@ const dummyArtist = {
     
     imgURL: 'URL',
     albums: ['first album', 'second album'],
-}
-
-const createDummyArtist = (name, album) => {
-    return {
-        name: {
-        hebrew: 'אמן',
-        arabic: 'فنان',
-        english: name
-    },
-    
-    imgURL: 'URL',
-    albums: ['first album', 'second album', album],
-}
 }
 
 const dummySongsArray = [
@@ -102,5 +63,46 @@ const dummySongsArray = [
         artistName: 'John Doe'
     }
 ]
+
+const createDummySong = (newSongObject) => {
+
+    const name = newSongObject.name.english
+    const lyrics = newSongObject.lyrics.english
+    const {album, originalLang} = newSongObject
+
+    return {
+        name: {
+            hebrew: 'שיר',
+            arabic: 'قصيدة',
+            english: name
+        },
+        lyrics:{
+            hebrew: 'מילים',
+            arabic: 'كلمات',
+            english: lyrics,
+        },
+        originalLang,
+        imgURL: 'URL',
+        album: album,
+        youtubeURL: 'URL',
+        artistName: 'Drake'
+    }
+
+}
+
+const createDummyArtist = (name, album) => {
+    return {
+        name: {
+        hebrew: 'אמן',
+        arabic: 'فنان',
+        english: name
+    },
+    
+    imgURL: 'URL',
+    albums: ['first album', 'second album', album],
+}
+}
+
+
 
 export {dummySong, dummySongsArray, dummyArtist, createDummyArtist, createDummySong}
