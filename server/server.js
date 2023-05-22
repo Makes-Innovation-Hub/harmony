@@ -8,6 +8,8 @@ import scrapeTopArabicSongs from "./scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "./scrapping/scrappingTopHebrewSongs.js";
 import { getAlbumFromSongAndArtist } from './spotify.js'; 
 
+import scrappingRoutes from './routes/scrappingRoutes.js'
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -31,19 +33,19 @@ app.get('/album/:songName/:artistName', async (req, res) => {
 });
 
 
-app.get("/topArabicSongs", scrapeTopArabicSongs)
-app.get("/topHebrewSongs", scrapeTopHebrewSongs)
+app.use("/api/v1/", scrappingRoutes)
+
 
 let server;
-connectDB().then(() => {
-  server = app.listen(
-    PORT,
-    console.log(
-      `Server is running in ${NODE_ENV} mode on port ${PORT}`
-        
-    )
-  );
-});
+
+connectDB()
+
+app.listen(
+  PORT,
+  console.log(`Server running in ${NODE_ENV}
+  mode on port ${PORT}`)
+);
+
 
 process.on("unhandledRejection", (err, promise) => {
   console.error(`Error: ${err.message}`);
