@@ -2,7 +2,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import Artist from "../models/Artist.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createSongOrArtistObject from "../utils/controllersUtils.js";
-import { dummyArtist } from "../utils/dummySongsAndArtists.js";
+import { createDummyArtist } from "../utils/dummySongsAndArtists.js";
 
 const findArtist = (async (req) => {
     const filter = createSearchFilterObject(req.body)
@@ -13,8 +13,9 @@ const findArtist = (async (req) => {
 const getOrCreateArtist = async(name, album) => {
     const artistsArray = findArtist({body: {name}})
     if (!artistsArray){
+
     //Add a function here that scrapes the artist's data (name, albums, image...) and returns it in one object. This function is activated from the songsController, make sure that the searched song (in the activating function) is somewhere in the artist's data, to double check it's the right one.
-    const data = dummyArtist
+    const data = createDummyArtist(name, album)
     const newArtistObject = createSongOrArtistObject(data)
 
     const newArtist = await Artist.create(newArtistObject);

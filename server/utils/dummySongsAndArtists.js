@@ -26,6 +26,19 @@ const dummyArtist = {
     albums: ['first album', 'second album'],
 }
 
+const createDummyArtist = (name, album) => {
+    return {
+        name: {
+        hebrew: 'אמן',
+        arabic: 'فنان',
+        english: name
+    },
+    
+    imgURL: 'URL',
+    albums: ['first album', 'second album', album],
+}
+}
+
 const dummySongsArray = [
     {
         name: {
@@ -63,4 +76,4 @@ const dummySongsArray = [
     }
 ]
 
-export {dummySong, dummySongsArray, dummyArtist}
+export {dummySong, dummySongsArray, dummyArtist, createDummyArtist}
