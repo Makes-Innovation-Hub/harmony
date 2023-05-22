@@ -1,35 +1,33 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 html {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 @font-face {
-    font-family: "ABeeZee";
-    src: url("../assets/ABeeZee-Italic.ttf") format("truetype");
-  }
-  .dove {
+    font-family: 'ABeeZee';
+    src: url('../assets/ABeeZee-Italic.ttf') format('truetype');
+}
+.dove {
     position: absolute;
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
     margin-left: 1.5rem;
     z-index: 1;
-  }
-  
-  .ellipse {
+}
+
+.ellipse {
     position: absolute;
     top: 50%;
     left: 80%;
     transform: translate(-50%, -50%);
     margin-left: 1.5rem;
-  }
+}
 
-  .us{
-    background-color: red;
+.us {
     width: 10%;
-  }
-  
+}
