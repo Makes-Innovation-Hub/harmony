@@ -1,31 +1,29 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
-import createSongOrArtistObject from "../utils/controllersUtils.js";
+import createObjectFromQuery from "../utils/controllersUtils/createObjectFromQuery.js";
 import { getOrCreateArtist } from "./artistsController.js";
 import { createDummySong } from "../utils/dummySongsAndArtists.js";
 
 const findSong = (async (req) => {
-    const filter = createSongOrArtistObject(req.body)
+    const filter = createObjectFromQuery(req.body)
     const songsArray = await Song.find(filter).populate('artist');
     if (songsArray.length > 0) return songsArray
   });
 
 const createSongAndReturn = async(req) => {
+  const newSongObject = createObjectFromQuery(req.body)
 
-  const newSongObject = createSongOrArtistObject(req.body)
-
-  
   //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics, album...) in one object.
   const dummySong = createDummySong(newSongObject)
   const data = dummySong
 
   //Finding the artist using the song data (cross-referencing with artist name and the album of the song)
-  const artistName = data.name.toLowerCase()
-  const album = data.album.toLowerCase()
-  const artist = getOrCreateArtist(artistName, album)
+  const artistName = data.artistName
+  const album = data.album
+  const artist = await getOrCreateArtist(artistName, album)
 
-  const song = await Song.create({...newSongObject, artist: artist._id});
+  const song = await Song.create({...data, artist: artist._id});
   
   return song
 }
@@ -62,7 +60,6 @@ const getSongs = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/harmony/songs
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
-
     const song = await createSongAndReturn(req)
     if (!song) {
       return next(new ErrorResponse(`Error while creating song`));

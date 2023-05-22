@@ -1,31 +1,34 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Artist from "../models/Artist.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
-import createSongOrArtistObject from "../utils/controllersUtils.js";
+import createObjectFromQuery from "../utils/controllersUtils/createObjectFromQuery.js";
 import { createDummyArtist } from "../utils/dummySongsAndArtists.js";
 
 const findArtist = (async (req) => {
-    const filter = createSearchFilterObject(req.body)
+    const filter = createObjectFromQuery(req.body)
     const artistArray = await Artist.find(filter).populate('songs');
-    if (artistArray.length > 0) return artistArray
+    if (artistArray.length > 0) {
+      return artistArray
+    }
   });
 
 const getOrCreateArtist = async(name, album) => {
-    const artistsArray = findArtist({body: {name}})
-    if (!artistsArray){
-
-    //Add a function here that scrapes the artist's data (name, albums, image...) and returns it in one object. This function is activated from the songsController, make sure that the searched song (in the activating function) is somewhere in the artist's data, to double check it's the right one.
+    const artistsArray = await findArtist({body: {name: { english: name }}})
+    if (artistsArray){
+      
+      //Making sure the found artist has an album that matches the album name of the song
+      const searchedArtist = artistsArray.find((artist)=> {
+        const lowerCasedAlbums = artist.albums.map((album)=> album.toLowerCase())
+        return lowerCasedAlbums.includes(album)
+      })
+      if (searchedArtist) return searchedArtist
+    }
+    //Add a function here that scrapes the artist's data (name, albums, image...), translates it and returns it in one object. This function is activated from the songsController, make sure that the searched song (in the activating function) is somewhere in the artist's data, to double check it's the right one.
     const data = createDummyArtist(name, album)
-    const newArtistObject = createSongOrArtistObject(data)
+    const newArtistObject = createObjectFromQuery(data)
 
     const newArtist = await Artist.create(newArtistObject);
     return newArtist
-    } 
-    const searchedArtist = artistsArray.find((artist)=> {
-      const lowerCasedAlbums = artist.albums.map((album)=> album.toLowerCase())
-      return lowerCasedAlbums.includes(album)
-    })
-    return searchedArtist
   }
 
 // @desc    Get artists by name
@@ -54,7 +57,7 @@ const getArtists = asyncHandler(async (req, res, next) => {
 
 const createArtist= asyncHandler(async (req, res, next) => {
 
-  const newArtistObject = createSongOrArtistObject(req.body)
+  const newArtistObject = createObjectFromQuery(req.body)
 
   const artist = await Artist.create(newArtistObject);
   if (!artist) {

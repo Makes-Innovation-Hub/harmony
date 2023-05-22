@@ -13,20 +13,24 @@ import errorHandler from './middleware/errorHandler.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+dotenv.config({ path: join(__dirname, "./config/config.env") });
 
 const app = express();
 app.use(cors())
 
+app.use(express.json());
 
-dotenv.config({ path: join(__dirname, "./config/config.env") });
-
+app.get("/", (req, res) => {
+  res.json({
+    message: "Welcome",
+  });
+});
 
 app.use("/api/v1/", scrappingRoutes)
 
-
-app.use("api/v1/harmony/songs", songsRouter)
-app.use("api/v1/harmony/artists", artistsRouter)
-app.use("api/v1/harmony/topSongs", topSongsRouter)
+app.use("/api/v1/harmony/songs", songsRouter)
+app.use("/api/v1/harmony/artists", artistsRouter)
+app.use("/api/v1/harmony/topSongs", topSongsRouter)
 
 app.use(errorHandler);
 
@@ -44,10 +48,10 @@ app.listen(
 );
 
 
-process.on("unhandledRejection", (err, promise) => {
-  console.error(`Error: ${err.message}`);
-  server.close(() => process.exit(1));
-  closeDBConnection()
-});
+// process.on("unhandledRejection", (err, promise) => {
+//   console.error(`Error: ${err.message}`);
+//   server.close(() => process.exit(1));
+//   closeDBConnection()
+// });
 
 

@@ -66,7 +66,7 @@ const dummySongsArray = [
 
 const createDummySong = (newSongObject) => {
 
-    const name = newSongObject.name.english
+    const name = newSongObject['name.english']
     const lyrics = newSongObject.lyrics.english
     const {album, originalLang} = newSongObject
 
@@ -85,7 +85,7 @@ const createDummySong = (newSongObject) => {
         imgURL: 'URL',
         album: album,
         youtubeURL: 'URL',
-        artistName: 'Drake'
+        artistName: 'Eyal'
     }
 
 }

@@ -1,13 +1,18 @@
-const createSongOrArtistObject = (data) => {
+const createObjectFromQuery = (data) => {
     const {name, lyrics, originalLang, song, albums, album, youtubeURL, imgURL } = data
     const filteredValues = {}
     
     if (name !== undefined){
-      filteredValues.name = 
-      {
-        hebrew: name.hebrew,
-        arabic:name.arabic,
-        english:name.english.toLowerCase()
+      if (name.hebrew) {
+        filteredValues['name.hebrew'] = name.hebrew
+      }
+      if (name.english) {
+        console.log(name.english)
+        filteredValues['name.english'] = name.english
+      }
+     
+      if (name.arabic) {
+        filteredValues['name.arabic'] = name.arabic
       }
     }
     if (lyrics !== undefined){
@@ -36,9 +41,8 @@ const createSongOrArtistObject = (data) => {
     if (imgURL !== undefined){
       filteredValues.imgURL = imgURL
     }
-    
     return filteredValues
 }
 
 
-export default createSongOrArtistObject
+export default createObjectFromQuery
