@@ -1,7 +1,7 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Song from "../models/Song.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
-import createObjectFromQuery from "../utils/controllersUtils/createObjectFromQuery.js";
+import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import { getOrCreateArtist } from "./artistsController.js";
 import { createDummySong } from "../utils/createDummyData.js";
 
