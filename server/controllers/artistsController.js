@@ -6,12 +6,12 @@ import createSongOrArtistObject from "../utils/controllersUtils.js";
 const findArtist = (async (req) => {
     const filter = createSearchFilterObject(req.body)
     const artistArray = await Artist.find(filter).populate('songs');
-    if (artistArray) return artistArray
+    if (artistArray.length > 0) return artistArray
   });
 
 const getOrCreateArtist = async(name, album) => {
     const artistsArray = findArtist({body: {name}})
-    if (artistsArray.length === 0){
+    if (!artistsArray){
     //Add a function here that scrapes the artist's data (name, albums, image...) and returns it in one object. This function is activated from the songsController, make sure that the searched song (in the activating function) is somewhere in the artist's data, to double check it's the right one.
     // const data = scrapeArtistData(req.body)
     const newArtistObject = createSongOrArtistObject(data)

@@ -32,3 +32,5 @@ async function scrapeTopArabicSongs() {
     console.error(error);
   }
 }
+
+export default scrapeTopArabicSongs

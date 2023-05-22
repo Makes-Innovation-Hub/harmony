@@ -6,16 +6,16 @@ import { getOrCreateArtist } from "./artistsController.js";
 
 const findSong = (async (req) => {
     const filter = createSongOrArtistObject(req.body)
-    const song = await Song.find(filter).populate('artist');
-    if (song) return song
+    const songsArray = await Song.find(filter).populate('artist');
+    if (songsArray.length > 0) return songsArray
   });
 
-// @desc    Get a single song by name/artist/album
+// @desc    Get songs by name/artist/album
 //@route    GET /api/v1/harmony/songs
 // @access  Public
 const getSong = asyncHandler(async (req, res, next) => {
-    const song = await findSong(req)
-    if (!song) {
+    const songsArray = await findSong(req)
+    if (!songsArray) {
       return next(
         new ErrorResponse(
           `song not found`,
@@ -25,7 +25,7 @@ const getSong = asyncHandler(async (req, res, next) => {
     }
     res.status(200).json({
       success: true,
-      data: song,
+      data: songsArray,
     });
   });
 

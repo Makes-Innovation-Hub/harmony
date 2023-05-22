@@ -38,5 +38,7 @@ const scrapeTopHebrewSongs = async () => {
 
 };
 
+export default scrapeTopHebrewSongs
+
 
 
