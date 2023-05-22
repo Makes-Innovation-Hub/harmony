@@ -51,7 +51,13 @@ const ArtistSchema = new mongoose.Schema(
           },
         },
       }
-
 )
+
+ArtistSchema.pre("save", async function(next) {
+    if (this.albums && this.albums.length > 0) {
+        this.albums = this.albums.map(album => album.toLowerCase());
+      }
+      next();
+});
 
 export default mongoose.model("Artist", ArtistSchema);

@@ -63,4 +63,4 @@ const dummySongsArray = [
     }
 ]
 
-export {dummySong, dummySongsArray}
+export {dummySong, dummySongsArray, dummyArtist}

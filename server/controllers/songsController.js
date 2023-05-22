@@ -17,7 +17,7 @@ const createSongAndReturn = async(req) => {
 
   //Finding the artist using the song data (cross-referencing with artist name and the album of the song)
   const artistName = data.name.toLowerCase()
-  const album = data.album
+  const album = data.album.toLowerCase()
   const artist = getOrCreateArtist(artistName, album)
 
   const newSongObject = createSongOrArtistObject(data)
