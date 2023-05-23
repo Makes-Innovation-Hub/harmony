@@ -17,14 +17,20 @@ const init = () => {
 const openai = init();
 async function translateArtistName(artistName) {
   try {
-    const prompt = `translate from hebrow to english: "${artistName}"`;
-    const response = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: prompt }],
-    });
+    let translatedName = artistName;
+    const containsHebrew = /[א-ת]/.test(artistName);
 
-    const translatedName = response.data.choices[0].message.content;
-    return translatedName.trim();
+    if (containsHebrew) {
+      const prompt = `translate from Hebrew to English: "${artistName}"`;
+      const response = await openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        messages: [{ role: 'user', content: prompt }],
+      });
+
+      translatedName = response.data.choices[0].message.content.trim();
+    }
+
+    return translatedName;
   } catch (error) {
     throw new Error('Failed to process prompt: ' + error.message);
   }
@@ -73,10 +79,10 @@ async function getCoverArtForSong(songName, artistName) {
   
 async function exampleUsage() {
   try {
-    const albumName = await getAlbumFromSongAndArtist('לירז', 'סטטיק');
+    const albumName = await getAlbumFromSongAndArtist('Rayto', 'Nawal El Zoghbi');
     console.log('Album:', albumName);
 
-    const coverArt = await getCoverArtForSong('לירז', 'סטטיק');
+    const coverArt = await getCoverArtForSong('Rayto', 'Nawal El Zoghbi');
     console.log('Cover Art:', coverArt);
   } catch (error) {
     console.error('Error:', error.message);
