@@ -1,4 +1,4 @@
-import { styled } from 'styled-components'
+import styled from 'styled-components'
 
 const Wrapped = styled.div`
     width: 364px;
