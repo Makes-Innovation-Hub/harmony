@@ -110,16 +110,16 @@ async function getCoverArtForSong(songName, artistName) {
     console.error('Error:', error.message);
   }
 }
-async function exampleUsage() {
-  try {
-    const albumName = await getAlbumFromSongAndArtist('Hoodie', 'אנה זק, מרגי');
-    console.log('Album:', albumName);
+// async function exampleUsage() {
+//   try {
+//     const albumName = await getAlbumFromSongAndArtist('Hoodie', 'אנה זק, מרגי');
+//     console.log('Album:', albumName);
 
-    const coverArt = await getCoverArtForSong('Hoodie', 'אנה זק, מרגי');
-    console.log('Cover Art:', coverArt);
-  } catch (error) {
-    console.error('Error:', error.message);
-  }
-}
-exampleUsage();
+//     const coverArt = await getCoverArtForSong('Hoodie', 'אנה זק, מרגי');
+//     console.log('Cover Art:', coverArt);
+//   } catch (error) {
+//     console.error('Error:', error.message);
+//   }
+// }
+// exampleUsage();
 export { getAlbumFromSongAndArtist, getCoverArtForSong };
