@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { join, dirname } from "path";
 import {connectDB, closeDBConnection} from "./config/db.js";
 import scrappingRoutes from './routes/scrappingRoutes.js'
-
+import {getAlbumFromSongAndArtist, getCoverArtForSong} from './spotifyapi.js'; 
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -33,6 +33,21 @@ app.listen(
   console.log(`Server running in ${NODE_ENV}
   mode on port ${PORT}`)
 );
+app.get('/:songName/:artistName', async (req, res) => {
+  const { songName, artistName } = req.params;
+
+  try {
+    const [albumName, coverArt] = await Promise.all([
+      getAlbumFromSongAndArtist(songName, artistName),
+      getCoverArtForSong(songName, artistName)
+    ]);
+
+    res.json({ albumName, coverArt });
+  } catch (error) {
+    console.error('Error:', error.message);
+    res.status(500).json({ error: 'An error occurred.' });
+  }
+});
 
 
 process.on("unhandledRejection", (err, promise) => {
