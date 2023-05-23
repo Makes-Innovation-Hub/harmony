@@ -5,6 +5,7 @@ import scrapeTopArabicSongs from "../scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "../scrapping/scrappingTopHebrewSongs.js";
 import { findOrCreateSong } from "./songsController.js";
 import { dummySongsArray } from "../utils/createDummyData.js";
+import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 
 const getOrCreateEachSong = async (language) => {
       let scrapedTopSongs
@@ -49,6 +50,7 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
 //@route    GET /api/v1/harmony/topSongs
 // @access  Public
 const getTopSongs = asyncHandler(async (req, res, next) => {
+  const {date} = req.body
   const topSongs = await TopSongs.find().populate('songs')
   if (!topSongs) {
     return next(new ErrorResponse(`top songs not found`), 404);

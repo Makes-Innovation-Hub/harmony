@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import convertDateFormat from "../utils/convertDateFormat.js";
 
 const TopSongsSchema = new mongoose.Schema(
     {
@@ -25,16 +26,19 @@ const TopSongsSchema = new mongoose.Schema(
     {
         toJSON: {
           transform(_, ret) {
+            ret.date = convertDateFormat(ret.date);
             delete ret.__v;
           },
         },
         toObject: {
           transform(_, ret) {
+            ret.date = convertDateFormat(ret.date);
             delete ret.__v;
           },
         },
       }
 
 )
+
 
 export default mongoose.model("TopSongs", TopSongsSchema);
