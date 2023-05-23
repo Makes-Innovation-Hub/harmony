@@ -44,6 +44,9 @@ export default function TopSongGallary() {
               img={cover4}
               artist={song.artist}
               songName={song.songName}
+              onClick={() =>
+                handleSongClick(song.artist, song.songName)
+              }
             />
           ))}
         </ImageBoxContainer>
