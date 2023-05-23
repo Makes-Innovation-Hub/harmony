@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
+import SongRoute from './routes/songRoutes.js'
 import { connectDB, closeDBConnection } from "./config/db.js";
 import scrappingRoutes from "./routes/scrappingRoutes.js";
 import songsRouter from "./routes/songsRoutes.js";
@@ -17,12 +18,14 @@ dotenv.config({ path: join(__dirname, "./config/config.env") });
 const app = express();
 app.use(cors());
 
+
 app.use(express.json());
 
 app.use("/api/v1/", scrappingRoutes);
 app.use("/api/v1/harmony/songs", songsRouter);
 app.use("/api/v1/harmony/artists", artistsRouter);
 app.use("/api/v1/harmony/topSongs", topSongsRouter);
+app.use('/', SongRoute);
 
 app.use(errorHandler);
 
@@ -39,8 +42,10 @@ app.listen(
   mode on port ${PORT}`)
 );
 
+
 process.on("unhandledRejection", (err, promise) => {
   console.error(`Error: ${err.message}`);
   closeDBConnection();
   server.close(() => process.exit(1));
 });
+
