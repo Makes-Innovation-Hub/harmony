@@ -8,6 +8,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left:1rem ;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     min-width: 100%;
     gap: 1.5rem;
   }
@@ -27,6 +30,8 @@
     color: gray;
     font-size: 1rem;
     font-family: "ABeeZee Italic";
+    text-align: center;
+    line-height: 133%;
   }
 
   .translation-div {
@@ -39,5 +44,6 @@
     background-color: #d9d9d9;
     border-radius: 100%;
     padding: 0.5em 0.8em;
+    border: 1px solid rgba(234, 11, 11, 0);
   }
 }
