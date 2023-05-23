@@ -4,11 +4,13 @@ import Lyrics from "../components/Lyrics"
 import Header from "../components/Header"
 
 function SongPage() {
+  const artist = 'Electric Light Orchestra'
+  const title = 'Mr Blue Sky'
   return (
     <>
       <Header/>
       <SongDetails />
-      <Lyrics/>
+      <Lyrics artist={artist} title={title} />
     </>
   );
 }

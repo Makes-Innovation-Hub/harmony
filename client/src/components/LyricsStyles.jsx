@@ -50,6 +50,17 @@ export const Paragraph = styled.p`
   font-family: 'Aclonica';
   font-style: normal;
   line-height: 150%;
-  font-size: 1rem;
+  font-size: 0.7rem;
+  margin-bottom: 1.5rem;
+  margin-left: 0.5rem;
+`;
+
+export const TranslatedParagraph = styled.p`
+  font-weight: 400;
+  text-align: right;
+  font-family: 'Aclonica';
+  font-style: normal;
+  line-height: 150%;
+  font-size: 0.7rem;
   margin-bottom: 1.5rem;
 `;
