@@ -3,7 +3,7 @@ import TopSongs from "../models/TopSongs.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import scrapeTopArabicSongs from "../scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "../scrapping/scrappingTopHebrewSongs.js";
-import { getOrCreateSongAndReturn } from "./songsController.js";
+import { findOrCreateSong } from "./songsController.js";
 import { dummySongsArray } from "../utils/createDummyData.js";
 
 const getOrCreateEachSong = async (language) => {
@@ -19,7 +19,7 @@ const getOrCreateEachSong = async (language) => {
   const massagedResults = dummySongsArray
   const createdSongsIdArray = []
   for (const result of massagedResults){
-  const song = await getOrCreateSongAndReturn({body: result})
+  const song = await findOrCreateSong({body: result})
   const songId = song._id
   createdSongsIdArray.push(songId)
   }
