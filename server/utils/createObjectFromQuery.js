@@ -1,5 +1,5 @@
 const createObjectFromQuery = (data) => {
-    const {name, lyrics, originalLang, song, albums, album, youtubeURL, imgURL, date } = data
+    const {name, lyrics, originalLang, song, albums, album, youtubeURL, imgURL, date, language } = data
     const filteredValues = {}
     
     if (name !== undefined){
@@ -37,6 +37,9 @@ const createObjectFromQuery = (data) => {
     }
     if (date !== undefined){
       filteredValues.date = date
+    }
+    if (language !== undefined){
+      filteredValues.language = language
     }
     return filteredValues
 }

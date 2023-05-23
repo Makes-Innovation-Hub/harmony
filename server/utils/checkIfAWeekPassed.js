@@ -1,16 +1,10 @@
-const checkIfAWeekPassed = (dateString) => {
+const checkIfAWeekPassed =(date) =>{
   const currentDate = new Date();
-  const inputDate = new Date(dateString);
-
+  const inputDate = new Date(date)
   const timeDifference = currentDate.getTime() - inputDate.getTime();
 
-  const daysPassed = Math.floor(timeDifference / (1000 * 3600 * 24));
+  const weeksPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 7));
 
-  if (daysPassed >= 7) {
-    return true;
-  } else {
-    return false;
-  }
+  return weeksPassed >= 1;
 }
-
-export default checkIfAWeekPassed
+export default checkIfAWeekPassed;
