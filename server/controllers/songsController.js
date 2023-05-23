@@ -70,4 +70,4 @@ const createSong = asyncHandler(async (req, res, next) => {
     });
   });
 
-  export {getSongs, createSong, findSong, findOrCreateSong as getOrCreateSongAndReturn}
+  export {getSongs, createSong, findSong, findOrCreateSong}
