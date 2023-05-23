@@ -34,8 +34,6 @@ const findTopSongs = async() =>{
   if(topSongsArray.length > 0) return topSongsArray
 }
 
-
-
 // @desc    Create top songs
 //@route    POST /api/v1/harmony/topSongs
 // @access  Public
