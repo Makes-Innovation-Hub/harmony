@@ -75,7 +75,8 @@ const runPrompt = async (question) => {
 };
 
 // Example usage
-const question = `translate from english to hebrew : "Hello World 1"`;
+const question = `translate from hebrew to arabic: "שלום עולם"`;
+
 
 runPrompt(question)
   .then((result) => {
