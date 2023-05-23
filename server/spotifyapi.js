@@ -35,13 +35,30 @@ async function translateArtistName(artistName) {
     throw new Error('Failed to process prompt: ' + error.message);
   }
 }
+
 async function getAlbumFromSongAndArtist(songName, artistName) {
   try {
-    const translatedArtistName = await translateArtistName(artistName);
+    let translatedArtistName = artistName;
+    const containsHebrew = /[א-ת]/.test(artistName);
+
+    if (containsHebrew) {
+      translatedArtistName = '';
+    } else {
+      translatedArtistName = await translateArtistName(artistName);
+    }
+
     const data = await spotifyApi.clientCredentialsGrant();
     const accessToken = data.body.access_token;
     spotifyApi.setAccessToken(accessToken);
-    const searchResult = await spotifyApi.searchTracks(`${songName} artist:${translatedArtistName}`);
+
+    let searchQuery;
+    if (translatedArtistName) {
+      searchQuery = `${songName} artist:${translatedArtistName}`;
+    } else {
+      searchQuery = songName;
+    }
+
+    const searchResult = await spotifyApi.searchTracks(searchQuery);
     const track = searchResult.body.tracks.items[0];
     if (track) {
       const albumId = track.album.id;
@@ -55,34 +72,50 @@ async function getAlbumFromSongAndArtist(songName, artistName) {
     console.error('Error:', error.message);
   }
 }
+
 async function getCoverArtForSong(songName, artistName) {
-    try {
-      const translatedArtistName = await translateArtistName(artistName);
-      const data = await spotifyApi.clientCredentialsGrant();
-      const accessToken = data.body.access_token;
-      spotifyApi.setAccessToken(accessToken);
-      const searchResult = await spotifyApi.searchTracks(`${songName} artist:${translatedArtistName}`);
-      const track = searchResult.body.tracks.items[0];
-      if (track) {
-        const albumId = track.album.id;
-        const albumResult = await spotifyApi.getAlbum(albumId);
-        const album = albumResult.body;
-        const coverArt = album.images[0].url; 
-        return coverArt;
-      } else {
-        throw new Error('Song not found.');
-      }
-    } catch (error) {
-      console.error('Error:', error.message);
+  try {
+    let translatedArtistName = artistName;
+    const containsHebrew = /[א-ת]/.test(artistName);
+
+    if (containsHebrew) {
+      translatedArtistName = '';
+    } else {
+      translatedArtistName = await translateArtistName(artistName);
     }
+
+    const data = await spotifyApi.clientCredentialsGrant();
+    const accessToken = data.body.access_token;
+    spotifyApi.setAccessToken(accessToken);
+
+    let searchQuery;
+    if (translatedArtistName) {
+      searchQuery = `${songName} artist:${translatedArtistName}`;
+    } else {
+      searchQuery = songName;
+    }
+
+    const searchResult = await spotifyApi.searchTracks(searchQuery);
+    const track = searchResult.body.tracks.items[0];
+    if (track) {
+      const albumId = track.album.id;
+      const albumResult = await spotifyApi.getAlbum(albumId);
+      const album = albumResult.body;
+      const coverArt = album.images[0].url;
+      return coverArt;
+    } else {
+      throw new Error('Song not found.');
+    }
+  } catch (error) {
+    console.error('Error:', error.message);
   }
-  
+}
 async function exampleUsage() {
   try {
-    const albumName = await getAlbumFromSongAndArtist('Rayto', 'Nawal El Zoghbi');
+    const albumName = await getAlbumFromSongAndArtist('Hoodie', 'אנה זק, מרגי');
     console.log('Album:', albumName);
 
-    const coverArt = await getCoverArtForSong('Rayto', 'Nawal El Zoghbi');
+    const coverArt = await getCoverArtForSong('Hoodie', 'אנה זק, מרגי');
     console.log('Cover Art:', coverArt);
   } catch (error) {
     console.error('Error:', error.message);

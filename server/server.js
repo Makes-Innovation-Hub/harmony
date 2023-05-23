@@ -37,9 +37,16 @@ app.get('/:songName/:artistName', async (req, res) => {
   const { songName, artistName } = req.params;
 
   try {
+    let translatedArtistName = '';
+    const containsHebrew = /[א-ת]/.test(artistName);
+
+    if (!containsHebrew) {
+      translatedArtistName = await translateArtistName(artistName);
+    }
+
     const [albumName, coverArt] = await Promise.all([
-      getAlbumFromSongAndArtist(songName, artistName),
-      getCoverArtForSong(songName, artistName)
+      getAlbumFromSongAndArtist(songName, translatedArtistName),
+      getCoverArtForSong(songName, translatedArtistName)
     ]);
 
     res.json({ albumName, coverArt });
