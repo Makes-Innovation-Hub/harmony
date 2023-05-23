@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 import express from "express";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
-import { Configuration, OpenAIApi, createChatCompletion } from "openai";
-
+import pkg from "openai";
+const { Configuration, OpenAIApi } = pkg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -11,42 +11,54 @@ const app = express();
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
 
-const config = new Configuration({
-  apiKey: process.env.OPEN_AI_API_KEY
-});
+const init = () => {
+  const config = new Configuration({
+    apiKey: process.env.OPEN_AI_API_KEY,
+  });
+  return new OpenAIApi(config);
+};
 
-const openai = new OpenAIApi(config);
-
+const openai = init();
+const openAiInit = async (openai, prompt) => {
+  try {
+    return await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
+    });
+  } catch (error) {
+    throw new Error("OpenAI API request failed: " + error.message);
+  }
+};
 const runPrompt = async (question) => {
   const prompt = question;
-  const chatRequest = {
-    messages: [{ role: "system", content: "/start" }, { role: "user", content: prompt }],
-    model: "gpt-3.5-turbo",
-    max_tokens: 2048,
-    temperature: 1
-  };
+  try {
+    const response = await openAiInit(openai, prompt);
+    const parsableJSONresponse = response.data.choices[0].message.content;
 
-  const response = await openai.createChatCompletion(chatRequest);
-
-  const parsableJSONresponse = response.data.choices[0].message.content;
-
-  if (
-    question.includes("from english to hebrew") ||
-    question.includes("from english to arabic")
-  ) {
-    return parsableJSONresponse.split("").reverse().join("");
-  } else {
-    return parsableJSONresponse;
+    if (
+      question.includes("from english to hebrew") ||
+      question.includes("from english to arabic")
+    ) {
+      return parsableJSONresponse.split("").reverse().join("");
+    } else {
+      return parsableJSONresponse;
+    }
+  } catch (error) {
+    throw new Error("Failed to process prompt: " + error.message);
   }
 };
 
+// Example usage
+const question = `translate from english to hebrew : "Hello World 1"`;
 
-const question_EN_HE = `translate from english to hebrew : "Hello World 1"`;
-
-const result = await runPrompt(question_EN_HE);
-console.log(result);
+runPrompt(question)
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((error) => {
+    console.error("An error occurred:", error);
+  });
