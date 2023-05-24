@@ -25,9 +25,6 @@ app.use("/api/v1/", scrappingRoutes);
 app.use("/api/v1/harmony/songs", songsRouter);
 app.use("/api/v1/harmony/artists", artistsRouter);
 app.use("/api/v1/harmony/topSongs", topSongsRouter);
-app.use('/', SongRoute);
-
-app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
