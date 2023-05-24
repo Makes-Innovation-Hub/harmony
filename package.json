@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "instAll": "npm i --prefix ./client; npm i prefix ./server",
+    "installAll": "npm i --prefix ./client; npm i --prefix ./server",
     "buildClient": "npm run build --prefix ./client"
   },
   "repository": {
