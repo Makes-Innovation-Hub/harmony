@@ -3,6 +3,7 @@ import { hebrewSongsApi } from '../api/hebrewApiSlice'
 import { arabicSongsApi } from '../api/arabicApiSlice'
 import { lyricsApi } from '../api/lyricsApiSlice'
 
+
 export default configureStore({
   reducer: {
     [hebrewSongsApi.reducerPath]: hebrewSongsApi.reducer,
@@ -17,6 +18,3 @@ export default configureStore({
     ]);
   },
 });
-
-
-
