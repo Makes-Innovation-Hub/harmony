@@ -1,22 +1,56 @@
-import React from 'react';
-import { Header, LyricsSection, LyricsWrapper, Paragraph } from './HeaderStyle';
+import {
+  LyricsSection,
+  LyricsWrapper,
+  TranslationWrapper,
+  SongTitle,
+  Status,
+  Paragraph,
+  TranslatedParagraph,
+} from "./LyricsStyles";
+import { useGetLyricsQuery } from "../api/lyricsApi";
+import "./Header.css";
 
-
-const Lyrics = () => {
+const Lyrics = ({ artist, title, lyrics }) => {
   return (
     <LyricsSection>
+      <TranslationWrapper>
+        <Status>Translation</Status>
+        <SongTitle>מול עיני</SongTitle>
+        <TranslatedParagraph>
+          יש בינינו פגישה, גם אם אנחנו רחוקים בטוח שאחזור גם אם ביני ובינו יש
+          ארצות מול עיני בכל מקום.
+        </TranslatedParagraph>
+        <TranslatedParagraph>
+          ופעם הבאה בטח ניפגש אני ממש וכולי אהבתינו ולא אמכור בחיים לאף אחד, מול
+          עיני.
+        </TranslatedParagraph>
+        <TranslatedParagraph>
+          ואני לא יכול עם הימים ואין מילים לתאר את זה והלילה שלי מתארך וכשאני
+          נרדם, מול עיני. מול עיני בכל מקום.
+        </TranslatedParagraph>
+        <TranslatedParagraph>
+          ביום שניפגש, בינינו הבטחות וגם בחסרונה עדיין התקווה נמצאת מול עיני,
+          בכל מקום
+        </TranslatedParagraph>
+      </TranslationWrapper>
       <LyricsWrapper>
-        <Header>Translation</Header>
+        <Status>Original</Status>
+        <SongTitle>قصاد عینی</SongTitle>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab
-          quod iure magni ut vitae dicta iste ad accusantium at.
+          و بینا معاد، لو احنا بعاد أکید راجع و لو بینی و بینه بلاد قصاد عینی،
+          فی کل مکان
         </Paragraph>
-      </LyricsWrapper>
-      <LyricsWrapper>
-        <Header>Original</Header>
         <Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ab
-          quod iure magni ut vitae dicta iste ad accusantium at.
+          و من تانی أکید راجعین أنا دایب و کللی حنین و لا عمری أبیع لو مین قصاد
+          عینی
+        </Paragraph>
+        <Paragraph>
+          و مش قادر على الأیام و لا یوصف هوایا کلام و طول لیلی و لما بنام، قصاد
+          عینی قصاد عینی، فی کل مکان
+        </Paragraph>
+        <Paragraph>
+          فی یوم هنعود، ده بیننا وعود و فی غیابه أکید لسه الأمل موجود قصاد عینی،
+          فی کل مکان
         </Paragraph>
       </LyricsWrapper>
     </LyricsSection>
