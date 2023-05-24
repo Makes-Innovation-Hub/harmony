@@ -32,4 +32,11 @@ html {
     background-color: red;
     width: 10%;
   }
+
+  .svg-search{
+    margin-left: 1rem;
+    padding: 1rem;
+    background: rgba(149, 112, 255, 0.19);
+    border-radius: 50%;
+  }
   
