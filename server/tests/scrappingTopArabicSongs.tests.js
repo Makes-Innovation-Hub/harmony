@@ -6,8 +6,8 @@ import chai from "chai";
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-describe("Test suite", function () {
-  it("Test the scrapeTopArabicSongs function", async function () {
+describe("Test suite for scrapeTopArabicSongs function", function () {
+  it("should scrape and return top Arabic songs as an object", async function () {
     const req = {};
     const res = {
       json: function (results) {
@@ -17,8 +17,7 @@ describe("Test suite", function () {
 
     await scrapeTopArabicSongs(req, res);
   });
-  it("GET /api/v1/top-arabic-songs should return the correct number of songs", function (done) {
-    chai;
+  it("should check Arabic top song endpoint and  ensures that the number of songs in the response object is exactly 10", function (done) {
     chai
       .request(app)
       .get("/api/v1/topArabicSongs")
