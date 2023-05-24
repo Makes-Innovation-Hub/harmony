@@ -4,6 +4,6 @@ import { translatingFunction } from '../utils/translatingFunction.js'
 
 const translationRouter = express.Router()
 
-translationRouter.route('/').get(translatingFunction)
+translationRouter.route('/').post(translatingFunction)
 
 export default translationRouter
