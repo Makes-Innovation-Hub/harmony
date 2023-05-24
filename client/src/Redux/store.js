@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { hebrewSongsApi } from '../api/hebrewApiSlice'
 import { arabicSongsApi } from '../api/arabicApiSlice'
-import { lyricsApi } from "../api/lyricsApi";
+import { lyricsApi } from '../api/lyricsApiSlice'
+
 
 export default configureStore({
   reducer: {
@@ -17,6 +18,3 @@ export default configureStore({
     ]);
   },
 });
-
-
-

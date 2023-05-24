@@ -1,1 +1,1 @@
-export const topSongsScrappingRoute = "http://localhost:5000/api/v1/";
+export const serverApiUrl = "http://localhost:5000/api/v1/";
