@@ -3,7 +3,7 @@ import chai from "chai";
 
 const expect = chai.expect;
 
-describe("Test suite for scrapeTopHebrewSongs function", function () {
+describe("Test suite for scrapeTopHebrewSongs function", async function () {
   this.timeout(10000);
 
   it("should scrape and return top Hebrew songs", async function () {

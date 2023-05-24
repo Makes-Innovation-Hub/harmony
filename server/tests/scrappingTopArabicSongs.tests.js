@@ -1,31 +1,27 @@
-import scrapeTopArabicSongs from "../scrapping/scrappingTopArabicSongs.js";
-import app from "../server.js";
-import chaiHttp from "chai-http";
 import chai from "chai";
 
 const expect = chai.expect;
-chai.use(chaiHttp);
 
 describe("Test suite for scrapeTopArabicSongs function", function () {
-  it("should scrape and return top Arabic songs as an object", async function () {
-    const req = {};
-    const res = {
-      json: function (results) {
-        expect(results).to.be.an("object");
-      },
-    };
+  it("should check Arabic top song endpoint & data", async function () {
+    this.timeout(10000);
 
-    await scrapeTopArabicSongs(req, res);
-  });
-  it("should check Arabic top song endpoint and  ensures that the number of songs in the response object is exactly 10", function (done) {
-    chai
-      .request(app)
-      .get("/api/v1/topArabicSongs")
-      .end(function (err, res) {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an("object");
-        expect(Object.keys(res.body)).to.have.lengthOf(10);
-        done();
-      });
+    const response = await fetch("http://localhost:5000/api/v1/topArabicSongs");
+
+    expect(response.status).to.be.equal(200);
+
+    const data = await response.json();
+
+    expect(data).to.be.an("object");
+    expect(Object.keys(data)).to.have.lengthOf(10);
+    expect(Object.values(data)).to.have.lengthOf(10);
+
+    Object.keys(data).forEach((key) => {
+      expect(key).to.be.a("string");
+    });
+
+    Object.values(data).forEach((value) => {
+      expect(value).to.be.a("string");
+    });
   });
 });
