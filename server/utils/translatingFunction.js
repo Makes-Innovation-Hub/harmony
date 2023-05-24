@@ -1,8 +1,8 @@
-import asyncHandler from "../middleware/asyncHandler";
+import asyncHandler from "../middleware/asyncHandler.js";
 
 import Song from "../models/Song.js";
 
-import { translateLyricsByOpenAi } from "./openAiTranslation";
+import { translateLyricsByOpenAi } from "./openAiTranslation.js";
 
 async function searchSongByLyrics(originalLang, lyrics) {
     try {
@@ -29,27 +29,29 @@ export const translatingFunction = asyncHandler(async (req, res, next) => {
     const lyrics = req.body.lyrics
     const targetLanguage = req.body.targetLanguage
 
-    const lyricsTranslation = await searchSongByLyrics(originalLanguage, lyrics)
+    const song = await searchSongByLyrics(originalLanguage, lyrics)
 
-    if (lyricsTranslation && lyricsTranslation.lyrics.targetLanguage !== undefined) {
+    if (song && song.lyrics[targetLanguage]) {
         res.status(200).json({
             success: true,
-            data: lyricsTranslation.lyrics.targetLanguage
+            data: song.lyrics[targetLanguage]
         })
     } else {
         const targetLyrics = await translateLyricsByOpenAi(lyrics, originalLanguage, targetLanguage)
         if (targetLyrics) {
             // Store the translated lyrics in the database
-            if (lyricsTranslation) {
+            if (song) {
               // Update the existing song record
-              lyricsTranslation.lyrics[targetLanguage] = targetLyrics;
-              await lyricsTranslation.save();
+              song.lyrics[targetLanguage] = targetLyrics;
+              await song.save();
             } else {
               // Create a new song record
               const newSong = new Song({
+                artist: artist,
                 originalLang: originalLanguage,
                 lyrics: {
                   [targetLanguage]: targetLyrics,
+                  [originalLanguage]: lyrics
                 },
               });
               await newSong.save();

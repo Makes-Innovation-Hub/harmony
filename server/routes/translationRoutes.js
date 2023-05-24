@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { translatingFunction } from '../utils/translatingFunction'
+import { translatingFunction } from '../utils/translatingFunction.js'
 
 const translationRouter = express.Router()
 

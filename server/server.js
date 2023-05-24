@@ -9,6 +9,7 @@ import scrappingRoutes from "./routes/scrappingRoutes.js";
 import songsRouter from "./routes/songsRoutes.js";
 import artistsRouter from "./routes/artistsRoutes.js";
 import topSongsRouter from "./routes/topSongsRoutes.js";
+import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -25,6 +26,10 @@ app.use("/api/v1/", scrappingRoutes);
 app.use("/api/v1/harmony/songs", songsRouter);
 app.use("/api/v1/harmony/artists", artistsRouter);
 app.use("/api/v1/harmony/topSongs", topSongsRouter);
+app.use('/', SongRoute);
+app.use('/api/v1/harmony/translate', translationRouter)
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
@@ -32,6 +37,7 @@ const NODE_ENV = process.env.NODE_ENV;
 let server;
 
 connectDB();
+
 
 app.listen(
   PORT,

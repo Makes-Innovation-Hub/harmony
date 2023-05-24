@@ -4,7 +4,8 @@ import axios from 'axios'
 export async function translateLyricsByOpenAi(lyrics, originalLanguage, targetLanguage) {
   const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
-  const prompt = `Translate the following song lyrics from ${originalLanguage} to ${targetLanguage}:\n\n"${lyrics}"\n\nTranslate:`;
+  
+  const prompt = `Translate the following song lyrics from ${originalLanguage} to ${targetLanguage}:\n\n ${lyrics} \n\nTranslate:`;
   const messages = [
     { role: 'system', content: prompt },
     { role: 'user', content: lyrics },
