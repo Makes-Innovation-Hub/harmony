@@ -16,13 +16,12 @@ const HomeSearchBar = () => {
       },
       body: JSON.stringify({ searchTerm }),
     })
-      .then((response) => response.json()) // Parse the response as JSON
+      .then((response) => response.json()) 
       .then((data) => {
         // Handle the response data
         console.log(data);
       })
       .catch((error) => {
-        // Handle the error
         console.error('Search error:', error);
       });
   };
