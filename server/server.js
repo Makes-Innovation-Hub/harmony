@@ -28,6 +28,7 @@ app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));
 });
 
+
 app.use(express.json());
 
 app.use("/api/v1/", scrappingRoutes);
