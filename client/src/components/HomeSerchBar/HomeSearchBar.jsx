@@ -19,7 +19,6 @@ const HomeSearchBar = () => {
       .then((response) => response.json()) // Parse the response as JSON
       .then((data) => {
         // Handle the response data
-        // For example, you can access the data and perform actions accordingly
         console.log(data);
       })
       .catch((error) => {
