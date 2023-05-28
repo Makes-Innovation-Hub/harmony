@@ -5,6 +5,7 @@ import SongPage from './pages/SongPage'
 import ArtistPage from './pages/ArtistPage'
 import NotFoundPage from './pages/NotFoundPage'
 import TranslatingPage from './pages/TranslatingPage'
+import SearchResults from './pages/SearchResults'
 import { useState } from 'react'
 import Header from "./components/Header";
 import "./App.css";
@@ -30,6 +31,10 @@ const Router = createBrowserRouter([
         path: '/not-found',
         element: <NotFoundPage />,
     },
+    {
+        path: '/results',
+        element: <SearchResults />
+    }
 ])
 
 function App() {
