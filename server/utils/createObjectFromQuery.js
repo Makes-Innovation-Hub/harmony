@@ -7,7 +7,7 @@ const createObjectFromQuery = (data) => {
         filteredValues['name.hebrew'] = name.hebrew
       }
       if (name.english) {
-        filteredValues['name.english'] = name.english
+        filteredValues['name.english'] = new RegExp(`^${name.english}`, 'i');
       }
      
       if (name.arabic) {

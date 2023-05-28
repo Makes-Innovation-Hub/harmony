@@ -34,6 +34,12 @@ const findOrCreateArtist = async(name, album) => {
 // @desc    Get artists by name
 //@route    GET /api/v1/harmony/artists
 // @access  Public
+//Use the following structure to query (case insensitive): 
+// {
+//     "name": {
+//       "hebrew": "אמן"
+//   }
+// }
 const getArtists = asyncHandler(async (req, res, next) => {
     const artistsArray = await findArtist(req)
     if (!artistsArray) {

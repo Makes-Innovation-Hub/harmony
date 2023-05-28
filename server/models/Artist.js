@@ -20,7 +20,7 @@ const ArtistSchema = new mongoose.Schema(
                 type: String,
                 required: [true, "please add artist name in English"],
                 trim: true,
-                maxlength: [100, "Name can not be more than 100 characters"]
+                maxlength: [100, "Name can not be more than 100 characters"],
             },
         },
         songs:[ 
