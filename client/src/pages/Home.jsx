@@ -1,11 +1,11 @@
 import Header from "../components/Header";
 import TopSongGallary from "../components/TopSongGallary/TopSongGallary";
-import Searchbar from "../components/Searchbar"
+import Search from "../components/Searchbar"
 export default function Home() {
   return (
     <>
       <Header />
-      <Searchbar/>
+      <Search/>
       <TopSongGallary/>
     </>
   );

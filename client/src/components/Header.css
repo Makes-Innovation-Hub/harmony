@@ -36,10 +36,11 @@ html {
 .us {
     width: 10%;
   }
-  .svg-search{
+
+  .search{
+    background-color:rgba(149, 112, 255, 0.19); 
     margin-left: 1rem;
-    padding: 1rem;
-    background: rgba(149, 112, 255, 0.19);
+    padding: 0.5rem;
     border-radius: 50%;
   }
   

@@ -56,7 +56,8 @@ export const SearchIcon = styled.img`
   background-image: url(${Ellipse2}); 
   background-size: cover;
   background-repeat: no-repeat;
-  border-radius: 50%;
+  border-radius: 100%;
+  z-index: 0;
 `;
 
 
