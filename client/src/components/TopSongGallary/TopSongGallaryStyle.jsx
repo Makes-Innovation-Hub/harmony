@@ -8,7 +8,7 @@ export const SongGallary = styled.div`
   width: 100%;
   display:flex;
   flex-direction:column;
-  margin-top:30%;
+  margin-top:-5%;
   }`;
 export const TopHSongCountainer = styled.div`
   border-radius: 8px;
