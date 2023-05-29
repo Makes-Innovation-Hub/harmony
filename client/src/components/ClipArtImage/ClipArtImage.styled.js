@@ -5,6 +5,5 @@ import styled from "styled-components";
   position: absolute;
   top: 0;
   left: 0;
- 
 `;
 export default Image

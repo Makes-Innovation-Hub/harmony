@@ -3,10 +3,11 @@ import ContentWrapper from "../components/ContentWrapper/ContentWrapper"
 import FlexGrowContainer from "../components/FlexGrowContainer/FlexGrowContainer"
 import Header from "../components/Header"
 import ThreeLangNames from "../components/ThreeLnagNames/ThreeLangNames"
+import TranslationSymbolsGroup from "../components/TraslationSymbolsGroup/TranslationSymbolsGroup"
 
 function ArtistPage() {
   return (
-  <ContentWrapper padding={'.5rem'} justifyContent='flex-start'>
+  <ContentWrapper padding={'.5rem'} justifyContent='flex-start' minHeight='100vh'>
   <FlexGrowContainer flexGrow='1'>
     <Header/>
   </FlexGrowContainer>
@@ -19,7 +20,7 @@ function ArtistPage() {
     </FlexGrowContainer>
 
     <FlexGrowContainer flexGrow='60'>
-      
+      <TranslationSymbolsGroup></TranslationSymbolsGroup>
     </FlexGrowContainer>
   </ContentWrapper>
   )
