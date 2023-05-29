@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { topSongsScrappingRoute } from '../constants/urls'
+import { serverApiUrl } from "../constants/urls";
 
 export const hebrewSongsApi = createApi({
   reducerPath: "hebrewSongsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: topSongsScrappingRoute }),
+  baseQuery: fetchBaseQuery({ baseUrl: serverApiUrl }),
   endpoints: (builder) => ({
     getTopHebrewSongs: builder.query({
       query: () => "topHebrewSongs",
