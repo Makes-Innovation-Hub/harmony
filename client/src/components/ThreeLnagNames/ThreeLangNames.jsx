@@ -1,12 +1,12 @@
 import Wrapper from "./ThreeLangNames.styled";
 
-function ThreeLangNames({arabicName, hebrewName, englishName}){
+function ThreeLangNames({arabicName, hebrewName, englishName, fontSize, lineHeight}){
     return (
         <>
-        <Wrapper>
-            <h2>{englishName}</h2>
-            <h2>{hebrewName}</h2>
-            <h2>{arabicName}</h2>
+        <Wrapper style={{fontSize: `${fontSize}`, lineHeight: `${lineHeight}`}}>
+            <p>{englishName}</p>
+            <p>{hebrewName}</p>
+            <p>{arabicName}</p>
         </Wrapper>
         </>
     )

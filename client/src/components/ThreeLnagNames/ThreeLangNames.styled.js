@@ -10,9 +10,9 @@ const Wrapper = styled.div`
     margin-top: 5px;
     margin-bottom: 5px;
 
-    h2 {
+    p {
     color: #333333;
-    font-size: 1.15rem;
+    font-size: 1.15rem;   
     font-family: "ABeeZee Italic";
     text-align: center;
     line-height: 133%;
