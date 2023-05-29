@@ -3,23 +3,29 @@ import Wrapped from './HomeSearchBarStyle.js';
 
 const HomeSearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const inputHandler = (e) => {
     setSearchTerm(e.target.value);
   };
 
   const sendSearchRequest = () => {
-    fetch('/api/search', {
+    if (!searchTerm) {
+      setErrorMessage('Please insert text in English, Hebrew, or Arabic');
+      return;
+    }
+
+    fetch('http://localhost:5000/api/search', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ searchTerm }),
     })
-      .then((response) => response.json()) 
+      .then((response) => response.json())
       .then((data) => {
-        // Handle the response data
         console.log(data);
+        setErrorMessage('');
       })
       .catch((error) => {
         console.error('Search error:', error);
@@ -50,12 +56,9 @@ const HomeSearchBar = () => {
           </svg>
         </button>
       </div>
-      <p className="error-message">
-        Please insert text in English, Hebrew, or Arabic
-      </p>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </Wrapped>
   );
 };
 
 export default HomeSearchBar;
-
