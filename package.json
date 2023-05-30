@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-        "lint": "eslint --quiet --fix",
+    "lint": "eslint --quiet --fix",
     "prepare": "husky install",
     "installAll": "npm i --prefix ./client; npm i --prefix ./server",
     "buildClient": "npm run build --prefix ./client"
