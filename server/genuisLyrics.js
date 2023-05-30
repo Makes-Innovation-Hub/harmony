@@ -13,10 +13,9 @@ async function getLyricsForSong(songName, artistName) {
       },
     });
     const searchResult = response.data.response.hits[0];
-    // console.log(searchResult)
+    console.log(searchResult)
     if (searchResult) {
       const songId = searchResult.result.id;
-      // console.log(songId)
       const songResponse = await axios.get(`https://api.genius.com/songs/${songId}`, {
         headers: {
           Authorization: `Bearer ${process.env.GENIUS_API_KEY}`,
