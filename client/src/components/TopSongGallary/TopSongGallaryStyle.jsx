@@ -8,7 +8,7 @@ export const SongGallary = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 15%;
+    margin-top: 12%;
   }
 `;
 export const TopHSongCountainer = styled.div`
@@ -40,7 +40,7 @@ export const Title = styled.h2`
     font-size: 1.2rem;
     color: #333333;
     font-style: italic;
-    margin-left: 4%;
+    margin-left: 8%;
     line-height: 1.912;
     font-family: "ABeeZee";
   }
@@ -48,7 +48,7 @@ export const Title = styled.h2`
 export const ImageBoxContainer = styled.div`
   overflow-x: auto;
   white-space: nowrap;
-  margin-left: 2%;
+  margin-left: 5%;
   overflow-y: hidden;
   & > ${ImageBox} {
     margin-right: -0.25rem;
@@ -82,7 +82,7 @@ export const Box = styled.div`
     box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
     backdrop-filter: blur(8px);
     border-radius: 8px 8px 12px 12px;
-    margin-top: -3.12rem;
+    margin-top: -3.4rem;
     width: 6.4rem;
     margin-left: 0.6rem;
   }
