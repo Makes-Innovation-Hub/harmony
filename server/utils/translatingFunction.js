@@ -1,21 +1,30 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 
 import Song from "../models/Song.js";
+import Artist from "../models/Artist.js";
 
 import { translateLyricsByOpenAi } from "./openAiTranslation.js";
 
-async function searchSongByLyrics(originalLang, lyrics) {
-    try {
-      const query = {
-        originalLang: originalLang,
-        $or: [
-          { 'lyrics.hebrew': lyrics },
-          { 'lyrics.arabic': lyrics },
-          { 'lyrics.english': lyrics }
-        ]
-      };
+async function searchArtistSong(songName, artist) {
+    // try {
+    //   const query = {
+    //     originalLang: originalLang,
+    //     $or: [
+    //       { 'lyrics.hebrew': lyrics },
+    //       { 'lyrics.arabic': lyrics },
+    //       { 'lyrics.english': lyrics }
+    //     ]
+    //   };
   
-      const song = await Song.findOne(query);
+    //   const song = await Song.findOne(query);
+    //   return song;
+    // } catch (error) {
+    //   console.error(error);
+    //   return null;
+    // }
+    try {
+      const songArtist = await Artist.findById(artist)
+      const song = songArtist.find({'songs.name': songName}).populate('songs')
       return song;
     } catch (error) {
       console.error(error);
@@ -28,8 +37,10 @@ export const translatingFunction = asyncHandler(async (req, res, next) => {
     const artist = req.body.artist
     const lyrics = req.body.lyrics
     const targetLanguage = req.body.targetLanguage
+    const songName = req.body.songName
 
-    const song = await searchSongByLyrics(originalLanguage, lyrics)
+    const song = await searchArtistSong(originalLanguage, songName, artist)
+    console.log("song is:", song)
 
     if (song && song.lyrics[targetLanguage]) {
         res.status(200).json({
@@ -43,6 +54,7 @@ export const translatingFunction = asyncHandler(async (req, res, next) => {
             if (song) {
               // Update the existing song record
               song.lyrics[targetLanguage] = targetLyrics;
+              console.log('ok....')
               await song.save();
             } else {
               // Create a new song record
@@ -54,6 +66,7 @@ export const translatingFunction = asyncHandler(async (req, res, next) => {
                   [originalLanguage]: lyrics
                 },
               });
+              console.log('cant save song...')
               await newSong.save();
             }
       
