@@ -5,6 +5,7 @@ import { useSearchMutation } from "../../api/searchsliceApi.js";
 const HomeSearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [searchMutation] = useSearchMutation();
 
   const inputHandler = (e) => {
     setSearchTerm(e.target.value);
@@ -13,20 +14,11 @@ const HomeSearchBar = () => {
   const sendSearchRequest = () => {
     if (!searchTerm) {
       setErrorMessage("Please insert text in English, Hebrew, or Arabic");
-      useSearchMutation.mutate(searchTerm);
       return;
     }
 
-    fetch("http://localhost:5000/api/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ searchTerm }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+    searchMutation(searchTerm)
+      .then(() => {
         setErrorMessage("");
       })
       .catch((error) => {
