@@ -11,7 +11,7 @@ import artistsRouter from "./routes/artistsRoutes.js";
 import topSongsRouter from "./routes/topSongsRoutes.js";
 import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
-import searchRoutes from "./routes/searchRoutes.js"
+import searchRoutes from "./routes/searchRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,24 +22,21 @@ app.use(cors());
 
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
-app.use("/api/v1/", scrappingRoutes);
-
 app.use(express.static(join(__dirname, "../client/dist")));
 
-app.get("/", (req, res) => {
+app.get("/homePage", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));
 });
 
-
 app.use(express.json());
 
-app.use("/api/v1/", scrappingRoutes);
 app.use("/api/v1/harmony/songs", songsRouter);
 app.use("/api/v1/harmony/artists", artistsRouter);
 app.use("/api/v1/harmony/topSongs", topSongsRouter);
-app.use('/', SongRoute);
-app.use('/api/v1/harmony/translate', translationRouter)
-app.use('/api/search', searchRoutes);
+app.use("/api/v1/harmony/translate", translationRouter);
+app.use("/api/v1/", scrappingRoutes);
+app.use("/api/search", searchRoutes);
+app.use("/", SongRoute);
 
 app.use(errorHandler);
 
@@ -49,7 +46,6 @@ const NODE_ENV = process.env.NODE_ENV;
 let server;
 
 connectDB();
-
 
 app.listen(
   PORT,
