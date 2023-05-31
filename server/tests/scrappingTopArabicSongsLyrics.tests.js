@@ -14,8 +14,14 @@ describe("Test suite for scrapeTopArabicSongsLyrics function", function () {
 
     const response = await axios.post("http://localhost:5000/api/v1/topArabicSongsLyrics", requestBody);
 
+    const data = response.data;
+
+    expect(Array.isArray(data)).to.be.true;  
     expect(response.status).to.be.equal(200);
     expect(typeof requestBody.artistName).to.be.equal("string");
     expect(typeof requestBody.songName).to.be.equal("string");  
+    
+    const dataTypes = data.map((item) => typeof item);
+    expect(dataTypes.every((type) => type === "string")).to.be.true;
   });
 });
