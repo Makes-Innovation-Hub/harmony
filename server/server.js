@@ -11,6 +11,7 @@ import artistsRouter from "./routes/artistsRoutes.js";
 import topSongsRouter from "./routes/topSongsRoutes.js";
 import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
+import searchRoutes from "./routes/searchRoutes.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -38,6 +39,7 @@ app.use("/api/v1/harmony/artists", artistsRouter);
 app.use("/api/v1/harmony/topSongs", topSongsRouter);
 app.use('/', SongRoute);
 app.use('/api/v1/harmony/translate', translationRouter)
+app.use('/api/search', searchRoutes);
 
 app.use(errorHandler);
 
