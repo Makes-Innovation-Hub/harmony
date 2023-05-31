@@ -5,8 +5,6 @@ import { genArabicLyricsUrl } from "../utils/arabicLyricsUrl.js";
 
 async function scrapeTopArabicSongsLyrics(req,res) {
   
-  console.log(req);
-  console.log(req.body)
   const artistName = req.body.artistName
   const songName = req.body.songName
 
