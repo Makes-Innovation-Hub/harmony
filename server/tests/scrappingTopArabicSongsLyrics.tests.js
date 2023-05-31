@@ -20,7 +20,7 @@ describe("Test suite for scrapeTopArabicSongsLyrics function", function () {
     expect(response.status).to.be.equal(200);
     expect(typeof requestBody.artistName).to.be.equal("string");
     expect(typeof requestBody.songName).to.be.equal("string");  
-    
+
     const dataTypes = data.map((item) => typeof item);
     expect(dataTypes.every((type) => type === "string")).to.be.true;
   });
