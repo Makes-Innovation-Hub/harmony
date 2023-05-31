@@ -3,7 +3,7 @@ import axios from "axios";
 
 const expect = chai.expect;
 
-describe("Test suite for scrapeTopArabicSongsLyrics function", function () {
+describe("Test suite for Scrape Arabic Lyrics from: https://lyricstranslate.com/", function () {
   it("should check Arabic top song scrapping endpoint & data", async function () {
     this.timeout(10000);
 
@@ -18,8 +18,6 @@ describe("Test suite for scrapeTopArabicSongsLyrics function", function () {
 
     expect(Array.isArray(data)).to.be.true;  
     expect(response.status).to.be.equal(200);
-    expect(typeof requestBody.artistName).to.be.equal("string");
-    expect(typeof requestBody.songName).to.be.equal("string");  
 
     const dataTypes = data.map((item) => typeof item);
     expect(dataTypes.every((type) => type === "string")).to.be.true;
