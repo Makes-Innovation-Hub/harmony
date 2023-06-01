@@ -1,4 +1,5 @@
 import axios from "axios";
+import logger from "../logger.js";
 import * as cheerio from "cheerio";
 import { arabTopSongsUrl } from "../constants/urls.js";
 
@@ -23,11 +24,10 @@ async function scrapeTopArabicSongs(req, res) {
         return false;
       }
     });
-
+    logger.info("Top Arabic Songs Scrapped");
     res.json(results);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
   }
 }
 export default scrapeTopArabicSongs;
-

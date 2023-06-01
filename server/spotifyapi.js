@@ -1,6 +1,7 @@
-import SpotifyWebApi from 'spotify-web-api-node';
-import dotenv from 'dotenv';
-dotenv.config({ path: './config/config.env' });
+import SpotifyWebApi from "spotify-web-api-node";
+import dotenv from "dotenv";
+import logger from "./logger.js";
+dotenv.config({ path: "./config/config.env" });
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
@@ -28,10 +29,10 @@ async function getAlbumFromSongAndArtist(songName, artistName) {
       const album = albumResult.body;
       return album.name;
     } else {
-      throw new Error('Song not found.');
+      throw new Error("Song not found.");
     }
   } catch (error) {
-    console.error('Error:', error.message);
+    logger.error("Error:", error.message);
   }
 }
 
@@ -62,13 +63,12 @@ async function getCoverArtForSong(songName, artistName) {
         const fallbackCoverArt = fallbackTrack.album.images[0].url;
         return fallbackCoverArt;
       } else {
-        throw new Error('Song not found.');
+        throw new Error("Song not found.");
       }
     }
   } catch (error) {
-    console.error('Error:', error.message);
+    logger.error("Error:", error.message);
   }
 }
-
 
 export { getAlbumFromSongAndArtist, getCoverArtForSong };
