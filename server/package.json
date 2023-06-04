@@ -24,7 +24,10 @@
     "mongoose": "^7.1.1",
     "openai": "^3.2.1",
     "puppeteer": "^20.2.1",
-    "spotify-web-api-node": "^5.0.2"
+    "sinon": "^15.1.0",
+    "sinon-chai": "^3.7.0",
+    "spotify-web-api-node": "^5.0.2",
+    "uninstall": "^0.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22",

@@ -22,6 +22,7 @@ app.use(cors());
 
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
+
 app.use(express.static(join(__dirname, "../client/dist")));
 
 app.get("/homePage", (req, res) => {
@@ -33,9 +34,13 @@ app.use(express.json());
 app.use("/api/v1/harmony/songs", songsRouter);
 app.use("/api/v1/harmony/artists", artistsRouter);
 app.use("/api/v1/harmony/topSongs", topSongsRouter);
+
+
+app.use("/api/v1/", scrappingRoutes);
 app.use("/api/v1/harmony/translate", translationRouter);
 app.use("/api/v1/", scrappingRoutes);
 app.use("/api/search", searchRoutes);
+
 app.use("/", SongRoute);
 
 app.use(errorHandler);
@@ -43,7 +48,6 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
 
-let server;
 
 connectDB();
 
@@ -56,6 +60,5 @@ app.listen(
 process.on("unhandledRejection", (err, promise) => {
   console.error(`Error: ${err.message}`);
   closeDBConnection();
-  server.close(() => process.exit(1));
-  closeDBConnection();
+  // app.close(() => process.exit(1));
 });
