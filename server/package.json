@@ -30,6 +30,7 @@
     "uninstall": "^0.0.0"
   },
   "devDependencies": {
+    "@babel/register": "^7.21.0",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8"
   }
