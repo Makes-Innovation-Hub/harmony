@@ -7,6 +7,7 @@ import NotFoundPage from './pages/NotFoundPage'
 import TranslatingPage from './pages/TranslatingPage'
 import { useState } from 'react'
 import Header from "./components/Header";
+import artistDummyData from './pages/ArtistPage/dummyData_ArtistPage'
 import "./App.css";
 
 const Router = createBrowserRouter([
@@ -20,7 +21,7 @@ const Router = createBrowserRouter([
     },
     {
         path: '/Artist',
-        element: <ArtistPage />,
+        element: <ArtistPage artistData={artistDummyData}/>,
     },
     {
         path: '/translating',

@@ -5,8 +5,8 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: .25rem;
+    margin-bottom: .25rem;
 
     p {
     color: #333333;
