@@ -10,7 +10,7 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: join(__dirname, "../config/config.env") });
 const assert = chai.assert;
 
-describe.only("test lyrics translate function", function () {
+describe("test lyrics translate function", function () {
   this.timeout(30000);
   it("run function - should return translated text", async () => {
     const res = await translateLyricsByOpenAi(
