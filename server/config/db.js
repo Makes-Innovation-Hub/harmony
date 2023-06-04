@@ -13,6 +13,8 @@ const connectDB = async () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
+    } else {
+      throw new Error("Invalid NODE_ENV specified");
     }
     console.log(`Mongo Connected: ${conn.connection.host}`);
   } catch (error) {
