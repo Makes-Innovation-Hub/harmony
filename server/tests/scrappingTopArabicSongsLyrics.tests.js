@@ -9,14 +9,17 @@ describe("Test suite for Scrape Arabic Lyrics from: https://lyricstranslate.com/
 
     const requestBody = {
       artistName: "Saif Nabeel",
-      songName: "Enta"
+      songName: "Enta",
     };
 
-    const response = await axios.post("http://localhost:5000/api/v1/topArabicSongsLyrics", requestBody);
+    const response = await axios.post(
+      "http://localhost:5000/api/v1/topArabicSongsLyrics",
+      requestBody
+    );
 
     const data = response.data;
 
-    expect(Array.isArray(data)).to.be.true;  
+    expect(Array.isArray(data)).to.be.true;
     expect(response.status).to.be.equal(200);
 
     const dataTypes = data.map((item) => typeof item);

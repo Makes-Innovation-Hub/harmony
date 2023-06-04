@@ -5,12 +5,8 @@ import scrapeTopArabicSongsLyrics from "../scrapping/scrappingTopArabicSongsLyri
 
 const router = express.Router();
 
-
-router.route("/topArabicSongs").get(scrapeTopArabicSongs)
+router.route("/topArabicSongs").get(scrapeTopArabicSongs);
 router.route("/topHebrewSongs").get(scrapeTopHebrewSongs);
-router.route("/topArabicSongsLyrics").post(scrapeTopArabicSongsLyrics)
+router.route("/topArabicSongsLyrics").post(scrapeTopArabicSongsLyrics);
 
 export default router;
-
-
-
