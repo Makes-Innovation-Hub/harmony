@@ -6,8 +6,6 @@ import {
   TopHSongCountainer,
 } from "./TopSongGallaryStyle";
 import { useState } from "react";
-import cover1 from "../../assets/TopSongGallary/Rectangle 3.png";
-import cover4 from "../../assets/TopSongGallary/Rectangle 1.png";
 import ImageBoxWithDetails from "./ImageBoxWithDetails";
 import { useGetTopHebrewSongsQuery } from "../../api/hebrewApiSlice";
 import { useGetTopArabicSongsQuery } from "../../api/arabicApiSlice";
@@ -16,14 +14,8 @@ import { useLazyGetLyricsQuery } from "../../api/lyricsApiSlice";
 export default function TopSongGallary() {
   const { data: topHebrewSongs = [] } = useGetTopHebrewSongsQuery();
   const { data: topArabicSongs = [] } = useGetTopArabicSongsQuery();
-  const topArabicSongsArray = Object.entries(topArabicSongs).map(
-    ([artist, song]) => ({
-      artist,
-      songName: song,
-    })
-  );
+  const [trigger, { data }] = useLazyGetLyricsQuery();    
 
-  const [trigger, { data }] = useLazyGetLyricsQuery();
   const [songLyrics, setSongLyrics] = useState([]);
 
   const handleSongClick = (artist, songName) => {
@@ -43,7 +35,7 @@ export default function TopSongGallary() {
           {topHebrewSongs.map((song, index) => (
             <ImageBoxWithDetails
               key={index}
-              img={cover1}
+              img={song.coverArt} 
               artist={Object.keys(song)[0]}
               songName={Object.values(song)[0]}
               onClick={() =>
@@ -56,13 +48,13 @@ export default function TopSongGallary() {
       <TopASongCountainer>
         <Title>Top Arabic Songs</Title>
         <ImageBoxContainer>
-          {topArabicSongsArray.map((song, index) => (
+          {topArabicSongs.songsArr && topArabicSongs.songsArr.map((songObject,index) => (
             <ImageBoxWithDetails
               key={index}
-              img={cover4}
-              artist={song.artist}
-              songName={song.songName}
-              onClick={() => handleSongClick(song.artist, song.songName)}
+              img={songObject.coverArt}
+              artist={songObject.artist}
+              songName={songObject.song}
+              onClick={() => handleSongClick(songObject.artist, songObject.song)}
             />
           ))}
         </ImageBoxContainer>
