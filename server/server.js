@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
-import SongRoute from "./routes/songRoutes.js";
+import coverArtRouter from "./routes/coverArtRoutes.js";
 import { connectDB, closeDBConnection } from "./config/db.js";
 import scrappingRoutes from "./routes/scrappingRoutes.js";
 import songsRouter from "./routes/songsRoutes.js";
@@ -34,13 +34,11 @@ app.use(express.json());
 app.use("/api/v1/harmony/songs", songsRouter);
 app.use("/api/v1/harmony/artists", artistsRouter);
 app.use("/api/v1/harmony/topSongs", topSongsRouter);
-
-app.use("/api/v1/", scrappingRoutes);
 app.use("/api/v1/harmony/translate", translationRouter);
-app.use("/api/v1/", scrappingRoutes);
+app.use("/api/v1/", scrappingRoutes);        
 app.use("/api/search", searchRoutes);
 
-app.use("/", SongRoute);
+app.use("/api/v1/cover", coverArtRouter);
 
 app.use("/api/v1/harmony/lyrics", lyricsRoute);
 

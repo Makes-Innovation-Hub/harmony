@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer";
 import { hebrewTopSongsUrl } from '../constants/urls.js'
+import { getCoverArtForSong } from '../spotifyapi.js'
 
 const scrapeTopHebrewSongs = async (req,res) => {
     const browser = await puppeteer.launch({
@@ -28,9 +29,19 @@ const scrapeTopHebrewSongs = async (req,res) => {
     return { info: infoTexts, name: nameTexts };
   });
 
+    const coverArtPromises = data.info.map(async (info, index) => {
+    const name = data.name[index];
+    const coverArt = await getCoverArtForSong(info, name);
+    return coverArt;
+});
 
-  const formattedData = data.name.map((artist, index) => ({ [artist]: data.info[index] }));
-
+    const coverArtArray = await Promise.all(coverArtPromises);
+    
+    const formattedData = data.name.map((artist, index) => ({
+    artist: artist,
+    songName: data.info[index],
+    coverArt: coverArtArray[index]
+    }));
 
   await browser.close();
   res.json(formattedData)
