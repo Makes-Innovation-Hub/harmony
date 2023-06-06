@@ -40,6 +40,12 @@ const findOrCreateSong = async(req) =>{
 // @desc    Get songs by name/artist/album
 //@route    GET /api/v1/harmony/songs
 // @access  Public
+//Use the following structure to query (case insensitive): 
+// {
+//     "name": {
+//       "english": "song two"
+//   }
+// }
 const getSongs = asyncHandler(async (req, res, next) => {
     const songsArray = await findSong(req)
     if (!songsArray) {
