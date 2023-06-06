@@ -3,7 +3,7 @@ import axios from "axios";
 
 const expect = chai.expect;
 
-describe.only("Test suite for Scrape Google Lyrics", function () {
+describe("Test suite for Scrape Google Lyrics", function () {
   it("should check scrap lyrics from diff links in Google & endpoint", async function () {
     this.timeout(15000);
 
