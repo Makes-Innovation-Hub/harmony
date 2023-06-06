@@ -1,47 +1,52 @@
-import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Home from './pages/Home'
-import SongPage from './pages/SongPage'
-import ArtistPage from './pages/ArtistPage'
-import NotFoundPage from './pages/NotFoundPage'
-import TranslatingPage from './pages/TranslatingPage'
-import { useState } from 'react'
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home";
+import SongPage from "./pages/SongPage";
+import ArtistPage from "./pages/ArtistPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import TranslatingPage from "./pages/TranslatingPage";
+import { useState } from "react";
 import Header from "./components/Header";
 import "./App.css";
 
+import { I18nextProvider } from "react-i18next";
+import i18n from "./i18n";
+
 const Router = createBrowserRouter([
     {
-        path: '/',
+        path: "/",
         element: <Home />,
     },
     {
-        path: '/song',
+        path: "/song",
         element: <SongPage />,
     },
     {
-        path: '/Artist',
+        path: "/Artist",
         element: <ArtistPage />,
     },
     {
-        path: '/translating',
+        path: "/translating",
         element: <TranslatingPage />,
     },
     {
-        path: '/not-found',
+        path: "/not-found",
         element: <NotFoundPage />,
     },
-])
+]);
 
 function App() {
-    const [showError, setShowError] = useState(false)
+    const [showError, setShowError] = useState(false);
     if (showError) {
-        setShowError(true)
-        throw new Error('Oops! Something went wrong')
+        setShowError(true);
+        throw new Error("Oops! Something went wrong");
     }
     return (
-        <div>
-            <RouterProvider router={Router} />
-        </div>
-    )
+        <I18nextProvider i18n={i18n}>
+            <div>
+                <RouterProvider router={Router} />
+            </div>
+        </I18nextProvider>
+    );
 }
-export default App
+export default App;
