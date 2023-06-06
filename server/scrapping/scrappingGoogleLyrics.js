@@ -1,7 +1,10 @@
 import puppeteer from "puppeteer";
 import { genGoogleLyricsUrl } from "../utils/googleLyricsUrl.js";
 
-const scrapeGoogleLyrics = async (songName, singerName) => {
+const scrapeGoogleLyrics = async (req, res) => {
+  const songName = req.body.songName;
+  const singerName = req.body.singerName;
+
   const browser = await puppeteer.launch({
     headless: true,
     defaultViewport: null,
@@ -20,58 +23,44 @@ const scrapeGoogleLyrics = async (songName, singerName) => {
 
     const filteredLinks = [];
 
-  linkElements.forEach((element) => {
-    const href = element.href;
+    linkElements.forEach((element) => {
+      const href = element.href;
 
-    if (href.startsWith("https://shironet.mako")) {
-      filteredLinks.push(href);
-    } else if (href.startsWith("https://genius.com/")) {
-      filteredLinks.push(href);
-    } else if (href.startsWith("https://www.tab4u.com/")) {
-      filteredLinks.push(href);                 
-    } else if (href.startsWith("https://www.lyrics-arabic.com/")) {
-      filteredLinks.push(href);            
-    } else if (href.startsWith("https://lyricstranslate.com/")) {
-      filteredLinks.push(href);
-    }                  
+      if (href.startsWith("https://shironet.mako")) {
+        filteredLinks.push(href);
+      } else if (href.startsWith("https://genius.com/")) {
+        filteredLinks.push(href);
+      } else if (href.startsWith("https://www.tab4u.com/")) {
+        filteredLinks.push(href);
+      } else if (href.startsWith("https://www.lyrics-arabic.com/")) {
+        filteredLinks.push(href);
+      } else if (href.startsWith("https://lyricstranslate.com/")) {
+        filteredLinks.push(href);
+      }
+    });
+
+    return filteredLinks;
   });
 
-  return filteredLinks;
-    // return linkElements.map((element) => {
-    //   const href = element.href;
-    //   if (
-    //     href.startsWith("https://shironet.mako")
-    //      ||
-    //     href.startsWith("https://genius.com/")
-    //   ) {
-    //     return href;
-    //   }
-    // });
-
-  });
-
-  const filteredLinks = links.filter(Boolean).slice(0,1)
-  console.log("THE FILTERDE LINK ARE", filteredLinks)
+  const filteredLinks = links.filter(Boolean).slice(0, 1);
 
   const lyrics = [];
 
   for (const link of filteredLinks) {
-    
     await page.goto(link);
     await page.waitForSelector(
-      "span.artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, .song__only, #lyrics, #song-body"
+      ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, .song__only, #lyrics span, #song-body"
     );
     const lyricsText = await page.evaluate(() => {
       const spanElement = document.querySelector(
-        "span.artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, song__only, #lyric span , #song-body"
+        ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, song__only, #lyric span , #song-body"
       );
-      return spanElement.innerHTML;
+      return spanElement.innerText;
     });
     lyrics.push(lyricsText);
   }
 
-  console.log(lyrics);
-  return lyrics;
+  res.json(lyrics);
 };
 
-scrapeGoogleLyrics("Dystinct ft. MHD", "Tek Tek");
+export default scrapeGoogleLyrics;
