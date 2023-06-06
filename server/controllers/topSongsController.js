@@ -27,12 +27,14 @@ const getOrCreateEachSong = async (language) => {
     const songId = song._id;
     createdSongsIdArray.push(songId);
   }
+  logger.info("Songs ID Array Created");
   return createdSongsIdArray;
 };
 
 const getOrCreateTopSongsBothLangs = async () => {
   const hebrewTop = await getOrCreateEachSong("hebrew");
   const arabicTop = await getOrCreateEachSong("arabic");
+  logger.info("Hebrew Top Song || Arabic Top Song GET || POST Method");
   return { hebrewTop, arabicTop };
 };
 
@@ -46,6 +48,7 @@ const createTopSongsInDB = async (language, topSongsIdArray) => {
 
 const findTopSongs = async () => {
   const topSongsArray = await TopSongs.find().populate("songs");
+  logger.info("Top Songs Found");
   if (topSongsArray.length > 0) return topSongsArray;
 };
 
@@ -72,6 +75,7 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
   let isMoreThanAWeek;
 
   if (date !== undefined) {
+    logger.info("Req Body for Top Song Creted and Sent");
     isMoreThanAWeek = checkIfAWeekPassed(date);
     if (!isMoreThanAWeek) {
       const topSongsArray = await findTopSongs();

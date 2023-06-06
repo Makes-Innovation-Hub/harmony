@@ -9,6 +9,7 @@ import { createDummySong } from "../utils/createDummyData.js";
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
   const songsArray = await Song.find(filter).populate("artist");
+  logger.info("Song Found");
   if (songsArray.length > 0) return songsArray;
 };
 
@@ -35,6 +36,7 @@ const findOrCreateSong = async (req) => {
     const song = await createSongInDB(req);
     return song;
   }
+  logger.info("Song Found Or Created");
   return songsArray[0];
 };
 
