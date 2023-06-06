@@ -1,12 +1,16 @@
-import Wrapped from './Tagline.styled'
+import Wrapped from "./Tagline.styled";
+
+import { useTranslation } from "react-i18next";
+
 const Tagline = () => {
+    const { t } = useTranslation();
     return (
         <Wrapped>
             <p>
-                Translate songs between <br /> Hebrew and Arabic
+                {t("tagline_1")} <br /> {t("tagline_2")}
             </p>
         </Wrapped>
-    )
-}
+    );
+};
 
-export default Tagline
+export default Tagline;
