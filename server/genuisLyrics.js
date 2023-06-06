@@ -1,24 +1,24 @@
-import express from 'express';
-import axios from 'axios';
-import cheerio from 'cheerio';
-import dotenv from 'dotenv';
-dotenv.config({ path:'./config/config.env' });
+import express from "express";
+import axios from "axios";
+import cheerio from "cheerio";
+import dotenv from "dotenv";
+dotenv.config({ path: "./config/config.env" });
 
 const app = express();
 
 async function fetchLyrics(searchTerm) {
   const options = {
-    method: 'GET',
-    url: 'https://genius-song-lyrics1.p.rapidapi.com/search/',
+    method: "GET",
+    url: "https://genius-song-lyrics1.p.rapidapi.com/search/",
     params: {
       q: searchTerm,
-      per_page: '20',
-      page: '1',
+      per_page: "20",
+      page: "1",
     },
     headers: {
-      'X-RapidAPI-Key':  process.env.RAPIDAPI_KEY,
-      'X-RapidAPI-Host': 'genius-song-lyrics1.p.rapidapi.com'
-    }
+      "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
+      "X-RapidAPI-Host": "genius-song-lyrics1.p.rapidapi.com",
+    },
   };
 
   try {
@@ -35,18 +35,18 @@ async function fetchLyrics(searchTerm) {
 
       const lyrics = $('div[data-lyrics-container="true"]')
         .html()
-        .replace(/<br>/g, '\n')
+        .replace(/<br>/g, "\n")
         .trim();
 
       if (lyrics.length > 0) {
-        const lines = lyrics.split('\n');
+        const lines = lyrics.split("\n");
         return lines;
       } else {
-        console.error('No lyrics found.');
+        console.error("No lyrics found.");
         return false;
       }
     } else {
-      console.error('No search results found.');
+      console.error("No search results found.");
       return false;
     }
   } catch (error) {
@@ -54,4 +54,4 @@ async function fetchLyrics(searchTerm) {
     return false;
   }
 }
-export { fetchLyrics }
+export { fetchLyrics };
