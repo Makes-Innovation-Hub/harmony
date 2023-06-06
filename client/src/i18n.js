@@ -19,7 +19,7 @@ i18n.use(initReactI18next) // Initialize react-i18next
                 translation: arTranslations,
             },
         },
-        fallbackLng: "he", // Default language
+        fallbackLng: "en", // Default language
         interpolation: {
             escapeValue: false, // React already escapes the output
         },
