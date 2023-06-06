@@ -28,7 +28,7 @@ export const ImageBox = styled.div`
 `;
 export const Image = styled.img`
   @media (min-width: 0px) and (max-width: 700px) {
-    max-width: 100%;
+    max-width: 90%;
     max-height: 95%;
     object-fit: cover;
     border-radius: 35px;
@@ -83,7 +83,7 @@ export const Box = styled.div`
     backdrop-filter: blur(8px);
     border-radius: 8px 8px 12px 12px;
     margin-top: -3.4rem;
-    width: 6.4rem;
+    width: 8rem;
     margin-left: 0.6rem;
   }
 `;

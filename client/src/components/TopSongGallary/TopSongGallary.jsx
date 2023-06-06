@@ -14,7 +14,7 @@ import { useLazyGetLyricsQuery } from "../../api/lyricsApiSlice";
 export default function TopSongGallary() {
   const { data: topHebrewSongs = [] } = useGetTopHebrewSongsQuery();
   const { data: topArabicSongs = [] } = useGetTopArabicSongsQuery();
-  const [trigger, { data }] = useLazyGetLyricsQuery();    
+  const [trigger, { data }] = useLazyGetLyricsQuery();
 
   const [songLyrics, setSongLyrics] = useState([]);
 
@@ -35,9 +35,9 @@ export default function TopSongGallary() {
           {topHebrewSongs.map((song, index) => (
             <ImageBoxWithDetails
               key={index}
-              img={song.coverArt} 
-              artist={Object.keys(song)[0]}
-              songName={Object.values(song)[0]}
+              img={song.coverArt}
+              artist={song.artist}
+              songName={song.songName}
               onClick={() =>
                 handleSongClick(Object.keys(song)[0], Object.values(song)[0])
               }
@@ -48,15 +48,18 @@ export default function TopSongGallary() {
       <TopASongCountainer>
         <Title>Top Arabic Songs</Title>
         <ImageBoxContainer>
-          {topArabicSongs.songsArr && topArabicSongs.songsArr.map((songObject,index) => (
-            <ImageBoxWithDetails
-              key={index}
-              img={songObject.coverArt}
-              artist={songObject.artist}
-              songName={songObject.song}
-              onClick={() => handleSongClick(songObject.artist, songObject.song)}
-            />
-          ))}
+          {topArabicSongs.songsArr &&
+            topArabicSongs.songsArr.map((songObject, index) => (
+              <ImageBoxWithDetails
+                key={index}
+                img={songObject.coverArt}
+                artist={songObject.artist}
+                songName={songObject.song}
+                onClick={() =>
+                  handleSongClick(songObject.artist, songObject.song)
+                }
+              />
+            ))}
         </ImageBoxContainer>
       </TopASongCountainer>
     </SongGallary>
