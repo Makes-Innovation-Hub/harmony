@@ -1,29 +1,46 @@
 import Songs from "../components/resultDetails/songsResults";
 import Artists from "../components/resultDetails/artistDetails";
-import Tagline from '../components/Tagline/Tagline.component'
-import SearchBar from '../components/SearchBar/SearchBar.component'
+import Tagline from "../components/Tagline/Tagline.component";
+import SearchBar from "../components/SearchBar/SearchBar.component";
 import Header from "../components/Header";
-import '../components/resultDetails/results.css'
+import "../components/resultDetails/results.css";
 
-const SearchResults = () =>{
-    return(
-        <>
+const SearchResults = () => {
+  return (
+    <div
+      style={{
+        height: "100dvh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        id="header"
+        style={{
+          flexGrow: 2,
+          display: "flex",
+        }}
+      >
         <Header />
-        <div className="tagline">
-        <Tagline />
-        </div>
-        <SearchBar />
-        <h1 className="nameHeader">Artists</h1>
-        <Artists />
-        <Artists />
-        <Artists />
-        <h1 className="nameHeader">Songs</h1>
-        <Songs />
-        <Songs />
-        <Songs />
-        </>
-    )
-}
+      </div>
+      <div
+        id="search"
+        style={{
+          flexGrow: 1,
+          backgroundColor: "blue",
+          display: "flex",
+        }}
+      ></div>
+      <div
+        id="results"
+        style={{
+          flexGrow: 5,
+          backgroundColor: "yellow",
+          display: "flex",
+        }}
+      ></div>
+    </div>
+  );
+};
 
-
-export default SearchResults
+export default SearchResults;
