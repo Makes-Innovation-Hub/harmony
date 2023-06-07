@@ -10,11 +10,31 @@ export default function LanguagesSign({ leftIcon, rightIcon }) {
         alignItems: "center",
       }}
     >
-      <div>
+      <div
+        style={{
+          background: "#D9D9D9",
+          width: "2rem",
+          height: "2rem",
+          borderRadius: "50%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <img src={leftIcon} />
       </div>
       <img src={arrowImg} />
-      <div>
+      <div
+        style={{
+          background: "#D9D9D9",
+          width: "2rem",
+          height: "2rem",
+          borderRadius: "50%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <img src={rightIcon} />
       </div>
     </div>

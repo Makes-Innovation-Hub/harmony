@@ -1,8 +1,6 @@
 import LanguagesSign from "../LanguagesSign/LanguagesSign";
 
 export default function ResultsCard({ img, titles, languages = undefined }) {
-  console.log("languages", languages);
-  console.log("titles", titles);
   return (
     <div
       style={{
@@ -11,6 +9,7 @@ export default function ResultsCard({ img, titles, languages = undefined }) {
         alignItems: "center",
         backgroundColor: "red",
         width: "100%",
+        flexGrow: 1,
       }}
     >
       <div
