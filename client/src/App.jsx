@@ -9,6 +9,8 @@ import SearchResults from "./pages/SearchResults";
 import { useState } from "react";
 import Header from "./components/Header";
 import "./App.css";
+import hebrewImg from "./assets/songDetails/ע.png";
+import arabicImg from "./assets/songDetails/ع.png";
 
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
@@ -36,7 +38,48 @@ const Router = createBrowserRouter([
   },
   {
     path: "/results",
-    element: <SearchResults />,
+    element: (
+      <SearchResults
+        songs={[
+          {
+            id: 36,
+            img: "src/assets/Flag.png",
+            titles: ["song1", "שיר אחד"],
+            languages: { target: arabicImg, origin: hebrewImg },
+          },
+          {
+            id: 37,
+            img: "src/assets/Flag.png",
+            titles: ["song1", "שיר אחד"],
+            languages: { target: arabicImg, origin: hebrewImg },
+          },
+          {
+            id: 38,
+            img: "src/assets/Flag.png",
+            titles: ["song1", "שיר אחד"],
+            languages: { target: arabicImg, origin: hebrewImg },
+          },
+          {
+            id: 41,
+            img: "src/assets/Flag.png",
+            titles: ["song1", "שיר שני"],
+            languages: { target: arabicImg, origin: hebrewImg },
+          },
+        ]}
+        artists={[
+          {
+            id: 11,
+            img: "src/assets/Flag.png",
+            titles: ["art1", "אומן1"],
+          },
+          {
+            id: 21,
+            img: "src/assets/Flag.png",
+            titles: ["art2", "אומן2"],
+          },
+        ]}
+      />
+    ),
   },
 ]);
 

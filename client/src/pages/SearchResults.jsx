@@ -45,6 +45,7 @@ const SearchResults = ({ songs, artists }) => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          overflowY: "auto",
         }}
       >
         <h3>Artist</h3>
@@ -54,8 +55,7 @@ const SearchResults = ({ songs, artists }) => {
               <ResultsCard
                 key={artist.id}
                 img={artist.img}
-                languages={{ target: "ar", origin: "he" }}
-                titles={artists.name}
+                titles={artist.titles}
               />
             );
           })}
@@ -66,8 +66,11 @@ const SearchResults = ({ songs, artists }) => {
               <ResultsCard
                 key={song.id}
                 img={song.img}
-                languages={{ target: "ar", origin: "he" }}
-                titles={song.name}
+                languages={{
+                  target: song.languages.target,
+                  origin: song.languages.origin,
+                }}
+                titles={song.titles}
               />
             );
           })}
