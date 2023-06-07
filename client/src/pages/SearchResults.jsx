@@ -4,6 +4,7 @@ import Tagline from "../components/Tagline/Tagline.component";
 import SearchBar from "../components/SearchBar/SearchBar.component";
 import Header from "../components/Header";
 import "../components/resultDetails/results.css";
+import HomeSearchBar from "../components/HomeSerchBar/HomeSearchBar";
 
 const SearchResults = () => {
   return (
@@ -17,26 +18,36 @@ const SearchResults = () => {
       <div
         id="header"
         style={{
-          flexGrow: 2,
           display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <Header />
+        <Tagline />
       </div>
       <div
         id="search"
         style={{
-          flexGrow: 1,
-          backgroundColor: "blue",
+          flexGrow: 0.5,
           display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-      ></div>
+      >
+        <HomeSearchBar />
+      </div>
       <div
         id="results"
         style={{
-          flexGrow: 5,
+          flexGrow: 6,
           backgroundColor: "yellow",
           display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       ></div>
     </div>
