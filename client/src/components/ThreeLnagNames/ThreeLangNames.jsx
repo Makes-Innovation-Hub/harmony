@@ -7,6 +7,7 @@ function ThreeLangNames({
   englishName,
   fontSize,
   lineHeight,
+
   artistEnglishName,
 }) {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function ThreeLangNames({
       <p onClick={() => handleClick(hebrewName)}>{hebrewName}</p>
       <p onClick={() => handleClick(arabicName)}>{arabicName}</p>
     </Wrapper>
+
   );
 }
 

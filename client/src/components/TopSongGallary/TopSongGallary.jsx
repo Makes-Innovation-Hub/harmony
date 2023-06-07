@@ -11,13 +11,15 @@ import { useGetTopHebrewSongsQuery } from "../../api/hebrewApiSlice";
 import { useGetTopArabicSongsQuery } from "../../api/arabicApiSlice";
 import { useLazyGetLyricsQuery } from "../../api/lyricsApiSlice";
 
+import { useTranslation } from "react-i18next";
+
 export default function TopSongGallary() {
   const { data: topHebrewSongs = [] } = useGetTopHebrewSongsQuery();
   const { data: topArabicSongs = [] } = useGetTopArabicSongsQuery();
   const [trigger, { data }] = useLazyGetLyricsQuery();
-
   const [songLyrics, setSongLyrics] = useState([]);
 
+  const { t } = useTranslation();
   const handleSongClick = (artist, songName) => {
     if (!data) {
       console.log("NO LYRICS FOUND!");
@@ -30,7 +32,7 @@ export default function TopSongGallary() {
   return (
     <SongGallary>
       <TopHSongCountainer>
-        <Title>Top Hebrew Songs</Title>
+        <Title>{t("top_hebrew")}</Title>
         <ImageBoxContainer>
           {topHebrewSongs.map((song, index) => (
             <ImageBoxWithDetails
@@ -46,7 +48,7 @@ export default function TopSongGallary() {
         </ImageBoxContainer>
       </TopHSongCountainer>
       <TopASongCountainer>
-        <Title>Top Arabic Songs</Title>
+        <Title>{t("top_arabic")}</Title>
         <ImageBoxContainer>
           {topArabicSongs.songsArr &&
             topArabicSongs.songsArr.map((songObject, index) => (
