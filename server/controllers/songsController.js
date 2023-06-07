@@ -9,7 +9,6 @@ import { createDummySong } from "../utils/createDummyData.js";
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
   const songsArray = await Song.find(filter).populate("artist");
-  logger.info("Song Found");
   if (songsArray.length > 0) return songsArray;
 };
 
@@ -26,7 +25,7 @@ const createSongInDB = async (req) => {
   const artist = await getOrCreateArtist(artistName, album);
 
   const song = await Song.create({ ...data, artist: artist._id });
-  logger.info("Song Created In MongoDB");
+
   return song;
 };
 
@@ -36,13 +35,18 @@ const findOrCreateSong = async (req) => {
     const song = await createSongInDB(req);
     return song;
   }
-  logger.info("Song Found Or Created");
   return songsArray[0];
 };
 
 // @desc    Get songs by name/artist/album
 //@route    GET /api/v1/harmony/songs
 // @access  Public
+//Use the following structure to query (case insensitive):
+// {
+//     "name": {
+//       "english": "song two"
+//   }
+// }
 const getSongs = asyncHandler(async (req, res, next) => {
   const songsArray = await findSong(req);
   if (!songsArray) {
@@ -66,7 +70,6 @@ const createSong = asyncHandler(async (req, res, next) => {
     success: true,
     data: song,
   });
-  logger.info("Song Created");
 });
 
 export { getSongs, createSong, findSong, findOrCreateSong };

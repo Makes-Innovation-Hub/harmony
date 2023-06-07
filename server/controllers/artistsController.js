@@ -9,7 +9,6 @@ const findArtist = async (req) => {
   const filter = createObjectFromQuery(req.body);
   const artistArray = await Artist.find(filter).populate("songs");
   if (artistArray.length > 0) {
-    logger.info("Artist Found");
     return artistArray;
   }
 };
@@ -22,7 +21,6 @@ const findOrCreateArtist = async (name, album) => {
       const lowerCasedAlbums = artist.albums.map((album) =>
         album.toLowerCase()
       );
-      ogger.info("Artist Found & Created");
       return lowerCasedAlbums.includes(album);
     });
     if (searchedArtist) return searchedArtist;
@@ -38,6 +36,12 @@ const findOrCreateArtist = async (name, album) => {
 // @desc    Get artists by name
 //@route    GET /api/v1/harmony/artists
 // @access  Public
+//Use the following structure to query (case insensitive):
+// {
+//     "name": {
+//       "hebrew": "אמן"
+//   }
+// }
 const getArtists = asyncHandler(async (req, res, next) => {
   const artistsArray = await findArtist(req);
   if (!artistsArray) {
