@@ -1,11 +1,8 @@
-import express from 'express'
+import express from "express";
 import { getSongs, createSong } from "../controllers/songsController.js";
 
-const songsRouter = express.Router()
+const songsRouter = express.Router();
 
-songsRouter
-.route("/")
-.get(getSongs)
-.post(createSong)
+songsRouter.route("/").get(getSongs).post(createSong);
 
-export default songsRouter
+export default songsRouter;

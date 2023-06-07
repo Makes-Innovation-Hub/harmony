@@ -5,7 +5,7 @@ import hebrewImg from "../../assets/songDetails/ע.png";
 import arabicImg from "../../assets/songDetails/ع.png";
 import "./songDetails.css";
 
-function SongDetails() {
+function SongDetails({ artistName, songName }) {
   return (
     <div className="songDetailsContainer">
       <div className="photoDetailsContainer">
@@ -13,18 +13,18 @@ function SongDetails() {
       </div>
       <div className="textDetailsContainer">
         <div>
-          <h2>Song Name</h2>
+          <h2>{songName}</h2>
         </div>
         <div>
-          <h2 className="artistName">Artist Name</h2>
+          <h2 className="artistName">{artistName}</h2>
         </div>
         <div className="translation-div">
           <button className="btn">
-            <img src={arabicImg} />
+            <img src={arabicImg} alt="Arabic" />
           </button>
-          <img src={arrowImg} />
+          <img src={arrowImg} alt="Arrow" />
           <button className="btn">
-            <img src={hebrewImg} />
+            <img src={hebrewImg} alt="Hebrew" />
           </button>
         </div>
       </div>
