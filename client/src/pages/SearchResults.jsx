@@ -1,12 +1,9 @@
-import Songs from "../components/resultDetails/songsResults";
-import Artists from "../components/resultDetails/artistDetails";
 import Tagline from "../components/Tagline/Tagline.component";
-import SearchBar from "../components/SearchBar/SearchBar.component";
 import Header from "../components/Header";
-import "../components/resultDetails/results.css";
 import HomeSearchBar from "../components/HomeSerchBar/HomeSearchBar";
+import ResultsCard from "../components/ResultsCard/ResultsCard";
 
-const SearchResults = () => {
+const SearchResults = ({ songs, artists }) => {
   return (
     <div
       style={{
@@ -49,7 +46,32 @@ const SearchResults = () => {
           justifyContent: "center",
           alignItems: "center",
         }}
-      ></div>
+      >
+        <h3>Artist</h3>
+        {artists &&
+          artists.map((artist) => {
+            return (
+              <ResultsCard
+                key={artist.id}
+                img={artist.img}
+                languages={{ target: "ar", origin: "he" }}
+                titles={artists.name}
+              />
+            );
+          })}
+        <h3>Songs</h3>
+        {songs &&
+          songs.map((song) => {
+            return (
+              <ResultsCard
+                key={song.id}
+                img={song.img}
+                languages={{ target: "ar", origin: "he" }}
+                titles={song.name}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 };

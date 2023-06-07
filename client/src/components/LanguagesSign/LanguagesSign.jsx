@@ -8,9 +8,9 @@ export default function LanguagesSign({ leftIcon, rightIcon }) {
         <Button className="btn">
           <img src={leftIcon} />
         </Button>
-        <img src={arrowImg} alt="Arrow" />
+        <img src={arrowImg} />
         <Button className="btn">
-          <img src={rightIcon} alt="Hebrew" />
+          <img src={rightIcon} />
         </Button>
       </TranslationDiv>
     </div>
