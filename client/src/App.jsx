@@ -2,7 +2,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import SongPage from "./pages/SongPage";
-import ArtistPage from "./pages/ArtistPage";
+import ArtistPage from "./pages/ArtistPage/ArtistPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TranslatingPage from "./pages/TranslatingPage";
 import SearchResults from "./pages/SearchResults";
