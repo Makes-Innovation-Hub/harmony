@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import imgSrc from '../../assets/songDetails/Rectangle 3.png';
+import React, { useState, useEffect } from "react";
+import imgSrc from "../../assets/songDetails/Rectangle 3.png";
 import {
   ArtistsDetailsContainer,
   PhotoDetailsContainer,
   TextDetailsContainer,
   ArtistName,
   ResultsImage,
-} from './artistsResults.styled';
+} from "./artistsResults.styled";
 
 const Artists = () => {
   const [artistNames, setArtistNames] = useState({
-    english: '',
-    hebrew: '',
-    arabic: '',
+    english: "",
+    hebrew: "",
+    arabic: "",
   });
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Artists = () => {
 
   const fetchArtistNames = async () => {
     try {
-      const response = await fetch('endpoint');
+      const response = await fetch("endpoint");
       const data = await response.json();
 
       setArtistNames({
@@ -30,7 +30,7 @@ const Artists = () => {
         arabic: data.arabicName,
       });
     } catch (error) {
-      console.error('Error fetching artist names:', error);
+      console.error("Error fetching artist names:", error);
     }
   };
 

@@ -3,41 +3,39 @@ import imgSrc from "../../assets/songDetails/Rectangle 3.png";
 import arrowImg from "../../assets/songDetails/Arrow 1.png";
 import hebrewImg from "../../assets/songDetails/ע.png";
 import arabicImg from "../../assets/songDetails/ع.png";
-import { SongsDetailsContainer,
-         PhotoDetailsContainer, 
-         TextDetailsContainer,
-         TranslationDiv,
-         SongName, 
-         ResultsImage,
-         Button } from "./songsResults.styled";
+import {
+  SongsDetailsContainer,
+  PhotoDetailsContainer,
+  TextDetailsContainer,
+  TranslationDiv,
+  SongName,
+  ResultsImage,
+  Button,
+} from "./songsResults.styled";
 
 const Songs = () => {
   const [songNames, setSongNames] = useState({
-    english: '',
-    arabic: '',
-    hebrew: ''
-  })
+    english: "",
+    arabic: "",
+    hebrew: "",
+  });
 
   useEffect(() => {
-    fetchSongsName()
-  },[]);
+    fetchSongsName();
+  }, []);
 
-
-  const fetchSongsName = async() =>{
+  const fetchSongsName = async () => {
     try {
-      const res = await fetch('endpoint')
-      const data = await res.json()
+      const res = await fetch("endpoint");
+      const data = await res.json();
 
       setSongNames({
         english: data.englishSongName,
         arabic: data.arabicSongName,
-        hebrew: data.hebrewSongName
-      })
-    } catch (error) {
-      
-    }
-  }
-
+        hebrew: data.hebrewSongName,
+      });
+    } catch (error) {}
+  };
 
   return (
     <SongsDetailsContainer>
@@ -55,15 +53,15 @@ const Songs = () => {
           <SongName>{songNames.arabic}</SongName>
         </div>
       </TextDetailsContainer>
-        <TranslationDiv>
-          <Button className="btn">
-            <img src={arabicImg} alt="Arabic" />
-          </Button>
-          <img src={arrowImg} alt="Arrow"/>
-          <Button className="btn">
-            <img src={hebrewImg} alt="Hebrew" />
-          </Button>
-        </TranslationDiv>
+      <TranslationDiv>
+        <Button className="btn">
+          <img src={arabicImg} alt="Arabic" />
+        </Button>
+        <img src={arrowImg} alt="Arrow" />
+        <Button className="btn">
+          <img src={hebrewImg} alt="Hebrew" />
+        </Button>
+      </TranslationDiv>
     </SongsDetailsContainer>
   );
 };

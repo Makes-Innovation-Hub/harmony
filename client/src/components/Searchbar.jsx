@@ -1,11 +1,18 @@
-import { Description, Container, SearchBar, Input, SearchIcon, SearchWrapper} from "./SearchStyles";
-import Vector from '../assets/vector.png';
-import Ellipse2 from '../assets/Ellipse2.png';
-import '../components/Header.css'
+import {
+  Description,
+  Container,
+  SearchBar,
+  Input,
+  SearchIcon,
+  SearchWrapper,
+} from "./SearchStyles";
+import Vector from "../assets/vector.png";
+import Ellipse2 from "../assets/Ellipse2.png";
+import "../components/Header.css";
 
 function Search() {
-    return (
-      <Container>
+  return (
+    <Container>
       <Description>translate Songs between Hebrew and Arabic </Description>
 
       <SearchWrapper>
@@ -27,9 +34,8 @@ function Search() {
           <img src={Vector} className="search" alt="Search Icon"></img>
         </SearchBar>
       </SearchWrapper>
-
     </Container>
-    );
-  }
-  
-  export default Search;
+  );
+}
+
+export default Search;

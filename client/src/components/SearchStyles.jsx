@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import Ellipse2 from '../assets/Ellipse2.png';
+import styled from "styled-components";
+import Ellipse2 from "../assets/Ellipse2.png";
 
 export const Container = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ export const Container = styled.div`
 `;
 
 export const Description = styled.h1`
-  font-family: 'ABeeZee';
+  font-family: "ABeeZee";
   font-style: italic;
   font-weight: 400;
   font-size: 1rem;
@@ -20,9 +20,8 @@ export const Description = styled.h1`
   color: #828282;
   margin: 1rem 0;
   max-width: 18.2rem;
-  
 
-  @media screen and (min-width:768px) {
+  @media screen and (min-width: 768px) {
     position: absolute;
     width: 18.2rem;
     height: 2.5rem;
@@ -30,8 +29,7 @@ export const Description = styled.h1`
     transform: translateY(-50%);
   }
 
-  
-  @media screen and (min-width:1024px) {
+  @media screen and (min-width: 1024px) {
     position: absolute;
     width: 18.2rem;
     height: 2.5rem;
@@ -53,15 +51,14 @@ export const SearchIcon = styled.img`
   margin-left: 0.5rem;
   font-size: 1.5rem;
   padding: 0.65rem;
-  background-image: url(${Ellipse2}); 
+  background-image: url(${Ellipse2});
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 100%;
   z-index: 0;
 `;
 
-
 export const Input = styled.input`
-  padding:0.4rem 2rem 0.4rem 2rem;
+  padding: 0.4rem 2rem 0.4rem 2rem;
   text-align: center;
 `;
