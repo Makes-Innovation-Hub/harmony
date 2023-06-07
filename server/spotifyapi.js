@@ -32,11 +32,14 @@ async function getAlbumFromSongAndArtist(songName, artistName) {
       throw new Error("Song not found.");
     }
   } catch (error) {
-    logger.error("Error:", error.message);
+    logger.error("Error in Spotify api:", error.message);
   }
 }
 
 async function getCoverArtForSong(songName, artistName) {
+  logger.info(
+    `starting to get cover art for songs params are song name: ${songName} artist name: ${artistName}  `
+  );
   try {
     let searchQuery;
     if (/[א-ת ]/.test(artistName)) {
@@ -46,6 +49,7 @@ async function getCoverArtForSong(songName, artistName) {
       searchQuery = `track:${songName} artist:${artistName}`;
     }
 
+    logger.info("before getting Spotify keys");
     const data = await spotifyApi.clientCredentialsGrant();
     const accessToken = data.body.access_token;
     spotifyApi.setAccessToken(accessToken);
@@ -67,7 +71,7 @@ async function getCoverArtForSong(songName, artistName) {
       }
     }
   } catch (error) {
-    logger.error("Error:", error.message);
+    logger.error("Error in getCoverArtForSong:", error.message);
   }
 }
 

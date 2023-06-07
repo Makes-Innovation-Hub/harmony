@@ -39,15 +39,19 @@ const getOrCreateTopSongsBothLangs = async () => {
 };
 
 const createTopSongsInDB = async (language, topSongsIdArray) => {
+  logger.info(
+    `createTopSongsInDB with language ${language} and ID: ${topSongsIdArray}`
+  );
   const topSongs = (
     await TopSongs.create({ language, songs: topSongsIdArray })
   ).populate("songs");
-  logger.info("Top Song Created In MongoDB");
+  logger.info("Top Song Created successfully In MongoDB");
   return topSongs;
 };
 
 const findTopSongs = async () => {
   const topSongsArray = await TopSongs.find().populate("songs");
+  logger.info(`findTopSongs with song details: ${topSongsArray}`);
   logger.info("Top Songs Found");
   if (topSongsArray.length > 0) return topSongsArray;
 };
@@ -60,6 +64,8 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
   if (!topSongs) {
     return next(new ErrorResponse(`Top songs not found`), 404);
   }
+  logger.info(`getTopSongs done successfully for: ${topSongs}`);
+
   res.status(200).json({
     success: true,
     data: topSongs,
@@ -71,11 +77,12 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
 // @access  Public
 const createTopSongs = asyncHandler(async (req, res, next) => {
   const { date } = req.body;
+  logger.info(`createSong with song details: ${song}`);
+
   let topSongs;
   let isMoreThanAWeek;
 
   if (date !== undefined) {
-    logger.info("Req Body for Top Song Creted and Sent");
     isMoreThanAWeek = checkIfAWeekPassed(date);
     if (!isMoreThanAWeek) {
       const topSongsArray = await findTopSongs();
@@ -87,6 +94,7 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
   }
   if (date === undefined || (date !== undefined && isMoreThanAWeek)) {
     const results = await getOrCreateTopSongsBothLangs();
+    logger.info(`getOrCreateTopSongsBothLangs with data: ${results} sent`);
     if (!results) {
       return next(
         new ErrorResponse(
@@ -115,7 +123,7 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
     success: true,
     data: topSongs,
   });
-  logger.info("Top Song Created");
+  logger.info("Top Song Created successfully");
 });
 
 export { getTopSongs, createTopSongs };

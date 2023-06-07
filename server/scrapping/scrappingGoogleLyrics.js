@@ -1,9 +1,13 @@
 import puppeteer from "puppeteer";
+import logger from "../logger.js";
 import { genGoogleLyricsUrl } from "../utils/googleLyricsUrl.js";
 
 const scrapeGoogleLyrics = async (req, res) => {
   const songName = req.body.songName;
   const singerName = req.body.singerName;
+  logger.info(
+    `start scrap google lyrics with song name: ${songName} and singer name: ${singerName}`
+  );
 
   const browser = await puppeteer.launch({
     headless: true,
@@ -43,6 +47,7 @@ const scrapeGoogleLyrics = async (req, res) => {
   });
 
   const filteredLinks = links.filter(Boolean).slice(0, 1);
+  logger.info(`the link to scrap lyrics google is: ${filteredLinks}`);
 
   const lyrics = [];
 
@@ -60,6 +65,7 @@ const scrapeGoogleLyrics = async (req, res) => {
     lyrics.push(lyricsText);
   }
 
+  logger.info("lyrics from google scrap successfully");
   res.json(lyrics);
 };
 

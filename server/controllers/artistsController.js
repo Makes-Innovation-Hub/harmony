@@ -6,14 +6,20 @@ import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import { createDummyArtist } from "../utils/createDummyData.js";
 
 const findArtist = async (req) => {
+  logger.info(`findArtist with ${req} params`);
   const filter = createObjectFromQuery(req.body);
+  logger.info(`artist filtered to find is ${filter}`);
   const artistArray = await Artist.find(filter).populate("songs");
   if (artistArray.length > 0) {
+    logger.info(`artist array for findArtist function are: ${artistArray}`);
     return artistArray;
   }
 };
 
 const findOrCreateArtist = async (name, album) => {
+  logger.info(
+    `findOrCreateArtist with singer name: ${name} and album: ${album}`
+  );
   const artistsArray = await findArtist({ body: { name: { english: name } } });
   if (artistsArray) {
     //Making sure the found artist has an album that matches the album name of the song
@@ -21,15 +27,24 @@ const findOrCreateArtist = async (name, album) => {
       const lowerCasedAlbums = artist.albums.map((album) =>
         album.toLowerCase()
       );
+      logger.info(
+        `findOrCreateArtist with album in lower case: ${lowerCasedAlbums}`
+      );
       return lowerCasedAlbums.includes(album);
     });
     if (searchedArtist) return searchedArtist;
   }
   //Add a function here that scrapes the artist's data (name, albums, image...), translates it and returns it in one object. This function is activated from the songsController, make sure that the searched song (in the activating function) is somewhere in the artist's data, to double check it's the right one.
   const data = createDummyArtist(name, album);
+  logger.info(
+    `findOrCreateArtist with data ${name} and album: ${album} created`
+  );
   const newArtistObject = createObjectFromQuery(data);
-
+  logger.info(`findOrCreateArtist with data Object Created`);
   const newArtist = await Artist.create(newArtistObject);
+  logger.info(
+    `findOrCreateArtist with data ${name} and album: ${album} created`
+  );
   return newArtist;
 };
 
@@ -44,6 +59,7 @@ const findOrCreateArtist = async (name, album) => {
 // }
 const getArtists = asyncHandler(async (req, res, next) => {
   const artistsArray = await findArtist(req);
+  logger.info(`getArtists with artistsArray ${artistsArray} created`);
   if (!artistsArray) {
     return next(new ErrorResponse(`Artist not found`, 404));
   }
@@ -59,7 +75,7 @@ const getArtists = asyncHandler(async (req, res, next) => {
 //! This function is might create the wrong artist, if the artist's data is not unique
 const createArtist = asyncHandler(async (req, res, next) => {
   const newArtistObject = createObjectFromQuery(req.body);
-
+  logger.info(`createArtist with artist details: ${newArtistObject}`);
   const artist = await Artist.create(newArtistObject);
   if (!artist) {
     return next(
@@ -72,7 +88,7 @@ const createArtist = asyncHandler(async (req, res, next) => {
     success: true,
     data: artist,
   });
-  logger.info("Artist Created");
+  logger.info("Artist Created successfully");
 });
 
 export { getArtists, createArtist, findOrCreateArtist as getOrCreateArtist };

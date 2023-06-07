@@ -58,7 +58,7 @@ app.listen(
 );
 
 process.on("unhandledRejection", (err, promise) => {
-  logger.error(`Error: ${err.message}`);
+  logger.error(`Error in server: ${err.message}`);
   closeDBConnection();
   // app.close(() => process.exit(1));
 });
