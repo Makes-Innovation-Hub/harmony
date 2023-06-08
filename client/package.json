@@ -37,8 +37,7 @@
         "parse-conflict-json": "^3.0.1",
         "prettier": "2.8.8",
         "vite": "^4.3.2"
-    }
-=======
+    },
   "name": "client",
   "private": true,
   "version": "0.0.0",
