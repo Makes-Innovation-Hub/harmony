@@ -5,7 +5,7 @@ import SongPage from "./pages/SongPage";
 import ArtistPage from "./pages/ArtistPage/ArtistPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TranslatingPage from "./pages/TranslatingPage";
-import SearchResults from "./pages/SearchResults";
+import SearchResults from "./pages/SearchResults/SearchResults";
 import { useState } from "react";
 import Header from "./components/Header";
 import "./App.css";
@@ -74,6 +74,21 @@ const Router = createBrowserRouter([
           },
           {
             id: 21,
+            img: "src/assets/Flag.png",
+            titles: ["art2", "אומן2"],
+          },
+          {
+            id: 22,
+            img: "src/assets/Flag.png",
+            titles: ["art2", "אומן2"],
+          },
+          {
+            id: 23,
+            img: "src/assets/Flag.png",
+            titles: ["art2", "אומן2"],
+          },
+          {
+            id: 24,
             img: "src/assets/Flag.png",
             titles: ["art2", "אומן2"],
           },

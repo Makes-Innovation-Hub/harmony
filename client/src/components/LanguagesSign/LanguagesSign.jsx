@@ -1,42 +1,17 @@
-import { Button, TranslationDiv } from "../resultDetails/songsResults.styled";
 import arrowImg from "../../assets/songDetails/Arrow 1.png";
+import LetterCircle from "../General/LetterCircle";
+import FE from "../Layout/FlexElments";
 
 export default function LanguagesSign({ leftIcon, rightIcon }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          background: "#D9D9D9",
-          width: "2rem",
-          height: "2rem",
-          borderRadius: "50%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+    <FE.CenterRow>
+      <LetterCircle>
         <img src={leftIcon} />
-      </div>
+      </LetterCircle>
       <img src={arrowImg} />
-      <div
-        style={{
-          background: "#D9D9D9",
-          width: "2rem",
-          height: "2rem",
-          borderRadius: "50%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <LetterCircle>
         <img src={rightIcon} />
-      </div>
-    </div>
+      </LetterCircle>
+    </FE.CenterRow>
   );
 }
