@@ -6,7 +6,7 @@ import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import { createDummyArtist } from "../utils/createDummyData.js";
 
 const findArtist = async (req) => {
-  logger.info(`findArtist with ${req} params`);
+  logger.info(`start findArtist with ${req.body} params`);
   const filter = createObjectFromQuery(req.body);
   logger.info(`artist filtered to find is ${filter}`);
   const artistArray = await Artist.find(filter).populate("songs");
@@ -36,15 +36,10 @@ const findOrCreateArtist = async (name, album) => {
   }
   //Add a function here that scrapes the artist's data (name, albums, image...), translates it and returns it in one object. This function is activated from the songsController, make sure that the searched song (in the activating function) is somewhere in the artist's data, to double check it's the right one.
   const data = createDummyArtist(name, album);
-  logger.info(
-    `findOrCreateArtist with data ${name} and album: ${album} created`
-  );
+  logger.info(`start findOrCreateArtist with data ${name} and album: ${album}`);
   const newArtistObject = createObjectFromQuery(data);
-  logger.info(`findOrCreateArtist with data Object Created`);
   const newArtist = await Artist.create(newArtistObject);
-  logger.info(
-    `findOrCreateArtist with data ${name} and album: ${album} created`
-  );
+  logger.info(`findOrCreateArtist with artist data: ${newArtist} Created`);
   return newArtist;
 };
 
@@ -59,10 +54,10 @@ const findOrCreateArtist = async (name, album) => {
 // }
 const getArtists = asyncHandler(async (req, res, next) => {
   const artistsArray = await findArtist(req);
-  logger.info(`getArtists with artistsArray ${artistsArray} created`);
   if (!artistsArray) {
     return next(new ErrorResponse(`Artist not found`, 404));
   }
+  logger.info(`getArtists with artistsArray: ${artistsArray} found`);
   res.status(200).json({
     success: true,
     data: artistsArray,

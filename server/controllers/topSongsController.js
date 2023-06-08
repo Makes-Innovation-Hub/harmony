@@ -34,7 +34,7 @@ const getOrCreateEachSong = async (language) => {
 const getOrCreateTopSongsBothLangs = async () => {
   const hebrewTop = await getOrCreateEachSong("hebrew");
   const arabicTop = await getOrCreateEachSong("arabic");
-  logger.info("Hebrew Top Song || Arabic Top Song GET || POST Method");
+  logger.info("Hebrew Top Song & Arabic Top Song created successfully");
   return { hebrewTop, arabicTop };
 };
 
@@ -51,8 +51,7 @@ const createTopSongsInDB = async (language, topSongsIdArray) => {
 
 const findTopSongs = async () => {
   const topSongsArray = await TopSongs.find().populate("songs");
-  logger.info(`findTopSongs with song details: ${topSongsArray}`);
-  logger.info("Top Songs Found");
+  logger.info(`findTopSongs found with song details: ${topSongsArray}`);
   if (topSongsArray.length > 0) return topSongsArray;
 };
 
