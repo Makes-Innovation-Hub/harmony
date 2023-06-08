@@ -9,9 +9,15 @@ const artistDummyData = {
   songs: [
     {
       name: {
+
         hebrew: "דאניא",
         english: "daniahih",
         arabic: "دانيا حيح",
+
+        hebrew: "1טונה",
+        english: "Tuna",
+        arabic: "تونة",
+
       },
       imgURL:
         "https://mafish.org.il/wp-content/uploads/2019/12/%D7%98%D7%95%D7%A0%D7%94-%D7%9B%D7%97%D7%95%D7%9C%D7%AA-%D7%A1%D7%A0%D7%A4%D7%99%D7%A8-scaled.jpg",
