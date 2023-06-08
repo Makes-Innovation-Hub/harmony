@@ -8,7 +8,6 @@ export default function ResultsCard({ img, titles, languages = undefined }) {
       aligned="true"
       style={{
         justifyContent: "space-around",
-        backgroundColor: "red",
         width: "85%",
         flexGrow: 1,
         overflowY: "auto",
@@ -19,7 +18,6 @@ export default function ResultsCard({ img, titles, languages = undefined }) {
         style={{
           flexGrow: languages ? "1" : 0.1,
           justifyContent: "flex-start",
-          backgroundColor: "blue",
         }}
       >
         <ImgCard src={img} />
@@ -27,19 +25,13 @@ export default function ResultsCard({ img, titles, languages = undefined }) {
       <FE.CenterCol
         style={{
           flexGrow: "1",
-          backgroundColor: "purple",
           fontFamily: "ABeeZee",
           fontSize: "0.8rem",
         }}
       >
         {titles && titles.map((title) => <div key={title}>{title}</div>)}
       </FE.CenterCol>
-      <FE.CenterRow
-        style={{
-          flexGrow: "1",
-          backgroundColor: "green",
-        }}
-      >
+      <FE.CenterRow style={{ flexGrow: "1" }}>
         {languages && (
           <LanguagesSign
             leftIcon={languages.target}
