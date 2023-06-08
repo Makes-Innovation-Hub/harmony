@@ -7,9 +7,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./components/ErrorFallback";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <Provider store={store}>
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <App />
-        </ErrorBoundary>
-    </Provider>
+  <Provider store={store}>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <App />
+    </ErrorBoundary>
+  </Provider>
 );

@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "ABeeZee Italic";
+  src: url("../../assets/fonts/ABeeZee-Italic.ttf") format("truetype");
+}
+
+.nameHeader {
+  margin-left: 2rem;
+  margin-bottom: 1.5rem;
+  font-family: "ABeeZee";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 133%;
+}
+.tagline {
+  text-align: center;
+  margin-left: 1.5rem;
+  margin-top: 2.5rem;
+}
