@@ -35,4 +35,12 @@ html {
 
 .us {
     width: 10%;
-}
+  }
+
+  .search{
+    background-color:rgba(149, 112, 255, 0.19); 
+    margin-left: 1rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+  

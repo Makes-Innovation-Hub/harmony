@@ -7,18 +7,18 @@ import Tagline from "../components/Tagline/Tagline.component";
 import { useTranslation } from "react-i18next";
 
 const TranslatingPage = () => {
-    const { t } = useTranslation();
-    return (
-        <div className="column-center full-page">
-            <Header />
-            <Tagline />
-            <SearchBar />
-            <Animation
-                animationGif={translatingGif}
-                animationText={[t("translating")]}
-            />
-        </div>
-    );
+  const { t } = useTranslation();
+  return (
+    <div className="column-center full-page">
+      <Header />
+      <Tagline />
+      <SearchBar />
+      <Animation
+        animationGif={translatingGif}
+        animationText={[t("translating")]}
+      />
+    </div>
+  );
 };
 
 export default TranslatingPage;
