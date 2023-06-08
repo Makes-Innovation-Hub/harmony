@@ -27,8 +27,6 @@ function SongPage() {
             hebrew: name.hebrew,
             arabic: name.arabic,
           };
-          // console.log("Lyrics:", lyrics);
-          // console.log("Title:", titleData);
           setLyrics(lyrics);
           setTitle(titleData);
         } else {
