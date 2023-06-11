@@ -8,9 +8,9 @@ import { createDummySong } from "../utils/createDummyData.js";
 
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
-  logger.info(`findSong with song details ${filter} sent`);
   const songsArray = await Song.find(filter).populate("artist");
   if (songsArray.length > 0) return songsArray;
+  logger.info(`findSong with song details ${songsArray} found successfully `);
 };
 
 const createSongInDB = async (req) => {

@@ -70,8 +70,8 @@ const getArtists = asyncHandler(async (req, res, next) => {
 //! This function is might create the wrong artist, if the artist's data is not unique
 const createArtist = asyncHandler(async (req, res, next) => {
   const newArtistObject = createObjectFromQuery(req.body);
-  logger.info(`createArtist with artist details: ${newArtistObject}`);
   const artist = await Artist.create(newArtistObject);
+  logger.info(`start creating artist with artist details: ${artist}`);
   if (!artist) {
     return next(
       new ErrorResponse(
