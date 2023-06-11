@@ -63,7 +63,7 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
   if (!topSongs) {
     return next(new ErrorResponse(`Top songs not found`), 404);
   }
-  logger.info(`getTopSongs done successfully for: ${topSongs}`);
+  logger.info(`getTopSongs done successfully for: ${JSON.stringify(topSongs)}`);
 
   res.status(200).json({
     success: true,
@@ -76,7 +76,7 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
 // @access  Public
 const createTopSongs = asyncHandler(async (req, res, next) => {
   const { date } = req.body;
-  logger.info(`createSong with song details: ${song}`);
+  logger.info(`createSong with song details: ${JSON.stringify(date)}`);
 
   let topSongs;
   let isMoreThanAWeek;

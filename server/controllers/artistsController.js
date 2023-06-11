@@ -39,7 +39,9 @@ const findOrCreateArtist = async (name, album) => {
   logger.info(`start findOrCreateArtist with data ${name} and album: ${album}`);
   const newArtistObject = createObjectFromQuery(data);
   const newArtist = await Artist.create(newArtistObject);
-  logger.info(`findOrCreateArtist with artist data: ${newArtist} Created`);
+  logger.info(
+    `findOrCreateArtist with artist data: ${JSON.stringify(newArtist)} Created`
+  );
   return newArtist;
 };
 
@@ -71,7 +73,9 @@ const getArtists = asyncHandler(async (req, res, next) => {
 const createArtist = asyncHandler(async (req, res, next) => {
   const newArtistObject = createObjectFromQuery(req.body);
   const artist = await Artist.create(newArtistObject);
-  logger.info(`start creating artist with artist details: ${artist}`);
+  logger.info(
+    `start creating artist with artist details: ${JSON.stringify(artist)}`
+  );
   if (!artist) {
     return next(
       new ErrorResponse(

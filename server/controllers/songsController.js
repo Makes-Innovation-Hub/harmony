@@ -15,12 +15,14 @@ const findSong = async (req) => {
 
 const createSongInDB = async (req) => {
   const newSongObject = createObjectFromQuery(req.body);
-  logger.info(`createSongInDB with song details ${newSongObject}`);
+  logger.info(
+    `createSongInDB with song details ${JSON.stringify(newSongObject)}`
+  );
 
   //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics, album...) in one object.
   const dummySong = createDummySong(newSongObject);
   const data = dummySong;
-  logger.info(`new song created  with song details ${data}`);
+  logger.info(`new song created  with song details ${JSON.stringify(data)}`);
 
   //Finding the artist using the song data (cross-referencing with artist name and the album of the song)
   const artistName = data.artistName;
@@ -30,13 +32,15 @@ const createSongInDB = async (req) => {
   const artist = await getOrCreateArtist(artistName, album);
 
   const song = await Song.create({ ...data, artist: artist._id });
-  logger.info(`song created successfully with song details: ${song}`);
+  logger.info(
+    `song created successfully with song details: ${JSON.stringify(song)}`
+  );
   return song;
 };
 
 const findOrCreateSong = async (req) => {
   const songsArray = await findSong(req);
-  logger.info(`findOrCreateSong for song arr: ${songsArray}`);
+  logger.info(`findOrCreateSong for song arr: ${JSON.stringify(songsArray)}`);
 
   if (!songsArray) {
     const song = await createSongInDB(req);
@@ -58,7 +62,7 @@ const findOrCreateSong = async (req) => {
 // }
 const getSongs = asyncHandler(async (req, res, next) => {
   const songsArray = await findSong(req);
-  logger.info(`getSongs for song: ${songsArray}`);
+  logger.info(`getSongs for song: ${JSON.stringify(songsArray)}`);
 
   if (!songsArray) {
     return next(new ErrorResponse(`Song not found`, 404));
@@ -74,12 +78,14 @@ const getSongs = asyncHandler(async (req, res, next) => {
 // @access  dev
 const createSong = asyncHandler(async (req, res, next) => {
   const song = await createSongInDB(req);
-  logger.info(`createSong with song details: ${song}`);
+  logger.info(`createSong with song details: ${JSON.stringify(song)}`);
 
   if (!song) {
     return next(new ErrorResponse(`Error while creating song`));
   }
-  logger.info(`song created successfully with song details: ${song}`);
+  logger.info(
+    `song created successfully with song details: ${JSON.stringify(song)}`
+  );
   res.status(200).json({
     success: true,
     data: song,

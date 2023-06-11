@@ -7,7 +7,9 @@ async function scrapeTopArabicSongsLyrics(req, res) {
   const artistName = req.body.artistName;
   const songName = req.body.songName;
   logger.info(
-    `start scrap top Arabic songs lyrics with artist name: ${artistName} and song name: ${songName}`
+    `start scrap top Arabic songs lyrics with artist name: ${JSON.stringify(
+      artistName
+    )} and song name: ${JSON.stringify(songName)}`
   );
 
   const url = genArabicLyricsUrl(artistName, songName);

@@ -6,7 +6,9 @@ const scrapeGoogleLyrics = async (req, res) => {
   const songName = req.body.songName;
   const singerName = req.body.singerName;
   logger.info(
-    `start scrap google lyrics with song name: ${songName} and singer name: ${singerName}`
+    `start scrap google lyrics with song name: ${JSON.stringify(
+      songName
+    )} and singer name: ${JSON.stringify(singerName)}`
   );
 
   const browser = await puppeteer.launch({
