@@ -7,7 +7,7 @@ import { translateLyricsByOpenAi } from "./openAiTranslation.js";
 
 let artistId;
 
-async function searchArtistSong(songName, artistName) {
+export const searchArtistSong = async (songName, artistName) => {
   try {
     const artist = await Artist.findOne({
       $or: [
@@ -36,7 +36,7 @@ async function searchArtistSong(songName, artistName) {
   } catch (error) {
     throw new Error(`Error finding artist's song: ${error.message}`);
   }
-}
+};
 
 export const translatingFunction = asyncHandler(async (req, res, next) => {
   const originalLanguage = req.body.originalLanguage;
