@@ -8,7 +8,7 @@ import { createDummyArtist } from "../utils/createDummyData.js";
 const findArtist = async (req) => {
   logger.info(`start findArtist function`);
   const filter = createObjectFromQuery(req.body);
-  logger.info(`artist filtered to find is ${filter}`);
+  logger.info(`artist filtered to find is ${JSON.stringify(filter)}`);
   const artistArray = await Artist.find(filter).populate("songs");
   if (artistArray.length > 0) {
     logger.info(`artist found successfully: ${artistArray}`);
