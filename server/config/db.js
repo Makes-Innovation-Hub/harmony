@@ -1,21 +1,16 @@
 import mongoose from "mongoose";
 
 const connectDB = async () => {
+  if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'development'){
+    throw new Error("Invalid NODE_ENV specified");
+  }
   try {
-    let conn
-    if (process.env.NODE_ENV === "development"){
-      conn = await mongoose.connect(process.env.MONGO_URI_DEV, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-    } else if (process.env.NODE_ENV === "production"){
-      conn = await mongoose.connect(process.env.MONGO_URI_PROD, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-    } else {
-      throw new Error("Invalid NODE_ENV specified");
-    }
+    const mongoURI = process.env.NODE_ENV === 'production' ? process.env.MONGO_URI_PROD : process.env.MONGO_URI_DEV 
+
+    const conn = await mongoose.connect(mongoURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log(`Mongo Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`${error}`);
