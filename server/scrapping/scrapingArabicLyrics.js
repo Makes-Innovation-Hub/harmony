@@ -1,9 +1,13 @@
 import puppeteer from "puppeteer";
+import logger from "../logger.js";
 import reformatScrapingInput from "./reformatScrapingInput.js";
 import { SCRAPE_ARABIC_LYRICS_URL } from "../constants/urls.js";
 import querySelectors from "../constants/scrapingSelectors.js";
 
 const scrapeArabicLyrics = async (artist, songName) => {
+  logger.info(
+    `start scrap Arabic lyrics with artist name: ${artist} and song name: ${songName}`
+  );
   try {
     const reformatedInput = reformatScrapingInput(artist, songName);
     const browser = await puppeteer.launch({
@@ -30,7 +34,7 @@ const scrapeArabicLyrics = async (artist, songName) => {
     );
 
     await browser.close();
-
+    logger.info("lyrics scrapped successfully");
     return lyrics;
   } catch (error) {
     console.error(`Error while scraping: ${error}`);

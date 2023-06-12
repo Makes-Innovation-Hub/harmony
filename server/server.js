@@ -1,6 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import logger from "./logger.js";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
 import coverArtRouter from "./routes/coverArtRoutes.js";
@@ -17,6 +18,7 @@ import searchSongsRouter from "./routes/searchSongs.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
 const app = express();
@@ -53,12 +55,12 @@ connectDB();
 
 app.listen(
   PORT,
-  console.log(`Server running in ${NODE_ENV}
+  logger.info(`Server running in ${NODE_ENV}
   mode on port ${PORT}`)
 );
 
 process.on("unhandledRejection", (err, promise) => {
-  console.error(`Error: ${err.message}`);
+  logger.error(`Error in server: ${err.message}`);
   closeDBConnection();
   // app.close(() => process.exit(1));
 });
