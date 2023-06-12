@@ -18,6 +18,9 @@ import searchRoutes from "./routes/searchRoutes.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const PORT = process.env.PORT || 5000;
+const NODE_ENV = process.env.NODE_ENV;
+
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
 const app = express();
@@ -31,23 +34,17 @@ app.get("/homePage", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));
 });
 
+//Middlewares
 app.use(express.json());
-
-app.use("/api/v1/harmony/songs", songsRouter);
-app.use("/api/v1/harmony/artists", artistsRouter);
-app.use("/api/v1/harmony/topSongs", topSongsRouter);
-app.use("/api/v1/harmony/translate", translationRouter);
+app.use("/api/v1/songs", songsRouter);
+app.use("/api/v1/artists", artistsRouter);
+app.use("/api/v1/topSongs", topSongsRouter);
+app.use("/api/v1/translate", translationRouter);
 app.use("/api/v1/", scrappingRoutes);
 app.use("/api/search", searchRoutes);
-
 app.use("/api/v1/cover", coverArtRouter);
-
-app.use("/api/v1/harmony/lyrics", lyricsRoute);
-
+app.use("/api/v1/lyrics", lyricsRoute);
 app.use(errorHandler);
-
-const PORT = process.env.PORT || 5000;
-const NODE_ENV = process.env.NODE_ENV;
 
 connectDB();
 
