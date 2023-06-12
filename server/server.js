@@ -20,10 +20,10 @@ const __dirname = dirname(__filename);
 
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
+const app = express();
 
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
-const app = express();
 app.use(cors());
 
 dotenv.config({ path: join(__dirname, "./config/config.env") });
