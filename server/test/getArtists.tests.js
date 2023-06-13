@@ -1,3 +1,4 @@
+
 import { describe, it, before, after } from 'mocha';
 import chai from 'chai';
 import axios from 'axios';
@@ -30,6 +31,7 @@ describe('getArtists', function () {
       expect(response.status).to.be.equal(200);
 
       const artistsArray = await response.data.data;
+
       expect(artistsArray).to.be.an('array');
       expect(artistsArray.length).to.be.greaterThan(0);
 
@@ -49,3 +51,4 @@ describe('getArtists', function () {
     }
   });
 });
+
