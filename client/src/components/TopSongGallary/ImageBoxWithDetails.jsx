@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Image, ImageBox, SongP, Songartist } from "./TopSongGallaryStyle";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useGetArtistDataQuery } from "../../api/artistApiSlice"; // Import the artistApiSlice
 
 export default function ImageBoxWithDetails({
   img,
@@ -11,27 +11,20 @@ export default function ImageBoxWithDetails({
 }) {
   const [artistData, setArtistData] = useState(null);
   const navigate = useNavigate();
+  const [isQueryExecuted, setIsQueryExecuted] = useState(false);
 
-  const handleArtistClick = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5000/api/v1/harmony/artist/searchArtist",
-        {
-          params: {
-            artistName: artist,
-          },
-        }
-      );
+  // Use the useGetArtistDataQuery hook to fetch artist data from the slice
+  const { data } = useGetArtistDataQuery(artist, {
+    skip: !isQueryExecuted, // Skip the query if isQueryExecuted is false
+  });
 
-      const { data } = response.data;
-      if (data.length > 0) {
-        const artistInfo = data[0];
-        setArtistData(artistInfo);
-        // console.log(artistInfo); // Log the artist data to the console
-        navigate("/Artist", { state: { artistData: artistInfo } });
-      }
-    } catch (error) {
-      console.error("Error retrieving artist data:", error);
+  const handleArtistClick = () => {
+    if (data) {
+      const artistInfo = data;
+      setArtistData(artistInfo);
+      navigate("/Artist", { state: { artistData: artistInfo } });
+    } else {
+      setIsQueryExecuted(true); // Set the flag to true when the artist is clicked
     }
   };
 
@@ -40,6 +33,7 @@ export default function ImageBoxWithDetails({
       <Image src={img}></Image>
       <Box>
         <SongP>{songName}</SongP>
+        <Songartist>{artist}</Songartist>
         <Songartist onClick={handleArtistClick}>{artist}</Songartist>
       </Box>
     </ImageBox>
