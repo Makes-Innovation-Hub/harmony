@@ -10,6 +10,7 @@ import { useState } from "react";
 import "./App.css";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
+import dummydata from "./pages/ArtistPage/dummyData_ArtistPage.js";
 
 const Router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const Router = createBrowserRouter([
   },
   {
     path: "/Artist",
-    element: <ArtistPage />,
+    element: <ArtistPage artistData={dummydata} />,
   },
   {
     path: "/translating",
