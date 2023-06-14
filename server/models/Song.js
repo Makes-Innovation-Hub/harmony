@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Artist from "./Artist.js";
 import asyncHandler from "../middleware/asyncHandler.js";
+import ErrorResponse from "../utils/ErrorResponse.js";
 
 const SongSchema = new mongoose.Schema(
   {
