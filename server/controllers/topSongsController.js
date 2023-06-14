@@ -13,9 +13,11 @@ const getOrCreateEachSong = async (language) => {
   let scrapedTopSongs;
   if (language === "hebrew") {
     // scrapedTopSongs = JSON.parse(await scrapeTopHebrewSongs())
+    
   }
   if (language === "arabic") {
     // scrapedTopSongs = JSON.parse(await scrapeTopArabicSongs())
+    //!Here: use the result of the top songs Scraping function 
   }
   //scrapedTopArabicSongs should be translated and massaged, to get an array of top songs. Each song should be an object with the exact structure and information in the model (Song.js)
   const massagedResults = dummySongsArray;
@@ -32,8 +34,10 @@ const getOrCreateEachSong = async (language) => {
 };
 
 const getOrCreateTopSongsBothLangs = async () => {
-  const hebrewTop = await getOrCreateEachSong("hebrew");
-  const arabicTop = await getOrCreateEachSong("arabic");
+  const [hebrewTop, arabicTop] = await Promise.all([
+    getOrCreateEachSong("hebrew"),
+    getOrCreateEachSong("arabic"),
+  ]);
   logger.info("Hebrew Top Song & Arabic Top Song created successfully");
   return { hebrewTop, arabicTop };
 };
@@ -124,5 +128,35 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
   });
   logger.info("Top Song Created successfully");
 });
+
+const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
+  const { date } = req.body;
+  logger.info(`createSong with song details: ${JSON.stringify(date)}`);
+
+  let topSongs;
+  let isMoreThanAWeek;
+
+  if (date !== undefined) {
+    isMoreThanAWeek = checkIfAWeekPassed(date);
+    if (!isMoreThanAWeek) {
+      const topSongsArray = await findTopSongs();
+      if (!topSongsArray) {
+        return next(new ErrorResponse(`Top songs not found`), 404);
+      }
+      topSongs = topSongsArray[topSongsArray.length - 1];
+    }
+  }
+  if (date === undefined || (date !== undefined && isMoreThanAWeek)){
+    scrapeTopArabicSongs
+
+  }
+
+  res.status(200).json({
+    success: true,
+    data: topSongs,
+  });
+  logger.info("Top Song Created successfully");
+})
+
 
 export { getTopSongs, createTopSongs };
