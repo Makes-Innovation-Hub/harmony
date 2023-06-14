@@ -50,7 +50,7 @@ export default function TopSongGallary() {
         <Title>{t("top_arabic")}</Title>
         <ImageBoxContainer>
           {topArabicSongs.data &&
-            topArabicSongs.data.map((song, index) => (
+            topArabicSongs.data.songs.map((song, index) => (
               <ImageBoxWithDetails
                 key={index}
                 img={song.coverArt}

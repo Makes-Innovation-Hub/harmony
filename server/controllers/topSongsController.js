@@ -10,22 +10,23 @@ import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import checkIfAWeekPassed from "../utils/checkIfAWeekPassed.js";
 import { getCoverArtForSong } from "../spotifyapi.js";
 
-const getOrCreateEachSong = async (language) => {
-  let scrapedTopSongs;
-  if (language === "hebrew") {
-    // scrapedTopSongs = JSON.parse(await scrapeTopHebrewSongs())
-  }
+const getOrCreateEachSong = async (language, topSongsArray) => {
+  let massagedResults;
   if (language === "arabic") {
-    // scrapedTopSongs = JSON.parse(await scrapeTopArabicSongs())
-    //!Here: use the result of the top songs Scraping function
+    massagedResults = topSongsArray.map((song) => {
+      return {
+        name: { english: song.song },
+        artist: song.artist,
+        coverArt: song.coverArt,
+      };
+    });
   }
-  //scrapedTopArabicSongs should be translated and massaged, to get an array of top songs. Each song should be an object with the exact structure and information in the model (Song.js)
-  const massagedResults = dummySongsArray;
-
   const createdSongsIdArray = [];
 
   for (const result of massagedResults) {
+    console.log(result);
     const song = await findOrCreateSong({ body: result });
+    console.log(song, "song ❤️");
     const songId = song._id;
     createdSongsIdArray.push(songId);
   }
@@ -130,6 +131,7 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
 });
 
 const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
+  logger.info(`createTopSongsOnStart initiating `);
 
   let topSongs = [];
   let isMoreThanAWeek;
@@ -138,28 +140,51 @@ const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
   if (!topSongsArray) {
     return next(new ErrorResponse(`Top songs not found`), 404);
   }
-
-  const latestTopSongs = topSongsArray[topSongsArray.length - 1];
+  topSongsArray.sort((a, b) => b.date - a.date);
+  const latestTopSongs = topSongsArray[0];
   isMoreThanAWeek = checkIfAWeekPassed(latestTopSongs.date);
-
   if (!isMoreThanAWeek) {
     topSongs = latestTopSongs;
   } else {
-    const scrapedTopSongs = await scrapeTopArabicSongs();
-    for (const song of scrapedTopSongs) {
+    const arabicScrapedTopSongs = await scrapeTopArabicSongs();
+    const songs = [];
+
+    for (const song of arabicScrapedTopSongs) {
       const coverArtResult = await getCoverArtForSong(song.song, song.artist);
       logger.info(
         `cover art found for song name: ${song.song} and artist name: ${song.artist}`
       );
       song.coverArt = coverArtResult;
-      topSongs.push(song);
+      songs.push(song);
     }
+    topSongs = { songs };
   }
+
   res.status(200).json({
     success: true,
     data: topSongs,
   });
-  logger.info("Top Song Created successfully");
+
+  if (!isMoreThanAWeek) {
+    //1. for each song: find or create song
+    const arabicSongsArray = await getOrCreateEachSong(
+      "arabic",
+      await topSongs.songs
+    );
+    if (!arabicSongsArray) {
+      return next(
+        new ErrorResponse(
+          `Error while getting or creating top songs from scraped data`
+        )
+      );
+    }
+    //2.Creating top songs document in DB
+    const arabicTopSongs = await createTopSongsInDB("arabic", arabicSongsArray);
+    if (!arabicTopSongs) {
+      return next(new ErrorResponse(`Error while creating Arabic topSongs`));
+    }
+    logger.info("Arabic Top Song Created successfully");
+  }
 });
 
 export { getTopSongs, CreateTopSongsOnStart };
