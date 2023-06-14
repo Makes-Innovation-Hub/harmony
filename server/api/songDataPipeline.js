@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 import puppeteer from "puppeteer";
 import { genGoogleLyricsUrl } from '../utils/googleLyricsUrl.js';
 import detectLanguage from '../utils/detectLang.js'
+import { generalTranslation } from '../utils/openAiTranslation.js';
+import Artist from '../models/Artist.js';
+import Song from '../models/Song.js';
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -30,26 +33,97 @@ async function songDataPipeline(songName, artistName) {
             songData.imgURL = results[1];
             // get lyrics
             songData.lyrics = {};
+            songData.lyrics.english = {};
+            songData.lyrics.hebrew = {};
+            songData.lyrics.arabic = {};
+            const notFilledLangsLyrics = [];
+            let originalLyricsLang;
             const lyrics = results[2];
+            logger.info('detecting original language for lyrics')
             const originalLang = detectLanguage(lyrics);
-            console.log('originalLang', originalLang);
+            logger.info('found original language for lyrics: ', originalLang)
             switch (originalLang) {
                 case 'en':
                     songData.lyrics.english = lyrics;
+                    notFilledLangsLyrics.push('hebrew', 'arabic');
+                    originalLyricsLang = 'english';
                     break;
                 case 'he':
                     songData.lyrics.hebrew = lyrics;
+                    notFilledLangsLyrics.push('english', 'arabic');
+                    originalLyricsLang = 'hebrew';
                     break;
                 case 'ar':
                     songData.lyrics.arabic = lyrics;
+                    notFilledLangsLyrics.push('hebrew', 'english');
+                    originalLyricsLang = 'arabic';
                     break;
             }
-            console.log('songData', songData)
-            // translate song name 3 langs
-            // translate artist name 3 langs
-            // translate lyrics name 3 langs
-            // store in mongodb
 
+            logger.info('stored lyrics in songs data at language: ', detectLanguage)
+            // translate song name 3 langs
+            songData.name = {};
+            songData.name.hebrew = {};
+            songData.name.arabic = {};
+            songData.name.english = {};
+            const notFilledLangs = [];
+            let originalNameLang;
+            logger.info('detecting language for the song name: ', songName);
+            const nameLang = detectLanguage(songName);
+            logger.info(`detected that language for the song name: ${songName} is: ${nameLang}`);
+            switch (nameLang) {
+                case 'en':
+                    songData.name.english = songName;
+                    notFilledLangs.push('hebrew', 'arabic');
+                    originalNameLang = 'english';
+                    break;
+                case 'he':
+                    originalNameLang = 'hebrew';
+                    songData.name.hebrew = songName;
+                    notFilledLangs.push('english', 'arabic');
+                    break;
+                case 'ar':
+                    originalNameLang = 'arabic';
+                    songData.name.arabic = songName;
+                    notFilledLangs.push('english', 'hebrew');
+                    break;
+            }
+
+            // translate artist name 3 langs
+            const transPromises = [];
+            notFilledLangs.forEach(async (targetLang) => {
+                logger.info(`translating ${songName} from lang: ${originalNameLang} to ${targetLang}`);
+                const p = generalTranslation(songName, originalNameLang, targetLang).then(translatedName => {
+                    logger.info(`translation results for ${songName} from lang: ${originalNameLang} to ${targetLang} is: ${translatedName}`);
+                    songData.name[targetLang] = translatedName;
+                });
+                transPromises.push(p);
+            });
+
+            // translate lyrics name 3 langs
+            notFilledLangsLyrics.forEach(async (targetLang) => {
+                logger.info(`translating lyrics from lang: ${originalLyricsLang} to ${targetLang}`);
+                const p = generalTranslation(lyrics, originalLyricsLang, targetLang).then(translatedLyrics => {
+                    logger.info(`done translation for lyrics from lang: ${originalLyricsLang} to ${targetLang}`);
+                    songData.lyrics[targetLang] = translatedLyrics;
+                });
+                transPromises.push(p);
+            });
+            Promise.all(transPromises)
+                .catch(err => {
+                    logger.error('error in translating', JSON.stringify(err));
+                })
+                .finally(async res => {
+                    logger.info('done translating');
+                    try {
+                        // store in mongodb
+                        logger.info('starting to store artist data in DB');
+                        await Artist.create(artistData);
+                        await Song.create(songData);
+                    } catch (error) {
+                        console.log('error in storing in DB', error);
+                    }
+                })
         }).catch(err => {
             console.log('err', err);
         }).finally(() => {
@@ -68,8 +142,9 @@ async function getArtistData(artistName) {
         const firstRes = res.body.artists.items[0];
         const artistData = {
             name: artistName,
-            spotifyId: firstRes.id,
-            img: firstRes.images[0].url
+            imgURL: firstRes.images[0].url,
+            songs: [],
+            albums: firstRes.albums
         };
         logger.info(`finished to get artist data for: ${artistName}`)
         return artistData;
