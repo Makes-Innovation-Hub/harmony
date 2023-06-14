@@ -4,7 +4,7 @@ const topSongsRouter = express.Router()
 
 topSongsRouter
 .route("/")
-.get(getTopSongs)
-.post(CreateTopSongsOnStart)
+.get(CreateTopSongsOnStart)
+// .post(CreateTopSongsOnStart)
 
 export default topSongsRouter

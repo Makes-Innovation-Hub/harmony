@@ -8,16 +8,16 @@ import { findOrCreateSong } from "./songsController.js";
 import { dummySongsArray } from "../utils/createDummyData.js";
 import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import checkIfAWeekPassed from "../utils/checkIfAWeekPassed.js";
+import { getCoverArtForSong } from "../spotifyapi.js";
 
 const getOrCreateEachSong = async (language) => {
   let scrapedTopSongs;
   if (language === "hebrew") {
     // scrapedTopSongs = JSON.parse(await scrapeTopHebrewSongs())
-    
   }
   if (language === "arabic") {
     // scrapedTopSongs = JSON.parse(await scrapeTopArabicSongs())
-    //!Here: use the result of the top songs Scraping function 
+    //!Here: use the result of the top songs Scraping function
   }
   //scrapedTopArabicSongs should be translated and massaged, to get an array of top songs. Each song should be an object with the exact structure and information in the model (Song.js)
   const massagedResults = dummySongsArray;
@@ -130,33 +130,40 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
 });
 
 const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
-  const { date } = req.body;
-  logger.info(`createSong with song details: ${JSON.stringify(date)}`);
+  console.log('😂')
+  // logger.info(`createSong with song details: ${JSON.stringify(date)}`);
 
-  let topSongs;
-  let isMoreThanAWeek;
+  let topSongs = [];
+  // let isMoreThanAWeek;
 
-  if (date !== undefined) {
-    isMoreThanAWeek = checkIfAWeekPassed(date);
-    if (!isMoreThanAWeek) {
-      const topSongsArray = await findTopSongs();
-      if (!topSongsArray) {
-        return next(new ErrorResponse(`Top songs not found`), 404);
-      }
-      topSongs = topSongsArray[topSongsArray.length - 1];
+  // find latest topSongs and check if a week passed since then
+  // const topSongsArray = await findTopSongs();
+  // if (!topSongsArray) {
+  //   return next(new ErrorResponse(`Top songs not found`), 404);
+  // }
+
+  // const latestTopSongs = topSongsArray[topSongsArray.length - 1];
+  // isMoreThanAWeek = checkIfAWeekPassed(latestTopSongs.date);
+
+  // if (!isMoreThanAWeek) {
+  //   topSongs = latestTopSongs;
+  // } else {
+    const scrapedTopSongs = await scrapeTopArabicSongs();
+    for (const song of scrapedTopSongs) {
+      const coverArtResult = await getCoverArtForSong(song.song, song.artist);
+      logger.info(
+        `cover art found for song name: ${song.song} and artist name: ${song.artist}`
+      );
+      song.coverArt = coverArtResult;
+      topSongs.push(song);
     }
-  }
-  if (date === undefined || (date !== undefined && isMoreThanAWeek)){
-    topSongs = scrapeTopArabicSongs()
-
-  }
-
+    console.log(topSongs)
+  // }
   res.status(200).json({
     success: true,
     data: topSongs,
   });
   logger.info("Top Song Created successfully");
-})
-
+});
 
 export { getTopSongs, CreateTopSongsOnStart };

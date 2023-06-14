@@ -1,20 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { serverApiUrl } from "../constants/urls";
-
+//Change this to POST instead of
 export const arabicSongsApi = createApi({
   reducerPath: "arabicSongsApi",
   baseQuery: fetchBaseQuery({ baseUrl: serverApiUrl }),
   endpoints: (builder) => ({
-    getTopArabicSongs: builder.mutation({
-      query: () => {
-        return {
-          url: "topSongs",
-          method: "POST",
-          body: { date: new Date() },
-        };
-      },
+    getTopArabicSongs: builder.query({
+      query: () => "topSongs",
     }),
   }),
 });
 
-export const { useGetTopArabicSongsMutation } = arabicSongsApi;
+export const { useGetTopArabicSongsQuery } = arabicSongsApi;
