@@ -4,7 +4,7 @@ import * as cheerio from "cheerio";
 import { arabTopSongsUrl } from "../constants/urls.js";
 // import { getCoverArtForSong } from "../spotifyapi.js";
 
-async function scrapeTopArabicSongs(req, res) {
+async function scrapeTopArabicSongs() {
   logger.info("starting to scrap top arabic songs");
   try {
     const { data } = await axios.get(arabTopSongsUrl);
@@ -31,8 +31,9 @@ async function scrapeTopArabicSongs(req, res) {
         count++;
         if (count === 10) {
           logger.info("scraped successfully top Arabic songs");
-          res.json({ songsArr: results });
-          return false;
+          // res.json({ songsArr: results });
+          // return false;
+          return results
         }
       }
     });
