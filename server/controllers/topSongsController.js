@@ -130,24 +130,21 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
 });
 
 const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
-  console.log('😂')
-  // logger.info(`createSong with song details: ${JSON.stringify(date)}`);
 
   let topSongs = [];
-  // let isMoreThanAWeek;
+  let isMoreThanAWeek;
 
-  // find latest topSongs and check if a week passed since then
-  // const topSongsArray = await findTopSongs();
-  // if (!topSongsArray) {
-  //   return next(new ErrorResponse(`Top songs not found`), 404);
-  // }
+  const topSongsArray = await findTopSongs();
+  if (!topSongsArray) {
+    return next(new ErrorResponse(`Top songs not found`), 404);
+  }
 
-  // const latestTopSongs = topSongsArray[topSongsArray.length - 1];
-  // isMoreThanAWeek = checkIfAWeekPassed(latestTopSongs.date);
+  const latestTopSongs = topSongsArray[topSongsArray.length - 1];
+  isMoreThanAWeek = checkIfAWeekPassed(latestTopSongs.date);
 
-  // if (!isMoreThanAWeek) {
-  //   topSongs = latestTopSongs;
-  // } else {
+  if (!isMoreThanAWeek) {
+    topSongs = latestTopSongs;
+  } else {
     const scrapedTopSongs = await scrapeTopArabicSongs();
     for (const song of scrapedTopSongs) {
       const coverArtResult = await getCoverArtForSong(song.song, song.artist);
@@ -157,8 +154,7 @@ const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
       song.coverArt = coverArtResult;
       topSongs.push(song);
     }
-    console.log(topSongs)
-  // }
+  }
   res.status(200).json({
     success: true,
     data: topSongs,
