@@ -14,7 +14,10 @@ import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 import lyricsRoute from "./routes/lyricsRoute.js";
 import searchRoutes from "./routes/searchRoutes.js";
-
+import {
+    scrapeTop10Songs,
+    clearTop10Songs,
+} from "./controllers/topSongsController.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -28,7 +31,7 @@ dotenv.config({ path: join(__dirname, "./config/config.env") });
 app.use(express.static(join(__dirname, "../client/dist")));
 
 app.get("/homePage", (req, res) => {
-  res.sendFile(join(__dirname, "../client/dist", "index.html"));
+    res.sendFile(join(__dirname, "../client/dist", "index.html"));
 });
 
 app.use(express.json());
@@ -49,16 +52,21 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
 
-connectDB();
+await connectDB();
+await scrapeTop10Songs();
+setInterval(() => {
+    clearTop10Songs();
+    scrapeTop10Songs();
+}, 7 * 24 * 60 * 60 * 1000);
 
 app.listen(
-  PORT,
-  logger.info(`Server running in ${NODE_ENV}
+    PORT,
+    logger.info(`Server running in ${NODE_ENV}
   mode on port ${PORT}`)
 );
 
 process.on("unhandledRejection", (err, promise) => {
-  logger.error(`Error in server: ${err.message}`);
-  closeDBConnection();
-  // app.close(() => process.exit(1));
+    logger.error(`Error in server: ${err.message}`);
+    closeDBConnection();
+    // app.close(() => process.exit(1));
 });
