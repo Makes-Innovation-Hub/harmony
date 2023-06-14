@@ -5,10 +5,16 @@ export const arabicSongsApi = createApi({
   reducerPath: "arabicSongsApi",
   baseQuery: fetchBaseQuery({ baseUrl: serverApiUrl }),
   endpoints: (builder) => ({
-    getTopArabicSongs: builder.query({
-      query: () => "topArabicSongs",
+    getTopArabicSongs: builder.mutation({
+      query: () => {
+        return {
+          url: "topSongs",
+          method: "POST",
+          body: { date: new Date() },
+        };
+      },
     }),
   }),
 });
 
-export const { useGetTopArabicSongsQuery } = arabicSongsApi;
+export const { useGetTopArabicSongsMutation } = arabicSongsApi;

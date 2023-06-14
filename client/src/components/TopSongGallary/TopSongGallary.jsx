@@ -8,14 +8,14 @@ import {
 import { useState } from "react";
 import ImageBoxWithDetails from "./ImageBoxWithDetails";
 import { useGetTopHebrewSongsQuery } from "../../api/hebrewApiSlice";
-import { useGetTopArabicSongsQuery } from "../../api/arabicApiSlice";
+import { useGetTopArabicSongsMutation } from "../../api/arabicApiSlice";
 import { useLazyGetLyricsQuery } from "../../api/lyricsApiSlice";
 
 import { useTranslation } from "react-i18next";
 
 export default function TopSongGallary() {
   const { data: topHebrewSongs = [] } = useGetTopHebrewSongsQuery();
-  const { data: topArabicSongs = [] } = useGetTopArabicSongsQuery();
+  const { data: topArabicSongs = [] } = useGetTopArabicSongsMutation();
   const [trigger, { data }] = useLazyGetLyricsQuery();
   const [songLyrics, setSongLyrics] = useState([]);
 

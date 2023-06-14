@@ -147,7 +147,7 @@ const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
     }
   }
   if (date === undefined || (date !== undefined && isMoreThanAWeek)){
-    scrapeTopArabicSongs
+    topSongs = scrapeTopArabicSongs()
 
   }
 
@@ -159,4 +159,4 @@ const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
 })
 
 
-export { getTopSongs, createTopSongs };
+export { getTopSongs, CreateTopSongsOnStart };

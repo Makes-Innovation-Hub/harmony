@@ -35,7 +35,7 @@ app.use(express.json());
 
 app.use("/api/v1/harmony/songs", songsRouter);
 app.use("/api/v1/harmony/artists", artistsRouter);
-app.use("/api/v1/harmony/topSongs", topSongsRouter);
+app.use("/api/v1/topSongs", topSongsRouter);
 app.use("/api/v1/harmony/translate", translationRouter);
 app.use("/api/v1/", scrappingRoutes);
 app.use("/api/search", searchRoutes);
