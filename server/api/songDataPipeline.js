@@ -37,13 +37,14 @@ async function songDataPipeline(songName, artistName) {
             logger.info('detecting original language for lyrics')
             const originalLang = detectLanguage(lyrics);
             logger.info('found original language for lyrics: ', originalLang)
-            const [updatedSongData, notFilledLangsLyrics, originalLyricsLang] = updateObjLanguage(songData, 'lyrics', originalLang, lyrics)
+            songData.originalLang = originalLang;
+            const [updatedSongData, notFilledLangsLyrics, originalLyricsLang] = updateObjLanguage(songData, 'lyrics', originalLang, lyrics[0])
             logger.info('stored lyrics in songs data at language: ', detectLanguage)
             // translate song name 3 langs
             logger.info('detecting language for the song name: ', songName);
             const nameLang = detectLanguage(songName);
             logger.info(`detected that language for the song name: ${songName} is: ${nameLang}`);
-            const [nameSongData, notFilledLangs, originalNameLang] = updateObjLanguage(updatedSongData, 'name', nameLang, songName)
+            const [newSongData, notFilledLangs, originalNameLang] = updateObjLanguage(updatedSongData, 'name', nameLang, songName)
             // translate artist name 3 langs
             const transPromises = [];
             notFilledLangs.forEach(async (targetLang) => {
@@ -73,9 +74,12 @@ async function songDataPipeline(songName, artistName) {
                     try {
                         // store in mongodb
                         logger.info('starting to store artist data in DB');
-                        await Artist.create(artistData);
-                        // await Song.create(nameSongData);
+                        const artistRes = await Artist.create(artistData);
+                        const artistId = artistRes._id;
+                        newSongData.artist = artistId;
+                        const songId = await Song.create(newSongData)._id;
                     } catch (error) {
+                        console.log('error', error)
                         logger.error('error in storing in DB', JSON.stringify(error));
                     }
                 })
