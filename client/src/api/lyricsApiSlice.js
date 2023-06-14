@@ -8,7 +8,7 @@ export const lyricsApi = createApi({
     getLyrics: builder.query({
       queryFn: async ({ artistName, songName }) => {
         const response = await fetch(
-          `${serverApiUrl}/${artistName}/${songName}`
+          `${serverApiUrl}${artistName}/${songName}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch lyrics");
