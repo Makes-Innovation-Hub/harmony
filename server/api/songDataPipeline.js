@@ -7,6 +7,7 @@ import detectLanguage from '../utils/detectLang.js'
 import { generalTranslation } from '../utils/openAiTranslation.js';
 import Artist from '../models/Artist.js';
 import Song from '../models/Song.js';
+import { initSongData, updateObjLanguage } from '../utils/pipelingUtils.js'
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -21,7 +22,7 @@ spotifyApi.setAccessToken(accessToken);
 
 async function songDataPipeline(songName, artistName) {
     try {
-        const songData = {};
+        const songData = initSongData();
         await Promise.all([
             getArtistData(artistName),
             getCoverArt(songName, artistName),
@@ -32,63 +33,17 @@ async function songDataPipeline(songName, artistName) {
             // get cover art
             songData.imgURL = results[1];
             // get lyrics
-            songData.lyrics = {};
-            songData.lyrics.english = {};
-            songData.lyrics.hebrew = {};
-            songData.lyrics.arabic = {};
-            const notFilledLangsLyrics = [];
-            let originalLyricsLang;
             const lyrics = results[2];
             logger.info('detecting original language for lyrics')
             const originalLang = detectLanguage(lyrics);
             logger.info('found original language for lyrics: ', originalLang)
-            switch (originalLang) {
-                case 'en':
-                    songData.lyrics.english = lyrics;
-                    notFilledLangsLyrics.push('hebrew', 'arabic');
-                    originalLyricsLang = 'english';
-                    break;
-                case 'he':
-                    songData.lyrics.hebrew = lyrics;
-                    notFilledLangsLyrics.push('english', 'arabic');
-                    originalLyricsLang = 'hebrew';
-                    break;
-                case 'ar':
-                    songData.lyrics.arabic = lyrics;
-                    notFilledLangsLyrics.push('hebrew', 'english');
-                    originalLyricsLang = 'arabic';
-                    break;
-            }
-
+            const [updatedSongData, notFilledLangsLyrics, originalLyricsLang] = updateObjLanguage(songData, 'lyrics', originalLang, lyrics)
             logger.info('stored lyrics in songs data at language: ', detectLanguage)
             // translate song name 3 langs
-            songData.name = {};
-            songData.name.hebrew = {};
-            songData.name.arabic = {};
-            songData.name.english = {};
-            const notFilledLangs = [];
-            let originalNameLang;
             logger.info('detecting language for the song name: ', songName);
             const nameLang = detectLanguage(songName);
             logger.info(`detected that language for the song name: ${songName} is: ${nameLang}`);
-            switch (nameLang) {
-                case 'en':
-                    songData.name.english = songName;
-                    notFilledLangs.push('hebrew', 'arabic');
-                    originalNameLang = 'english';
-                    break;
-                case 'he':
-                    originalNameLang = 'hebrew';
-                    songData.name.hebrew = songName;
-                    notFilledLangs.push('english', 'arabic');
-                    break;
-                case 'ar':
-                    originalNameLang = 'arabic';
-                    songData.name.arabic = songName;
-                    notFilledLangs.push('english', 'hebrew');
-                    break;
-            }
-
+            const [nameSongData, notFilledLangs, originalNameLang] = updateObjLanguage(updatedSongData, 'name', nameLang, songName)
             // translate artist name 3 langs
             const transPromises = [];
             notFilledLangs.forEach(async (targetLang) => {
@@ -119,16 +74,14 @@ async function songDataPipeline(songName, artistName) {
                         // store in mongodb
                         logger.info('starting to store artist data in DB');
                         await Artist.create(artistData);
-                        await Song.create(songData);
+                        // await Song.create(nameSongData);
                     } catch (error) {
-                        console.log('error in storing in DB', error);
+                        logger.error('error in storing in DB', JSON.stringify(error));
                     }
                 })
         }).catch(err => {
-            console.log('err', err);
-        }).finally(() => {
-            console.log('done');
-        });
+            logger.error('err', JSON.stringify(err));
+        })
     } catch (error) {
 
     }
@@ -136,20 +89,60 @@ async function songDataPipeline(songName, artistName) {
 
 async function getArtistData(artistName) {
     logger.info(`starting to get artist data for: ${artistName}`)
+    const nameLang = detectLanguage(artistName);
+    logger.info(`detected that language for the song name: ${artistName} is: ${nameLang}`);
+    const notFilledLangs = [];
+    const transPromises = [];
+    let originalNameLang;
     try {
         const res = await spotifyApi.searchArtists(artistName);
         logger.info(`completed spotify api call for: ${artistName}`)
         const firstRes = res.body.artists.items[0];
         const artistData = {
-            name: artistName,
+            name: {
+                english: '',
+                hebrew: '',
+                arabic: '',
+            },
             imgURL: firstRes.images[0].url,
             songs: [],
-            albums: firstRes.albums
+            albums: firstRes.albums || []
         };
-        logger.info(`finished to get artist data for: ${artistName}`)
+        switch (nameLang) {
+            case 'en':
+                artistData.name.english = artistName;
+                notFilledLangs.push('hebrew', 'arabic');
+                originalNameLang = 'english';
+                break;
+            case 'he':
+                originalNameLang = 'hebrew';
+                artistData.name.hebrew = artistName;
+                notFilledLangs.push('english', 'arabic');
+                break;
+            case 'ar':
+                originalNameLang = 'arabic';
+                artistData.name.arabic = artistName;
+                notFilledLangs.push('english', 'hebrew');
+                break;
+        }
+        // translate artists name
+        notFilledLangs.forEach(async (targetLang) => {
+            logger.info(`translating artist name from lang: ${originalNameLang} to ${targetLang}`);
+            const p = generalTranslation(artistName, originalNameLang, targetLang).then(translatedArtistName => {
+                logger.info(`translating results of artist name from lang: ${originalNameLang} to ${targetLang} as: ${translatedArtistName}`);
+                artistData.name[targetLang] = translatedArtistName;
+            });
+            transPromises.push(p);
+        });
+        await Promise.all(transPromises).catch(err => {
+            logger.error('error in translating', JSON.stringify(err));
+
+        }).finally(() => {
+            logger.info(`finished to get artist data for: ${artistName}`);
+        })
         return artistData;
     } catch (error) {
-        console.log('error getArtistData', error);
+        logger.error('error getArtistData', JSON.stringify(error))
     }
 }
 
@@ -207,11 +200,9 @@ async function getLyrics(songName, artistName) {
         await page.waitForSelector("#search");
         const links = await page.evaluate(() => {
             const linkElements = Array.from(document.querySelectorAll("div.yuRUbf a"));
-            console.log('linkElements', linkElements);
             const filteredLinks = [];
             linkElements.forEach((element) => {
                 const href = element.href;
-                console.log('href', href);
                 if (href.startsWith("https://shironet.mako")) {
                     filteredLinks.push(href);
                 } else if (href.startsWith("https://genius.com/")) {
@@ -247,7 +238,6 @@ async function getLyrics(songName, artistName) {
         return lyrics;
     } catch (error) {
         logger.error("err in scrapping from google lyrics", error);
-        console.log('error', error);
     }
 }
 
