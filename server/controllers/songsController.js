@@ -3,7 +3,7 @@ import Song from "../models/Song.js";
 import logger from "../logger.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createObjectFromQuery from "../utils/createObjectFromQuery.js";
-import { getOrCreateArtist } from "./artistsController.js";
+import { findOrCreateArtist } from "./artistsController.js";
 import { createDummySong } from "../utils/createDummyData.js";
 
 const findSong = async (req) => {
@@ -19,19 +19,26 @@ const createSongInDB = async (req) => {
     `createSongInDB with song details ${JSON.stringify(newSongObject)}`
   );
 
-  //Add a function here that scrapes the song, translates it and returns the information bellow (name, lyrics, album...) in one object.
-  const dummySong = createDummySong(newSongObject);
-  const data = dummySong;
-  logger.info(`new song created  with song details ${JSON.stringify(data)}`);
-
-  //Finding the artist using the song data (cross-referencing with artist name and the album of the song)
-  const artistName = data.artistName;
-  logger.info(`artist name for the new created song is: ${artistName}`);
-  const album = data.album;
-  logger.info(`album name for the new created song is: ${album}`);
-  const artist = await getOrCreateArtist(artistName, album);
-
-  const song = await Song.create({ ...data, artist: artist._id });
+  //add song lyrics and translations for names and lyrics. put the scraping function results here!
+  const artist = await findOrCreateArtist(
+    req.body.artist,
+    req.body.name.english,
+    req.body.coverArt
+  );
+  const song = await Song.create({
+    name: {
+      english: req.body.name.english,
+      hebrew: "hard-coded heb",
+      arabic: "hard-coded arabic",
+    },
+    lyrics: {
+      english: "hard-coded eng",
+      hebrew: "hard-coded heb",
+      arabic: "hard-coded arabic",
+    },
+    coverArt: req.body.coverArt,
+    artist: artist._id,
+  });
   logger.info(
     `song created successfully with song details: ${JSON.stringify(song)}`
   );
@@ -46,7 +53,7 @@ const findOrCreateSong = async (req) => {
     const song = await createSongInDB(req);
     return song;
   }
-  logger.info(`findOrCreateSong successfully for: ${song}`);
+  // logger.info(`findOrCreateSong successfully for: ${song}`);
 
   return songsArray[0];
 };
