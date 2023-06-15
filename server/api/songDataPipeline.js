@@ -78,6 +78,7 @@ async function songDataPipeline(songName, artistName) {
                         const artistId = artistRes._id;
                         newSongData.artist = artistId;
                         const songId = await Song.create(newSongData)._id;
+                        await Artist.updateOne({ _id: artistId }, { $push: { songs: songId } })
                     } catch (error) {
                         console.log('error', error)
                         logger.error('error in storing in DB', JSON.stringify(error));
