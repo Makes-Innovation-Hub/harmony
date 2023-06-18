@@ -3,7 +3,7 @@ import { serverApiUrl } from "../constants/urls";
 
 export const lyricsApi = createApi({
   reducerPath: "lyricsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: serverApiUrl }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${serverApiUrl}/scrap` }),
   endpoints: (builder) => ({
     getLyrics: builder.query({
       queryFn: async ({ artistName, songName }) => {

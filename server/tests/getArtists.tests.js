@@ -17,7 +17,7 @@ describe("getArtists", function () {
 
     for (const requestBody of requestBodies) {
       const response = await axios.get(
-        "http://localhost:5000/api/v1/harmony/artists",
+        "http://localhost:5000/api/v1/artists",
         {
           data: requestBody,
         }
