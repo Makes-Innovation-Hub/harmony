@@ -44,7 +44,7 @@ app.use("/api/search", searchRoutes);
 app.use("/api/v1/cover", coverArtRouter);
 
 app.use("/api/v1/harmony/lyrics", lyricsRoute);
-app.use("/api/v1/harmony/artist", artistSearchRoute);
+app.use("/api/v1/artist", artistSearchRoute);
 
 app.use(errorHandler);
 
