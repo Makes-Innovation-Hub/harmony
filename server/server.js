@@ -33,7 +33,7 @@ app.get("/homePage", (req, res) => {
 app.use(express.json());
 
 app.use("/api/v1/harmony/songs", songsRouter);
-app.use("/api/v1/harmony/artists", artistsRouter);
+app.use("/api/v1/artists", artistsRouter);
 app.use("/api/v1/harmony/topSongs", topSongsRouter);
 app.use("/api/v1/harmony/translate", translationRouter);
 app.use("/api/v1/", scrappingRoutes);
