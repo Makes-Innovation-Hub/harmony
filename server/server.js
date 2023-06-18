@@ -14,6 +14,8 @@ import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 import lyricsRoute from "./routes/lyricsRoute.js";
 import searchRoutes from "./routes/searchRoutes.js";
+import authRouter from "./routes/authRoute.js";
+import { verifyToken } from "./controllers/authController.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -33,16 +35,17 @@ app.get("/homePage", (req, res) => {
 
 app.use(express.json());
 
-app.use("/api/v1/harmony/songs", songsRouter);
-app.use("/api/v1/harmony/artists", artistsRouter);
-app.use("/api/v1/harmony/topSongs", topSongsRouter);
-app.use("/api/v1/harmony/translate", translationRouter);
-app.use("/api/v1/", scrappingRoutes);
-app.use("/api/search", searchRoutes);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/harmony/songs", verifyToken, songsRouter);
+app.use("/api/v1/harmony/artists", verifyToken, artistsRouter);
+app.use("/api/v1/harmony/topSongs", verifyToken, topSongsRouter);
+app.use("/api/v1/harmony/translate", verifyToken, translationRouter);
+app.use("/api/v1/", verifyToken, scrappingRoutes);
+app.use("/api/search", verifyToken, searchRoutes);
 
-app.use("/api/v1/cover", coverArtRouter);
+app.use("/api/v1/cover", verifyToken, coverArtRouter);
 
-app.use("/api/v1/harmony/lyrics", lyricsRoute);
+app.use("/api/v1/harmony/lyrics", verifyToken, lyricsRoute);
 
 app.use(errorHandler);
 
