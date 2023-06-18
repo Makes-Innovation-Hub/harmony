@@ -7,6 +7,10 @@ const spotifyApi = new SpotifyWebApi({
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
 });
 
+const data = await spotifyApi.clientCredentialsGrant();
+const accessToken = data.body.access_token;
+spotifyApi.setAccessToken(accessToken);
+
 async function getAlbumFromSongAndArtist(songName, artistName) {
   try {
     let searchQuery;
@@ -17,9 +21,6 @@ async function getAlbumFromSongAndArtist(songName, artistName) {
       searchQuery = `${songName} artist:${artistName}`;
     }
 
-    const data = await spotifyApi.clientCredentialsGrant();
-    const accessToken = data.body.access_token;
-    spotifyApi.setAccessToken(accessToken);
 
     const searchResult = await spotifyApi.searchTracks(searchQuery);
     const track = searchResult.body.tracks.items[0];
@@ -49,10 +50,10 @@ async function getCoverArtForSong(songName, artistName) {
       searchQuery = `track:${songName} artist:${artistName}`;
     }
 
-    logger.info("before getting Spotify keys");
-    const data = await spotifyApi.clientCredentialsGrant();
-    const accessToken = data.body.access_token;
-    spotifyApi.setAccessToken(accessToken);
+    // logger.info("before getting Spotify keys");
+    // const data = await spotifyApi.clientCredentialsGrant();
+    // const accessToken = data.body.access_token;
+    // spotifyApi.setAccessToken(accessToken);
 
     const searchResult = await spotifyApi.searchTracks(searchQuery);
     const track = searchResult.body.tracks.items[0];
@@ -71,7 +72,8 @@ async function getCoverArtForSong(songName, artistName) {
       }
     }
   } catch (error) {
-    logger.error("Error in getCoverArtForSong:", error.message);
+    console.log('error', error);
+    logger.error("Error in getCoverArtForSong:", error);
   }
 }
 

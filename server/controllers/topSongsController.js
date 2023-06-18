@@ -8,6 +8,7 @@ import { findOrCreateSong } from "./songsController.js";
 import { dummySongsArray } from "../utils/createDummyData.js";
 import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import checkIfAWeekPassed from "../utils/checkIfAWeekPassed.js";
+import { songDataPipeline } from '../api/songDataPipeline.js';
 
 const getOrCreateEachSong = async (language) => {
   let scrapedTopSongs;
@@ -56,12 +57,51 @@ const findTopSongs = async () => {
 };
 
 // @desc    get all top songs
-//@route    GET /api/v1/harmony/topSongs
+//@route    GET /api/v1/topSongs
 // @access  Public
 const getTopSongs = asyncHandler(async (req, res, next) => {
+  logger.info(`start loading top songs from db`);
   const topSongs = await findTopSongs();
   if (!topSongs) {
-    return next(new ErrorResponse(`Top songs not found`), 404);
+    logger.info(`no top songs found in db`);
+    await Promise.all([
+      fetch('http://localhost:5000/api/v1/scrap/topArabicSongs').then(res => res.json()),
+      fetch('http://localhost:5000/api/v1/scrap/topHebrewSongs').then(res => res.json()),
+    ]).then(async res => {
+      const [arSongsData, hbSongsData] = res;
+      const hbpromises = [];
+      const arpromises = [];
+      arSongsData.songsArr.forEach(songObj => {
+        const { song, artist } = songObj;
+        arpromises.push(songDataPipeline(song, artist));
+      });
+      hbSongsData.forEach(songObj => {
+        const { songName, artist } = songObj;
+        hbpromises.push(songDataPipeline(songName, artist));
+      });
+      await Promise.all([
+        Promise.all(hbpromises).then(async savedSongsData => {
+          console.log('savedSongsData', savedSongsData);
+          // saveTop10DB(savedSongsData);
+        }),
+        Promise.all(arpromises).then(async savedSongsData => {
+          console.log('savedSongsData', savedSongsData);
+          // saveTop10DB(savedSongsData);
+        })
+      ]).then(res => {
+        console.log('res in pipeline controller', res);
+        logger.info('stored top all 10 songs in db successfully');
+      })
+        .catch(err => {
+          logger.error(`err in saving top 10 in db ${JSON.stringify(err)}`);
+        });
+    }).catch(err => {
+      console.log('err', err);
+      logger.error(`error in scrapping top songs ${JSON.stringify(err)}`);
+    });
+
+    // return next(new ErrorResponse(`Top songs not found`), 404);
+    next()
   }
   logger.info(`getTopSongs done successfully for: ${JSON.stringify(topSongs)}`);
 
@@ -72,7 +112,7 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Create top songs
-//@route    POST /api/v1/harmony/topSongs
+//@route    POST /api/v1/topSongs
 // @access  Public
 const createTopSongs = asyncHandler(async (req, res, next) => {
   const { date } = req.body;
