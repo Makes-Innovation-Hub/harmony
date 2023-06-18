@@ -3,7 +3,7 @@ import { serverApiUrl } from "../constants/urls";
 //Change this to POST instead of
 export const arabicSongsApi = createApi({
   reducerPath: "arabicSongsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: serverApiUrl }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${serverApiUrl}/scrap` }),
   endpoints: (builder) => ({
     getTopArabicSongs: builder.query({
       query: () => "topSongs",

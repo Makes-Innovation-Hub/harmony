@@ -1,6 +1,6 @@
 import { ContentWrapper, PageWrapper } from "./ArtistPage.styled";
 import FlexGrowContainer from "../../components/FlexGrowContainer/FlexGrowContainer";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import ThreeLangNames from "../../components/ThreeLnagNames/ThreeLangNames";
 import SongListItem from "../../components/SongListItem/SongListItem";
 import ClipArtImage from "../../components/ClipArtImage/ClipArtImage";
