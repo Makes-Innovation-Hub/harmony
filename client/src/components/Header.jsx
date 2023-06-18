@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Title,
   HeaderContainer,
@@ -9,16 +10,21 @@ import {
   LanguageList,
   LanguageP,
   LanguageHAP,
-  // TitleFlag
 } from "./HeaderStyle";
 import USAFlag from "../assets/USA.png";
 import palestineFlag from "../assets/palestine.jpg";
 import isrealFlag from "../assets/isreal.jpg";
 import Dove from "../assets/dove.png";
 import Ellipse3 from "../assets/Ellipse3.png";
+import { setLanguage } from "../Redux/languageSlice";
 import "./Header.css";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const [showFlag, setShowFlag] = useState(true);
   const [showList, setShowList] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
@@ -32,16 +38,24 @@ const Header = () => {
   const handleLanguageSelect = (language) => {
     setSelectedLanguage(language);
 
+    let flag = USAFlag; // Default flag
+
     if (language === "English") {
-      setSelectedFlag(USAFlag);
+      flag = USAFlag;
+      i18n.changeLanguage("en"); // Change language to English
     } else if (language === "Hebrew") {
-      setSelectedFlag(isrealFlag);
+      flag = isrealFlag;
+      i18n.changeLanguage("he"); // Change language to Hebrew
     } else if (language === "Arabic") {
-      setSelectedFlag(palestineFlag);
+      flag = palestineFlag;
+      i18n.changeLanguage("ar"); // Change language to Arabic
     }
 
+    setSelectedFlag(flag);
     setShowList(false);
     setShowFlag(true);
+
+    dispatch(setLanguage(language.toLowerCase()));
   };
 
   return (
@@ -51,7 +65,7 @@ const Header = () => {
         <img className="ellipse" src={Ellipse3} alt="" />
       </AppIcon>
 
-      <Title>Harmony</Title>
+      <Title>{t("title")}</Title>
 
       {showFlag && (
         <div onClick={handleClick}>
@@ -76,7 +90,6 @@ const Header = () => {
           </LanguageList>
         </div>
       )}
-      {/* <TitleFlag> */}
     </HeaderContainer>
   );
 };
