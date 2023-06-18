@@ -90,6 +90,7 @@ export const Option = styled.li`
   justify-content: space-between;
   padding: 2%;
 `;
+
 export const LanguageList = styled.ul`
   /* border: 2px solid red; */
   width: 120px;
