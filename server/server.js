@@ -25,9 +25,6 @@ const app = express();
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
 app.use(cors());
-
-dotenv.config({ path: join(__dirname, "./config/config.env") });
-
 app.use(express.static(join(__dirname, "../client/dist")));
 
 app.get("/homePage", (req, res) => {
@@ -40,10 +37,10 @@ app.use("/api/v1/songs", songsRouter);
 app.use("/api/v1/artists", artistsRouter);
 app.use("/api/v1/topSongs", topSongsRouter);
 app.use("/api/v1/translate", translationRouter);
-app.use("/api/v1/", scrappingRoutes);
-app.use("/api/search", searchRoutes);
+app.use("/api/v1/search", searchRoutes);
 app.use("/api/v1/cover", coverArtRouter);
 app.use("/api/v1/lyrics", lyricsRoute);
+app.use("/api/v1/scrap", scrappingRoutes);
 app.use(errorHandler);
 
 connectDB();
