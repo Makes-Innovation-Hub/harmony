@@ -1,7 +1,8 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
-</style>
+  @import
+  url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+</style>;
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -19,7 +20,7 @@ export const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
-  font-family: 'ABeeZee', sans-serif;
+  font-family: "ABeeZee", sans-serif;
   font-style: italic;
   margin: 0;
 
@@ -52,7 +53,7 @@ export const LanguageOption = styled.option`
 export const SongTitle = styled.h3`
   font-weight: bold;
   text-align: center;
-  font-family: 'ABeeZee', sans-serif;
+  font-family: "ABeeZee", sans-serif;
   font-style: italic;
 `;
 
@@ -61,4 +62,4 @@ export const Status = styled`
   text-align: center;
   font-family: 'ABeeZee', sans-serif;
   font-style: italic;
-`
+`;
