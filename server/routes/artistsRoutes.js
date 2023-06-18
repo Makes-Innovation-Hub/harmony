@@ -1,10 +1,8 @@
-import express from 'express'
-import { getArtists, createArtist } from '../controllers/artistsController.js'
-const artistsRouter = express.Router()
+import express from "express";
+import { getArtists, createArtist } from "../controllers/artistsController.js";
 
-artistsRouter
-.route("/")
-.get(getArtists)
-.post(createArtist)
+const artistsRouter = express.Router();
 
-export default artistsRouter
+artistsRouter.route("/").get(getArtists).post(createArtist);
+
+export default artistsRouter;
