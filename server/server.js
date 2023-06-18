@@ -55,7 +55,6 @@ const NODE_ENV = process.env.NODE_ENV;
 await connectDB();
 await scrapeTop10Songs();
 setInterval(() => {
-    clearTop10Songs();
     scrapeTop10Songs();
 }, 7 * 24 * 60 * 60 * 1000);
 

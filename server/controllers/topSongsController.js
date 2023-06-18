@@ -11,6 +11,17 @@ import checkIfAWeekPassed from "../utils/checkIfAWeekPassed.js";
 
 import axios from "axios";
 
+const clearTop10Songs = async () => {
+    TopSongs.deleteMany({})
+        .then(() => {
+            logger.info("TOP10 songs successfully cleared from DataBase");
+        })
+        .catch((error) => {
+            logger.error("ERROR: TOP10 songs clearing from DataBase ");
+            console.error(error);
+        });
+};
+
 const getOrCreateEachSong = async (language) => {
     let scrapedTopSongs;
     if (language === "hebrew") {
@@ -105,6 +116,7 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
                 )
             );
         }
+        await clearTop10Songs();
         const arabicTopSongs = await createTopSongsInDB(
             "arabic",
             results.arabicTop
@@ -146,25 +158,20 @@ const scrapeTop10Songs = async () => {
             topSongs = axios
                 .post("http://localhost:5000/api/v1/harmony/topSongs")
                 .then((res) => {
+                    logger.info(
+                        "Scrapping TOP10 songs completed successfully."
+                    );
                     return;
                 })
                 .catch((error) => {
+                    logger.error("Scrapping TOP10 songs FAILED.");
                     console.log(error);
                 });
         }
     } catch (error) {
-        console.log("try / catch error");
+        logger.error("Scrapping TOP10 songs FAILED.");
+        console.log(error);
     }
 };
 
-const clearTop10Songs = async () => {
-    TopSongs.deleteMany({})
-        .then(() => {
-            console.log("Collection cleaned successfully.");
-        })
-        .catch((error) => {
-            console.error("Error cleaning collection:", error);
-        });
-};
-
-export { getTopSongs, createTopSongs, scrapeTop10Songs, clearTop10Songs };
+export { getTopSongs, createTopSongs, scrapeTop10Songs };
