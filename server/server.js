@@ -14,8 +14,6 @@ import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 import lyricsRoute from "./routes/lyricsRoute.js";
 import searchRoutes from "./routes/searchRoutes.js";
-import artistSearchRoute from "./routes/artistSearchRoute.js";
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -44,7 +42,6 @@ app.use("/api/search", searchRoutes);
 app.use("/api/v1/cover", coverArtRouter);
 
 app.use("/api/v1/harmony/lyrics", lyricsRoute);
-app.use("/api/v1/artist", artistSearchRoute);
 
 app.use(errorHandler);
 
