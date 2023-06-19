@@ -7,7 +7,6 @@ import {
 } from "./TopSongGallaryStyle";
 import { useState } from "react";
 import ImageBoxWithDetails from "./ImageBoxWithDetails";
-import { useGetTopHebrewSongsQuery } from "../../api/hebrewApiSlice";
 import { useGetTopArabicSongsQuery } from "../../api/arabicApiSlice";
 import { useLazyGetLyricsQuery } from "../../api/lyricsApiSlice";
 
