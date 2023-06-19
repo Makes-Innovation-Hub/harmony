@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import HomeSearchBar from "../components/HomeSerchBar/HomeSearchBar";
 import Tagline from "../components/Tagline/Tagline.component";
 import TopSongGallary from "../components/TopSongGallary/TopSongGallary";
