@@ -25,7 +25,7 @@ const TopSongsSchema = new mongoose.Schema(
           trim: true,
           maxlength: [100, "Artist name can not be more than 100 characters"],
         },
-        coverArt: {
+        imgURL: {
           type: String,
           trim: true,
         },
