@@ -194,12 +194,19 @@ const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
     //     )
     //   );
     // }
+
+
+    
     //2.Creating top songs document in DB
     const arabicTopSongs = await createTopSongsInDB("arabic", arabicTopWithImage);
     if (!arabicTopSongs) {
       return next(new ErrorResponse(`Error while creating Arabic topSongs`));
     }
-    console.log(arabicTopSongs)
+    logger.info("Arabic Top Song Created successfully");
+    const hebrewTopSongs = await createTopSongsInDB("arabic", hebrewTopWithImage);
+    if (!hebrewTopSongs) {
+      return next(new ErrorResponse(`Error while creating Hebrew topSongs`));
+    }
     logger.info("Arabic Top Song Created successfully");
   }
 });
