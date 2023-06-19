@@ -16,7 +16,7 @@ const Wrapped = styled.div`
     font-weight: 400;
     text-align: center;
     color: #828282;
-    margin-top: 1.2rem;
+    margin-top: 1.6rem;
   }
 `;
 export default Wrapped;

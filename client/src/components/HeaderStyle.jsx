@@ -88,7 +88,7 @@ export const Option = styled.li`
   /* border: 1px solid black; */
   display: flex;
   justify-content: space-between;
-  padding: 2%;
+  padding: 1.1%;
 `;
 
 export const LanguageList = styled.ul`
@@ -99,15 +99,19 @@ export const LanguageList = styled.ul`
   position: absolute;
   top: 0;
   right: 0;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  border: 1px solid #dcdcdc;
+  border-radius: 0.5rem;
 `;
 export const LanguageP = styled.p`
   font-size: 0.7rem;
   font-family: "ABeeZee";
+  margin-left: 5%;
   font-weight: bold;
 `;
 export const LanguageHAP = styled.p`
   font-size: 0.7rem;
   font-family: "ABeeZee";
-  margin-left: 35%;
+  margin-left: 40%;
   font-weight: bold;
 `;
