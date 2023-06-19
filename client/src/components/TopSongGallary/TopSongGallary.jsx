@@ -14,8 +14,7 @@ import { useLazyGetLyricsQuery } from "../../api/lyricsApiSlice";
 import { useTranslation } from "react-i18next";
 
 export default function TopSongGallary() {
-  const { data: topHebrewSongs = [] } = useGetTopHebrewSongsQuery();
-  const { data: topArabicSongs = [] } = useGetTopArabicSongsQuery();
+  const { data: topSongsAll = [] } = useGetTopArabicSongsQuery();
   const [trigger, { data }] = useLazyGetLyricsQuery();
   const [songLyrics, setSongLyrics] = useState([]);
 
@@ -33,7 +32,8 @@ export default function TopSongGallary() {
       <TopHSongCountainer>
         <Title>{t("top_hebrew")}</Title>
         <ImageBoxContainer>
-          {topHebrewSongs.map((song, index) => (
+          { topSongsAll.data &&
+            topSongsAll.data.hebrewSongs.map((song, index) => (
             <ImageBoxWithDetails
               key={index}
               img={song.coverArt}
@@ -49,16 +49,14 @@ export default function TopSongGallary() {
       <TopASongCountainer>
         <Title>{t("top_arabic")}</Title>
         <ImageBoxContainer>
-          {topArabicSongs.data &&
-            topArabicSongs.data.songs.map((song, index) => (
+          {topSongsAll.data &&
+            topSongsAll.data.arabicSongs.map((song, index) => (
               <ImageBoxWithDetails
                 key={index}
                 img={song.coverArt}
                 artist={song.artist}
                 songName={song.song}
-                onClick={() =>
-                  handleSongClick(song.artist, song.song)
-                }
+                onClick={() => handleSongClick(song.artist, song.song)}
               />
             ))}
         </ImageBoxContainer>

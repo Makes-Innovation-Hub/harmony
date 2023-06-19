@@ -61,6 +61,19 @@ const findTopSongs = async () => {
   if (topSongsArray.length > 0) return topSongsArray;
 };
 
+const getCoverArtForTopSongs = async (scrapedTopSongs) => {
+  const songs = [];
+  for (const song of scrapedTopSongs) {
+    const coverArtResult = await getCoverArtForSong(song.song, song.artist);
+    logger.info(
+      `cover art found for song name: ${song.song} and artist name: ${song.artist}`
+    );
+    song.coverArt = coverArtResult;
+    songs.push(song);
+  }
+  return songs;
+};
+
 // @desc    get all top songs
 //@route    GET /api/v1/harmony/topSongs
 // @access  Public
@@ -144,35 +157,24 @@ const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
   topSongsArray.sort((a, b) => b.date - a.date);
   const latestTopSongs = topSongsArray[0];
   isMoreThanAWeek = checkIfAWeekPassed(latestTopSongs.date);
-  if (!isMoreThanAWeek) {
-    topSongs = latestTopSongs;
-  } else {
-    const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
-      scrapeTopArabicSongs(),
-      scrapeTopHebrewSongs(),
-    ]);
+  // if (!isMoreThanAWeek) {
+  //   topSongs = latestTopSongs;
+  // } else {
+  const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
+    scrapeTopArabicSongs(),
+    scrapeTopHebrewSongs(),
+  ]);
 
-    const arabicSongs = [];
-    const hebrewSongs = []
+  const [arabicTopWithImage, hebrewTopWithImage] = await Promise.all([
+    getCoverArtForTopSongs(arabicScrapedTop),
+    getCoverArtForTopSongs(hebrewScrapedTop),
+  ]);
 
-    for (const song of arabicScrapedTop) {
-      const coverArtResult = await getCoverArtForSong(song.song, song.artist);
-      logger.info(
-        `cover art found for song name: ${song.song} and artist name: ${song.artist}`
-      );
-      song.coverArt = coverArtResult;
-      arabicSongs.push(song);
-    }
-    for (const song of hebrewScrapedTop) {
-      const coverArtResult = await getCoverArtForSong(song.song, song.artist);
-      logger.info(
-        `cover art found for song name: ${song.song} and artist name: ${song.artist}`
-      );
-      song.coverArt = coverArtResult;
-      hebrewSongs.push(song);
-    }
-    topSongs = { songs: arabicSongs };
-  }
+  topSongs = {
+    arabicSongs: arabicTopWithImage,
+    hebrewSongs: hebrewTopWithImage,
+  };
+  // }
 
   res.status(200).json({
     success: true,
@@ -181,22 +183,23 @@ const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
 
   if (!isMoreThanAWeek) {
     //1. for each song: find or create song
-    const arabicSongsArray = await getOrCreateEachSong(
-      "arabic",
-      await topSongs.songs
-    );
-    if (!arabicSongsArray) {
-      return next(
-        new ErrorResponse(
-          `Error while getting or creating top songs from scraped data`
-        )
-      );
-    }
+    // const arabicSongsArray = await getOrCreateEachSong(
+    //   "arabic",
+    //   await topSongs.songs
+    // );
+    // if (!arabicSongsArray) {
+    //   return next(
+    //     new ErrorResponse(
+    //       `Error while getting or creating top songs from scraped data`
+    //     )
+    //   );
+    // }
     //2.Creating top songs document in DB
-    const arabicTopSongs = await createTopSongsInDB("arabic", arabicSongsArray);
+    const arabicTopSongs = await createTopSongsInDB("arabic", arabicTopWithImage);
     if (!arabicTopSongs) {
       return next(new ErrorResponse(`Error while creating Arabic topSongs`));
     }
+    console.log(arabicTopSongs)
     logger.info("Arabic Top Song Created successfully");
   }
 });
