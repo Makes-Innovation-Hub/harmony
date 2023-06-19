@@ -7,6 +7,8 @@ import {
   TopASongCountainer,
   TopHSongCountainer,
 } from "./TopSongGallaryStyle";
+import { useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 import ImageBoxWithDetails from "./ImageBoxWithDetails";
 import { useGetTopHebrewSongsQuery } from "../../api/hebrewApiSlice";
@@ -16,13 +18,10 @@ import { usePostGoogleLyricsMutation } from "../../api/lyricsApiSlice";
 import { useTranslation } from "react-i18next";
 
 export default function TopSongGallary() {
-  const { setSongLyrics, setSongDetails, songLyrics } = useTopSongsGlobalContext();
+  const { setSongLyrics, setSongDetails, songLyrics } =
+    useTopSongsGlobalContext();
 
-  // const [songDetails, setSongDetails] = useState({
-  //   songName: "",
-  //   artistName: "",
-  //   coverArt: "",
-  // });
+  const navigate = useNavigate();
 
   const { data: topHebrewSongs = [] } = useGetTopHebrewSongsQuery();
   const { data: topArabicSongs = [] } = useGetTopArabicSongsQuery();
@@ -36,21 +35,20 @@ export default function TopSongGallary() {
     postGoogleLyrics(songData);
     console.log("song data:", songData);
   };
-             
 
   useEffect(() => {
     if (isSuccess && data.length > 0) {
       setSongLyrics(data);
       console.log("data:", data);
-      // (navigate("/Artur`s Page"))
+      navigate("/song");
     }
-    
+
     if (isError) {
       console.error(error);
     }
   }, [isError, isSuccess]);
-  
-  console.log("song lyrics from top song componenet:", songLyrics);
+
+  console.log("song lyrics from Top song componenet:", songLyrics);
 
   return (
     <SongGallary>
@@ -62,10 +60,10 @@ export default function TopSongGallary() {
               songName: song.songName,
               singerName: song.artist,
             };
-            
+
             return (
               <ImageBoxWithDetails
-                key={index}          
+                key={index}
                 img={song.coverArt}
                 artist={song.artist}
                 songName={song.songName}

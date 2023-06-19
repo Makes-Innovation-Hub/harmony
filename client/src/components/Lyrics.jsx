@@ -11,14 +11,16 @@ import {
 } from "./LyricsStyles";
 import { useGetLyricsQuery } from "../api/lyricsApi";
 import "./Header.css";
+import { useEffect } from "react";
 
 const Lyrics = ({ artist, title, lyrics }) => {
-  
-            
   const { songLyrics, setSongLyrics } = useTopSongsGlobalContext();
-  console.log("song lyrics from lyrics component:", songLyrics);
 
-  return (                          
+  useEffect(() => {
+    console.log("song lyrics from lyrics component:", songLyrics);
+  }, [songLyrics]);
+
+  return (
     <LyricsSection>
       <TranslationWrapper>
         <Status>Translation</Status>
