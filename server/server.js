@@ -14,7 +14,7 @@ import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 import lyricsRoute from "./routes/lyricsRoute.js";
 import searchRoutes from "./routes/searchRoutes.js";
-import searchArtistRouter from "./routes/artistSearchRoute.js";
+import loggingMiddleware from "./reqLogger.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -43,6 +43,7 @@ app.use("/api/v1/lyrics", lyricsRoute);
 app.use("/api/v1/scrap", scrappingRoutes);
 
 app.use(errorHandler);
+app.use(loggingMiddleware);
 
 connectDB();
 
