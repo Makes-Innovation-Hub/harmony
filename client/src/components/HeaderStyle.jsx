@@ -94,7 +94,11 @@ export const Option = styled.li`
 export const LanguageList = styled.ul`
   /* border: 2px solid red; */
   width: 120px;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
+  margin-left: -0.8rem;
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
 export const LanguageP = styled.p`
   font-size: 0.7rem;
