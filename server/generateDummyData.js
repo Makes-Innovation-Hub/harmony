@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
-mongoose.connect(process.env.MONGO_URI_DEV, {
+mongoose.connect(process.env.MONGO_URI_DEVELOPMENT, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -48,9 +48,9 @@ const importData = async () => {
 // Delete data
 const deleteData = async () => {
   try {
-    await Artist.deleteMany();
-    await Song.deleteMany();
-    await TopSongs.deleteMany();
+    await Artist.deleteMany({ imgURL: { $regex: /https:\/\/example\.com/ } });
+    await Song.deleteMany({ imgURL: { $regex: /https:\/\/example\.com/ } });
+    await TopSongs.deleteMany({ imgURL: { $regex: /https:\/\/example\.com/ } });
 
     console.log("Data Destroyed...");
     process.exit();
