@@ -16,7 +16,7 @@ import { usePostGoogleLyricsMutation } from "../../api/lyricsApiSlice";
 import { useTranslation } from "react-i18next";
 
 export default function TopSongGallary() {
-  const { setSongLyrics, setSongDetails } = useTopSongsGlobalContext();
+  const { setSongLyrics, setSongDetails, songLyrics } = useTopSongsGlobalContext();
 
   // const [songDetails, setSongDetails] = useState({
   //   songName: "",
@@ -34,31 +34,23 @@ export default function TopSongGallary() {
 
   const handleSongLyricsClick = (songData) => {
     postGoogleLyrics(songData);
-
-    console.log("work");
+    console.log("song data:", songData);
   };
-
-  const handleSongDetailsClick = (artistName, songName, coverArt) => {
-    setSongDetails({
-      songName: songName,
-      artistName: artistName,
-      coverArt: coverArt,
-    });
-    console.log("toni!");
-  };
+             
 
   useEffect(() => {
     if (isSuccess && data.length > 0) {
       setSongLyrics(data);
-
+      console.log("data:", data);
       // (navigate("/Artur`s Page"))
-      console.log("lyrics is:", data);
     }
-
+    
     if (isError) {
       console.error(error);
     }
   }, [isError, isSuccess]);
+  
+  console.log("song lyrics from top song componenet:", songLyrics);
 
   return (
     <SongGallary>
@@ -70,20 +62,21 @@ export default function TopSongGallary() {
               songName: song.songName,
               singerName: song.artist,
             };
+            
             return (
               <ImageBoxWithDetails
-                key={index}
+                key={index}          
                 img={song.coverArt}
                 artist={song.artist}
                 songName={song.songName}
                 onClick={() => handleSongLyricsClick(songData)}
-                onClick={() =>
-                  handleSongDetailsClick(
-                    song.artist,
-                    song.coverArt,
-                    song.songName
-                  )
-                }
+                // onClick={() =>
+                //   handleSongDetailsClick(
+                //     song.artist,
+                //     song.coverArt,
+                //     song.songName
+                //   )
+                // }
               />
             );
           })}

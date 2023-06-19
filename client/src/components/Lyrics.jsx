@@ -1,3 +1,5 @@
+import { useTopSongsGlobalContext } from "../../context/topSongsContext";
+
 import {
   LyricsSection,
   LyricsWrapper,
@@ -11,7 +13,12 @@ import { useGetLyricsQuery } from "../api/lyricsApi";
 import "./Header.css";
 
 const Lyrics = ({ artist, title, lyrics }) => {
-  return (
+  
+            
+  const { songLyrics, setSongLyrics } = useTopSongsGlobalContext();
+  console.log("song lyrics from lyrics component:", songLyrics);
+
+  return (                          
     <LyricsSection>
       <TranslationWrapper>
         <Status>Translation</Status>

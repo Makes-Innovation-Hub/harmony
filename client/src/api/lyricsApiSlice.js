@@ -8,7 +8,6 @@ export const lyricsApi = createApi({
   endpoints: (builder) => ({
     postGoogleLyrics: builder.mutation({
       query: (songData) => {
-        console.log("the song data:", songData);
         return {
           url: "googleLyrics",
           method: "POST",
