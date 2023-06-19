@@ -9,6 +9,7 @@ import { dummySongsArray } from "../utils/createDummyData.js";
 import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import checkIfAWeekPassed from "../utils/checkIfAWeekPassed.js";
 import { getCoverArtForSong } from "../spotifyapi.js";
+import { all } from "axios";
 
 const getOrCreateEachSong = async (language, topSongsArray) => {
   let massagedResults;
@@ -146,18 +147,31 @@ const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
   if (!isMoreThanAWeek) {
     topSongs = latestTopSongs;
   } else {
-    const arabicScrapedTopSongs = await scrapeTopArabicSongs();
-    const songs = [];
+    const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
+      scrapeTopArabicSongs(),
+      scrapeTopHebrewSongs(),
+    ]);
 
-    for (const song of arabicScrapedTopSongs) {
+    const arabicSongs = [];
+    const hebrewSongs = []
+
+    for (const song of arabicScrapedTop) {
       const coverArtResult = await getCoverArtForSong(song.song, song.artist);
       logger.info(
         `cover art found for song name: ${song.song} and artist name: ${song.artist}`
       );
       song.coverArt = coverArtResult;
-      songs.push(song);
+      arabicSongs.push(song);
     }
-    topSongs = { songs };
+    for (const song of hebrewScrapedTop) {
+      const coverArtResult = await getCoverArtForSong(song.song, song.artist);
+      logger.info(
+        `cover art found for song name: ${song.song} and artist name: ${song.artist}`
+      );
+      song.coverArt = coverArtResult;
+      hebrewSongs.push(song);
+    }
+    topSongs = { songs: arabicSongs };
   }
 
   res.status(200).json({
