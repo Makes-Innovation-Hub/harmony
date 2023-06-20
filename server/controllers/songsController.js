@@ -149,12 +149,10 @@ const generateSongData = async function (song, artist, coverArt) {
   finalSongData.artist = artistId;
   // get lyrics
   const lyricsObj = await prepareLyrics(song, artist);
-  console.log('lyricsObj', lyricsObj);
   finalSongData = {
     ...finalSongData, ...{ lyrics: lyricsObj }
   };
   // return song obj
-  console.log('finalSongData', finalSongData)
   return finalSongData;
 };
 

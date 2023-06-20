@@ -11,6 +11,12 @@ import { useGetLyricsQuery } from "../../api/lyricsApi";
 import "../Header/Header.css";
 
 const Lyrics = ({ artist, title, lyrics }) => {
+  for (const lang in lyrics) {
+    if (Object.hasOwnProperty.call(lyrics, lang)) {
+      console.log('lang', lang);
+      console.log('lang lyrics', lyrics[lang]);
+    }
+  }
   return (
     <LyricsSection>
       <TranslationWrapper>

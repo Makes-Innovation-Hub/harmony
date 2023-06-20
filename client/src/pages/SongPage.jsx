@@ -5,16 +5,14 @@ import Header from "../components/Header/Header";
 import { useLocation } from 'react-router-dom';
 
 function SongPage() {
-  const artist = "Electric Light Orchestra";
-  const title = "Mr Blue Sky";
   const songData = useLocation().state;
   console.log('songData in song page', songData)
 
   return (
     <>
       <Header />
-      <SongDetails />
-      <Lyrics artist={artist} title={title} />
+      <SongDetails img={songData.coverArt} artist={songData.artist.name.english} songName={songData.name.english} />
+      <Lyrics lyrics={songData.lyrics} />
     </>
   );
 }
