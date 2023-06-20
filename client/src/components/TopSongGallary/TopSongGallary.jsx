@@ -12,10 +12,10 @@ import { useTranslation } from "react-i18next";
 
 export default function TopSongGallary() {
   const { data: topSongsAll = [] } = useGetTopArabicSongsQuery();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { t } = useTranslation();
-  const handleSongClick = (artist, songName) => {
-    navigate('/translating')
+  const handleSongClick = (artist, song) => {
+    navigate('/translating', { state: { artist, song } })
   };
   return (
     <SongGallary>
@@ -29,8 +29,8 @@ export default function TopSongGallary() {
               img={song.coverArt}
               artist={song.artist}
                 songName={song.song}
-              onClick={() =>
-                handleSongClick(Object.keys(song)[0], Object.values(song)[0])
+                onClickFn={() =>
+                  handleSongClick(song.artist, song.song)
               }
             />
           ))}

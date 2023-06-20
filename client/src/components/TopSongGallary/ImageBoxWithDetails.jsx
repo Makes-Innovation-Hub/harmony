@@ -4,10 +4,10 @@ export default function ImageBoxWithDetails({
   img,
   songName,
   artist,
-  onClick,
+  onClickFn,
 }) {
   return (
-    <ImageBox onClick={onClick}>
+    <ImageBox onClick={onClickFn}>
       <Image src={img}></Image>
       <Box>
         <SongP>{songName}</SongP>

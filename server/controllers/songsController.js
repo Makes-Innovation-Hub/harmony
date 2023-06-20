@@ -4,7 +4,8 @@ import logger from "../logger.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import { findOrCreateArtist } from "./artistsController.js";
-import { createDummySong } from "../utils/createDummyData.js";
+import detectLanguage from '../utils/detectLang.js';
+import { generalTranslation } from '../utils/openAiTranslation.js';
 
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
@@ -70,7 +71,6 @@ const findOrCreateSong = async (req) => {
 const getSongs = asyncHandler(async (req, res, next) => {
   const songsArray = await findSong(req);
   logger.info(`getSongs for song: ${JSON.stringify(songsArray)}`);
-
   if (!songsArray) {
     return next(new ErrorResponse(`Song not found`, 404));
   }
@@ -99,4 +99,126 @@ const createSong = asyncHandler(async (req, res, next) => {
   });
 });
 
-export { getSongs, createSong, findSong, findOrCreateSong };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const getFullSongData = asyncHandler(async (req, res, next) => {
+  const { song, artist } = req.body;
+  logger.info(`getting song full data for song: ${song}, artist: ${artist}`);
+  // look for song data in song collection
+  const songs = await Song.find({
+    $or: [
+      { "name.hebrew": { $regex: song, $options: "i" } },
+      { "name.arabic": { $regex: song, $options: "i" } },
+      { "name.english": { $regex: song, $options: "i" } },
+    ],
+  });
+  console.log('songs', songs);
+  if (songs.length > 0) {
+    // if there is - send back
+    logger.info(`songs found for song name: ${song}. sending ${songs.length} results`);
+    res.json(songs);
+  } else {
+    // if not - generate song data - > save song in db
+    logger.info(` no songs found for song name: ${song}.generating data`);
+    const songData = generateSongData(song, artist);
+    res.json(songData);
+  }
+});
+
+const generateSongData = async function (song, artist) {
+  const finalSongData = {
+    name: {
+      hebrew: '',
+      arabic: '',
+      english: ''
+    },
+    lyrics: {
+      hebrew: '',
+      arabic: '',
+      english: ''
+    },
+    originalLang: '',
+    artist: '',
+    coverArt: '',
+    album: '',
+    youtubeURL: '',
+  };
+  // translate song name - 3 langs
+  const nameLang = detectLanguage(song);
+  logger.info(`detected that language for the song name: ${song} is: ${nameLang}`);
+  const names3langs = await translateText3Lang(song);
+  console.log('names3langs', names3langs);
+  // get artist - if no 3 names - generate
+  // get lyrics
+  // translate lyrics - 2 langs
+  // return song obj
+  return finalSongData;
+};
+
+const translateText3Lang = (txt) => {
+  const tanslatedObj = {
+    hebrew: "",
+    arabic: "",
+    english: ""
+  };
+  const txtLang = detectLanguage(txt);
+  logger.info(`detected that language for the text: ${txt} is: ${txtLang}`);
+  tanslatedObj[txtLang] = txt;
+  const langsToTranslate = ["english", "hebrew", "arabic"].filter(lang => lang !== txtLang);
+  logger.info(`langs to translate the text: ${langsToTranslate}`);
+  return Promise.all([
+    generalTranslation(txt, txtLang, langsToTranslate[0]),
+    generalTranslation(txt, txtLang, langsToTranslate[1]),
+  ]).then(transltatedArr => {
+    tanslatedObj[langsToTranslate[0]] = transltatedArr[0];
+    tanslatedObj[langsToTranslate[1]] = transltatedArr[1];
+    return tanslatedObj;
+  });
+};
+
+export { getSongs, createSong, findSong, findOrCreateSong, getFullSongData };
