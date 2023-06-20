@@ -97,7 +97,7 @@ const generateTopSongsData = async (res) => {
   });
   logger.info('starting to save top song data in db');
   try {
-    const arabicTopSongs = await createTopSongsInDB("arabic", arabicTopWithImage.slice(0, 9));
+    const arabicTopSongs = await createTopSongsInDB("arabic", arabicTopWithImage.slice(0, 10));
     if (!arabicTopSongs) {
       return next(new ErrorResponse(`Error while creating Arabic topSongs`));
     }

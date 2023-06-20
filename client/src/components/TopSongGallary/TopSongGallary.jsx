@@ -37,7 +37,7 @@ export default function TopSongGallary() {
               key={index}
               img={song.coverArt}
               artist={song.artist}
-              songName={song.songName}
+                songName={song.song}
               onClick={() =>
                 handleSongClick(Object.keys(song)[0], Object.values(song)[0])
               }
