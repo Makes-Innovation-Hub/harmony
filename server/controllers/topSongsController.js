@@ -146,68 +146,76 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
 
 const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
   logger.info(`createTopSongsOnStart initiating `);
+  logger.info('test');
+  console.log('logger', logger)
 
   let topSongs = [];
   let isMoreThanAWeek;
+  try {
+    const topSongsArray = await findTopSongs();
+    if (!topSongsArray) {
+      await TopSongs.createCollection();
+      // return next(new ErrorResponse(`Top songs not found`), 404);
+    }
+    // topSongsArray.sort((a, b) => b.date - a.date);
+    // const latestTopSongs = topSongsArray[0];
+    // isMoreThanAWeek = checkIfAWeekPassed(latestTopSongs.date);
 
-  const topSongsArray = await findTopSongs();
-  if (!topSongsArray) {
-    return next(new ErrorResponse(`Top songs not found`), 404);
-  }
-  topSongsArray.sort((a, b) => b.date - a.date);
-  const latestTopSongs = topSongsArray[0];
-  isMoreThanAWeek = checkIfAWeekPassed(latestTopSongs.date);
-  // if (!isMoreThanAWeek) {
-  //   topSongs = latestTopSongs;
-  // } else {
-  const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
-    scrapeTopArabicSongs(),
-    scrapeTopHebrewSongs(),
-  ]);
+    // if (!isMoreThanAWeek) {
+    //   topSongs = latestTopSongs;
+    // } else {
+    const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
+      scrapeTopArabicSongs(),
+      scrapeTopHebrewSongs(),
+    ]);
 
-  const [arabicTopWithImage, hebrewTopWithImage] = await Promise.all([
-    getCoverArtForTopSongs(arabicScrapedTop),
-    getCoverArtForTopSongs(hebrewScrapedTop),
-  ]);
+    const [arabicTopWithImage, hebrewTopWithImage] = await Promise.all([
+      getCoverArtForTopSongs(arabicScrapedTop),
+      getCoverArtForTopSongs(hebrewScrapedTop),
+    ]);
 
-  topSongs = {
-    arabicSongs: arabicTopWithImage,
-    hebrewSongs: hebrewTopWithImage,
-  };
-  // }
-
-  res.status(200).json({
-    success: true,
-    data: topSongs,
-  });
-
-  if (!isMoreThanAWeek) {
-    //1. for each song: find or create song
-    // const arabicSongsArray = await getOrCreateEachSong(
-    //   "arabic",
-    //   await topSongs.songs
-    // );
-    // if (!arabicSongsArray) {
-    //   return next(
-    //     new ErrorResponse(
-    //       `Error while getting or creating top songs from scraped data`
-    //     )
-    //   );
+    topSongs = {
+      arabicSongs: arabicTopWithImage,
+      hebrewSongs: hebrewTopWithImage,
+    };
     // }
 
+    res.status(200).json({
+      success: true,
+      data: topSongs,
+    });
 
-    
+    // if (!isMoreThanAWeek) {
+      //1. for each song: find or create song
+      // const arabicSongsArray = await getOrCreateEachSong(
+      //   "arabic",
+      //   await topSongs.songs
+      // );
+      // if (!arabicSongsArray) {
+      //   return next(
+      //     new ErrorResponse(
+      //       `Error while getting or creating top songs from scraped data`
+      //     )
+      //   );
+      // }
+
+
+    console.log('before sotring in db');
     //2.Creating top songs document in DB
     const arabicTopSongs = await createTopSongsInDB("arabic", arabicTopWithImage);
     if (!arabicTopSongs) {
       return next(new ErrorResponse(`Error while creating Arabic topSongs`));
     }
     logger.info("Arabic Top Song Created successfully");
-    const hebrewTopSongs = await createTopSongsInDB("arabic", hebrewTopWithImage);
+    const hebrewTopSongs = await createTopSongsInDB("hebrew", hebrewTopWithImage);
     if (!hebrewTopSongs) {
       return next(new ErrorResponse(`Error while creating Hebrew topSongs`));
     }
     logger.info("Arabic Top Song Created successfully");
+    // }
+
+  } catch (error) {
+    console.log('error', error)
   }
 });
 
