@@ -6,12 +6,12 @@ import {
   TopHSongCountainer,
 } from "./TopSongGallaryStyle";
 import ImageBoxWithDetails from "./ImageBoxWithDetails";
-import { useGetTopArabicSongsQuery } from "../../api/arabicApiSlice";
+import { useGetTopSongsQuery } from "../../api/topSongsSlice";
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 
 export default function TopSongGallary() {
-  const { data: topSongsAll = [] } = useGetTopArabicSongsQuery();
+  const { data: topSongsAll = [] } = useGetTopSongsQuery();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const handleSongClick = ({ artist, song, coverArt }) => {
