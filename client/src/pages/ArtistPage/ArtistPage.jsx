@@ -4,8 +4,12 @@ import Header from "../../components/Header/Header";
 import ThreeLangNames from "../../components/ThreeLnagNames/ThreeLangNames";
 import SongListItem from "../../components/SongListItem/SongListItem";
 import ClipArtImage from "../../components/ClipArtImage/ClipArtImage";
+import { useLocation } from "react-router-dom";
 
-function ArtistPage({ artistData }) {
+function ArtistPage() {
+  const location = useLocation();
+  const artistData = location.state.artistData;
+
   return (
     <PageWrapper>
       <FlexGrowContainer flexGrow="1">
