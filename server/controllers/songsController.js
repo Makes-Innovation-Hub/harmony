@@ -6,6 +6,9 @@ import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import { findOrCreateArtist } from "./artistsController.js";
 import detectLanguage from '../utils/detectLang.js';
 import { generalTranslation } from '../utils/openAiTranslation.js';
+import generateBasicDataObj from '../utils/songOrArtistObj.js';
+import { findOrCreateArtist } from './artistsController.js';
+import { getCoverArtForArtist } from '../spotifyapi.js';
 
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
@@ -171,33 +174,29 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
 });
 
 const generateSongData = async function (song, artist) {
-  const finalSongData = {
-    name: {
-      hebrew: '',
-      arabic: '',
-      english: ''
-    },
-    lyrics: {
-      hebrew: '',
-      arabic: '',
-      english: ''
-    },
-    originalLang: '',
-    artist: '',
-    coverArt: '',
-    album: '',
-    youtubeURL: '',
-  };
+  let finalSongData = generateBasicDataObj('song');
   // translate song name - 3 langs
   const nameLang = detectLanguage(song);
   logger.info(`detected that language for the song name: ${song} is: ${nameLang}`);
   const names3langs = await translateText3Lang(song);
-  console.log('names3langs', names3langs);
-  // get artist - if no 3 names - generate
+  finalSongData = {
+    ...finalSongData, ...{ name: names3langs }
+  };
+  await prepareArtist(artist)
   // get lyrics
   // translate lyrics - 2 langs
   // return song obj
   return finalSongData;
+};
+
+const prepareArtist = async (artist) => {
+  logger.info(`preparing artist ${artist} before creating song`);
+  // get artist - if no 3 names - generate
+  const lang = detectLanguage(artist);
+  const names3langs = await translateText3Lang(artist);
+  const coverArt = await getCoverArtForArtist(artist);
+  logger.info(`checking if artist ${artist} is in db`);
+  return findOrCreateArtist(artist, lang, names3langs);
 };
 
 const translateText3Lang = (txt) => {
@@ -220,5 +219,7 @@ const translateText3Lang = (txt) => {
     return tanslatedObj;
   });
 };
+
+
 
 export { getSongs, createSong, findSong, findOrCreateSong, getFullSongData };

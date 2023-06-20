@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 
 export default function TopSongGallary() {
   const { data: topSongsAll = [] } = useGetTopArabicSongsQuery();
+  console.log('topSongsAll', topSongsAll)
   const navigate = useNavigate();
   const { t } = useTranslation();
   const handleSongClick = (artist, song) => {

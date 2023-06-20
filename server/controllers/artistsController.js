@@ -4,6 +4,7 @@ import logger from "../logger.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import { createDummyArtist } from "../utils/createDummyData.js";
+import generateBasicDataObj from '../utils/songOrArtistObj.js';
 
 const findArtist = async (req) => {
   logger.info(`start findArtist function`);
@@ -16,29 +17,22 @@ const findArtist = async (req) => {
   }
 };
 
-const findOrCreateArtist = async (artistName, songName, coverArt) => {
+const findOrCreateArtist = async (artistName, nameLang = 'english', namesObj) => {
   logger.info(`findOrCreateArtist with singer name: ${artistName}`);
-  const artistsArray = await findArtist({
-    body: { name: { english: artistName } },
-  });
-  if (artistsArray) {
-    // Making sure the found artist has a song that matches the album name of the song
-    const searchedArtist = artistsArray.find((artist) => {
-      return artist.songs.find((song) => song.name.english === songName);
-    });
-    if (searchedArtist) return searchedArtist;
-  }
-  //Add a function that translates the artist's name and insert here as needed
-  const newArtistObject = {
-    name: {
-      english: artistName,
-      hebrew: "Hard coded hebrew",
-      arabic: "hard coded arabic",
-    },
-    coverArt,
-    albums: [],
+  const filterObj = {
+    body: {
+      name: {}
+    }
   };
-  const newArtist = await Artist.create(newArtistObject);
+  filterObj.body.name[nameLang] = artistName;
+  const artistsArray = await findArtist(filterObj);
+  if (artistsArray) {
+    console.log('artistsArray', artistsArray);
+    return artistsArray;
+  }
+  const artistObj = generateBasicDataObj('artist');
+  artistObj.name = namesObj;
+  const newArtist = await Artist.create(artistObj);
   logger.info(`Create artist with data: ${JSON.stringify(newArtist)} Created`);
   return newArtist;
 };

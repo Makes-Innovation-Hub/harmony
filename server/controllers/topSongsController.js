@@ -10,6 +10,8 @@ import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import checkIfInSameWeek from "../utils/checkIfAWeekPassed.js";
 import { getCoverArtForSong } from "../spotifyapi.js";
 import { all } from "axios";
+import detectLanguage from '../utils/detectLang.js';
+import { findOrCreateArtist } from './artistsController.js';
 
 const getOrCreateEachSong = async (language, topSongsArray) => {
   let massagedResults;
@@ -74,6 +76,110 @@ const getCoverArtForTopSongs = async (scrapedTopSongs) => {
   return songs;
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateTopSongsData = async (res) => {
   logger.info('no relevant data found in db. generating');
   const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
@@ -85,7 +191,6 @@ const generateTopSongsData = async (res) => {
     getCoverArtForTopSongs(arabicScrapedTop),
     getCoverArtForTopSongs(hebrewScrapedTop),
   ]);
-
   const topSongs = {
     arabicSongs: arabicTopWithImage,
     hebrewSongs: hebrewTopWithImage,

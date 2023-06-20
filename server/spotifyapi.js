@@ -76,4 +76,10 @@ async function getCoverArtForSong(songName, artistName) {
   }
 }
 
-export { getAlbumFromSongAndArtist, getCoverArtForSong };
+
+async function getCoverArtForArtist(artist) {
+  const artistResults = await spotifyApi.searchArtists(artist);
+  console.log('artistResults', artistResults);
+}
+
+export { getAlbumFromSongAndArtist, getCoverArtForSong, getCoverArtForArtist };
