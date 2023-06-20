@@ -103,53 +103,6 @@ const createSong = asyncHandler(async (req, res, next) => {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const getFullSongData = asyncHandler(async (req, res, next) => {
   const { song, artist, coverArt } = req.body;
   logger.info(`getting song full data for song: ${song}, artist: ${artist}`);
