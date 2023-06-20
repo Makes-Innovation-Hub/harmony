@@ -15,6 +15,7 @@ import errorHandler from "./middleware/errorHandler.js";
 import lyricsRoute from "./routes/lyricsRoute.js";
 import searchRoutes from "./routes/searchRoutes.js";
 import loggingMiddleware from "./reqLogger.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -31,8 +32,9 @@ app.get("/homePage", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));
 });
 
-//Middlewares
+// Middlewares
 app.use(express.json());
+app.use(loggingMiddleware); // Apply loggingMiddleware for all routes
 app.use("/api/v1/songs", songsRouter);
 app.use("/api/v1/artists", artistsRouter);
 app.use("/api/v1/topSongs", topSongsRouter);
@@ -41,16 +43,13 @@ app.use("/api/v1/search", searchRoutes);
 app.use("/api/v1/cover", coverArtRouter);
 app.use("/api/v1/lyrics", lyricsRoute);
 app.use("/api/v1/scrap", scrappingRoutes);
-
 app.use(errorHandler);
-app.use(loggingMiddleware);
 
 connectDB();
 
 app.listen(
   PORT,
-  logger.info(`Server running in ${NODE_ENV}
-  mode on port ${PORT}`)
+  logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`)
 );
 
 process.on("unhandledRejection", (err, promise) => {
