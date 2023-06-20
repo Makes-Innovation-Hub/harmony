@@ -4,6 +4,7 @@ import { arabicSongsApi } from "../api/arabicApiSlice";
 import { lyricsApi } from "../api/lyricsApiSlice";
 import searchsliceapi from "../api/searchsliceApi";
 import artistApiSlice from "../api/artistApiSlice";
+import songApiSlice from "../api/songApiSlice";
 import languageSlice from "./languageSlice";
 
 export default configureStore({
@@ -14,6 +15,7 @@ export default configureStore({
     [lyricsApi.reducerPath]: lyricsApi.reducer,
     [searchsliceapi.reducerPath]: searchsliceapi.reducer,
     [artistApiSlice.reducerPath]: artistApiSlice.reducer,
+    [songApiSlice.reducerPath]: songApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
@@ -22,6 +24,7 @@ export default configureStore({
       lyricsApi.middleware,
       searchsliceapi.middleware,
       artistApiSlice.middleware,
+      songApiSlice.middleware,
     ]);
   },
 });

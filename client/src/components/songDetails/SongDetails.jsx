@@ -1,15 +1,14 @@
 import { Image } from "./Image";
-import imgSrc from "../../assets/songDetails/Rectangle 3.png";
 import arrowImg from "../../assets/songDetails/Arrow 1.png";
 import hebrewImg from "../../assets/songDetails/ע.png";
 import arabicImg from "../../assets/songDetails/ع.png";
 import "./songDetails.css";
 
-function SongDetails({ artistName, songName }) {
+function SongDetails({ artistName, songName, imgURL }) {
   return (
     <div className="songDetailsContainer">
       <div className="photoDetailsContainer">
-        <Image src={imgSrc} />
+        <Image src={imgURL} />
       </div>
       <div className="textDetailsContainer">
         <div>

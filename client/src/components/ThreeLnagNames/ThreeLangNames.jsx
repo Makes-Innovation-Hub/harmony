@@ -6,11 +6,19 @@ function ThreeLangNames({
   arabicName,
   hebrewName,
   englishName,
-  artistEnglishName,
   fontSize,
   lineHeight,
+  artistName,
 }) {
   const navigate = useNavigate();
+
+  const handleClick = (name) => {
+    navigate(
+      `/song?&song=${encodeURIComponent(name)}&artist=${encodeURIComponent(
+        artistName
+      )}`
+    );
+  };
 
   const languageNames = {
     english: {
@@ -25,14 +33,6 @@ function ThreeLangNames({
       name: arabicName,
       handleClick: () => handleClick(arabicName),
     },
-  };
-
-  const handleClick = (name) => {
-    navigate(
-      `/song?song=${encodeURIComponent(name)}&artist=${encodeURIComponent(
-        artistEnglishName
-      )}`
-    );
   };
 
   return (

@@ -20,7 +20,7 @@ function ArtistPage() {
           arabicName={artistData.name.arabic}
           hebrewName={artistData.name.hebrew}
           englishName={artistData.name.english}
-          artistEnglishName={artistData.name.english}
+          artistName={artistData.name.english}
           fontSize="1.15rem"
           lineHeight="133%"
         />
