@@ -38,7 +38,7 @@ async function getAlbumFromSongAndArtist(songName, artistName) {
 
 async function getCoverArtForSong(songName, artistName) {
   logger.info(
-    `starting to get cover art for songs params are song name: ${songName} artist name: ${artistName}  `
+    `to get cover art for songs params are song name: ${songName} artist name: ${artistName}  `
   );
   try {
     let searchQuery;

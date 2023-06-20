@@ -1,8 +1,19 @@
 import mongoose from "mongoose";
 
 const connectDB = async () => {
+  if (
+    process.env.NODE_ENV !== "production" &&
+    process.env.NODE_ENV !== "development"
+  ) {
+    throw new Error("Invalid NODE_ENV specified");
+  }
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI_DEVELOPMENT, {
+    const mongoURI =
+      process.env.NODE_ENV === "production"
+        ? process.env.MONGO_URI_PROD
+        : process.env.MONGO_URI_DEV;
+    const conn = await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
