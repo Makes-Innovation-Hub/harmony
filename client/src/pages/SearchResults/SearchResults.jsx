@@ -4,8 +4,9 @@ import HomeSearchBar from "../../components/HomeSerchBar/HomeSearchBar";
 import ResultsCard from "../../components/ResultsCard/ResultsCard";
 import FE from "../../components/Layout/FlexElments";
 import SC from "./SearchRes.style";
-
+import { useTranslation } from "react-i18next";
 const SearchResults = ({ songs, artists }) => {
+  const { t } = useTranslation();
   return (
     <FE.Col style={{ height: "100dvh" }}>
       <FE.CenterCol>
@@ -16,7 +17,8 @@ const SearchResults = ({ songs, artists }) => {
         <HomeSearchBar />
       </FE.CenterCol>
       <FE.CenterCol style={{ flexGrow: 6 }}>
-        <SC.Title>Artists</SC.Title>
+        <SC.Title>{t("Artists")}</SC.Title>
+
         {artists &&
           artists.map((artist) => {
             return (
@@ -27,7 +29,7 @@ const SearchResults = ({ songs, artists }) => {
               />
             );
           })}
-        <SC.Title>Songs</SC.Title>
+        <SC.Title>{t("Songs")}</SC.Title>
         {songs &&
           songs.map((song) => {
             return (
