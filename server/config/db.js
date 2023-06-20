@@ -10,8 +10,8 @@ const connectDB = async () => {
     try {
         const mongoURI =
             process.env.NODE_ENV === "production"
-                ? process.env.ARTUR_MONGO_URI_PROD
-                : process.env.MONGO_URI_DEV;
+                ? process.env.MONGO_URI_PROD
+                : process.env.ARTUR_MONGO_URI_DEV;
 
         const conn = await mongoose.connect(mongoURI, {
             useNewUrlParser: true,
