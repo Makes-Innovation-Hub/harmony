@@ -8,6 +8,8 @@ import detectLanguage from '../utils/detectLang.js';
 import { generalTranslation } from '../utils/openAiTranslation.js';
 import generateBasicDataObj from '../utils/songOrArtistObj.js';
 import { getCoverArtForArtist } from '../spotifyapi.js';
+import { scrapGoogleFn } from '../scrapping/scrappingGoogleLyrics.js'
+
 
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
@@ -151,24 +153,31 @@ const createSong = asyncHandler(async (req, res, next) => {
 const getFullSongData = asyncHandler(async (req, res, next) => {
   const { song, artist, coverArt } = req.body;
   logger.info(`getting song full data for song: ${song}, artist: ${artist}`);
-  // look for song data in song collection
-  const songs = await Song.find({
-    $or: [
-      { "name.hebrew": { $regex: song, $options: "i" } },
-      { "name.arabic": { $regex: song, $options: "i" } },
-      { "name.english": { $regex: song, $options: "i" } },
-    ],
-  });
-  console.log('songs', songs);
-  if (songs.length > 0) {
-    // if there is - send back
-    logger.info(`songs found for song name: ${song}. sending ${songs.length} results`);
-    res.json(songs);
-  } else {
-    // if not - generate song data - > save song in db
-    logger.info(`no songs found for song name: ${song}.generating data`);
-    const songData = generateSongData(song, artist, coverArt);
-    res.json(songData);
+  try {
+    // look for song data in song collection
+    const songs = await Song.find({
+      $or: [
+        { "name.hebrew": { $regex: song, $options: "i" } },
+        { "name.arabic": { $regex: song, $options: "i" } },
+        { "name.english": { $regex: song, $options: "i" } },
+      ],
+    });
+    if (songs.length > 0) {
+      // if there is - send back
+      logger.info(`songs found for song name: ${song}. sending ${songs.length} results`);
+      res.json(songs);
+    } else {
+      // if not - generate song data - > save song in db
+      logger.info(`no songs found for song name: ${song}.generating data`);
+      const songData = await generateSongData(song, artist, coverArt);
+      logger.info(`succeeded generating song data for ${song}`);
+      Song.create(songData);
+      res.json(songData);
+    }
+
+  } catch (error) {
+    console.log('error', error);
+
   }
 });
 
@@ -186,9 +195,13 @@ const generateSongData = async function (song, artist, coverArt) {
   const artistId = await prepareArtist(artist);
   finalSongData.artist = artistId;
   // get lyrics
-
-  // translate lyrics - 2 langs
+  const lyricsObj = await prepareLyrics(song, artist);
+  console.log('lyricsObj', lyricsObj);
+  finalSongData = {
+    ...finalSongData, ...{ lyrics: lyricsObj }
+  };
   // return song obj
+  console.log('finalSongData', finalSongData)
   return finalSongData;
 };
 
@@ -206,6 +219,18 @@ const prepareArtist = async (artist) => {
   }
 };
 
+const prepareLyrics = async (song, artist) => {
+  try {
+    logger.info(`starting to generate lyrics for song: ${song} artist: ${artist}`);
+    const lyrics = await scrapGoogleFn(song, artist);
+    console.log('lyrics', typeof lyrics);
+    const lyricsObj = await translateText3Lang(lyrics[0]);
+    return lyricsObj;
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+
 const translateText3Lang = (txt) => {
   const tanslatedObj = {
     hebrew: "",
@@ -213,7 +238,7 @@ const translateText3Lang = (txt) => {
     english: ""
   };
   const txtLang = detectLanguage(txt);
-  logger.info(`detected that language for the text: ${txt} is: ${txtLang}`);
+  logger.info(`detected that language for the text: ${txt.length < 15 ? txt : txt.slice(15) + '...'} is: ${txtLang}`);
   tanslatedObj[txtLang] = txt;
   const langsToTranslate = ["english", "hebrew", "arabic"].filter(lang => lang !== txtLang);
   logger.info(`langs to translate the text: ${langsToTranslate}`);
@@ -224,6 +249,9 @@ const translateText3Lang = (txt) => {
     tanslatedObj[langsToTranslate[0]] = transltatedArr[0];
     tanslatedObj[langsToTranslate[1]] = transltatedArr[1];
     return tanslatedObj;
+  }).catch(err => {
+    console.log(`error in generating translations for ${txt.length < 15 ? txt : txt.slice(15)} + '...'`, err)
+
   });
 };
 

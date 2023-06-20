@@ -27,7 +27,7 @@ const findOrCreateArtist = async (artistName, nameLang = 'english', namesObj, im
   filterObj.body.name[nameLang] = artistName;
   const artistsArray = await findArtist(filterObj);
   if (artistsArray) {
-    console.log('artistsArray', artistsArray);
+    logger.info(`artist: ${artistName} found in db`)
     return artistsArray[0]._id;
   }
   const artistObj = generateBasicDataObj('artist');

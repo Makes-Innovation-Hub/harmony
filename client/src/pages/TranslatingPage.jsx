@@ -4,20 +4,21 @@ import Animation from "../components/Animation/Animation.component";
 import Header from "../components/Header/Header";
 import SearchBar from "../components/SearchBar/SearchBar.component";
 import Tagline from "../components/Tagline/Tagline.component";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSongDataMutation } from '../api/songDataApiSlice';
 import { useEffect } from 'react';
 
 const TranslatingPage = () => {
   const selectedData = useLocation().state;
-  console.log('selectedData', selectedData);
   const [songDataMutation] = useSongDataMutation()
+  const navigate = useNavigate()
   const { t } = useTranslation();
   useEffect(() => {
     songDataMutation(selectedData)
       .then(songData => {
         console.log('songData', songData);
+        navigate('/song', { state: songData.data })
       })
       .catch(err => {
         console.log('err', err);

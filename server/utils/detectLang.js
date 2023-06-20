@@ -25,7 +25,7 @@ function detectLanguage(text) {
     } else if (arabicCount > englishCount && arabicCount > hebrewCount) {
         return "arabic";
     } else {
-        return false;
+        return 'english';
     }
 }
 
