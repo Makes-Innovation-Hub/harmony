@@ -1,14 +1,13 @@
+import React from "react";
 import Header from "../components/Header/Header.jsx";
 import SongDetails from "../components/songDetails/SongDetails";
-import { useLocation } from "react-router-dom";
 import Lyrics from "../components/Lyrics/Lyrics.jsx";
+import { useLocation } from "react-router-dom";
 import { useGetSongDataQuery } from "../api/songApiSlice.js";
 
 function SongPage() {
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const songName = queryParams.get("song");
-  const artistName = queryParams.get("artist");
+  const { songName, artistName } = location.state;
 
   const { data } = useGetSongDataQuery({
     songName,

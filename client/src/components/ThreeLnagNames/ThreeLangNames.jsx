@@ -13,11 +13,7 @@ function ThreeLangNames({
   const navigate = useNavigate();
 
   const handleClick = (name) => {
-    navigate(
-      `/song?&song=${encodeURIComponent(name)}&artist=${encodeURIComponent(
-        artistName
-      )}`
-    );
+    navigate("/song", { state: { songName: name, artistName } });
   };
 
   const languageNames = {
