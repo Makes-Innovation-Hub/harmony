@@ -1,5 +1,5 @@
 import Tagline from "../../components/Tagline/Tagline.component";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import HomeSearchBar from "../../components/HomeSerchBar/HomeSearchBar";
 import ResultsCard from "../../components/ResultsCard/ResultsCard";
 import FE from "../../components/Layout/FlexElments";

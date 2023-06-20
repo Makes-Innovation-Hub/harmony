@@ -12,7 +12,8 @@ import {
 import { useGetLyricsQuery } from "../api/lyricsApi";
 import "./Header.css";
 import { useEffect } from "react";
-
+import { useGetLyricsQuery } from "../../api/lyricsApi";
+import "../Header/Header.css";
 const Lyrics = ({ artist, title, lyrics }) => {
   const { songLyrics, setSongLyrics } = useTopSongsGlobalContext();
 
