@@ -1,7 +1,7 @@
 import notFoundGif from "../assets/animations/not-found-animation.gif";
 
 import Animation from "../components/Animation/Animation.component";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import SearchBar from "../components/SearchBar/SearchBar.component";
 import Tagline from "../components/Tagline/Tagline.component";
 
