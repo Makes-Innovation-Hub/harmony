@@ -3,7 +3,7 @@ import { serverApiUrl } from "../constants/urls";
 
 export const arabicSongsApi = createApi({
   reducerPath: "arabicSongsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: serverApiUrl }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${serverApiUrl}/scrap` }),
   endpoints: (builder) => ({
     getTopArabicSongs: builder.query({
       query: () => "topArabicSongs",

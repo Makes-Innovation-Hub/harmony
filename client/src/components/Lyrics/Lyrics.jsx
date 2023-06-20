@@ -7,6 +7,8 @@ import {
   Paragraph,
   TranslatedParagraph,
 } from "./LyricsStyles";
+import { useGetLyricsQuery } from "../../api/lyricsApi";
+import "../Header/Header.css";
 
 const Lyrics = ({ artist, title, lyrics }) => {
   return (

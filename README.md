@@ -27,10 +27,11 @@ commit and push often.
 
 ## How to connect to MongoDB and run the server locally 
 - in harmony repository, go to '/harmony/server/config' and create a 'config.env' file.
-- the 'config.env' file should contain the development environment, the port (on which the server runs locally) and the Mongo URI, as following:
-    NODE_ENV=development 
+- the 'config.env' file should contain the development environment, the port (on which the server runs locally) and the Mongo URI for each one of the development environments, as following:
+    NODE_ENV=development or NODE_ENV=production
     PORT=5000
-    MONGO_URI=mongodb+srv://<your username>:<your password>@harmony.btro83c.mongodb.net/
+    MONGO_URI_DEV=mongodb+srv://<your username>:<your password>@harmony.btro83c.mongodb.net/
+    MONGO_URI_PROD=mongodb+srv://<your username>:<your password>@harmony.abcd12e.mongodb.net/
 - to run the server, write one of the following commands in the terminal:
     1. To start the server normally: node server.js
     2. To run with nodemon, make sure you have nodemon installed and run: npm run server.js
