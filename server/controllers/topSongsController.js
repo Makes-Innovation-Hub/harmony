@@ -7,7 +7,7 @@ import scrapeTopHebrewSongs from "../scrapping/scrappingTopHebrewSongs.js";
 import { findOrCreateSong } from "./songsController.js";
 import { dummySongsArray } from "../utils/createDummyData.js";
 import createObjectFromQuery from "../utils/createObjectFromQuery.js";
-import checkIfAWeekPassed from "../utils/checkIfAWeekPassed.js";
+import checkIfInSameWeek from "../utils/checkIfAWeekPassed.js";
 import { getCoverArtForSong } from "../spotifyapi.js";
 import { all } from "axios";
 
@@ -57,7 +57,7 @@ const createTopSongsInDB = async (language, topSongsIdArray) => {
 
 const findTopSongs = async () => {
   const topSongsArray = await TopSongs.find().populate("songs");
-  logger.info(`findTopSongs found with song details: ${topSongsArray}`);
+  logger.info(`findTopSongs found`);
   if (topSongsArray.length > 0) return topSongsArray;
 };
 
@@ -146,74 +146,80 @@ const createTopSongs = asyncHandler(async (req, res, next) => {
 
 const CreateTopSongsOnStart = asyncHandler(async (req, res, next) => {
   logger.info(`createTopSongsOnStart initiating `);
-  logger.info('test');
-  console.log('logger', logger)
-
-  let topSongs = [];
+  let topSongs = {
+    arabicSongs: '',
+    hebrewSongs: '',
+  };;
   let isMoreThanAWeek;
   try {
     const topSongsArray = await findTopSongs();
     if (!topSongsArray) {
+      logger.info('no records found for top songs. creating collection')
       await TopSongs.createCollection();
       // return next(new ErrorResponse(`Top songs not found`), 404);
+    } else {
+      // check if a week has passed from last record
+      const datesToCheck = {
+        arabic: { date: '' },
+        hebrew: { date: '' }
+      };
+      const currentDate = new Date();
+      topSongsArray.forEach(topSong => {
+        datesToCheck[topSong.language].date = topSong.date;
+        datesToCheck[topSong.language]['data'] = topSong.songs;
+      });
+      for (const lang in datesToCheck) {
+        if (Object.hasOwnProperty.call(datesToCheck, lang)) {
+          const date = datesToCheck[lang].date;
+          if (checkIfInSameWeek(date, currentDate)) {
+            const key = lang === 'arabic' ? 'arabicSongs' : 'hebrewSongs';
+            topSongs[key] = datesToCheck[lang]['data'];
+          }
+        }
+      }
+      // if not - send current records
+      if (topSongs.arabicSongs && topSongs.hebrewSongs) {
+        logger.info('found relevant data in db. sending');
+        res.status(200).json({
+          success: true,
+          data: topSongs,
+        });
+      } else {
+        // if yes - generate new data
+        logger.info('no relevant data found in db. generating');
+        const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
+          scrapeTopArabicSongs(),
+          scrapeTopHebrewSongs(),
+        ]);
+
+        const [arabicTopWithImage, hebrewTopWithImage] = await Promise.all([
+          getCoverArtForTopSongs(arabicScrapedTop),
+          getCoverArtForTopSongs(hebrewScrapedTop),
+        ]);
+
+        topSongs = {
+          arabicSongs: arabicTopWithImage,
+          hebrewSongs: hebrewTopWithImage,
+        };
+        // }
+
+        res.status(200).json({
+          success: true,
+          data: topSongs,
+        });
+        //2.Creating top songs document in DB
+        const arabicTopSongs = await createTopSongsInDB("arabic", arabicTopWithImage.slice(0, 9));
+        if (!arabicTopSongs) {
+          return next(new ErrorResponse(`Error while creating Arabic topSongs`));
+        }
+        logger.info("Arabic Top Song Created successfully");
+        const hebrewTopSongs = await createTopSongsInDB("hebrew", hebrewTopWithImage);
+        if (!hebrewTopSongs) {
+          return next(new ErrorResponse(`Error while creating Hebrew topSongs`));
+        }
+        logger.info("hebrew Top Song Created successfully");
+      }
     }
-    // topSongsArray.sort((a, b) => b.date - a.date);
-    // const latestTopSongs = topSongsArray[0];
-    // isMoreThanAWeek = checkIfAWeekPassed(latestTopSongs.date);
-
-    // if (!isMoreThanAWeek) {
-    //   topSongs = latestTopSongs;
-    // } else {
-    const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
-      scrapeTopArabicSongs(),
-      scrapeTopHebrewSongs(),
-    ]);
-
-    const [arabicTopWithImage, hebrewTopWithImage] = await Promise.all([
-      getCoverArtForTopSongs(arabicScrapedTop),
-      getCoverArtForTopSongs(hebrewScrapedTop),
-    ]);
-
-    topSongs = {
-      arabicSongs: arabicTopWithImage,
-      hebrewSongs: hebrewTopWithImage,
-    };
-    // }
-
-    res.status(200).json({
-      success: true,
-      data: topSongs,
-    });
-
-    // if (!isMoreThanAWeek) {
-      //1. for each song: find or create song
-      // const arabicSongsArray = await getOrCreateEachSong(
-      //   "arabic",
-      //   await topSongs.songs
-      // );
-      // if (!arabicSongsArray) {
-      //   return next(
-      //     new ErrorResponse(
-      //       `Error while getting or creating top songs from scraped data`
-      //     )
-      //   );
-      // }
-
-
-    console.log('before sotring in db');
-    //2.Creating top songs document in DB
-    const arabicTopSongs = await createTopSongsInDB("arabic", arabicTopWithImage);
-    if (!arabicTopSongs) {
-      return next(new ErrorResponse(`Error while creating Arabic topSongs`));
-    }
-    logger.info("Arabic Top Song Created successfully");
-    const hebrewTopSongs = await createTopSongsInDB("hebrew", hebrewTopWithImage);
-    if (!hebrewTopSongs) {
-      return next(new ErrorResponse(`Error while creating Hebrew topSongs`));
-    }
-    logger.info("Arabic Top Song Created successfully");
-    // }
-
   } catch (error) {
     console.log('error', error)
   }

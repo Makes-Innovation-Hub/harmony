@@ -6,6 +6,16 @@ const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
 });
+logger.info('getting spotify api creds');
+try {
+  const data = await spotifyApi.clientCredentialsGrant();
+  const accessToken = data.body.access_token;
+  spotifyApi.setAccessToken(accessToken);
+  logger.info('loaded spotify creds');
+} catch (error) {
+  console.log('error', error);
+  logger.error(`error in getting spotify creds: ${JSON.stringify(error)}`);
+}
 
 async function getAlbumFromSongAndArtist(songName, artistName) {
   try {
@@ -16,10 +26,6 @@ async function getAlbumFromSongAndArtist(songName, artistName) {
     } else {
       searchQuery = `${songName} artist:${artistName}`;
     }
-
-    const data = await spotifyApi.clientCredentialsGrant();
-    const accessToken = data.body.access_token;
-    spotifyApi.setAccessToken(accessToken);
 
     const searchResult = await spotifyApi.searchTracks(searchQuery);
     const track = searchResult.body.tracks.items[0];
@@ -48,11 +54,6 @@ async function getCoverArtForSong(songName, artistName) {
     } else {
       searchQuery = `track:${songName} artist:${artistName}`;
     }
-
-    logger.info("before getting Spotify keys");
-    const data = await spotifyApi.clientCredentialsGrant();
-    const accessToken = data.body.access_token;
-    spotifyApi.setAccessToken(accessToken);
 
     const searchResult = await spotifyApi.searchTracks(searchQuery);
     const track = searchResult.body.tracks.items[0];
