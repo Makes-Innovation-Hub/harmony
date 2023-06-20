@@ -4,10 +4,11 @@ import { arabicSongsApi } from "../api/arabicApiSlice";
 import { lyricsApi } from "../api/lyricsApiSlice";
 import searchsliceapi from "../api/searchsliceApi";
 import languageSlice from "./languageSlice";
-
+import selectedSongSlice from './selectedSongSlice';
 export default configureStore({
   reducer: {
     languageSelect: languageSlice,
+    selectedSong: selectedSongSlice,
     [hebrewSongsApi.reducerPath]: hebrewSongsApi.reducer,
     [arabicSongsApi.reducerPath]: arabicSongsApi.reducer,
     [lyricsApi.reducerPath]: lyricsApi.reducer,

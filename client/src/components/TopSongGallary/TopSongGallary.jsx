@@ -5,26 +5,17 @@ import {
   TopASongCountainer,
   TopHSongCountainer,
 } from "./TopSongGallaryStyle";
-import { useState } from "react";
 import ImageBoxWithDetails from "./ImageBoxWithDetails";
 import { useGetTopArabicSongsQuery } from "../../api/arabicApiSlice";
-import { useLazyGetLyricsQuery } from "../../api/lyricsApiSlice";
-
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 
 export default function TopSongGallary() {
   const { data: topSongsAll = [] } = useGetTopArabicSongsQuery();
-  const [trigger, { data }] = useLazyGetLyricsQuery();
-  const [songLyrics, setSongLyrics] = useState([]);
-
+  const navigate = useNavigate()
   const { t } = useTranslation();
   const handleSongClick = (artist, songName) => {
-    if (!data) {
-      console.log("NO LYRICS FOUND!");
-      // (navigate("/Artur`s Page"))
-    }
-    setSongLyrics(data);
-    trigger({ artistName: artist, songName: songName });
+    navigate('/translating')
   };
   return (
     <SongGallary>
