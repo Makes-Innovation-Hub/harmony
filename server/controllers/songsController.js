@@ -9,6 +9,7 @@ import { generalTranslation } from '../utils/openAiTranslation.js';
 import generateBasicDataObj from '../utils/songOrArtistObj.js';
 import { getCoverArtForArtist } from '../spotifyapi.js';
 import { scrapGoogleFn } from '../scrapping/scrappingGoogleLyrics.js'
+import Artist from '../models/Artist.js';
 
 
 const findSong = async (req) => {
@@ -118,13 +119,18 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
     if (songs.length > 0) {
       // if there is - send back
       logger.info(`songs found for song name: ${song}. sending ${songs.length} results`);
-      res.json(songs);
+      const artistData = await Artist.findById(songs[0].artist);
+      const songData = songs[0];
+      songData.artist = artistData;
+      res.json(songData);
     } else {
       // if not - generate song data - > save song in db
       logger.info(`no songs found for song name: ${song}.generating data`);
       const songData = await generateSongData(song, artist, coverArt);
       logger.info(`succeeded generating song data for ${song}`);
       Song.create(songData);
+      const artistData = await Artist.findById(songData.artist);
+      songData.artist = artistData;
       res.json(songData);
     }
 

@@ -11,7 +11,11 @@ function SongPage() {
   return (
     <>
       <Header />
-      <SongDetails img={songData.coverArt} artist={songData.artist.name.english} songName={songData.name.english} />
+      <SongDetails
+        img={songData.coverArt}
+        artist={songData.artist.name.english}
+        songName={songData.name.english}
+      />
       <Lyrics lyrics={songData.lyrics} />
     </>
   );
