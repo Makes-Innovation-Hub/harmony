@@ -78,8 +78,16 @@ async function getCoverArtForSong(songName, artistName) {
 
 
 async function getCoverArtForArtist(artist) {
-  const artistResults = await spotifyApi.searchArtists(artist);
-  console.log('artistResults', artistResults);
+  logger.info(`getting cover art for artist ${artist}`);
+  try {
+    const artistResults = await spotifyApi.searchArtists(artist);
+    console.log('artistResults', artistResults);
+    const art = artistResults.body.artists.items[0].images[0].url;
+    logger.info(`found imag url ${art} for artist ${artist}`);
+    return art;
+  } catch (error) {
+    console.log('error', error);
+  }
 }
 
 export { getAlbumFromSongAndArtist, getCoverArtForSong, getCoverArtForArtist };

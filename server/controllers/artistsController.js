@@ -17,7 +17,7 @@ const findArtist = async (req) => {
   }
 };
 
-const findOrCreateArtist = async (artistName, nameLang = 'english', namesObj) => {
+const findOrCreateArtist = async (artistName, nameLang = 'english', namesObj, img) => {
   logger.info(`findOrCreateArtist with singer name: ${artistName}`);
   const filterObj = {
     body: {
@@ -28,10 +28,11 @@ const findOrCreateArtist = async (artistName, nameLang = 'english', namesObj) =>
   const artistsArray = await findArtist(filterObj);
   if (artistsArray) {
     console.log('artistsArray', artistsArray);
-    return artistsArray;
+    return artistsArray[0]._id;
   }
   const artistObj = generateBasicDataObj('artist');
   artistObj.name = namesObj;
+  artistObj.imgURL = img;
   const newArtist = await Artist.create(artistObj);
   logger.info(`Create artist with data: ${JSON.stringify(newArtist)} Created`);
   return newArtist;

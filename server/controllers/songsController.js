@@ -7,7 +7,6 @@ import { findOrCreateArtist } from "./artistsController.js";
 import detectLanguage from '../utils/detectLang.js';
 import { generalTranslation } from '../utils/openAiTranslation.js';
 import generateBasicDataObj from '../utils/songOrArtistObj.js';
-import { findOrCreateArtist } from './artistsController.js';
 import { getCoverArtForArtist } from '../spotifyapi.js';
 
 const findSong = async (req) => {
@@ -150,7 +149,7 @@ const createSong = asyncHandler(async (req, res, next) => {
 
 
 const getFullSongData = asyncHandler(async (req, res, next) => {
-  const { song, artist } = req.body;
+  const { song, artist, coverArt } = req.body;
   logger.info(`getting song full data for song: ${song}, artist: ${artist}`);
   // look for song data in song collection
   const songs = await Song.find({
@@ -167,14 +166,16 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
     res.json(songs);
   } else {
     // if not - generate song data - > save song in db
-    logger.info(` no songs found for song name: ${song}.generating data`);
-    const songData = generateSongData(song, artist);
+    logger.info(`no songs found for song name: ${song}.generating data`);
+    const songData = generateSongData(song, artist, coverArt);
     res.json(songData);
   }
 });
 
-const generateSongData = async function (song, artist) {
+const generateSongData = async function (song, artist, coverArt) {
   let finalSongData = generateBasicDataObj('song');
+  // add cover art
+  finalSongData.coverArt = coverArt;
   // translate song name - 3 langs
   const nameLang = detectLanguage(song);
   logger.info(`detected that language for the song name: ${song} is: ${nameLang}`);
@@ -182,8 +183,10 @@ const generateSongData = async function (song, artist) {
   finalSongData = {
     ...finalSongData, ...{ name: names3langs }
   };
-  await prepareArtist(artist)
+  const artistId = await prepareArtist(artist);
+  finalSongData.artist = artistId;
   // get lyrics
+
   // translate lyrics - 2 langs
   // return song obj
   return finalSongData;
@@ -191,12 +194,16 @@ const generateSongData = async function (song, artist) {
 
 const prepareArtist = async (artist) => {
   logger.info(`preparing artist ${artist} before creating song`);
-  // get artist - if no 3 names - generate
-  const lang = detectLanguage(artist);
-  const names3langs = await translateText3Lang(artist);
-  const coverArt = await getCoverArtForArtist(artist);
-  logger.info(`checking if artist ${artist} is in db`);
-  return findOrCreateArtist(artist, lang, names3langs);
+  try {
+    // get artist - if no 3 names - generate
+    const lang = detectLanguage(artist);
+    const names3langs = await translateText3Lang(artist);
+    const coverArt = await getCoverArtForArtist(artist);
+    logger.info(`checking if artist ${artist} is in db`);
+    return findOrCreateArtist(artist, lang, names3langs, coverArt);
+  } catch (error) {
+    console.log('error prepareArtist', error);
+  }
 };
 
 const translateText3Lang = (txt) => {

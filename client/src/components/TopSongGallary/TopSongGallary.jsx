@@ -15,8 +15,8 @@ export default function TopSongGallary() {
   console.log('topSongsAll', topSongsAll)
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const handleSongClick = (artist, song) => {
-    navigate('/translating', { state: { artist, song } })
+  const handleSongClick = ({ artist, song, coverArt }) => {
+    navigate('/translating', { state: { artist, song, coverArt } })
   };
   return (
     <SongGallary>
@@ -31,7 +31,7 @@ export default function TopSongGallary() {
               artist={song.artist}
                 songName={song.song}
                 onClickFn={() =>
-                  handleSongClick(song.artist, song.song)
+                  handleSongClick(song)
               }
             />
           ))}
