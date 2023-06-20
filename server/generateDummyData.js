@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
-mongoose.connect(process.env.MONGO_URI_DEVELOPMENT, {
+mongoose.connect(process.env.MONGO_URI_DEV, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
