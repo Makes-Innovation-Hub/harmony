@@ -16,7 +16,7 @@ const Lyrics = ({ artist, title, lyrics }) => {
       <TranslationWrapper>
         <Status>Translation</Status>
         <SongTitle>מול עיני</SongTitle>
-        <TranslatedParagraph>
+        <TranslatedParagraph lyrics={lyrics}>
           יש בינינו פגישה, גם אם אנחנו רחוקים בטוח שאחזור גם אם ביני ובינו יש
           ארצות מול עיני בכל מקום.
         </TranslatedParagraph>
@@ -36,9 +36,9 @@ const Lyrics = ({ artist, title, lyrics }) => {
       <LyricsWrapper>
         <Status>Original</Status>
         <SongTitle>قصاد عینی</SongTitle>
-        <Paragraph>
-          و بینا معاد، لو احنا بعاد أکید راجع و لو بینی و بینه بلاد قصاد عینی،
-          فی کل مکان
+        <Paragraph lyrics={lyrics}>
+          {lyrics} و بینا معاد، لو احنا بعاد أکید راجع و لو بینی و بینه بلاد
+          قصاد عینی، فی کل مکان
         </Paragraph>
         <Paragraph>
           و من تانی أکید راجعین أنا دایب و کللی حنین و لا عمری أبیع لو مین قصاد
