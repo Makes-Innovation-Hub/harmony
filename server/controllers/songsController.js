@@ -154,9 +154,9 @@ const generateSongData = async function (song, artist, coverArt) {
   const artistId = await prepareArtist(artist);
   finalSongData.artist = artistId;
   // get lyrics
-  const lyricsObj = await prepareLyrics(song, artist);
+  const { lyricsObj, originalLang } = await prepareLyrics(song, artist);
   finalSongData = {
-    ...finalSongData, ...{ lyrics: lyricsObj }
+    ...finalSongData, ...{ lyrics: lyricsObj }, ...{ originalLang }
   };
   // return song obj
   return finalSongData;
@@ -180,9 +180,10 @@ const prepareLyrics = async (song, artist) => {
   try {
     logger.info(`starting to generate lyrics for song: ${song} artist: ${artist}`);
     const lyrics = await scrapGoogleFn(song, artist);
-    console.log('lyrics', typeof lyrics);
+    logger.info(`detecting original lang for song: ${song} test text: ${lyrics.slice(20)}`);
+    const originalLang = detectLanguage(lyrics);
     const lyricsObj = await translateText3Lang(lyrics[0]);
-    return lyricsObj;
+    return { lyricsObj, originalLang };
   } catch (error) {
     console.log('error', error);
   }
