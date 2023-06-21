@@ -1,26 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { hebrewSongsApi } from "../api/hebrewApiSlice";
-import { arabicSongsApi } from "../api/arabicApiSlice";
-import { lyricsApi } from "../api/lyricsApiSlice";
+import { topSongsApi } from "../api/topSongsSlice";
 import searchsliceapi from "../api/searchsliceApi";
+import languageReducer from "./languageSlice";
+import { songDataApi } from '../api/songDataApiSlice';
 import artistApiSlice from "../api/artistApiSlice";
-import languageSlice from "./languageSlice";
 
 export default configureStore({
   reducer: {
-    languageSelect: languageSlice,
+    languageSelect: languageReducer,
     [hebrewSongsApi.reducerPath]: hebrewSongsApi.reducer,
-    [arabicSongsApi.reducerPath]: arabicSongsApi.reducer,
-    [lyricsApi.reducerPath]: lyricsApi.reducer,
+    [topSongsApi.reducerPath]: topSongsApi.reducer,
+    [songDataApi.reducerPath]: songDataApi.reducer,
     [searchsliceapi.reducerPath]: searchsliceapi.reducer,
     [artistApiSlice.reducerPath]: artistApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
       hebrewSongsApi.middleware,
-      arabicSongsApi.middleware,
-      lyricsApi.middleware,
+      topSongsApi.middleware,
       searchsliceapi.middleware,
+      songDataApi.middleware,
       artistApiSlice.middleware,
     ]);
   },

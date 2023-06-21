@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import store from '../Redux/store';
 
 const searchsliceapi = createApi({
   reducerPath: "searchsliceapi",

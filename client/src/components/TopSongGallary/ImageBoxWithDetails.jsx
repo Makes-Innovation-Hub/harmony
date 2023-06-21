@@ -7,7 +7,7 @@ export default function ImageBoxWithDetails({
   img,
   songName,
   artist,
-  onClick,
+  onClickFn,
 }) {
   const [artistData, setArtistData] = useState(null);
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ export default function ImageBoxWithDetails({
   }, [data, isLoading, navigate]);
 
   return (
-    <ImageBox onClick={onClick}>
+    <ImageBox onClick={onClickFn}>
       <Image src={img}></Image>
       <Box>
         <SongP>{songName}</SongP>
