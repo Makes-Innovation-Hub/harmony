@@ -23,9 +23,16 @@ const HomeSearchBar = () => {
     }
     try {
       const results = await searchMutation(searchTerm);
-      dispatch(setResults(results.data));
-      setErrorMessage("");
-      navigate("/results");
+      if (
+        results.data.artists.length === 0 &&
+        results.data.songs.length === 0
+      ) {
+        navigate("/not-found");
+      } else {
+        dispatch(setResults(results.data));
+        setErrorMessage("");
+        navigate("/results");
+      }
     } catch (error) {
       console.error("Search error:", error);
     }
