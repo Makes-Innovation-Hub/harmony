@@ -2,23 +2,11 @@ import styled from "styled-components";
 
 export const LyricsSection = styled.section`
   display: flex;
-  margin-right: 0.5rem;
-  justify-content: space-between;
+  width: 100%;
+  gap: 0.1rem;
 
   @media (min-width: 768px) {
     flex-direction: row;
-  }
-`;
-
-export const LyricsWrapper = styled.div`
-  @media (min-width: 768px) {
-    width: 50%;
-  }
-`;
-
-export const TranslationWrapper = styled.div`
-  @media (min-width: 768px) {
-    max-width: 50%;
   }
 `;
 
@@ -29,37 +17,43 @@ export const SongTitle = styled.h2`
   font-family: "Aclonica";
   font-style: normal;
   text-decoration: underline;
-  line-height: 154%;
+  /* line-height: 154%; */
   margin-bottom: 1.5rem;
 `;
 
 export const Status = styled.p`
   font-weight: 400;
   text-align: center;
-  font-family: "Aclonica";
+  font-family: "ABeeZee";
   font-style: normal;
   text-decoration: underline;
-  line-height: 154%;
+  /* line-height: 154%; */
   margin-bottom: 1.5rem;
 `;
 
-export const Paragraph = styled.p`
+export const HebrewParagraph = styled.p`
+  flex: 1 1 50%; /* Take up 50% of the available width without growing or shrinking */
+  flex-basis: 50%; /* Set initial width to 50% */
+
   font-weight: 400;
   text-align: right;
   font-family: "Aclonica";
   font-style: normal;
-  line-height: 150%;
+  /* line-height: 150%; */
   font-size: 0.7rem;
   margin-bottom: 1.5rem;
-  margin-left: 0.5rem;
+  color: black;
 `;
 
-export const TranslatedParagraph = styled.p`
+export const ArabicParagraph = styled.p`
+  flex: 1 1 50%; /* Take up 50% of the available width without growing or shrinking */
+  flex-basis: 50%; /* Set initial width to 50% */
   font-weight: 400;
   text-align: right;
   font-family: "Aclonica";
   font-style: normal;
-  line-height: 150%;
+  /* line-height: 150%; */
   font-size: 0.7rem;
   margin-bottom: 1.5rem;
+  color: #000000; /* Example color for Arabic lyrics */
 `;
