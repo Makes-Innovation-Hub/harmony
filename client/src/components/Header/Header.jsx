@@ -8,11 +8,15 @@ import Flag from "../../assets/Flag.png";
 import Dove from "../../assets/dove.png";
 import Ellipse3 from "../../assets/Ellipse3.png";
 import "./Header.css";
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  const navigate = useNavigate()
   return (
     <HeaderContainer>
-      <AppIcon>
+      <AppIcon onClick={() => {
+        navigate('/');
+      }}>
         <img className="dove" src={Dove} alt="" />
         <img className="ellipse" src={Ellipse3} alt="" />
       </AppIcon>
