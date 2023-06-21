@@ -28,7 +28,7 @@ const SearchResults = ({songs, artists}) => {
             return (
               <ResultsCard
                 key={artist.id}
-                img={artist.img}
+                img={artist.imgUrl}
                 titles={artist.titles}
               />
             );
@@ -39,11 +39,11 @@ const SearchResults = ({songs, artists}) => {
             return (
               <ResultsCard
                 key={song.id}
-                img={song.img}
-                languages={{
-                  target: song.languages.target,
-                  origin: song.languages.origin,
-                }}
+                img={song.coverArt}
+                // languages={{
+                //   target: song.languages.target,
+                //   origin: song.languages.origin,
+                // }}
                 titles={song.titles}
               />
             );
