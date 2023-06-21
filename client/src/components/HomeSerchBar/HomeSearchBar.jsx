@@ -18,7 +18,8 @@ const HomeSearchBar = () => {
     }
 
     searchMutation(searchTerm)
-      .then(() => {
+      .then((data) => {
+        console.log(data);
         setErrorMessage("");
       })
       .catch((error) => {

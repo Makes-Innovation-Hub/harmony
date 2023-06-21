@@ -1,24 +1,26 @@
-import notFoundGif from '../assets/animations/not-found-animation.gif'
+import notFoundGif from "../assets/animations/not-found-animation.gif";
 
-import Animation from '../components/Animation/Animation.component'
-import Header from '../components/Header'
-import SearchBar from '../components/SearchBar/SearchBar.component'
-import Tagline from '../components/Tagline/Tagline.component'
+import Animation from "../components/Animation/Animation.component";
+import Header from "../components/Header/Header";
+import SearchBar from "../components/SearchBar/SearchBar.component";
+import Tagline from "../components/Tagline/Tagline.component";
 
-const animationText = ['No Results, Please search', 'another Song or Artist']
+import { useTranslation } from "react-i18next";
 
 const NotFoundPage = () => {
-    return (
-        <div className="column-center full-page">
-            <Header />
-            <Tagline />
-            <SearchBar />
-            <Animation
-                animationGif={notFoundGif}
-                animationText={animationText}
-            />
-        </div>
-    )
-}
+  const { t } = useTranslation();
 
-export default NotFoundPage
+  return (
+    <div className="column-center full-page">
+      <Header />
+      <Tagline />
+      <SearchBar />
+      <Animation
+        animationGif={notFoundGif}
+        animationText={[t("not_found_1"), t("not_found_2")]}
+      />
+    </div>
+  );
+};
+
+export default NotFoundPage;
