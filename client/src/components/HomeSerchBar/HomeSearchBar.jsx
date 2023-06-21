@@ -11,19 +11,18 @@ const HomeSearchBar = () => {
     setSearchTerm(e.target.value);
   };
 
-  const sendSearchRequest = () => {
+  const sendSearchRequest = async () => {
     if (!searchTerm) {
       setErrorMessage("Please insert text in English, Hebrew, or Arabic");
       return;
     }
-
-    searchMutation(searchTerm)
-      .then(() => {
-        setErrorMessage("");
-      })
-      .catch((error) => {
-        console.error("Search error:", error);
-      });
+    try {
+      const results = await searchMutation(searchTerm);
+      console.log(results);
+      setErrorMessage("");
+    } catch (error) {
+      console.error("Search error:", error);
+    }
   };
 
   return (

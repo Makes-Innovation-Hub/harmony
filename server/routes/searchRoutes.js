@@ -5,9 +5,9 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const searchTerm = req.body.searchTerm;
-
   try {
     const [songResults, artistResults] = await Promise.all([
+      
       Song.find({
         $or: [
           { "name.hebrew": { $regex: searchTerm, $options: "i" } },
