@@ -23,7 +23,7 @@
   }
 
   .textDetailsContainer h2 {
-    font-family: "ABeeZee Italic";
+    font-family: "ABeeZee";
     font-size: 1rem;
     width: 8rem;
     text-align: center;
@@ -32,7 +32,7 @@
   .artistName {
     color: gray;
     font-size: 1rem;
-    font-family: "ABeeZee Italic";
+    font-family: "ABeeZee";
     text-align: center;
     line-height: 133%;
   }

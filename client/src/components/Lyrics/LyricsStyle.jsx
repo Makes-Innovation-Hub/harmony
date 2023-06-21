@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const LyricsSection = styled.section`
   display: flex;
-  width: 100%;
   gap: 0.1rem;
-
+  justify-content: space-around;
+  height: 100vh;
   @media (min-width: 768px) {
     flex-direction: row;
   }
@@ -14,11 +14,13 @@ export const SongTitle = styled.h2`
   font-weight: 400;
   text-align: right;
   font-size: 1.1rem;
-  font-family: "Aclonica";
+  font-family: "ABeeZee";
   font-style: normal;
   text-decoration: underline;
   /* line-height: 154%; */
   margin-bottom: 1.5rem;
+  padding: 0.2rem;
+  margin-right: 0.3rem;
 `;
 
 export const Status = styled.p`
@@ -31,10 +33,9 @@ export const Status = styled.p`
   margin-bottom: 1.5rem;
 `;
 
-export const HebrewParagraph = styled.p`
+export const Paragraph = styled.p`
   flex: 1 1 50%; /* Take up 50% of the available width without growing or shrinking */
   flex-basis: 50%; /* Set initial width to 50% */
-
   font-weight: 400;
   text-align: right;
   font-family: "Aclonica";
@@ -43,17 +44,6 @@ export const HebrewParagraph = styled.p`
   font-size: 0.7rem;
   margin-bottom: 1.5rem;
   color: black;
-`;
-
-export const ArabicParagraph = styled.p`
-  flex: 1 1 50%; /* Take up 50% of the available width without growing or shrinking */
-  flex-basis: 50%; /* Set initial width to 50% */
-  font-weight: 400;
-  text-align: right;
-  font-family: "Aclonica";
-  font-style: normal;
-  /* line-height: 150%; */
-  font-size: 0.7rem;
-  margin-bottom: 1.5rem;
-  color: #000000; /* Example color for Arabic lyrics */
+  width: 16ch;
+  height: 5ch;
 `;
