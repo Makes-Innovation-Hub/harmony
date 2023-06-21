@@ -182,8 +182,6 @@ const prepareLyrics = async (song, artist) => {
     const lyrics = await scrapGoogleFn(song, artist);
     logger.info(`detecting original lang for song: ${song} test text: ${lyrics.slice(20)}`);
     const originalLang = detectLanguage(lyrics);
-    console.log('originalLang', originalLang)
-    console.log('lyrics', typeof lyrics);
     const lyricsObj = await translateText3Lang(lyrics[0]);
     return { lyricsObj, originalLang };
   } catch (error) {

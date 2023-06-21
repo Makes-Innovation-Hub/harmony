@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 const SearchResults = ({songs, artists}) => {
   const searchResults = useSelector((state) => state.searchResults.results);
-  console.log(searchResults)
   const foundSongs = searchResults?.songs;
   const foundArtists = searchResults?.artists;
 
@@ -18,7 +17,7 @@ const SearchResults = ({songs, artists}) => {
         <Header />
         <Tagline />
       </FE.CenterCol>
-      <FE.CenterCol style={{ flexGrow: 0.5 }}>
+      <FE.CenterCol style={{ flexGrow: 1 }}>
         <HomeSearchBar />
       </FE.CenterCol>
       <FE.CenterCol style={{ flexGrow: 6 }}>
@@ -45,11 +44,10 @@ const SearchResults = ({songs, artists}) => {
           </div>
         }
         {
-          foundSongs.length > 0 && <div>
+          foundSongs.length > 0 && <div style={{ width: "100%" }}>
             <SC.Title>Songs</SC.Title>
             {foundSongs &&
               foundSongs.map((song) => {
-                console.log('song', song);
                 const titles = [];
                 for (const lang in song.name) {
                   if (Object.hasOwnProperty.call(song.name, lang)) {
@@ -60,12 +58,12 @@ const SearchResults = ({songs, artists}) => {
                 return (
                   <ResultsCard
                     key={song.id}
-                    imgURL={song.coverArt}
+                    imgURL={song.imgURL}
                     languages={{
                       origin: song.originalLang,
                       target: song.originalLang === 'AR' ? "HE" : "AR",
                     }}
-                    titles={song.titles}
+                    titles={titles}
                   />
                 );
               })}
