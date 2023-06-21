@@ -5,18 +5,18 @@ import hebrewImg from "../../assets/songDetails/ע.png";
 import arabicImg from "../../assets/songDetails/ع.png";
 import "./songDetails.css";
 
-function SongDetails() {
+function SongDetails({ artist, songName, img }) {
   return (
     <div className="songDetailsContainer">
       <div className="photoDetailsContainer">
-        <Image src={imgSrc} />
+        <Image src={img} />
       </div>
       <div className="textDetailsContainer">
         <div>
-          <h2>Song Name</h2>
+          <h2>{songName}</h2>
         </div>
         <div>
-          <h2 className="artistName">Artist Name</h2>
+          <h2 className="artistName">{artist}</h2>
         </div>
         <div className="translation-div">
           <button className="btn">
