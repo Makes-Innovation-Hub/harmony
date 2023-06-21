@@ -1,10 +1,8 @@
-import React from "react";
 import {
   LyricsSection,
   SongTitle,
   Status,
-  HebrewParagraph,
-  ArabicParagraph,
+  Paragraph
 } from "./LyricsStyle.jsx";
 
 const Lyrics = ({ lyrics, name }) => {
@@ -23,10 +21,10 @@ const Lyrics = ({ lyrics, name }) => {
             <SongTitle>{name && removeParentheses(name.hebrew)}</SongTitle>
             {Array.isArray(hebrewLyrics) ? (
               hebrewLyrics.map((lyric, index) => (
-                <HebrewParagraph key={index}>{lyric}</HebrewParagraph>
+                <Paragraph key={index}>{lyric}</Paragraph>
               ))
             ) : (
-              <HebrewParagraph>{hebrewLyrics}</HebrewParagraph>
+                <Paragraph>{hebrewLyrics}</Paragraph>
             )}
           </div>
         </div>
@@ -42,10 +40,10 @@ const Lyrics = ({ lyrics, name }) => {
             <SongTitle>{name && removeParentheses(name.arabic)}</SongTitle>
             {Array.isArray(arabicLyrics) ? (
               arabicLyrics.map((lyric, index) => (
-                <ArabicParagraph key={index}>{lyric}</ArabicParagraph>
+                <Paragraph key={index}>{lyric}</Paragraph>
               ))
             ) : (
-              <ArabicParagraph>{arabicLyrics}</ArabicParagraph>
+                <Paragraph>{arabicLyrics}</Paragraph>
             )}
           </div>
         </div>
