@@ -1,0 +1,56 @@
+[
+  {
+    "_id": "60c72b3f4f7d5c001f6471b1",
+    "name": {
+      "hebrew": "אחרי שהכל נגמר",
+      "arabic": "بعد أن انتهى كل شيء",
+      "english": "After Everything is Over"
+    },
+    "lyrics": {
+      "hebrew": "אחרי שהכל נגמר...",
+      "arabic": "بعد أن انتهى كل شيء...",
+      "english": "After everything is over..."
+    },
+    "originalLang": "hebrew",
+    "artist": "60c72b3f4f7d5c001f6471a1",
+    "imgURL": "https://example.com/after_everything_is_over.jpg",
+    "album": "Blackfield",
+    "youtubeURL": "https://www.youtube.com/watch?v=example1"
+  },
+  {
+    "_id": "60c72b3f4f7d5c001f6471b2",
+    "name": {
+      "hebrew": "אני ואתה",
+      "arabic": "أنا وأنت",
+      "english": "Me and You"
+    },
+    "lyrics": {
+      "hebrew": "אני ואתה...",
+      "arabic": "أنا وأنت...",
+      "english": "Me and you..."
+    },
+    "originalLang": "hebrew",
+    "artist": "60c72b3f4f7d5c001f6471a2",
+    "imgURL": "https://example.com/me_and_you.jpg",
+    "album": "Good Old Eretz Israel",
+    "youtubeURL": "https://www.youtube.com/watch?v=example2"
+  },
+  {
+    "_id": "60c72b3f4f7d5c001f6471b3",
+    "name": {
+      "hebrew": "מרץ",
+      "arabic": "مرتز",
+      "english": "March"
+    },
+    "lyrics": {
+      "hebrew": "מרץ, מרץ, תירוץ, תירוץ...",
+      "arabic": "مرتز، مرتز، تيروز، تيروز...",
+      "english": "March, march, excuse, excuse..."
+    },
+    "originalLang": "hebrew",
+    "artist": "60c72b3f4f7d5c001f6471a4",
+    "imgURL": "https://example.com/march.jpg",
+    "album": "Songs of My Beloved Land",
+    "youtubeURL": "https://www.youtube.com/watch?v=example3"
+  }
+]

@@ -8,7 +8,9 @@
     "test": "mocha './tests/**/*.tests.js'",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "config": "bash ./scripts/config.script.sh"
+    "config": "bash ./scripts/config.script.sh",
+    "generateData": "node ./generateDummyData.js -i",
+    "deleteData":"node ./generateDummyData.js -d"
   },
   "author": "",
   "license": "ISC",

@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "60c72b3f4f7d5c001f6471a1",
+    "name": {
+      "hebrew": "אביב גפן",
+      "arabic": "أفيف جيفن",
+      "english": "Aviv Geffen"
+    },
+    "imgURL": "https://example.com/aviv_geffen.jpg",
+    "albums": ["Blackfield", "Blackfield II"]
+  },
+  {
+    "_id": "60c72b3f4f7d5c001f6471a2",
+    "name": {
+      "hebrew": "אריק איינשטיין",
+      "arabic": "أريك أينشتاين",
+      "english": "Arik Einstein"
+    },
+    "imgURL": "https://example.com/arik_einstein.jpg",
+    "albums": ["Good Old Eretz Israel", "Songs of the Paratroopers"]
+  },
+  {
+    "_id": "60c72b3f4f7d5c001f6471a4",
+    "name": {
+      "hebrew": "שלמה ארצי",
+      "arabic": "شلومو أرتزي",
+      "english": "Shlomo Artzi"
+    },
+    "imgURL": "https://example.com/shlomo_artzi.jpg",
+    "albums": ["Songs of My Beloved Land", "A Man Reflects on a Woman"]
+  }
+]
