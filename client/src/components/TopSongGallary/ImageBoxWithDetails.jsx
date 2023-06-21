@@ -1,41 +1,36 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Image, ImageBox, SongP, Songartist } from "./TopSongGallaryStyle";
 import { useNavigate } from "react-router-dom";
-import { useGetArtistDataQuery } from "../../api/artistApiSlice"; // Import the artistApiSlice
+import { useGetArtistDataQuery } from "../../api/artistApiSlice";
 
-export default function ImageBoxWithDetails({
-  img,
-  songName,
-  artist,
-  onClickFn,
-}) {
-  const [artistData, setArtistData] = useState(null);
-  const navigate = useNavigate();
+export default function ImageBoxWithDetails({ img, artist, songName }) {
   const [isQueryExecuted, setIsQueryExecuted] = useState(false);
-
-  // Use the useGetArtistDataQuery hook to fetch artist data from the slice
   const { data, isLoading } = useGetArtistDataQuery(artist, {
-    skip: !isQueryExecuted, // Skip the query if isQueryExecuted is false
+    skip: !isQueryExecuted,
   });
+  const navigate = useNavigate();
 
   const handleArtistClick = () => {
-    setIsQueryExecuted(true); // Set the flag to true when the artist is clicked
+    setIsQueryExecuted(true);
   };
 
-  // Trigger navigation when the data is available
   useEffect(() => {
     if (!isLoading && data) {
-      const artistInfo = data;
-      setArtistData(artistInfo);
-      navigate("/Artist", { state: { artistData: artistInfo } });
+      navigate("/Artist", { state: { artistData: data } });
     }
   }, [data, isLoading, navigate]);
 
+  const handleImageClick = () => {
+    navigate("/translating", {
+      state: { artist, song: songName, coverArt: img },
+    });
+  };
+
   return (
-    <ImageBox onClick={onClickFn}>
-      <Image src={img}></Image>
+    <ImageBox>
+      <Image src={img} onClick={handleImageClick} />
       <Box>
-        <SongP>{songName}</SongP>
+        <SongP onClick={handleImageClick}>{songName}</SongP>
         <Songartist onClick={handleArtistClick}>{artist}</Songartist>
       </Box>
     </ImageBox>
