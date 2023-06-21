@@ -14,6 +14,7 @@ import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 import lyricsRoute from "./routes/lyricsRoute.js";
 import searchRoutes from "./routes/searchRoutes.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
