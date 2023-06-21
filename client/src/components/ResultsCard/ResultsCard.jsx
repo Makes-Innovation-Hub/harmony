@@ -2,7 +2,7 @@ import ImgCard from "../General/ImgCard";
 import LanguagesSign from "../LanguagesSign/LanguagesSign";
 import FE from "../Layout/FlexElments";
 
-export default function ResultsCard({ img, titles, languages = undefined }) {
+export default function ResultsCard({ imgURL, titles, languages = undefined }) {
   return (
     <FE.CenterRow
       aligned="true"
@@ -14,13 +14,13 @@ export default function ResultsCard({ img, titles, languages = undefined }) {
       }}
     >
       <FE.CenterRow
-        aligned="true"
         style={{
           flexGrow: languages ? "1" : 0.1,
           justifyContent: "flex-start",
+          alignItems: "center"
         }}
       >
-        <ImgCard src={img} />
+        <ImgCard src={imgURL} />
       </FE.CenterRow>
       <FE.CenterCol
         style={{
