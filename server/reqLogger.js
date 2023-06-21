@@ -6,7 +6,8 @@ const logger = pino({
 
 const loggingMiddleware = (req, res, next) => {
   logger.info(
-    { queryParameters: req.query }, // Include the query parameters in the logged object
+    { queryParameters: req.query, params: req.params },
+    // Include the query parameters in the logged object
     "Incoming request - Method: %s, URL: %s",
     req.method,
     req.originalUrl
@@ -23,7 +24,7 @@ const loggingMiddleware = (req, res, next) => {
     if (JSON.stringify(body).length > 1000) {
       logger.info("Request Body:", {
         length: Object.keys(body).length,
-        keys: Object.keys(body),
+        importantFields: getImportantFields(body),
       });
     } else {
       logger.info("Request Body:", body);
@@ -31,6 +32,18 @@ const loggingMiddleware = (req, res, next) => {
   }
 
   next();
+};
+
+const getImportantFields = (obj) => {
+  const importantFields = {};
+
+  for (const key in obj) {
+    if (typeof obj[key] !== "object") {
+      importantFields[key] = obj[key];
+    }
+  }
+
+  return importantFields;
 };
 
 export default loggingMiddleware;
