@@ -9,7 +9,7 @@ const openAI = new OpenAIApi(
 
 export async function generalTranslation(txt, originalLang, targetLang) {
   logger.info(`translating ${txt.length < 15 ? txt : txt.slice(0, 15)}... from ${originalLang} to ${targetLang}`);
-  const prompt = `translate this text: ${txt} from original language: ${originalLang} to ${targetLang} language`;
+  const prompt = `translate this text: ${txt} from original language: ${originalLang} to ${targetLang} language. respond only with the translated text, and nothing else`;
   try {
     const response = await openAI.createChatCompletion({
       model: "gpt-3.5-turbo",

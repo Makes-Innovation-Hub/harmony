@@ -27,9 +27,9 @@ const getOrCreateEachSong = async (language, topSongsArray) => {
   const createdSongsIdArray = [];
 
   for (const result of massagedResults) {
-    console.log(result);
+    logger.info(`finding or creating song for: ${result}`)
     const song = await findOrCreateSong({ body: result });
-    console.log(song, "song ❤️");
+    logger.info(`sing found or created for song: ${song}`)
     const songId = song._id;
     createdSongsIdArray.push(songId);
   }
