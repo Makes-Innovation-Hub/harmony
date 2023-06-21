@@ -4,8 +4,14 @@ import HomeSearchBar from "../../components/HomeSerchBar/HomeSearchBar";
 import ResultsCard from "../../components/ResultsCard/ResultsCard";
 import FE from "../../components/Layout/FlexElments";
 import SC from "./SearchRes.style";
+import { useSelector } from "react-redux";
 
-const SearchResults = ({ songs, artists }) => {
+const SearchResults = ({songs, artists}) => {
+  const searchResults = useSelector((state) => state.searchResults.results);
+  console.log(searchResults)
+  // const songs = searchResults?.songs;
+  // const artists = searchResults?.artists;
+
   return (
     <FE.Col style={{ height: "100dvh" }}>
       <FE.CenterCol>

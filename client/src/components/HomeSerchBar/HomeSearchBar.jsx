@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setResults } from "../../Redux/searchResultsSlice";
 import Wrapped from "./HomeSearchBarStyle.js";
 import { useSearchMutation } from "../../api/searchsliceApi.js";
+import { useNavigate } from "react-router-dom";
 
 const HomeSearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [searchMutation] = useSearchMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const inputHandler = (e) => {
     setSearchTerm(e.target.value);
@@ -18,8 +23,9 @@ const HomeSearchBar = () => {
     }
     try {
       const results = await searchMutation(searchTerm);
-      console.log(results);
+      dispatch(setResults(results.data));
       setErrorMessage("");
+      navigate("/results");
     } catch (error) {
       console.error("Search error:", error);
     }
