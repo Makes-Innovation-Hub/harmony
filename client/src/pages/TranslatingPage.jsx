@@ -17,7 +17,6 @@ const TranslatingPage = () => {
   useEffect(() => {
     songDataMutation(selectedData)
       .then(songData => {
-        console.log('songData', songData);
         navigate('/song', { state: songData.data })
       })
       .catch(err => {

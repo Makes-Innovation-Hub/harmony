@@ -20,6 +20,7 @@ export const Title = styled.h1`
   margin-right: 6rem;
   margin-left: 1rem;
   padding-left: 0;
+
   @media screen and (max-width: 767px) {
     width: auto;
     margin-right: 1rem;
@@ -52,6 +53,7 @@ export const LanguageSelect = styled.select`
   appearance: none;
   background-color: transparent;
   cursor: pointer;
+
   @media screen and (min-width: 768px) {
     font-size: 1.2rem;
   }
