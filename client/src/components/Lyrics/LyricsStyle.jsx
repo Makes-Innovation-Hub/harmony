@@ -14,11 +14,13 @@ export const SongTitle = styled.h2`
   font-weight: 400;
   text-align: right;
   font-size: 1.1rem;
-  font-family: "Aclonica";
+  font-family: "ABeeZee";
   font-style: normal;
   text-decoration: underline;
   /* line-height: 154%; */
   margin-bottom: 1.5rem;
+  padding: 0.2rem;
+  margin-right: 0.3rem;
 `;
 
 export const Status = styled.p`

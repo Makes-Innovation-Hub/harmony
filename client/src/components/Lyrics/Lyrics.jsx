@@ -1,9 +1,13 @@
 import {
   LyricsSection,
+  LyricsWrapper,
+  TranslationWrapper,
   SongTitle,
   Status,
-  Paragraph
-} from "./LyricsStyle.jsx";
+  Paragraph,
+  TranslatedParagraph,
+} from "./LyricsStyles";
+import "../Header/Header.css";
 
 const Lyrics = ({ lyrics, name }) => {
   // Function to remove parentheses from a string
@@ -24,7 +28,7 @@ const Lyrics = ({ lyrics, name }) => {
                 <Paragraph key={index}>{lyric}</Paragraph>
               ))
             ) : (
-                <Paragraph>{hebrewLyrics}</Paragraph>
+              <Paragraph>{hebrewLyrics}</Paragraph>
             )}
           </div>
         </div>
@@ -43,7 +47,7 @@ const Lyrics = ({ lyrics, name }) => {
                 <Paragraph key={index}>{lyric}</Paragraph>
               ))
             ) : (
-                <Paragraph>{arabicLyrics}</Paragraph>
+              <Paragraph>{arabicLyrics}</Paragraph>
             )}
           </div>
         </div>
