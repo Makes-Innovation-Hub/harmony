@@ -1,53 +1,49 @@
 import {
   LyricsSection,
-  LyricsWrapper,
-  TranslationWrapper,
   SongTitle,
   Status,
   Paragraph,
-  TranslatedParagraph,
-} from "./LyricsStyles";
+} from "./LyricsStyle";
 import "../Header/Header.css";
 
-const Lyrics = ({ lyrics, name }) => {
+const Lyrics = ({ lyrics, name, originalLang }) => {
   // Function to remove parentheses from a string
   const removeParentheses = (str) => str.replace(/\([^)]+\)/g, "");
-
+  const originalLyrics = lyrics[originalLang] || lyrics.english;
+  const translatedLyrics = originalLang === "hebrew" ? lyrics.arabic : lyrics.hebrew;
+  const translatedName = originalLang === "hebrew" ? name.arabic : name.hebrew;
   const renderLyrics = () => {
     const renderedLyrics = [];
-
-    if (lyrics && lyrics.hebrew) {
-      const hebrewLyrics = lyrics.hebrew;
+    if (translatedLyrics) {
       renderedLyrics.push(
         <div key="hebrew">
           <Status>Translation</Status>
           <div>
-            <SongTitle>{name && removeParentheses(name.hebrew)}</SongTitle>
-            {Array.isArray(hebrewLyrics) ? (
-              hebrewLyrics.map((lyric, index) => (
+            <SongTitle>{name && removeParentheses(translatedName)}</SongTitle>
+            {Array.isArray(translatedLyrics) ? (
+              translatedLyrics.map((lyric, index) => (
                 <Paragraph key={index}>{lyric}</Paragraph>
               ))
             ) : (
-              <Paragraph>{hebrewLyrics}</Paragraph>
+                <Paragraph>{translatedLyrics}</Paragraph>
             )}
           </div>
         </div>
       );
     }
 
-    if (lyrics && lyrics.arabic) {
-      const arabicLyrics = lyrics.arabic;
+    if (originalLyrics) {
       renderedLyrics.push(
         <div key="arabic">
           <Status>Original</Status>
           <div>
-            <SongTitle>{name && removeParentheses(name.arabic)}</SongTitle>
-            {Array.isArray(arabicLyrics) ? (
-              arabicLyrics.map((lyric, index) => (
+            <SongTitle>{name && removeParentheses(name[originalLang])}</SongTitle>
+            {Array.isArray(originalLyrics) ? (
+              originalLyrics.map((lyric, index) => (
                 <Paragraph key={index}>{lyric}</Paragraph>
               ))
             ) : (
-              <Paragraph>{arabicLyrics}</Paragraph>
+                <Paragraph>{originalLyrics}</Paragraph>
             )}
           </div>
         </div>
