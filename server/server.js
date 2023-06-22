@@ -14,8 +14,8 @@ import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 import lyricsRoute from "./routes/lyricsRoute.js";
 import searchRoutes from "./routes/searchRoutes.js";
-import authRouter from "./routes/authRoute.js";
-import { verifyToken } from "./controllers/authController.js";
+
+import loggingMiddleware from "./reqLogger.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -33,25 +33,24 @@ app.get("/homePage", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));
 });
 
-//Middlewares
+// Middlewares
 app.use(express.json());
-app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/songs", verifyToken, songsRouter);
-app.use("/api/v1/artists", verifyToken, artistsRouter);
-app.use("/api/v1/topSongs", verifyToken, topSongsRouter);
-app.use("/api/v1/translate", verifyToken, translationRouter);
-app.use("/api/v1/search", verifyToken, searchRoutes);
-app.use("/api/v1/cover", verifyToken, coverArtRouter);
-app.use("/api/v1/lyrics", verifyToken, lyricsRoute);
-app.use("/api/v1/scrap", verifyToken, scrappingRoutes);
+app.use(loggingMiddleware); // Apply loggingMiddleware for all routes
+app.use("/api/v1/songs", songsRouter);
+app.use("/api/v1/artists", artistsRouter);
+app.use("/api/v1/topSongs", topSongsRouter);
+app.use("/api/v1/translate", translationRouter);
+app.use("/api/v1/search", searchRoutes);
+app.use("/api/v1/cover", coverArtRouter);
+app.use("/api/v1/lyrics", lyricsRoute);
+app.use("/api/v1/scrap", scrappingRoutes);
 app.use(errorHandler);
 
 connectDB();
 
 app.listen(
   PORT,
-  logger.info(`Server running in ${NODE_ENV}
-  mode on port ${PORT}`)
+  logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`)
 );
 
 process.on("unhandledRejection", (err, promise) => {

@@ -1,10 +1,10 @@
-const checkIfAWeekPassed =(date) =>{
-  const currentDate = new Date();
-  const inputDate = new Date(date)
-  const timeDifference = currentDate.getTime() - inputDate.getTime();
-
-  const weeksPassed = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 7));
-
-  return weeksPassed >= 1;
+function checkIfInSameWeek(date1, date2) {
+  // Get the week number for the first date
+  const week1 = date1.toLocaleDateString(undefined, { week: "numeric" });
+  // Get the week number for the second date
+  const week2 = date2.toLocaleDateString(undefined, { week: "numeric" });
+  // Compare the week numbers
+  return week1 === week2;
 }
-export default checkIfAWeekPassed;
+
+export default checkIfInSameWeek;

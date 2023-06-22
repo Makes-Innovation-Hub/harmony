@@ -4,6 +4,7 @@ import logger from "../logger.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import { createDummyArtist } from "../utils/createDummyData.js";
+import generateBasicDataObj from "../utils/songOrArtistObj.js";
 
 const findArtist = async (req) => {
   logger.info(`start findArtist function`);
@@ -16,32 +17,29 @@ const findArtist = async (req) => {
   }
 };
 
-const findOrCreateArtist = async (name, album) => {
-  logger.info(
-    `findOrCreateArtist with singer name: ${name} and album: ${album}`
-  );
-  const artistsArray = await findArtist({ body: { name: { english: name } } });
+const findOrCreateArtist = async (
+  artistName,
+  nameLang = "english",
+  namesObj,
+  img
+) => {
+  logger.info(`findOrCreateArtist with singer name: ${artistName}`);
+  const filterObj = {
+    body: {
+      name: {},
+    },
+  };
+  filterObj.body.name[nameLang] = artistName;
+  const artistsArray = await findArtist(filterObj);
   if (artistsArray) {
-    //Making sure the found artist has an album that matches the album name of the song
-    const searchedArtist = artistsArray.find((artist) => {
-      const lowerCasedAlbums = artist.albums.map((album) =>
-        album.toLowerCase()
-      );
-      logger.info(
-        `findOrCreateArtist with album in lower case: ${lowerCasedAlbums}`
-      );
-      return lowerCasedAlbums.includes(album);
-    });
-    if (searchedArtist) return searchedArtist;
+    logger.info(`artist: ${artistName} found in db`);
+    return artistsArray[0]._id;
   }
-  //Add a function here that scrapes the artist's data (name, albums, image...), translates it and returns it in one object. This function is activated from the songsController, make sure that the searched song (in the activating function) is somewhere in the artist's data, to double check it's the right one.
-  const data = createDummyArtist(name, album);
-  logger.info(`start findOrCreateArtist with data ${name} and album: ${album}`);
-  const newArtistObject = createObjectFromQuery(data);
-  const newArtist = await Artist.create(newArtistObject);
-  logger.info(
-    `findOrCreateArtist with artist data: ${JSON.stringify(newArtist)} Created`
-  );
+  const artistObj = generateBasicDataObj("artist");
+  artistObj.name = namesObj;
+  artistObj.imgURL = img;
+  const newArtist = await Artist.create(artistObj);
+  logger.info(`Create artist with data: ${JSON.stringify(newArtist)} Created`);
   return newArtist;
 };
 
@@ -69,7 +67,6 @@ const getArtists = asyncHandler(async (req, res, next) => {
 // @desc    Create an Artist
 // @route   POST /api/v1/harmony/artists
 // @access  dev
-//! This function is might create the wrong artist, if the artist's data is not unique
 const createArtist = asyncHandler(async (req, res, next) => {
   const newArtistObject = createObjectFromQuery(req.body);
   const artist = await Artist.create(newArtistObject);
@@ -90,4 +87,4 @@ const createArtist = asyncHandler(async (req, res, next) => {
   logger.info("Artist Created successfully");
 });
 
-export { getArtists, createArtist, findOrCreateArtist as getOrCreateArtist };
+export { getArtists, createArtist, findOrCreateArtist };

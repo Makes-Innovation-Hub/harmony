@@ -1,10 +1,7 @@
-import express from 'express'
-import { getTopSongs, createTopSongs } from '../controllers/topSongsController.js'
-const topSongsRouter = express.Router()
+import express from "express";
+import { getTopSongs } from "../controllers/topSongsController.js";
+const topSongsRouter = express.Router();
 
-topSongsRouter
-.route("/")
-.get(getTopSongs)
-.post(createTopSongs)
+topSongsRouter.route("/").get(getTopSongs);
 
-export default topSongsRouter
+export default topSongsRouter;

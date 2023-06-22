@@ -82,8 +82,8 @@ export const Box = styled.div`
     box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
     backdrop-filter: blur(8px);
     border-radius: 8px 8px 12px 12px;
-    margin-top: -3.4rem;
-    width: 8rem;
+    margin-top: -3.18rem;
+    width: 6rem;
     margin-left: 0.6rem;
   }
 `;
@@ -98,8 +98,12 @@ export const SongP = styled.p`
     padding: 0.43rem;
     line-height: 1.081rem;
     font-family: "ABeeZee";
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
+
 export const Songartist = styled.p`
   @media (min-width: 0px) and (max-width: 700px) {
     font-size: 0.4rem;
@@ -110,5 +114,8 @@ export const Songartist = styled.p`
     color: #ffff;
     font-family: "ABeeZee";
     margin-top: -0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;

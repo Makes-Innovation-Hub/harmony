@@ -2,22 +2,14 @@ import puppeteer from "puppeteer";
 import logger from "../logger.js";
 import { genGoogleLyricsUrl } from "../utils/googleLyricsUrl.js";
 
-const scrapeGoogleLyrics = async (req, res) => {
-  const songName = req.body.songName;
-  const singerName = req.body.singerName;
-  logger.info(
-    `start scrap google lyrics with song name: ${JSON.stringify(
-      songName
-    )} and singer name: ${JSON.stringify(singerName)}`
-  );
-
+export async function scrapGoogleFn(songName, singerName) {
   const browser = await puppeteer.launch({
     headless: true,
     defaultViewport: null,
   });
 
   const page = await browser.newPage();
-  page.setDefaultNavigationTimeout(60000);
+  page.setDefaultNavigationTimeout(80000);
   const searchUrl = genGoogleLyricsUrl(songName, singerName);
 
   await page.goto(searchUrl);
@@ -68,6 +60,18 @@ const scrapeGoogleLyrics = async (req, res) => {
   }
 
   logger.info("lyrics from google scrap successfully");
+  return lyrics;
+}
+
+const scrapeGoogleLyrics = async (req, res) => {
+  const songName = req.body.songName;
+  const singerName = req.body.singerName;
+  logger.info(
+    `start scrap google lyrics with song name: ${JSON.stringify(
+      songName
+    )} and singer name: ${JSON.stringify(singerName)}`
+  );
+  const lyrics = await scrapGoogleFn(songName, singerName);
   res.json(lyrics);
 };
 

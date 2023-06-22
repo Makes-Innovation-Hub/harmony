@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const searchTerm = req.body.searchTerm;
-
   try {
     const [songResults, artistResults] = await Promise.all([
       Song.find({
@@ -28,10 +27,13 @@ router.post("/", async (req, res) => {
       songs: songResults.map((song) => ({
         id: song._id,
         name: song.name,
+        imgURL: song.coverArt,
+        originalLang: song.originalLang,
       })),
       artists: artistResults.map((artist) => ({
         id: artist._id,
         name: artist.name,
+        imgURL: artist.imgURL,
         songs: artist.songs.map((song) => ({
           id: song._id,
           name: song.name,

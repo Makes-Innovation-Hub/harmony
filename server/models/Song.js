@@ -47,7 +47,7 @@ const SongSchema = new mongoose.Schema(
     },
 
     // This field needs to be refractured:
-    imgURL: {
+    coverArt: {
       type: String,
     },
     album: {
