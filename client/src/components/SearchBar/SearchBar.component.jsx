@@ -1,14 +1,40 @@
-import { useState } from 'react'
+import { useState } from "react";
+import { useSearchMutation } from "../../api/searchsliceApi";
+import { useNavigate } from "react-router-dom";
 
-import Wrapped from './SearchBar.styled'
+import Wrapped from "./SearchBar.styled";
 
 const SearchBar = () => {
-    const [inputText, setInputText] = useState('')
-    const [isInputError, setInputError] = useState(false)
+    const [inputText, setInputText] = useState("");
+    const [isInputError, setInputError] = useState("");
+    const [searchMutation] = useSearchMutation();
+    const navigate = useNavigate();
 
     const inputHandler = (e) => {
-        setInputText(e.target.value)
-    }
+        setInputText(e.target.value);
+    };
+
+    const sendSearchRequest = () => {
+        if (!inputText) {
+            setInputError("Please insert text in English, Hebrew, or Arabic");
+            return;
+        }
+
+        searchMutation(inputText)
+            .then((data) => {
+                if (data)
+                    if (data.artists) {
+                        console.log(data.artists);
+                        setInputError("");
+                        navigate("/results");
+                    } else {
+                        navigate("/not-found");
+                    }
+            })
+            .catch((error) => {
+                console.error("Search error:", error);
+            });
+    };
 
     return (
         <Wrapped>
@@ -18,7 +44,7 @@ const SearchBar = () => {
                     className="search-input"
                     onChange={(e) => inputHandler(e)}
                 />
-                <button className="search-button">
+                <button className="search-button" onClick={sendSearchRequest}>
                     <svg
                         width="18"
                         height="18"
@@ -38,7 +64,7 @@ const SearchBar = () => {
                 Please insert text in English, Hebrew or Arabic
             </p>
         </Wrapped>
-    )
-}
+    );
+};
 
-export default SearchBar
+export default SearchBar;
