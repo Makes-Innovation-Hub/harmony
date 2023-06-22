@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Image, ImageBox, SongP, Songartist } from "./TopSongGallaryStyle";
 import { useNavigate } from "react-router-dom";
 import { useGetArtistDataQuery } from "../../api/artistApiSlice";
