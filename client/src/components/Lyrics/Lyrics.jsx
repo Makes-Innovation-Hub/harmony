@@ -1,5 +1,15 @@
+
 import React from "react";
-import { LyricsSection, Paragraph, SongTitle, Status } from "./LyricsStyle.jsx";
+import {
+  LyricsSection,
+  LyricsWrapper,
+  TranslationWrapper,
+  SongTitle,
+  Status,
+  Paragraph,
+  TranslatedParagraph,
+} from "./LyricsStyles";
+import "../Header/Header.css";
 
 const Lyrics = ({ lyrics, name }) => {
   // Function to remove parentheses from a string
