@@ -1,4 +1,5 @@
 import chai from "chai";
+import { serverApiUrl } from "../constants/urls.js";
 
 const expect = chai.expect;
 
@@ -6,7 +7,7 @@ describe("Test suite for scrapeTopArabicSongs function", function () {
   it("should check Arabic top song endpoint & data", async function () {
     this.timeout(10000);
 
-    const response = await fetch("http://localhost:5000/api/v1/topArabicSongs");
+    const response = await fetch(`${serverApiUrl}/topArabicSongs`);
 
     expect(response.status).to.be.equal(200);
 
