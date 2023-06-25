@@ -9,9 +9,6 @@ const HomeSearchBar = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [searchMutation] = useSearchMutation();
-    const [searchTerm, setSearchTerm] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
-    const [searchMutation] = useSearchMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -19,20 +16,6 @@ const HomeSearchBar = () => {
         setSearchTerm(e.target.value);
     };
 
-    const sendSearchRequest = () => {
-        if (!searchTerm) {
-            setErrorMessage("Please insert text in English, Hebrew, or Arabic");
-            return;
-        }
-
-        searchMutation(searchTerm)
-            .then(() => {
-                setErrorMessage("");
-            })
-            .catch((error) => {
-                console.error("Search error:", error);
-            });
-    };
     const sendSearchRequest = async () => {
         if (!searchTerm) {
             setErrorMessage("Please insert text in English, Hebrew, or Arabic");
