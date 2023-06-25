@@ -11,21 +11,19 @@ import {
   LanguageP,
   LanguageHAP,
 } from "./HeaderStyle";
-import USAFlag from "../../assets/USA.png";
-import palestineFlag from "../../assets/palestine.jpg";
-import isrealFlag from "../../assets/isreal.jpg";
-import Dove from "../../assets/dove.png";
-import Ellipse3 from "../../assets/Ellipse3.png";
-import { setLanguage } from "../../Redux/languageSlice.js";
+import USAFlag from "../assets/USA.png";
+import palestineFlag from "../assets/palestine.jpg";
+import isrealFlag from "../assets/isreal.jpg";
+import Dove from "../assets/dove.png";
+import Ellipse3 from "../assets/Ellipse3.png";
+import { setLanguage } from "../Redux/languageSlice";
 import "./Header.css";
 import { useTranslation } from "react-i18next";
-import i18n from "../../i18n.js";
-import { useNavigate } from 'react-router-dom';
+import i18n from "../i18n";
 
 const Header = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const [showFlag, setShowFlag] = useState(true);
   const [showList, setShowList] = useState(false);
@@ -62,9 +60,7 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <AppIcon onClick={() => {
-        navigate('/');
-      }}>
+      <AppIcon>
         <img className="dove" src={Dove} alt="" />
         <img className="ellipse" src={Ellipse3} alt="" />
       </AppIcon>

@@ -1,10 +1,9 @@
 import express from 'express'
-import { getTopSongs, createTopSongs } from '../controllers/topSongsController.js'
+import { getTopSongs } from '../controllers/topSongsController.js';
 const topSongsRouter = express.Router()
 
 topSongsRouter
 .route("/")
-.get(getTopSongs)
-.post(createTopSongs)
+    .get(getTopSongs)
 
 export default topSongsRouter

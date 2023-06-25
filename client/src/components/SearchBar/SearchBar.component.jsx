@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setResults } from "../../Redux/searchResultsSlice";
 import { useSearchMutation } from "../../api/searchsliceApi";
 import { useNavigate } from "react-router-dom";
 
@@ -8,27 +10,34 @@ const SearchBar = () => {
     const [inputText, setInputText] = useState("");
     const [isInputError, setInputError] = useState("");
     const [searchMutation] = useSearchMutation();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const inputHandler = (e) => {
         setInputText(e.target.value);
     };
 
-    const sendSearchRequest = () => {
+    const sendSearchRequest = async () => {
         if (!inputText) {
             setInputError("Please insert text in English, Hebrew, or Arabic");
             return;
         }
 
-        searchMutation(inputText)
-            .then((res) => {
+        try {
+            const results = await searchMutation(inputText);
+            if (
+                results.data.artists.length === 0 &&
+                results.data.songs.length === 0
+            ) {
+                navigate("/not-found");
+            } else {
+                dispatch(setResults(results.data));
                 setInputError("");
                 navigate("/results");
-            })
-            .catch((error) => {
-                console.error("Search error:", error);
-                navigate("/not-found");
-            });
+            }
+        } catch (error) {
+            console.error("Search error:", error);
+        }
     };
 
     return (

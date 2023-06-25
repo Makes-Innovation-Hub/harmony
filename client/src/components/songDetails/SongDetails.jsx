@@ -1,22 +1,40 @@
 import { Image } from "./Image";
-import imgSrc from "../../assets/songDetails/Rectangle 3.png";
 import arrowImg from "../../assets/songDetails/Arrow 1.png";
 import hebrewImg from "../../assets/songDetails/ע.png";
 import arabicImg from "../../assets/songDetails/ع.png";
 import "./songDetails.css";
+import { useGetArtistDataQuery } from "../../api/artistApiSlice";
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-function SongDetails() {
+function SongDetails({ artist, songName, img }) {
+  const [isQueryExecuted, setIsQueryExecuted] = useState(false);
+  const { data, isLoading } = useGetArtistDataQuery(artist, {
+    skip: !isQueryExecuted,
+  });
+  const navigate = useNavigate();
+
+  const handleArtistClick = () => {
+    setIsQueryExecuted(true);
+  };
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      navigate("/Artist", { state: { artistData: data } });
+    }
+  }, [data, isLoading, navigate]);
+
   return (
     <div className="songDetailsContainer">
-      <div className="photoDetailsContainer">
-        <Image src={imgSrc} />
+      <div className="photoDetailsContainer" onClick={handleArtistClick}>
+        <Image src={img} />
       </div>
       <div className="textDetailsContainer">
         <div>
-          <h2>Song Name</h2>
+          <h2>{songName}</h2>
         </div>
         <div>
-          <h2 className="artistName">Artist Name</h2>
+          <h2 className="artistName" onClick={handleArtistClick}>{artist}</h2>
         </div>
         <div className="translation-div">
           <button className="btn">
