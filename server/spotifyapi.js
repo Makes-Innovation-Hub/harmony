@@ -6,6 +6,16 @@ const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
 });
+logger.info('getting spotify api creds');
+try {
+  const data = await spotifyApi.clientCredentialsGrant();
+  const accessToken = data.body.access_token;
+  spotifyApi.setAccessToken(accessToken);
+  logger.info('loaded spotify creds');
+} catch (error) {
+  console.log('error', error);
+  logger.error(`error in getting spotify creds: ${JSON.stringify(error)}`);
+}
 
 async function getAlbumFromSongAndArtist(songName, artistName) {
   try {
@@ -16,10 +26,6 @@ async function getAlbumFromSongAndArtist(songName, artistName) {
     } else {
       searchQuery = `${songName} artist:${artistName}`;
     }
-
-    const data = await spotifyApi.clientCredentialsGrant();
-    const accessToken = data.body.access_token;
-    spotifyApi.setAccessToken(accessToken);
 
     const searchResult = await spotifyApi.searchTracks(searchQuery);
     const track = searchResult.body.tracks.items[0];
@@ -38,7 +44,7 @@ async function getAlbumFromSongAndArtist(songName, artistName) {
 
 async function getCoverArtForSong(songName, artistName) {
   logger.info(
-    `starting to get cover art for songs params are song name: ${songName} artist name: ${artistName}  `
+    `to get cover art for songs params are song name: ${songName} artist name: ${artistName}  `
   );
   try {
     let searchQuery;
@@ -48,11 +54,6 @@ async function getCoverArtForSong(songName, artistName) {
     } else {
       searchQuery = `track:${songName} artist:${artistName}`;
     }
-
-    logger.info("before getting Spotify keys");
-    const data = await spotifyApi.clientCredentialsGrant();
-    const accessToken = data.body.access_token;
-    spotifyApi.setAccessToken(accessToken);
 
     const searchResult = await spotifyApi.searchTracks(searchQuery);
     const track = searchResult.body.tracks.items[0];
@@ -75,4 +76,17 @@ async function getCoverArtForSong(songName, artistName) {
   }
 }
 
-export { getAlbumFromSongAndArtist, getCoverArtForSong };
+
+async function getCoverArtForArtist(artist) {
+  logger.info(`getting cover art for artist ${artist}`);
+  try {
+    const artistResults = await spotifyApi.searchArtists(artist);
+    const art = artistResults.body.artists.items[0].images[0].url;
+    logger.info(`found imag url ${art} for artist ${artist}`);
+    return art;
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+
+export { getAlbumFromSongAndArtist, getCoverArtForSong, getCoverArtForArtist };

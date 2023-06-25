@@ -15,7 +15,7 @@ html {
 
 @font-face {
   font-family: "Aclonica";
-  src: url("../assets/Aclonica-Regular.ttf") format("truetype");
+  src: url("../../assets/Aclonica-Regular.ttf") format("truetype");
 }
 
 .dove {

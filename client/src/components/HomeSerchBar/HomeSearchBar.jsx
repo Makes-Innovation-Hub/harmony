@@ -1,11 +1,19 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setResults } from "../../Redux/searchResultsSlice";
 import Wrapped from "./HomeSearchBarStyle.js";
 import { useSearchMutation } from "../../api/searchsliceApi.js";
+import { useNavigate } from "react-router-dom";
 
 const HomeSearchBar = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [searchMutation] = useSearchMutation();
+    const [searchTerm, setSearchTerm] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [searchMutation] = useSearchMutation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const inputHandler = (e) => {
         setSearchTerm(e.target.value);
@@ -24,6 +32,27 @@ const HomeSearchBar = () => {
             .catch((error) => {
                 console.error("Search error:", error);
             });
+    };
+    const sendSearchRequest = async () => {
+        if (!searchTerm) {
+            setErrorMessage("Please insert text in English, Hebrew, or Arabic");
+            return;
+        }
+        try {
+            const results = await searchMutation(searchTerm);
+            if (
+                results.data.artists.length === 0 &&
+                results.data.songs.length === 0
+            ) {
+                navigate("/not-found");
+            } else {
+                dispatch(setResults(results.data));
+                setErrorMessage("");
+                navigate("/results");
+            }
+        } catch (error) {
+            console.error("Search error:", error);
+        }
     };
 
     return (
