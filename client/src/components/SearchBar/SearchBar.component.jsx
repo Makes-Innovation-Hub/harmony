@@ -21,18 +21,13 @@ const SearchBar = () => {
         }
 
         searchMutation(inputText)
-            .then((data) => {
-                if (data)
-                    if (data.artists) {
-                        console.log(data.artists);
-                        setInputError("");
-                        navigate("/results");
-                    } else {
-                        navigate("/not-found");
-                    }
+            .then((res) => {
+                setInputError("");
+                navigate("/results");
             })
             .catch((error) => {
                 console.error("Search error:", error);
+                navigate("/not-found");
             });
     };
 
