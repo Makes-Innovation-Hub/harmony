@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import store from '../Redux/store';
+import store from "../Redux/store";
+import { serverApiUrl } from "../constants/urls";
 
 const searchsliceapi = createApi({
   reducerPath: "searchsliceapi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/v1" }),
+  baseQuery: fetchBaseQuery({ baseUrl: serverApiUrl }),
   endpoints: (builder) => ({
     search: builder.mutation({
       query: (searchTerm) => {
