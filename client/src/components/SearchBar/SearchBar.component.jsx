@@ -1,14 +1,44 @@
-import { useState } from 'react'
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setResults } from "../../Redux/searchResultsSlice";
+import { useSearchMutation } from "../../api/searchsliceApi";
+import { useNavigate } from "react-router-dom";
 
-import Wrapped from './SearchBar.styled'
+import Wrapped from "./SearchBar.styled";
 
 const SearchBar = () => {
-    const [inputText, setInputText] = useState('')
-    const [isInputError, setInputError] = useState(false)
+    const [inputText, setInputText] = useState("");
+    const [inputError, setInputError] = useState("");
+    const [searchMutation] = useSearchMutation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const inputHandler = (e) => {
-        setInputText(e.target.value)
-    }
+        setInputText(e.target.value);
+    };
+
+    const sendSearchRequest = async () => {
+        if (!inputText) {
+            setInputError("Please insert text in English, Hebrew, or Arabic");
+            return;
+        }
+
+        try {
+            const results = await searchMutation(inputText);
+            if (
+                results.data.artists.length === 0 &&
+                results.data.songs.length === 0
+            ) {
+                navigate("/not-found");
+            } else {
+                dispatch(setResults(results.data));
+                setInputError("");
+                navigate("/results");
+            }
+        } catch (error) {
+            console.error("Search error:", error);
+        }
+    };
 
     return (
         <Wrapped>
@@ -18,7 +48,7 @@ const SearchBar = () => {
                     className="search-input"
                     onChange={(e) => inputHandler(e)}
                 />
-                <button className="search-button">
+                <button className="search-button" onClick={sendSearchRequest}>
                     <svg
                         width="18"
                         height="18"
@@ -34,11 +64,9 @@ const SearchBar = () => {
                     </svg>
                 </button>
             </div>
-            <p className="error-message">
-                Please insert text in English, Hebrew or Arabic
-            </p>
+            {inputError && <p className="error-message">{inputError}</p>}
         </Wrapped>
-    )
-}
+    );
+};
 
-export default SearchBar
+export default SearchBar;
