@@ -12,6 +12,7 @@ import { getCoverArtForSong } from "../spotifyapi.js";
 import { all } from "axios";
 import detectLanguage from "../utils/detectLang.js";
 import { findOrCreateArtist } from "./artistsController.js";
+import axios from "axios";
 
 const getOrCreateEachSong = async (language, topSongsArray) => {
     let massagedResults;
@@ -181,9 +182,8 @@ const scrapeTop10Songs = async () => {
 
         // run createTopSongs function if there no data in DB or more than week passed
         if (!topSongs || (topSongs && checkIfAWeekPassed(topSongs[0].date))) {
-            console.log("top songs :", topSongs);
             topSongs = axios
-                .post("http://localhost:5000/api/v1/harmony/topSongs")
+                .get("http://localhost:5000/api/v1/topSongs")
                 .then((res) => {
                     logger.info(
                         "Scrapping TOP10 songs completed successfully."
