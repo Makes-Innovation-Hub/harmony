@@ -8,7 +8,7 @@ import Wrapped from "./SearchBar.styled";
 
 const SearchBar = () => {
     const [inputText, setInputText] = useState("");
-    const [isInputError, setInputError] = useState("");
+    const [inputError, setInputError] = useState("");
     const [searchMutation] = useSearchMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -64,9 +64,7 @@ const SearchBar = () => {
                     </svg>
                 </button>
             </div>
-            <p className="error-message">
-                Please insert text in English, Hebrew or Arabic
-            </p>
+            {inputError && <p className="error-message">{inputError}</p>}
         </Wrapped>
     );
 };
