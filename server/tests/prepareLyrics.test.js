@@ -1,7 +1,6 @@
-const { expect } = require("chai");
-const sinon = require("sinon");
-const puppeteer = require("puppeteer");
-const { prepareLyrics } = require("./your-module"); // Replace with the correct path to your module
+import { expect } from "chai";
+import sinon from "sinon";
+import puppeteer from "puppeteer";
 
 describe("prepareLyrics", () => {
   let loggerStub;
@@ -79,7 +78,7 @@ describe("prepareLyrics", () => {
       return lyrics;
     });
 
-    translateText3LangStub = sinon.stub(); // Replace with the stubbed implementation of translateText3Lang
+    translateText3LangStub = sinon.stub();
   });
 
   afterEach(() => {

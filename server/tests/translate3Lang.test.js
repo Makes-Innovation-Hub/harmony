@@ -1,6 +1,5 @@
-const { expect } = require("chai");
-const sinon = require("sinon");
-const { translateText3Lang } = require("./your-module"); // Replace with the correct path to your module
+import { expect } from "chai";
+import sinon from "sinon";
 
 describe("translateText3Lang", () => {
   it("should translate the text to two other languages", async () => {
