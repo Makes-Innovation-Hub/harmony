@@ -37,6 +37,7 @@ in order to navigate between folder enter the command:<br>
 `cd server` for example.
 
 In Order to config all env files in the application please enter the following command:<br>
+
 In the client folder:<br>
 
 1. `cd ..` to navigate to root folder.<br>
@@ -47,9 +48,16 @@ In the client folder:<br>
 In the server folder:<br>
 
 1. `cd server` to navigate to server folder.<br>
-2. `npm run  generate-env-client`
+2. `npm run config`
 3. PORT = 5000 || 3000 or the port you prefer.
-4. BASE URL = http://localhost || any base url you prefer.
+4. NODE_ENV = development || production;
+5. MONGO_URI_DEV =
+6. MONGO_URI_PROD =
+7. OPEN_AI_API_KEY =
+8. SPOTIFY_CLIENT_ID =
+9. SPOTIFY_CLIENT_SECRET =
+10. MUSIXMATCH_URL = 'https://api.musixmatch.com/ws/1.1/matcher.lyrics.get'
+11. MUSIXMATCH_API_KEY =
 
 ## dev checklist:
 
@@ -87,5 +95,6 @@ In the server folder:<br>
   MONGO_URI_DEV=mongodb+srv://<your username>:<your password>@harmony.btro83c.mongodb.net/
   MONGO_URI_PROD=mongodb+srv://<your username>:<your password>@harmony.abcd12e.mongodb.net/
 - to run the server, write one of the following commands in the terminal:
+
   1. To start the server normally: node server.js
   2. To run with nodemon, make sure you have nodemon installed and run: npm run server.js
