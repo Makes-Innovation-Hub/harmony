@@ -14,6 +14,7 @@ import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 import lyricsRoute from "./routes/lyricsRoute.js";
 import searchRoutes from "./routes/searchRoutes.js";
+import { scrapeTop10Songs } from "./controllers/topSongsController.js";
 
 import loggingMiddleware from "./reqLogger.js";
 
@@ -30,7 +31,7 @@ app.use(cors());
 app.use(express.static(join(__dirname, "../client/dist")));
 
 app.get("/homePage", (req, res) => {
-  res.sendFile(join(__dirname, "../client/dist", "index.html"));
+    res.sendFile(join(__dirname, "../client/dist", "index.html"));
 });
 
 // Middlewares
@@ -46,15 +47,19 @@ app.use("/api/v1/lyrics", lyricsRoute);
 app.use("/api/v1/scrap", scrappingRoutes);
 app.use(errorHandler);
 
-connectDB();
+await connectDB();
+await scrapeTop10Songs();
+setInterval(() => {
+    scrapeTop10Songs();
+}, 7 * 24 * 60 * 60 * 1000);
 
 app.listen(
-  PORT,
-  logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`)
+    PORT,
+    logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`)
 );
 
 process.on("unhandledRejection", (err, promise) => {
-  logger.error(`Error in server: ${err.message}`);
-  closeDBConnection();
-  // app.close(() => process.exit(1));
+    logger.error(`Error in server: ${err.message}`);
+    closeDBConnection();
+    // app.close(() => process.exit(1));
 });
