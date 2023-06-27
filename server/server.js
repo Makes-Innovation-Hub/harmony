@@ -49,6 +49,9 @@ app.use(errorHandler);
 
 await connectDB();
 await scrapeTop10Songs();
+setInterval(() => {
+    scrapeTop10Songs();
+}, 7 * 24 * 60 * 60 * 1000);
 
 app.listen(
     PORT,

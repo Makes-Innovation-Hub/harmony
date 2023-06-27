@@ -14,6 +14,17 @@ import detectLanguage from "../utils/detectLang.js";
 import { findOrCreateArtist } from "./artistsController.js";
 import axios from "axios";
 
+const clearTopSongs = async () => {
+    TopSongs.deleteMany({})
+        .then(() => {
+            logger.info("TOP10 songs successfully cleared from DataBase");
+        })
+        .catch((error) => {
+            logger.error("ERROR: TOP10 songs clearing from DataBase ");
+            console.error(error);
+        });
+};
+
 const getOrCreateEachSong = async (language, topSongsArray) => {
     let massagedResults;
     if (language === "arabic") {
@@ -78,6 +89,7 @@ const getCoverArtForTopSongs = async (scrapedTopSongs) => {
 };
 
 const generateTopSongsData = async (res) => {
+    await clearTopSongs();
     logger.info("no relevant data found in db. generating");
     const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
         scrapeTopArabicSongs(),
@@ -175,26 +187,16 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
 
 const scrapeTop10Songs = async () => {
     try {
-        let topSongs;
-
-        // check if there topSongs collection in DB
-        topSongs = await findTopSongs();
-
-        // run createTopSongs function if there no data in DB or more than week passed
-        if (!topSongs || (topSongs && checkIfAWeekPassed(topSongs[0].date))) {
-            topSongs = axios
-                .get("http://localhost:5000/api/v1/topSongs")
-                .then((res) => {
-                    logger.info(
-                        "Scrapping TOP10 songs completed successfully."
-                    );
-                    return;
-                })
-                .catch((error) => {
-                    logger.error("Scrapping TOP10 songs FAILED.");
-                    console.log(error);
-                });
-        }
+        axios
+            .get("http://localhost:5000/api/v1/topSongs")
+            .then((res) => {
+                logger.info("Scrapping TOP10 songs completed successfully.");
+                return;
+            })
+            .catch((error) => {
+                logger.error("Scrapping TOP10 songs FAILED.");
+                console.log(error);
+            });
     } catch (error) {
         logger.error("Scrapping TOP10 songs FAILED.");
         console.log(error);
