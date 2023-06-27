@@ -1,5 +1,6 @@
 import chai from "chai";
 import axios from "axios";
+import { serverApiUrl } from "../constants/urls.js";
 
 const expect = chai.expect;
 
@@ -13,7 +14,7 @@ describe("Test suite for Scrape Arabic Lyrics from: https://lyricstranslate.com/
     };
 
     const response = await axios.post(
-      "http://localhost:5000/api/v1/topArabicSongsLyrics",
+      `${serverApiUrl}/topArabicSongsLyrics`,
       requestBody
     );
 
