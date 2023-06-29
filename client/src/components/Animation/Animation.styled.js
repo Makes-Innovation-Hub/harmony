@@ -13,10 +13,10 @@ const Wrapped = styled.div`
     // Mobile phone screen
     @media only screen and (min-width: 320px) and (max-width: 480px) {
         .animation {
-            margin-top: 25%;
+            margin-top: 20%;
             width: 80vw;
             height: 80vw;
-            margin-bottom: 25%;
+            margin-bottom: 20%;
         }
 
         .animation-text {
