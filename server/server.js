@@ -29,9 +29,7 @@ dotenv.config({ path: join(__dirname, "./config/config.env") });
 app.use(cors());
 app.use(express.static(join(__dirname, "../client/dist")));
 
-app.get("/homePage", (req, res) => {
-  res.sendFile(join(__dirname, "../client/dist", "index.html"));
-});
+
 
 // Middlewares
 app.use(express.json());
@@ -44,6 +42,9 @@ app.use("/api/v1/search", searchRoutes);
 app.use("/api/v1/cover", coverArtRouter);
 app.use("/api/v1/lyrics", lyricsRoute);
 app.use("/api/v1/scrap", scrappingRoutes);
+app.get("/", (req, res) => {
+  res.sendFile(join(__dirname, "../client/dist", "index.html"));
+});
 app.use(errorHandler);
 
 connectDB();
