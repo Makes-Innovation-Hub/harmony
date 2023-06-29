@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@storybook/addon-info": "^5.3.21",
     "axios": "^1.4.0",
     "chai": "^4.3.7",
     "chai-http": "^4.3.0",
