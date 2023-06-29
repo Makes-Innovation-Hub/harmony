@@ -9,7 +9,7 @@ export default function ResultsCard({ imgURL, titles, languages = undefined }) {
       style={{
         margin: "5% auto",
         justifyContent: "space-around",
-        width: "90%",
+        width: "70vw",
         flexGrow: 1,
         overflowY: "auto",
       }}

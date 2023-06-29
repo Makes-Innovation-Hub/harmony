@@ -29,7 +29,6 @@ const TranslatingPage = () => {
     <div className="column-center full-page">
       <Header />
       <Tagline />
-      <SearchBar />
       <Animation
         animationGif={translatingGif}
         animationText={[t("translating")]}

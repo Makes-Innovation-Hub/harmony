@@ -19,10 +19,11 @@ const Wrapped = styled.div`
         }
 
         .animation-text {
-            font-size: 23px;
+            font-size: 1.2rem;
             text-align: center;
             line-height: 133%;
             color: #333333;
+            font-family: ABeeZee;
         }
     }
 `
