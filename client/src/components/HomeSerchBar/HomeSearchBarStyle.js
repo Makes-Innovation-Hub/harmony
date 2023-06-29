@@ -18,7 +18,7 @@ const Wrapped = styled.div`
     margin-top: -13%;
     height: 1.8rem;
     width: 72%;
-    font-family: var(--animation-font), sans-serif;
+    font-family: ABeeZee;
     font-size: 1rem;
     border: 1px solid #000000;
   }

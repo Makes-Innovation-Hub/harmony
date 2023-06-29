@@ -7,7 +7,7 @@ const Wrapped = styled.div`
     align-items: center;
 
     .animation-text {
-        font-family: var(--animation-font), sans-serif;
+        font-family: ABeeZee;
     }
 
     // Mobile phone screen
