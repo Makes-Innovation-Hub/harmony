@@ -10,9 +10,8 @@ https://harmony.test.test/
 
 ### Project Frontend Technologies:
 
-- React
 - React<br>
-- Rtk + Rtk query<br>
+- Redux Toolkit & Rtk query<br>
 - React Router<br>
 - Openai Api<br>
 - Spotify Api<br>
@@ -31,19 +30,16 @@ https://harmony.test.test/
 
 ![Alt text](/client/src/assets/harmonySH.png)
 
-### Deployment
+### Local installation
+
+```
+git clone https://github.com/Makes-Innovation-Hub/harmony.git
+```
 
 In order to run the app locally you will need to install all the dependencies from the package.json file buy the following command:<br>
 
 ```
-npm i
-```
-
-in the root folder in the server folder and in the client folder.
-in order to navigate between folder enter the command:<br>
-
-```
-cd server
+npm installAll
 ```
 
 In Order to config all env files in the application please enter the following command:<br>
@@ -51,7 +47,7 @@ In Order to config all env files in the application please enter the following c
 In the client folder:<br>
 
 ```
-1. cd .. (to navigate to root folder).
+1. cd client
 2. npm run generate-env-client`
 3. PORT = 5000 || 3000 or the port you prefer.
 4. VITE_SERVER_BASE_URL = http://localhost || any base url you prefer.
@@ -60,10 +56,10 @@ In the client folder:<br>
 In the server folder:<br>
 
 ```
-1. cd server (to navigate to server folder).
+1. cd server
 2. npm run config
-3. PORT = 5000 || 3000 or the port you prefer.
-4. NODE_ENV = development || production;
+3. PORT = 5000 || 3000 or the port you prefer
+4. NODE_ENV = development || production
 5. MONGO_URI_DEV = explanation below
 6. MONGO_URI_PROD = explanation below
 7. OPEN_AI_API_KEY = explanation below
@@ -147,10 +143,18 @@ In the server folder:<br>
 - There you can find your Spotify client ID & Spotify client secret
   ![צילום מסך 2023-06-26 ב-13 13 44](./client/src/assets/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202023-06-29%20134823.png)
 
-### Run the applic
+## Run the application by the following command
 
-- [ ] open a new branch for each feature.
-- [ ] name the branch with a similar name to the issue/task you are working on.
-      for example - issue “15 add new header to login page”, branch: “15-new-header-login”
+In the client folder:<br>
 
-### during development
+```
+1. cd client
+2. npm run dev
+```
+
+In the server folder:<br>
+
+```
+1. cd server
+2. nodemon server.js
+```
