@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 
 function SongPage() {
   const songData = useLocation().state;
-  console.log('songData', songData)
   return (
     <>
       <Header />
