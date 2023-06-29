@@ -1,5 +1,4 @@
 function detectLanguage(text) {
-    console.log('text', text);
     let textToDetect;
     const englishRegex = /^[A-Za-z\s]+$/;
     const hebrewRegex = /^[א-ת\s]+$/;

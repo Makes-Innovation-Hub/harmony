@@ -236,7 +236,6 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
       };
       const currentDate = new Date();
       topSongsArray.forEach(topSong => {
-        console.log('topSong', topSong)
         datesToCheck[topSong.language].date = topSong.date;
         datesToCheck[topSong.language]['data'] = topSong.songs;
       });

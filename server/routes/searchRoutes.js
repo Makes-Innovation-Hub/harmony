@@ -43,7 +43,6 @@ router.post("/", async (req, res) => {
       })),
     };
 
-    console.log('songResults', songResults)
     res.json(formattedResults);
   } catch (error) {
     console.error("Search error:", error);

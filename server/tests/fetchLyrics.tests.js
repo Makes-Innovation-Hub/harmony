@@ -14,8 +14,6 @@ describe("fetchLyrics", () => {
   it("should return false when no lyrics are found", async () => {
     const searchTerm = "צעדים עקיבא ";
     const lyrics = await fetchLyrics(searchTerm);
-    console.log("lyrics", lyrics);
-
     expect(lyrics).to.be.false;
   });
 });
