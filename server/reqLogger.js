@@ -19,8 +19,6 @@ const loggingMiddleware = (req, res, next) => {
 
   if (req.body && Object.keys(req.body).length > 0) {
     const { body } = req;
-    console.log(req.body);
-
     if (JSON.stringify(body).length > 1000) {
       logger.info("Request Body:", {
         length: Object.keys(body).length,

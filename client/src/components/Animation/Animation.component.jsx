@@ -5,9 +5,9 @@ const Animation = ({ animationGif, animationText }) => {
         <Wrapped>
             <img src={animationGif} alt="animation" className="animation" />
             {animationText.map((text) => (
-                <h2 className="animation-text" key={text}>
+                <div className="animation-text" key={text}>
                     {text}
-                </h2>
+                </div>
             ))}
         </Wrapped>
     )

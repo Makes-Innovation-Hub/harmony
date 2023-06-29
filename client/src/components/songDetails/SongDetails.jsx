@@ -7,7 +7,7 @@ import { useGetArtistDataQuery } from "../../api/artistApiSlice";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-function SongDetails({ artist, songName, img }) {
+function SongDetails({ artist, songName, img, originalLang }) {
   const [isQueryExecuted, setIsQueryExecuted] = useState(false);
   const { data, isLoading } = useGetArtistDataQuery(artist, {
     skip: !isQueryExecuted,
@@ -38,11 +38,11 @@ function SongDetails({ artist, songName, img }) {
         </div>
         <div className="translation-div">
           <button className="btn">
-            <img src={arabicImg} />
+            <img src={originalLang === 'arabic' ? hebrewImg : arabicImg} />
           </button>
           <img src={arrowImg} />
           <button className="btn">
-            <img src={hebrewImg} />
+            <img src={originalLang === 'arabic' ? arabicImg : hebrewImg} />
           </button>
         </div>
       </div>

@@ -1,17 +1,42 @@
+import { useEffect, useState } from 'react';
 import ImgCard from "../General/ImgCard";
 import LanguagesSign from "../LanguagesSign/LanguagesSign";
 import FE from "../Layout/FlexElments";
+import { useLazyGetArtistDataQuery } from '../../api/artistApiSlice';
+import { useNavigate } from 'react-router-dom';
 
-export default function ResultsCard({ imgURL, titles, languages = undefined }) {
+export default function ResultsCard({ imgURL, titles, languages = undefined, type, artistData = undefined }) {
+  const [artistTrigger, artistResults] = useLazyGetArtistDataQuery();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (artistResults && artistResults.status === 'fulfilled') {
+      navigate("/Artist", { state: { artistData: artistResults.data } });
+    }
+  }, [artistResults])
+
   return (
     <FE.CenterRow
       aligned="true"
       style={{
         margin: "5% auto",
         justifyContent: "space-around",
-        width: "90%",
+        width: "80vw",
         flexGrow: 1,
         overflowY: "auto",
+      }}
+      onClick={() => {
+        if (type === 'artist') {
+          artistTrigger(titles[0]);
+        } else if (type === 'song' && artistData) {
+          navigate("/translating", {
+            state: {
+              artist: artistData.name[0],
+              song: titles[0],
+              coverArt: imgURL
+            },
+          });
+        }
       }}
     >
       <FE.CenterRow

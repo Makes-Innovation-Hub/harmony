@@ -4,11 +4,12 @@ import Header from "../../components/Header/Header";
 import ThreeLangNames from "../../components/ThreeLnagNames/ThreeLangNames";
 import SongListItem from "../../components/SongListItem/SongListItem";
 import ClipArtImage from "../../components/ClipArtImage/ClipArtImage";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ArtistPage() {
   const location = useLocation();
   const artistData = location.state.artistData;
+  const navigate = useNavigate();
 
   return (
     <PageWrapper>
@@ -40,6 +41,7 @@ function ArtistPage() {
           {artistData.songs.slice(0, 3).map((song) => (
             <SongListItem
               key={song.name.english}
+              artist={artistData.name.hebrew}
               arabicName={song.name.arabic}
               hebrewName={song.name.hebrew}
               englishName={song.name.english}

@@ -5,7 +5,7 @@ import SongPage from "./pages/SongPage";
 import ArtistPage from "./pages/ArtistPage/ArtistPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TranslatingPage from "./pages/TranslatingPage";
-import SearchResults from "./pages/SearchResults/SearchResults";
+import SearchResultsPage from "./pages/SearchResults/SearchResults";
 import { useState } from "react";
 import "./App.css";
 import { I18nextProvider } from "react-i18next";
@@ -34,7 +34,7 @@ const Router = createBrowserRouter([
   },
   {
     path: "/results",
-    element: <SearchResults />,
+    element: <SearchResultsPage />,
   },
 ]);
 

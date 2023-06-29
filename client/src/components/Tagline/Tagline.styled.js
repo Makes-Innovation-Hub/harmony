@@ -10,7 +10,7 @@ const Wrapped = styled.div`
   margin-bottom: 79px;
 
   p {
-    font-family: var(--animation-font), sans-serif;
+    font-family: ABeeZee;
     font-size: 17px;
     font-style: italic;
     font-weight: 400;
