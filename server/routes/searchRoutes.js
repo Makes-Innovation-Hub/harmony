@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
           { "name.arabic": { $regex: searchTerm, $options: "i" } },
           { "name.english": { $regex: searchTerm, $options: "i" } },
         ],
-      }),
+      }).populate("artist"),
       Artist.find({
         $or: [
           { "name.hebrew": { $regex: searchTerm, $options: "i" } },
@@ -30,7 +30,10 @@ router.post("/", async (req, res) => {
         name: song.name,
         imgURL: song.coverArt,
         originalLang: song.originalLang,
-        artist: song.artist
+        artist: {
+          name: song.artist.name,
+          imgURL: song.artist.imgURL
+        }
       })),
       artists: artistResults.map((artist) => ({
         id: artist._id,
@@ -42,7 +45,6 @@ router.post("/", async (req, res) => {
         })),
       })),
     };
-
     res.json(formattedResults);
   } catch (error) {
     console.error("Search error:", error);

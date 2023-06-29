@@ -12,17 +12,16 @@ const SearchResultsPage = ({ songs, artists }) => {
   const foundSongs = searchResults?.songs;
   const foundArtists = searchResults?.artists;
   const { t } = useTranslation();
-
   return (
     <FE.Col style={{ height: "100dvh" }}>
       <FE.CenterCol>
         <Header />
         <Tagline />
       </FE.CenterCol>
-      <FE.CenterCol style={{ flexGrow: 1 }}>
+      <FE.CenterCol>
         <HomeSearchBar />
       </FE.CenterCol>
-      <FE.CenterCol style={{ flexGrow: 6 }}>;
+      <FE.CenterCol style={{ flexGrow: 6 }}>
         {
           foundArtists.length > 0 && <div>
             <SC.Title>{t("Artists")}</SC.Title>
@@ -51,6 +50,7 @@ const SearchResultsPage = ({ songs, artists }) => {
             <SC.Title>{t("Songs")}</SC.Title>
             {foundSongs &&
               foundSongs.map((song) => {
+                console.log('song', song)
                 const titles = [];
                 for (const lang in song.name) {
                   if (Object.hasOwnProperty.call(song.name, lang)) {
@@ -68,6 +68,7 @@ const SearchResultsPage = ({ songs, artists }) => {
                       target: song.originalLang === 'AR' ? "HE" : "AR",
                     }}
                     titles={titles}
+                    artistData={song.artist}
                   />
                 );
               })}
