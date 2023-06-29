@@ -7,7 +7,7 @@ import SC from "./SearchRes.style";
 import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
 
-const SearchResults = ({ songs, artists }) => {
+const SearchResultsPage = ({ songs, artists }) => {
   const searchResults = useSelector((state) => state.searchResults.results);
   const foundSongs = searchResults?.songs;
   const foundArtists = searchResults?.artists;
@@ -37,6 +37,7 @@ const SearchResults = ({ songs, artists }) => {
                 }
                 return (
                   <ResultsCard
+                    type="artist"
                     key={artist.id}
                     imgURL={artist.imgURL}
                     titles={titles}
@@ -50,6 +51,7 @@ const SearchResults = ({ songs, artists }) => {
             <SC.Title>{t("Songs")}</SC.Title>
             {foundSongs &&
               foundSongs.map((song) => {
+                console.log('song', song)
                 const titles = [];
                 for (const lang in song.name) {
                   if (Object.hasOwnProperty.call(song.name, lang)) {
@@ -59,6 +61,7 @@ const SearchResults = ({ songs, artists }) => {
                 }
                 return (
                   <ResultsCard
+                    type="song"
                     key={song.id}
                     imgURL={song.imgURL}
                     languages={{
@@ -77,4 +80,4 @@ const SearchResults = ({ songs, artists }) => {
   );
 };
 
-export default SearchResults;
+export default SearchResultsPage;

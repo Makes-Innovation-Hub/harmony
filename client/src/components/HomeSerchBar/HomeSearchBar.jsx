@@ -29,6 +29,7 @@ const HomeSearchBar = () => {
       ) {
         navigate("/not-found");
       } else {
+        console.log('results.data', results.data)
         dispatch(setResults(results.data));
         setErrorMessage("");
         navigate("/results");

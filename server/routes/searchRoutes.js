@@ -29,7 +29,8 @@ router.post("/", async (req, res) => {
         id: song._id,
         name: song.name,
         imgURL: song.coverArt,
-        originalLang: song.originalLang
+        originalLang: song.originalLang,
+        artist: song.artist
       })),
       artists: artistResults.map((artist) => ({
         id: artist._id,
@@ -42,6 +43,7 @@ router.post("/", async (req, res) => {
       })),
     };
 
+    console.log('songResults', songResults)
     res.json(formattedResults);
   } catch (error) {
     console.error("Search error:", error);
