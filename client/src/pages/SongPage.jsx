@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 
 function SongPage() {
   const songData = useLocation().state;
+  console.log('songData', songData)
   return (
     <>
       <Header />
@@ -12,6 +13,7 @@ function SongPage() {
         img={songData.coverArt}
         artist={songData.artist.name.english}
         songName={songData.name.english}
+        originalLang={songData.originalLang}
       />
       <Lyrics originalLang={songData.originalLang} lyrics={songData.lyrics} name={songData.name} />
     </>
