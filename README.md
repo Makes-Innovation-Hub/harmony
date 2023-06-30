@@ -9,7 +9,6 @@ By clicking on a song's title, users can access its lyrics/artist as well as its
 https://harmony.test.test/
 
 ### Project Frontend Technologies:
-
 - React<br>
 - Redux Toolkit & Rtk query<br>
 - React Router<br>
@@ -36,35 +35,46 @@ https://harmony.test.test/
 git clone https://github.com/Makes-Innovation-Hub/harmony.git
 ```
 
-In order to run the app locally you will need to install all the dependencies from the package.json file buy the following command:<br>
+After you clone the folder to your computer please open the folder with Vs code and then open your terminal in your Vs code.
+
+In order to run the app locally you will need to install all the dependencies by the following command:<br>
 
 ```
-npm installAll
+npm run installAll
 ```
 
-In Order to config all env files in the application please enter the following command:<br>
-
-In the client folder:<br>
+In order to config all env files in the client please enter the following command:<br>
 
 ```
-1. cd client
-2. npm run generate-env-client`
-3. PORT = 5000 || 3000 or the port you prefer.
-4. VITE_SERVER_BASE_URL = http://localhost || any base url you prefer.
+npm run generate-env-client
+```
+```
+PORT = 5000 || 3000 or the port you prefer.
+```
+```
+VITE_SERVER_BASE_URL = http://localhost || any base url you prefer.
 ```
 
-In the server folder:<br>
+In order to config all env files in the server please enter the following command:<br>
 
 ```
-1. cd server
-2. npm run config
-3. PORT = 5000 || 3000 or the port you prefer
-4. NODE_ENV = development || production
-5. MONGO_URI_DEV = explanation below
-6. MONGO_URI_PROD = explanation below
-7. OPEN_AI_API_KEY = explanation below
-8. SPOTIFY_CLIENT_ID = explanation below
-9. SPOTIFY_CLIENT_SECRET = explanation below
+cd server
+```
+```
+npm run config
+```
+```
+PORT = 5000 || 3000 or the port you prefer
+```
+```
+NODE_ENV = development || production
+```
+```
+MONGO_URI_DEV = explanation below
+MONGO_URI_PROD = explanation below
+OPEN_AI_API_KEY = explanation below
+SPOTIFY_CLIENT_ID = explanation below
+SPOTIFY_CLIENT_SECRET = explanation below
 ```
 
 ## Mongo DB setup
@@ -107,6 +117,16 @@ In the server folder:<br>
   ![צילום מסך 2023-06-26 ב-12 28 51](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/21bf3534-38d9-45b4-be1e-a645661c7558)
 - press "Finish and Close" button
   ![צילום מסך 2023-06-26 ב-12 32 04](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/bce1a1e9-fd79-498e-9982-1752f2a3dade)
+- press "Build a Database" button
+  ![צילום מסך 2023-06-26 ב-12 32 04](./client/src//assets/create_db_.png)
+- press "Connect" button
+  ![צילום מסך 2023-06-26 ב-12 32 04](./client/src/assets/connect_db.png)
+- choose "Drives"
+  ![צילום מסך 2023-06-26 ב-12 32 04](./client/src/assets/drviers.db.png)
+- goto "Add your connection string into your application code" and copy it, inside it enter the password you choose from previous step above.
+  ![צילום מסך 2023-06-26 ב-12 32 04](./client/src/assets/mongo_uri.png)
+
+  this lone string will be your MONGO_URI_DEV & MONGO_URI_PROD 
 
 ## Open AI setup
 
