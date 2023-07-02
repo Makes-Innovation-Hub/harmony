@@ -9,11 +9,10 @@ By clicking on a song's title, users can access its lyrics/artist as well as its
 https://harmony.test.test/
 
 ### Project Frontend Technologies:
+
 - React<br>
 - Redux Toolkit & Rtk query<br>
 - React Router<br>
-- Openai Api<br>
-- Spotify Api<br>
 
 ### Project Backend Technologies:
 
@@ -24,6 +23,8 @@ https://harmony.test.test/
 - Mocha<br>
 - Cheerio<br>
 - Puppeteer<br>
+- Openai Api<br>
+- Spotify Api<br>
 
 ### Screenshots
 
@@ -48,9 +49,11 @@ In order to config all env files in the client please enter the following comman
 ```
 npm run generate-env-client
 ```
+
 ```
 PORT = 5000 || 3000 or the port you prefer.
 ```
+
 ```
 VITE_SERVER_BASE_URL = http://localhost || any base url you prefer.
 ```
@@ -60,15 +63,19 @@ In order to config all env files in the server please enter the following comman
 ```
 cd server
 ```
+
 ```
 npm run config
 ```
+
 ```
 PORT = 5000 || 3000 or the port you prefer
 ```
+
 ```
 NODE_ENV = development || production
 ```
+
 ```
 MONGO_URI_DEV = explanation below
 MONGO_URI_PROD = explanation below
@@ -126,7 +133,7 @@ SPOTIFY_CLIENT_SECRET = explanation below
 - goto "Add your connection string into your application code" and copy it, inside it enter the password you choose from previous step above.
   ![צילום מסך 2023-06-26 ב-12 32 04](./client/src/assets/mongo_uri.png)
 
-  this lone string will be your MONGO_URI_DEV & MONGO_URI_PROD 
+  this lone string will be your MONGO_URI_DEV & MONGO_URI_PROD
 
 ## Open AI setup
 
