@@ -51,7 +51,7 @@ npm run generate-env-client
 ```
 
 ```
-PORT = 5000 || 3000 or the port you prefer.
+VITE_SERVER_PORT = 5000 || 3000 or the port you prefer.
 ```
 
 ```

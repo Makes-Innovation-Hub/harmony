@@ -1,5 +1,5 @@
 #!/bin/bash
-read -p "PORT: " port
+read -p "VITE_SERVER_PORT: " port
 read -p "VITE_SERVER_BASE_URL": " baseUrl
 touch ./client/.env
 echo '
