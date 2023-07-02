@@ -1,17 +1,16 @@
-import {
-  LyricsSection,
-  SongTitle,
-  Status,
-  Paragraph,
-} from "./LyricsStyle";
+import { LyricsSection, SongTitle, Status, Paragraph } from "./LyricsStyle";
 import "../Header/Header.css";
 
 const Lyrics = ({ lyrics, name, originalLang }) => {
   // Function to remove parentheses from a string
   const removeParentheses = (str) => str.replace(/\([^)]+\)/g, "");
   const originalLyrics = lyrics[originalLang] || lyrics.english;
-  const translatedLyrics = originalLang === "hebrew" ? lyrics.arabic : lyrics.hebrew;
+  console.log("original lyrics are", originalLyrics);
+  const translatedLyrics =
+    originalLang === "hebrew" ? lyrics.arabic : lyrics.hebrew;
+  console.log("translation lyrics are:", translatedLyrics);
   const translatedName = originalLang === "hebrew" ? name.arabic : name.hebrew;
+
   const renderLyrics = () => {
     const renderedLyrics = [];
     if (translatedLyrics) {
@@ -25,7 +24,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
                 <Paragraph key={index}>{lyric}</Paragraph>
               ))
             ) : (
-                <Paragraph>{translatedLyrics}</Paragraph>
+              <Paragraph>{translatedLyrics}</Paragraph>
             )}
           </div>
         </div>
@@ -37,13 +36,15 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
         <div key="arabic">
           <Status>Original</Status>
           <div>
-            <SongTitle>{name && removeParentheses(name[originalLang])}</SongTitle>
+            <SongTitle>
+              {name && removeParentheses(name[originalLang])}
+            </SongTitle>
             {Array.isArray(originalLyrics) ? (
               originalLyrics.map((lyric, index) => (
                 <Paragraph key={index}>{lyric}</Paragraph>
               ))
             ) : (
-                <Paragraph>{originalLyrics}</Paragraph>
+              <Paragraph>{originalLyrics}</Paragraph>
             )}
           </div>
         </div>
