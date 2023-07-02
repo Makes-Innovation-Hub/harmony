@@ -5,10 +5,8 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
   // Function to remove parentheses from a string
   const removeParentheses = (str) => str.replace(/\([^)]+\)/g, "");
   const originalLyrics = lyrics[originalLang] || lyrics.english;
-  console.log("original lyrics are", originalLyrics);
   const translatedLyrics =
     originalLang === "hebrew" ? lyrics.arabic : lyrics.hebrew;
-  console.log("translation lyrics are:", translatedLyrics);
   const translatedName = originalLang === "hebrew" ? name.arabic : name.hebrew;
 
   const renderLyrics = () => {
