@@ -7,22 +7,21 @@ import SC from "./SearchRes.style";
 import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
 
-const SearchResults = ({ songs, artists }) => {
+const SearchResultsPage = ({ songs, artists }) => {
   const searchResults = useSelector((state) => state.searchResults.results);
   const foundSongs = searchResults?.songs;
   const foundArtists = searchResults?.artists;
   const { t } = useTranslation();
-
   return (
     <FE.Col style={{ height: "100dvh" }}>
       <FE.CenterCol>
         <Header />
         <Tagline />
       </FE.CenterCol>
-      <FE.CenterCol style={{ flexGrow: 1 }}>
+      <FE.CenterCol>
         <HomeSearchBar />
       </FE.CenterCol>
-      <FE.CenterCol style={{ flexGrow: 6 }}>;
+      <FE.CenterCol style={{ flexGrow: 6 }}>
         {
           foundArtists.length > 0 && <div>
             <SC.Title>{t("Artists")}</SC.Title>
@@ -37,6 +36,7 @@ const SearchResults = ({ songs, artists }) => {
                 }
                 return (
                   <ResultsCard
+                    type="artist"
                     key={artist.id}
                     imgURL={artist.imgURL}
                     titles={titles}
@@ -59,6 +59,7 @@ const SearchResults = ({ songs, artists }) => {
                 }
                 return (
                   <ResultsCard
+                    type="song"
                     key={song.id}
                     imgURL={song.imgURL}
                     languages={{
@@ -66,6 +67,7 @@ const SearchResults = ({ songs, artists }) => {
                       target: song.originalLang === 'AR' ? "HE" : "AR",
                     }}
                     titles={titles}
+                    artistData={song.artist}
                   />
                 );
               })}
@@ -77,4 +79,4 @@ const SearchResults = ({ songs, artists }) => {
   );
 };
 
-export default SearchResults;
+export default SearchResultsPage;

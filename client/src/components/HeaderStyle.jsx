@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-family: "ABeeZee", sans-serif;
+  font-family: ABeeZee, sans-serif;
   font-style: italic;
   font-weight: 400;
   width: 35%;
@@ -105,13 +105,13 @@ export const LanguageList = styled.ul`
 `;
 export const LanguageP = styled.p`
   font-size: 0.7rem;
-  font-family: "ABeeZee";
+  font-family: ABeeZee;
   margin-left: 5%;
   font-weight: bold;
 `;
 export const LanguageHAP = styled.p`
   font-size: 0.7rem;
-  font-family: "ABeeZee";
+  font-family: ABeeZee;
   margin-left: 40%;
   font-weight: bold;
 `;

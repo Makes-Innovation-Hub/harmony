@@ -2,10 +2,20 @@ import TranslationSymbolsGroup from "../TraslationSymbolsGroup/TranslationSymbol
 import ThreeLangNames from "../ThreeLnagNames/ThreeLangNames";
 import ClipArtImage from "../ClipArtImage/ClipArtImage";
 import ContentWrapper from "./SongListItem.styled";
+import { useNavigate } from 'react-router-dom';
 
-function SongListItem({ arabicName, hebrewName, englishName, imgURL }) {
+function SongListItem({ artist, arabicName, hebrewName, englishName, imgURL }) {
+  const navigate = useNavigate();
   return (
-    <ContentWrapper>
+    <ContentWrapper onClick={() => {
+      navigate("/translating", {
+        state: {
+          artist,
+          song: hebrewName,
+          coverArt: imgURL
+        },
+      });
+    }}>
       <ClipArtImage
         borderRadius="30px"
         imgURL={imgURL}

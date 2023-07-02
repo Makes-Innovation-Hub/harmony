@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import translatingGif from "../assets/animations/translating-animation.gif";
 import Animation from "../components/Animation/Animation.component";
 import Header from "../components/Header/Header";
-import SearchBar from "../components/SearchBar/SearchBar.component";
 import Tagline from "../components/Tagline/Tagline.component";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -26,10 +25,10 @@ const TranslatingPage = () => {
   }, [])
 
   return (
-    <div className="column-center full-page">
+    <div className="column-center full-page" style={{
+    }}>
       <Header />
       <Tagline />
-      <SearchBar />
       <Animation
         animationGif={translatingGif}
         animationText={[t("translating")]}
