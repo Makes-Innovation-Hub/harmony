@@ -29,8 +29,6 @@ dotenv.config({ path: join(__dirname, "./config/config.env") });
 app.use(cors());
 app.use(express.static(join(__dirname, "../client/dist")));
 
-
-
 // Middlewares
 app.use(express.json());
 app.use(loggingMiddleware); // Apply loggingMiddleware for all routes
