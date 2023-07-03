@@ -10,7 +10,8 @@
     "prepare": "husky install",
     "installAll": "npm i --prefix ./client; npm i --prefix ./server",
     "buildClient": "npm run build --prefix ./client",
-    "generate-env-client": "bash scripts/generateConfigClient.sh"
+    "generate-env-client": "bash scripts/generateConfigClient.sh",
+    "zip": "./scripts/zipFiles.sh"
   },
   "repository": {
     "type": "git",

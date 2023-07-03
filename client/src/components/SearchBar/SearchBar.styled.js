@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 const Wrapped = styled.div`
     width: 100%;
-    margin: 0 22px 54px 22px;
 
     .search-container {
         width: 100%;
