@@ -46,4 +46,5 @@ export const Paragraph = styled.p`
   color: black;
   width: 16ch;
   height: 5ch;
+  white-space: pre-line;
 `;
