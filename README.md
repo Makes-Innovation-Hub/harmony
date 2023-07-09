@@ -89,12 +89,12 @@ SPOTIFY_CLIENT_SECRET = explanation below
 - sign in to mongodb website: https://www.mongodb.com/
   ![צילום מסך 2023-06-26 ב-11 56 44](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/205524f2-3e84-4de6-857e-87e113aef288)
 - press "+ New Project" button
-  ![צילום מסך 2023-06-26 ב-11 59 10](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/07033b0d-bf7a-4894-8407-4ea7b160e4c1)
+  ![צילום מסך 2023-06-26 ב-11 59 10](./client/src/assets/press_new_project_photo.png)
 - give project name
   ![צילום מסך 2023-06-26 ב-12 02 23](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/d76cb2ae-1380-4c07-b3fc-dd21cea54b6a)
 - press "Next" button
 - press "Create Project" button
-  ![צילום מסך 2023-06-26 ב-12 05 43](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/42c2d9e9-50cd-41f7-8210-891064e3e9b6)
+  ![צילום מסך 2023-06-26 ב-12 05 43](./client/src/assets/press_create_project_photo.png)
 - press "Add Current IP Address" button
   ![צילום מסך 2023-06-26 ב-12 06 48](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/c6bd10bd-f777-4b24-8eb6-ee4fd7b53cf0)
 - press green "+ Create" button
@@ -119,11 +119,11 @@ SPOTIFY_CLIENT_SECRET = explanation below
   ![צילום מסך 2023-06-26 ב-12 24 02](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/76367e81-c4f8-4e43-bc0d-40b330c65839)
 - IP Address: 0.0.0.0/0
 - Description: open for all
-  ![צילום מסך 2023-06-26 ב-12 27 18](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/6d23ff1a-013a-4dd0-9373-9f8efc96f54d)
+  ![צילום מסך 2023-06-26 ב-12 27 18](./client/src/assets/description_photo.png)
 - press "Add Entry" button
-  ![צילום מסך 2023-06-26 ב-12 28 51](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/21bf3534-38d9-45b4-be1e-a645661c7558)
+  ![צילום מסך 2023-06-26 ב-12 28 51](./client/src/assets/add_entry_photo.png)
 - press "Finish and Close" button
-  ![צילום מסך 2023-06-26 ב-12 32 04](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/bce1a1e9-fd79-498e-9982-1752f2a3dade)
+  ![צילום מסך 2023-06-26 ב-12 32 04](./client/src/assets/finished_close_photo.png)
 - press "Build a Database" button
   ![צילום מסך 2023-06-26 ב-12 32 04](./client/src//assets/create_db_.png)
 - press "Connect" button
@@ -149,7 +149,7 @@ SPOTIFY_CLIENT_SECRET = explanation below
 - press "View API keys"
   ![צילום מסך 2023-06-26 ב-12 50 32](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/8b55566b-621f-4abe-a401-7ee79a4ce294)
 - press "+ Create new secret key" button
-  ![צילום מסך 2023-06-26 ב-12 44 29](https://github.com/Makes-Innovation-Hub/arabrew/assets/53153372/13a95b31-3424-40c6-8062-5f826fee3df5)
+  ![צילום מסך 2023-06-26 ב-12 44 29](./client/src/assets/create_secrete_key_photo.png)
 
 ## Spotify setup
 
