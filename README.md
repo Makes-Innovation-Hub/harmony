@@ -4,10 +4,6 @@ Harmony is a music app that showcases the top 10 songs in Hebrew and the top 10 
 By clicking on a song's title, users can access its lyrics/artist as well as its translation into the other language.
 </p>
 
-### Project Link:
-
-https://harmony.test.test/
-
 ### Project Frontend Technologies:
 
 - React<br>
