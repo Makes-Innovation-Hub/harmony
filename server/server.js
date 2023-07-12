@@ -14,6 +14,7 @@ import translationRouter from "./routes/translationRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 import lyricsRoute from "./routes/lyricsRoute.js";
 import searchRoutes from "./routes/searchRoutes.js";
+import youtubeRoute from "./routes/youtubeRoute.js";
 
 import loggingMiddleware from "./reqLogger.js";
 
@@ -40,6 +41,8 @@ app.use("/api/v1/search", searchRoutes);
 app.use("/api/v1/cover", coverArtRouter);
 app.use("/api/v1/lyrics", lyricsRoute);
 app.use("/api/v1/scrap", scrappingRoutes);
+app.use("/api/v1/youtube", youtubeRoute);
+
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));
 });
