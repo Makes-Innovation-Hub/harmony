@@ -14,7 +14,6 @@ const getYoutubeIframe = async (req, res) => {
   const search = new GoogleSearch(serapApiKey);
 
   const songDetails = req.body.songDetails;
-  console.log("RE BOSY IS", songDetails);
 
   const params = {
     engine: "youtube",
