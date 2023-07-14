@@ -45,6 +45,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
               <Paragraph>{originalLyrics}</Paragraph>
             )}
           </div>
+          ;
         </div>
       );
     }

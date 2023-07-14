@@ -4,8 +4,8 @@ import hebrewImg from "../../assets/songDetails/ע.png";
 import arabicImg from "../../assets/songDetails/ع.png";
 import "./songDetails.css";
 import { useGetArtistDataQuery } from "../../api/artistApiSlice";
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function SongDetails({ artist, songName, img, originalLang }) {
   const [isQueryExecuted, setIsQueryExecuted] = useState(false);
@@ -34,15 +34,17 @@ function SongDetails({ artist, songName, img, originalLang }) {
           <h2>{songName}</h2>
         </div>
         <div>
-          <h2 className="artistName" onClick={handleArtistClick}>{artist}</h2>
+          <h2 className="artistName" onClick={handleArtistClick}>
+            {artist}
+          </h2>
         </div>
         <div className="translation-div">
           <button className="btn">
-            <img src={originalLang === 'arabic' ? hebrewImg : arabicImg} />
+            <img src={originalLang === "arabic" ? hebrewImg : arabicImg} />
           </button>
           <img src={arrowImg} />
           <button className="btn">
-            <img src={originalLang === 'arabic' ? arabicImg : hebrewImg} />
+            <img src={originalLang === "arabic" ? arabicImg : hebrewImg} />
           </button>
         </div>
       </div>
