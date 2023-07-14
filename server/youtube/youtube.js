@@ -13,11 +13,12 @@ const serapApiKey = process.env.SERAP_API_KEY;
 const getYoutubeIframe = async (req, res) => {
   const search = new GoogleSearch(serapApiKey);
 
-  const songDetails = req.body.songDetails;
+  const { songName, artistName } = req.body;
+  console.log("req body is", req.body);
 
   const params = {
     engine: "youtube",
-    search_query: songDetails,
+    search_query: `${songName} ${artistName}`,
   };
 
   function getYouTubeId(url) {
