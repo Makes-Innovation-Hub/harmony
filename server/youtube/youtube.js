@@ -10,7 +10,7 @@ dotenv.config({ path: join(__dirname, "../config/config.env") });
 
 const serapApiKey = process.env.SERAP_API_KEY;
 
-const getYoutubeIframe = async (req, res) => {
+const generateYoutubeId = async (req, res) => {
   const search = new GoogleSearch(serapApiKey);
 
   const { songName, artistName } = req.body;
@@ -37,4 +37,5 @@ const getYoutubeIframe = async (req, res) => {
   // Show result as JSON
   search.json(params, callback);
 };
-export default getYoutubeIframe;
+
+export default generateYoutubeId;
