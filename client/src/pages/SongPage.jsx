@@ -21,10 +21,10 @@ function SongPage() {
         lyrics={songData.lyrics}
         name={songData.name}
       />
-      {/* <Youtube
+      <Youtube
         songName={songData.name.hebrew}
         artistName={songData.artist.name.hebrew}
-      /> */}
+      />
     </>
   );
 }
