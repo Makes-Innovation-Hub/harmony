@@ -2,7 +2,7 @@ import SongDetails from "../components/songDetails/SongDetails";
 import Lyrics from "../components/Lyrics/Lyrics";
 import Header from "../components/Header/Header";
 import { useLocation } from "react-router-dom";
-import Youtube from "../youtube/youtube";
+import Youtube from "../youtube/Youtube";
 
 function SongPage() {
   const songData = useLocation().state;
@@ -24,6 +24,7 @@ function SongPage() {
       <Youtube
         songName={songData.name.hebrew}
         artistName={songData.artist.name.hebrew}
+        youtubeUrl={songData.youtubeURL}
       />
     </>
   );

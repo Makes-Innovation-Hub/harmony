@@ -6,7 +6,7 @@ import languageReducer from "./languageSlice";
 import searchResultsReducer from "./searchResultsSlice";
 import { songDataApi } from "../api/songDataApiSlice";
 import artistApiSlice from "../api/artistApiSlice";
-import { youtubeApi } from "../api/youtubeApiSlice";
+// import { youtubeApi } from "../api/youtubeApiSlice";
 
 export default configureStore({
   reducer: {
@@ -17,7 +17,7 @@ export default configureStore({
     [songDataApi.reducerPath]: songDataApi.reducer,
     [searchsliceapi.reducerPath]: searchsliceapi.reducer,
     [artistApiSlice.reducerPath]: artistApiSlice.reducer,
-    [youtubeApi.reducerPath]: youtubeApi.reducer,
+    // [youtubeApi.reducerPath]: youtubeApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
@@ -26,7 +26,7 @@ export default configureStore({
       searchsliceapi.middleware,
       songDataApi.middleware,
       artistApiSlice.middleware,
-      youtubeApi.middleware,
+      // youtubeApi.middleware,
     ]);
   },
 });
