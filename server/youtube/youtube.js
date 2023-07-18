@@ -2,6 +2,7 @@ import { GoogleSearch } from "google-search-results-nodejs";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
+import { measureMemory } from "vm";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -10,15 +11,12 @@ dotenv.config({ path: join(__dirname, "../config/config.env") });
 
 const serapApiKey = process.env.SERAP_API_KEY;
 
-const generateYoutubeId = async (req, res) => {
+const generateYoutubeId = (song, artist) => {
   const search = new GoogleSearch(serapApiKey);
-
-  const { songName, artistName } = req.body;
-  console.log("req body is", req.body);
 
   const params = {
     engine: "youtube",
-    search_query: `${songName} ${artistName}`,
+    search_query: `${song} ${artist}`,
   };
 
   function getYouTubeId(url) {
@@ -31,11 +29,18 @@ const generateYoutubeId = async (req, res) => {
   const callback = function (data) {
     const youtubeUrl = data["video_results"][0].link;
     const youtubeUrlID = getYouTubeId(youtubeUrl);
-    res.json({ songId: youtubeUrlID });
+    console.log("yyyyyyyyyoutu", youtubeUrlID);
+    return youtubeUrlID;
   };
 
-  // Show result as JSON
-  search.json(params, callback);
+  const youtubeSongId = new Promise((res, rej) => {
+    search.json(params, (data) => {
+      const songId = callback(data);
+      res(songId);
+    });
+  });
+
+  return youtubeSongId;
 };
 
 export default generateYoutubeId;
