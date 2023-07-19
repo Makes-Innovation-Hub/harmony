@@ -29,7 +29,6 @@ const generateYoutubeId = (song, artist) => {
   const callback = function (data) {
     const youtubeUrl = data["video_results"][0].link;
     const youtubeUrlID = getYouTubeId(youtubeUrl);
-    console.log("yyyyyyyyyoutu", youtubeUrlID);
     return youtubeUrlID;
   };
 

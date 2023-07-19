@@ -174,14 +174,11 @@ const generateSongData = async function (song, artist, coverArt) {
 
   const songYoutubeId = generateYoutubeId(song, artist)
     .then((data) => {
-      console.log("data from controller is", data);
       finalSongData.youtubeURL = data;
     })
     .catch((err) => {
       console.log("error is", err);
     });
-
-  console.log("song youtube id is", songYoutubeId);
 
   try {
     // get lyrics
