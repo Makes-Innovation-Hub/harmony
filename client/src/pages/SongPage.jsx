@@ -6,7 +6,6 @@ import Youtube from "../youtube/Youtube";
 
 function SongPage() {
   const songData = useLocation().state;
-  console.log("song data", songData);
   return (
     <>
       <Header />
