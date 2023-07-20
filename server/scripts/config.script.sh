@@ -10,7 +10,7 @@ else
   touch "$CONFIG_DIR/config.env"
 
   # Define an array of environment variable names
-  declare -a variables=("PORT" "NODE_ENV" "MONGO_URI_DEV" "MONGO_URI_PROD" "OPEN_AI_API_KEY" "SPOTIFY_CLIENT_ID" "SPOTIFY_CLIENT_SECRET","BASE_SERVER_URL")
+  declare -a variables=("PORT" "NODE_ENV" "MONGO_URI_DEV" "MONGO_URI_PROD" "OPEN_AI_API_KEY" "SPOTIFY_CLIENT_ID" "SPOTIFY_CLIENT_SECRET","BASE_SERVER_URL", "SERAP_API_KEY")
 
   # Loop over the array and prompt the user to enter values for each variable
   for variable in "${variables[@]}"

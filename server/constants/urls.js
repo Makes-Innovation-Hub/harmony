@@ -1,5 +1,5 @@
-const port = process.env.PORT;
-const baseServerUrl = process.env.BASE_SERVER_URL;
+const port = process.env.PORT ?? 5000;
+const baseServerUrl = process.env.BASE_SERVER_URL ?? "http://localhost";
 
 export const serverApiUrl = `${baseServerUrl}:${port}/api/v1`;
 

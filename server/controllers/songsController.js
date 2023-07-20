@@ -129,6 +129,7 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
       // if not - generate song data - > save song in db
       logger.info(`no songs found for song name: ${song}.generating data`);
       const songData = await generateSongData(song, artist, coverArt);
+      // console.log("SONG DATA ARE", songData);
       //
       // const songYoutubeId = await generateYoutubeId(song, artist);
       //
