@@ -2,7 +2,7 @@ import SongDetails from "../components/songDetails/SongDetails";
 import Lyrics from "../components/Lyrics/Lyrics";
 import Header from "../components/Header/Header";
 import { useLocation } from "react-router-dom";
-import Youtube from "../youtube/Youtube";
+import Youtube from "../components/Youtube/Youtube";
 
 function SongPage() {
   const songData = useLocation().state;

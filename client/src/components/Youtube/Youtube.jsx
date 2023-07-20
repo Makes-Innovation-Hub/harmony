@@ -1,4 +1,4 @@
-import { YoutubeBox } from "./youtubeStyle";
+import { YoutubeBox } from "./YoutubeStyle";
 
 function Youtube({ songName, artistName, youtubeUrl }) {
   return (
