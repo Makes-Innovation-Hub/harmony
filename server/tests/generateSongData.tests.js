@@ -1,14 +1,13 @@
 import chai from "chai";
 import axios from "axios";
-import { serverApiUrl } from "../constants/urls.js";
 
 const expect = chai.expect;
 
-describe("Test suite get full song data", function () {
+describe.only("Test suite get full song data", function () {
   it("should check generate song data & endpoint", async function () {
     this.timeout(150000);
 
-    // const serverApiUrl = "http://localhost:5000/api/v1";
+    const serverApiUrl = "http://localhost:5000/api/v1";
 
     const requestBody = {
       song: "Unicron",
@@ -28,5 +27,6 @@ describe("Test suite get full song data", function () {
     expect(data.lyrics.hebrew).to.be.a("string").and.not.empty;
     expect(data.lyrics.arabic).to.be.a("string").and.not.empty;
     expect(data.lyrics.english).to.be.a("string").and.not.empty;
+    expect(data.youtubeURL).to.be.a("string").and.not.empty;
   });
 });

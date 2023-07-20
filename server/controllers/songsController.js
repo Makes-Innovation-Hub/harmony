@@ -129,10 +129,6 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
       // if not - generate song data - > save song in db
       logger.info(`no songs found for song name: ${song}.generating data`);
       const songData = await generateSongData(song, artist, coverArt);
-      // console.log("SONG DATA ARE", songData);
-      //
-      // const songYoutubeId = await generateYoutubeId(song, artist);
-      //
       logger.info(`succeeded generating song data for ${song}`);
       Song.create(songData);
       const artistData = await Artist.findById(songData.artist);
@@ -163,7 +159,10 @@ const generateSongData = async function (song, artist, coverArt) {
       ...{ name: names3langs },
     };
   } catch (error) {
-    console.log("tran text 3 ", error.response.data.error);
+    console.log(
+      "error in translateText3Lang function",
+      error.response.data.error
+    );
   }
 
   try {
@@ -178,7 +177,7 @@ const generateSongData = async function (song, artist, coverArt) {
       finalSongData.youtubeURL = data;
     })
     .catch((err) => {
-      console.log("error is", err);
+      console.log("error in generate youtube ID function", err);
     });
 
   try {
