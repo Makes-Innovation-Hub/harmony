@@ -3,7 +3,7 @@ import axios from "axios";
 
 const expect = chai.expect;
 
-describe.only("Test suite get full song data", function () {
+describe("Test suite get full song data", function () {
   it("should check generate song data & endpoint", async function () {
     this.timeout(150000);
 
