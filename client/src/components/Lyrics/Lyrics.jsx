@@ -1,10 +1,4 @@
-import {
-  LyricsSection,
-  SongTitle,
-  Status,
-  Paragraph,
-  WrapperDiv,
-} from "./LyricsStyle";
+import { LyricsSection, SongTitle, Status, Paragraph } from "./LyricsStyle";
 import "../Header/Header.css";
 
 const Lyrics = ({ lyrics, name, originalLang }) => {
@@ -19,7 +13,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
     const renderedLyrics = [];
     if (translatedLyrics) {
       renderedLyrics.push(
-        <WrapperDiv key="hebrew">
+        <div key="hebrew" style={{ height: "100%" }}>
           <Status>Translation</Status>
           <div>
             <SongTitle>{name && removeParentheses(translatedName)}</SongTitle>
@@ -31,13 +25,13 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
               <Paragraph>{translatedLyrics}</Paragraph>
             )}
           </div>
-        </WrapperDiv>
+        </div>
       );
     }
 
     if (originalLyrics) {
       renderedLyrics.push(
-        <WrapperDiv key="arabic">
+        <div key="arabic" style={{ height: "100%" }}>
           <Status>Original</Status>
           <div>
             <SongTitle>
@@ -51,8 +45,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
               <Paragraph>{originalLyrics}</Paragraph>
             )}
           </div>
-          ;
-        </WrapperDiv>
+        </div>
       );
     }
 
