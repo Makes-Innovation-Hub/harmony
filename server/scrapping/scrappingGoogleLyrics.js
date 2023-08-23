@@ -10,7 +10,7 @@ export async function scrapGoogleFn(songName, singerName) {
     });
 
     const page = await browser.newPage();
-    page.setDefaultNavigationTimeout(160000);
+    page.setDefaultNavigationTimeout(80000);
 
     const searchUrl = genGoogleLyricsUrl(songName, singerName);
 
