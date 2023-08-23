@@ -4,13 +4,12 @@ import logger from "../logger.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import { findOrCreateArtist } from "./artistsController.js";
-import detectLanguage from '../utils/detectLang.js';
-import { generalTranslation } from '../utils/openAiTranslation.js';
-import generateBasicDataObj from '../utils/songOrArtistObj.js';
-import { getCoverArtForArtist } from '../spotifyapi.js';
-import { scrapGoogleFn } from '../scrapping/scrappingGoogleLyrics.js'
-import Artist from '../models/Artist.js';
-
+import detectLanguage from "../utils/detectLang.js";
+import { generalTranslation } from "../utils/openAiTranslation.js";
+import generateBasicDataObj from "../utils/songOrArtistObj.js";
+import { getCoverArtForArtist } from "../spotifyapi.js";
+import { scrapGoogleFn } from "../scrapping/scrappingGoogleLyrics.js";
+import Artist from "../models/Artist.js";
 
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
@@ -118,7 +117,9 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
     });
     if (songs.length > 0) {
       // if there is - send back
-      logger.info(`songs found for song name: ${song}. sending ${songs.length} results`);
+      logger.info(
+        `songs found for song name: ${song}. sending ${songs.length} results`
+      );
       const artistData = await Artist.findById(songs[0].artist);
       const songData = songs[0];
       songData.artist = artistData;
@@ -133,30 +134,33 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
       songData.artist = artistData;
       res.json(songData);
     }
-
   } catch (error) {
-    console.log('error', error);
-
+    console.log("error", error);
   }
 });
 
 const generateSongData = async function (song, artist, coverArt) {
-  let finalSongData = generateBasicDataObj('song');
+  let finalSongData = generateBasicDataObj("song");
   // add cover art
   finalSongData.coverArt = coverArt;
   // translate song name - 3 langs
   const nameLang = detectLanguage(song);
-  logger.info(`detected that language for the song name: ${song} is: ${nameLang}`);
+  logger.info(
+    `detected that language for the song name: ${song} is: ${nameLang}`
+  );
   const names3langs = await translateText3Lang(song);
   finalSongData = {
-    ...finalSongData, ...{ name: names3langs }
+    ...finalSongData,
+    ...{ name: names3langs },
   };
   const artistId = await prepareArtist(artist);
   finalSongData.artist = artistId;
   // get lyrics
   const { lyricsObj, originalLang } = await prepareLyrics(song, artist);
   finalSongData = {
-    ...finalSongData, ...{ lyrics: lyricsObj }, ...{ originalLang }
+    ...finalSongData,
+    ...{ lyrics: lyricsObj },
+    ...{ originalLang },
   };
   // return song obj
   return finalSongData;
@@ -172,47 +176,61 @@ const prepareArtist = async (artist) => {
     logger.info(`checking if artist ${artist} is in db`);
     return findOrCreateArtist(artist, lang, names3langs, coverArt);
   } catch (error) {
-    console.log('error prepareArtist', error);
+    console.log("error prepareArtist", error);
   }
 };
 
 const prepareLyrics = async (song, artist) => {
   try {
-    logger.info(`starting to generate lyrics for song: ${song} artist: ${artist}`);
+    logger.info(
+      `starting to generate lyrics for song: ${song} artist: ${artist}`
+    );
     const lyrics = await scrapGoogleFn(song, artist);
-    logger.info(`detecting original lang for song: ${song} text: ${lyrics.slice(20)}`);
+    logger.info(
+      `detecting original lang for song: ${song} text: ${lyrics.slice(20)}`
+    );
     const originalLang = detectLanguage(lyrics);
     const lyricsObj = await translateText3Lang(lyrics[0]);
     return { lyricsObj, originalLang };
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
   }
-}
+};
 
 const translateText3Lang = (txt) => {
   const tanslatedObj = {
     hebrew: "",
     arabic: "",
-    english: ""
+    english: "",
   };
   const txtLang = detectLanguage(txt);
-  logger.info(`detected that language for the text: ${txt.length < 15 ? txt : txt.slice(15) + '...'} is: ${txtLang}`);
+  logger.info(
+    `detected that language for the text: ${
+      txt.length < 15 ? txt : txt.slice(15) + "..."
+    } is: ${txtLang}`
+  );
   tanslatedObj[txtLang] = txt;
-  const langsToTranslate = ["english", "hebrew", "arabic"].filter(lang => lang !== txtLang);
+  const langsToTranslate = ["english", "hebrew", "arabic"].filter(
+    (lang) => lang !== txtLang
+  );
   logger.info(`langs to translate the text: ${langsToTranslate}`);
   return Promise.all([
     generalTranslation(txt, txtLang, langsToTranslate[0]),
     generalTranslation(txt, txtLang, langsToTranslate[1]),
-  ]).then(transltatedArr => {
-    tanslatedObj[langsToTranslate[0]] = transltatedArr[0];
-    tanslatedObj[langsToTranslate[1]] = transltatedArr[1];
-    return tanslatedObj;
-  }).catch(err => {
-    console.log(`error in generating translations for ${txt.length < 15 ? txt : txt.slice(15)} + '...'`, err)
-
-  });
+  ])
+    .then((transltatedArr) => {
+      tanslatedObj[langsToTranslate[0]] = transltatedArr[0];
+      tanslatedObj[langsToTranslate[1]] = transltatedArr[1];
+      return tanslatedObj;
+    })
+    .catch((err) => {
+      console.log(
+        `error in generating translations for ${
+          txt.length < 15 ? txt : txt.slice(15)
+        } + '...'`,
+        err
+      );
+    });
 };
-
-
 
 export { getSongs, createSong, findSong, findOrCreateSong, getFullSongData };
