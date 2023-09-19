@@ -12,6 +12,8 @@ import { scrapGoogleFn } from "../scrapping/scrappingGoogleLyrics.js";
 import Artist from "../models/Artist.js";
 import generateYoutubeId from "../youtube/youtube.js";
 
+
+
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
   const songsArray = await Song.find(filter).populate("artist");
@@ -142,7 +144,6 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
 
 const generateSongData = async function (song, artist, coverArt) {
   let finalSongData = generateBasicDataObj("song");
-
   // add cover art
   finalSongData.coverArt = coverArt;
 
@@ -151,7 +152,6 @@ const generateSongData = async function (song, artist, coverArt) {
   logger.info(
     `detected that language for the song name: ${song} is: ${nameLang}`
   );
-
   try {
     const names3langs = await translateText3Lang(song);
     finalSongData = {
@@ -191,7 +191,21 @@ const generateSongData = async function (song, artist, coverArt) {
   } catch (error) {
     console.log("prepare", error);
   }
-
+  const names3langs = await translateText3Lang(song);
+  finalSongData = {
+    ...finalSongData,
+    ...{ name: names3langs },
+  };
+  const artistId = await prepareArtist(artist);
+  finalSongData.artist = artistId;
+  // get lyrics
+  const { lyricsObj, originalLang } = await prepareLyrics(song, artist);
+  finalSongData = {
+    ...finalSongData,
+    ...{ lyrics: lyricsObj },
+    ...{ originalLang },
+  };
+  
   // return song obj
   return finalSongData;
 };
@@ -226,7 +240,6 @@ const prepareLyrics = async (song, artist) => {
     console.log("error", error);
   }
 };
-
 const translateText3Lang = (txt) => {
   const tanslatedObj = {
     hebrew: "",

@@ -11,6 +11,7 @@ export async function scrapGoogleFn(songName, singerName) {
 
     const page = await browser.newPage();
     page.setDefaultNavigationTimeout(80000);
+
     const searchUrl = genGoogleLyricsUrl(songName, singerName);
 
     await page.goto(searchUrl);
@@ -18,17 +19,19 @@ export async function scrapGoogleFn(songName, singerName) {
     await page.waitForSelector("#search");
 
     const links = await page.evaluate(() => {
-      const linkElements = Array.from(document.querySelectorAll("div.yuRUbf a"));
+      const linkElements = Array.from(
+        document.querySelectorAll("div.yuRUbf a")
+      );
 
       const filteredLinks = [];
       const sites = [
         "https://shironet.mako",
         "https://genius.com/",
         "https://www.tab4u.com/",
-        "https://www.tab4u.com/",
         "https://www.lyrics-arabic.com/",
-        "https://lyricstranslate.com/"
-      ]
+        "https://lyricstranslate.com/",
+        "https://www.boomplay.com/",
+      ];
 
       linkElements.forEach((element) => {
         const href = element.href;
@@ -50,11 +53,12 @@ export async function scrapGoogleFn(songName, singerName) {
     for (const link of filteredLinks) {
       await page.goto(link);
       await page.waitForSelector(
-        ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, .song__only, #lyrics span, #song-body"
+        ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, #songContentTPL, #lyric span, #song-body, .lyrics"
       );
+
       const lyricsText = await page.evaluate(() => {
         const spanElement = document.querySelector(
-          ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, song__only, #lyric span , #song-body"
+          ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, #songContentTPL, #lyric span, #song-body, .lyrics"
         );
         return spanElement.innerText;
       });
@@ -64,12 +68,10 @@ export async function scrapGoogleFn(songName, singerName) {
     logger.info("lyrics from google scrap successfully");
     return lyrics;
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
     return false;
   }
-
 }
-
 
 const scrapeGoogleLyrics = async (req, res) => {
   const songName = req.body.songName;
@@ -79,7 +81,7 @@ const scrapeGoogleLyrics = async (req, res) => {
       songName
     )} and singer name: ${JSON.stringify(singerName)}`
   );
-  const lyrics = await scrapGoogleFn(songName, singerName)
+  const lyrics = await scrapGoogleFn(songName, singerName);
   res.json(lyrics);
 };
 
