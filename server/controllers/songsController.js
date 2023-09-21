@@ -10,6 +10,9 @@ import generateBasicDataObj from "../utils/songOrArtistObj.js";
 import { getCoverArtForArtist } from "../spotifyapi.js";
 import { scrapGoogleFn } from "../scrapping/scrappingGoogleLyrics.js";
 import Artist from "../models/Artist.js";
+import generateYoutubeId from "../youtube/youtube.js";
+
+
 
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
@@ -143,11 +146,51 @@ const generateSongData = async function (song, artist, coverArt) {
   let finalSongData = generateBasicDataObj("song");
   // add cover art
   finalSongData.coverArt = coverArt;
+
   // translate song name - 3 langs
   const nameLang = detectLanguage(song);
   logger.info(
     `detected that language for the song name: ${song} is: ${nameLang}`
   );
+  try {
+    const names3langs = await translateText3Lang(song);
+    finalSongData = {
+      ...finalSongData,
+      ...{ name: names3langs },
+    };
+  } catch (error) {
+    console.log(
+      "error in translateText3Lang function",
+      error.response.data.error
+    );
+  }
+
+  try {
+    const artistId = await prepareArtist(artist);
+    finalSongData.artist = artistId;
+  } catch (error) {
+    console.log("prapare artist", error.response.data.error);
+  }
+
+  const songYoutubeId = generateYoutubeId(song, artist)
+    .then((data) => {
+      finalSongData.youtubeURL = data;
+    })
+    .catch((err) => {
+      console.log("error in generate youtube ID function", err);
+    });
+
+  try {
+    // get lyrics
+    const { lyricsObj, originalLang } = await prepareLyrics(song, artist);
+    finalSongData = {
+      ...finalSongData,
+      ...{ lyrics: lyricsObj },
+      ...{ originalLang },
+    };
+  } catch (error) {
+    console.log("prepare", error);
+  }
   const names3langs = await translateText3Lang(song);
   finalSongData = {
     ...finalSongData,
@@ -162,6 +205,7 @@ const generateSongData = async function (song, artist, coverArt) {
     ...{ lyrics: lyricsObj },
     ...{ originalLang },
   };
+  
   // return song obj
   return finalSongData;
 };
@@ -196,7 +240,6 @@ const prepareLyrics = async (song, artist) => {
     console.log("error", error);
   }
 };
-
 const translateText3Lang = (txt) => {
   const tanslatedObj = {
     hebrew: "",

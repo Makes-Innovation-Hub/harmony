@@ -10,8 +10,8 @@ import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import checkIfInSameWeek from "../utils/checkIfAWeekPassed.js";
 import { getCoverArtForSong } from "../spotifyapi.js";
 import { all } from "axios";
-import detectLanguage from '../utils/detectLang.js';
-import { findOrCreateArtist } from './artistsController.js';
+import detectLanguage from "../utils/detectLang.js";
+import { findOrCreateArtist } from "./artistsController.js";
 
 const getOrCreateEachSong = async (language, topSongsArray) => {
   let massagedResults;
@@ -27,9 +27,9 @@ const getOrCreateEachSong = async (language, topSongsArray) => {
   const createdSongsIdArray = [];
 
   for (const result of massagedResults) {
-    logger.info(`finding or creating song for: ${result}`)
+    logger.info(`finding or creating song for: ${result}`);
     const song = await findOrCreateSong({ body: result });
-    logger.info(`sing found or created for song: ${song}`)
+    logger.info(`sing found or created for song: ${song}`);
     const songId = song._id;
     createdSongsIdArray.push(songId);
   }
@@ -76,112 +76,8 @@ const getCoverArtForTopSongs = async (scrapedTopSongs) => {
   return songs;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateTopSongsData = async (res) => {
-  logger.info('no relevant data found in db. generating');
+  logger.info("no relevant data found in db. generating");
   const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
     scrapeTopArabicSongs(),
     scrapeTopHebrewSongs(),
@@ -195,62 +91,68 @@ const generateTopSongsData = async (res) => {
     arabicSongs: arabicTopWithImage,
     hebrewSongs: hebrewTopWithImage,
   };
-  logger.info('generated all relevant data. sending')
+  logger.info("generated all relevant data. sending");
   res.status(200).json({
     success: true,
     data: topSongs,
   });
-  logger.info('starting to save top song data in db');
+  logger.info("starting to save top song data in db");
   try {
-    const arabicTopSongs = await createTopSongsInDB("arabic", arabicTopWithImage.slice(0, 10));
+    const arabicTopSongs = await createTopSongsInDB(
+      "arabic",
+      arabicTopWithImage.slice(0, 10)
+    );
     if (!arabicTopSongs) {
       return next(new ErrorResponse(`Error while creating Arabic topSongs`));
     }
     logger.info("Arabic Top Song Created successfully");
-    const hebrewTopSongs = await createTopSongsInDB("hebrew", hebrewTopWithImage);
+    const hebrewTopSongs = await createTopSongsInDB(
+      "hebrew",
+      hebrewTopWithImage
+    );
     if (!hebrewTopSongs) {
       return next(new ErrorResponse(`Error while creating Hebrew topSongs`));
     }
     logger.info("hebrew Top Song Created successfully");
   } catch (error) {
-    console.log('error', error);
+    console.log("error", error);
     logger.error(`error in creating Top Song ${error}`);
   }
-}
+};
 
 const getTopSongs = asyncHandler(async (req, res, next) => {
   logger.info(`createTopSongsOnStart initiating `);
   let topSongs = {
-    arabicSongs: '',
-    hebrewSongs: '',
-  };;
+    arabicSongs: "",
+    hebrewSongs: "",
+  };
   try {
     const topSongsArray = await findTopSongs();
     if (!topSongsArray) {
-      generateTopSongsData(res)
+      generateTopSongsData(res);
     } else {
       // check if a week has passed from last record
       const datesToCheck = {
-        arabic: { date: '' },
-        hebrew: { date: '' }
+        arabic: { date: "" },
+        hebrew: { date: "" },
       };
       const currentDate = new Date();
-      topSongsArray.forEach(topSong => {
+      topSongsArray.forEach((topSong) => {
         datesToCheck[topSong.language].date = topSong.date;
-        datesToCheck[topSong.language]['data'] = topSong.songs;
+        datesToCheck[topSong.language]["data"] = topSong.songs;
       });
       for (const lang in datesToCheck) {
         if (Object.hasOwnProperty.call(datesToCheck, lang)) {
           const date = datesToCheck[lang].date;
           if (checkIfInSameWeek(date, currentDate)) {
-            const key = lang === 'arabic' ? 'arabicSongs' : 'hebrewSongs';
-            topSongs[key] = datesToCheck[lang]['data'];
+            const key = lang === "arabic" ? "arabicSongs" : "hebrewSongs";
+            topSongs[key] = datesToCheck[lang]["data"];
           }
         }
       }
       // if not - send current records
       if (topSongs.arabicSongs && topSongs.hebrewSongs) {
-        logger.info('found relevant data in db. sending');
+        logger.info("found relevant data in db. sending");
         res.status(200).json({
           success: true,
           data: topSongs,
@@ -261,7 +163,7 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
       }
     }
   } catch (error) {
-    console.log('error', error)
+    console.log("error", error);
   }
 });
 

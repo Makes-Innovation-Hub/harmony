@@ -13,7 +13,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
     const renderedLyrics = [];
     if (translatedLyrics) {
       renderedLyrics.push(
-        <div key="hebrew">
+        <div key="hebrew" style={{ height: "100%" }}>
           <Status>Translation</Status>
           <div>
             <SongTitle>{name && removeParentheses(translatedName)}</SongTitle>
@@ -31,7 +31,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
 
     if (originalLyrics) {
       renderedLyrics.push(
-        <div key="arabic">
+        <div key="arabic" style={{ height: "100%" }}>
           <Status>Original</Status>
           <div>
             <SongTitle>

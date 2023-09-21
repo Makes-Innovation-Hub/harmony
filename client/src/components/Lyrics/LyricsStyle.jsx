@@ -4,7 +4,7 @@ export const LyricsSection = styled.section`
   display: flex;
   gap: 0.1rem;
   justify-content: space-around;
-  height: 100vh;
+  height: 100%;
   @media (min-width: 768px) {
     flex-direction: row;
   }
@@ -17,7 +17,6 @@ export const SongTitle = styled.h2`
   font-family: "ABeeZee";
   font-style: normal;
   text-decoration: underline;
-  /* line-height: 154%; */
   margin-bottom: 1.5rem;
   padding: 0.2rem;
   margin-right: 0.3rem;
@@ -29,7 +28,6 @@ export const Status = styled.p`
   font-family: "ABeeZee";
   font-style: normal;
   text-decoration: underline;
-  /* line-height: 154%; */
   margin-bottom: 1.5rem;
 `;
 
@@ -40,11 +38,12 @@ export const Paragraph = styled.p`
   text-align: right;
   font-family: "Aclonica";
   font-style: normal;
-  /* line-height: 150%; */
   font-size: 0.7rem;
-  margin-bottom: 1.5rem;
   color: black;
   width: 16ch;
-  height: 5ch;
   white-space: pre-line;
+`;
+
+export const WrapperDiv = styled.div`
+  height: 100%;
 `;
