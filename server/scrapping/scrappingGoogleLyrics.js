@@ -10,10 +10,9 @@ export async function scrapGoogleFn(songName, singerName) {
     });
 
     const page = await browser.newPage();
-    page.setDefaultNavigationTimeout(80000);
+    page.setDefaultNavigationTimeout(120000);
 
     const searchUrl = genGoogleLyricsUrl(songName, singerName);
-    console.log("searchUrl", searchUrl);
 
     await page.goto(searchUrl);
 
@@ -43,12 +42,10 @@ export async function scrapGoogleFn(songName, singerName) {
         }
       });
 
-      console.log("filteredLinks INSIDE", filteredLinks);
       return filteredLinks;
     });
 
     const filteredLinks = links.filter(Boolean).slice(0, 1);
-    console.log("filteredLinks OUTSIDE", filteredLinks);
     logger.info(`the link to scrap lyrics google is: ${filteredLinks}`);
 
     const lyrics = [];
