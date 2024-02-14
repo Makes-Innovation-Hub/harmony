@@ -2,23 +2,37 @@ import TranslationSymbolsGroup from "../TraslationSymbolsGroup/TranslationSymbol
 import ThreeLangNames from "../ThreeLnagNames/ThreeLangNames";
 import ClipArtImage from "../ClipArtImage/ClipArtImage";
 import ContentWrapper from "./SongListItem.styled";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useSongDataMutation } from "../../api/songDataApiSlice";
+import { useEffect } from "react";
 
 function SongListItem({ artist, arabicName, hebrewName, englishName, imgURL }) {
   const navigate = useNavigate();
+  const [songDataMutation, { data: songData, isSuccess: gotSongData }] =
+    useSongDataMutation();
+
+  useEffect(() => {
+    songDataMutation({ song: englishName, artist });
+  }, []);
+
+  if (gotSongData) {
+    console.log(songData);
+  }
   return (
-    <ContentWrapper onClick={() => {
-      navigate("/translating", {
-        state: {
-          artist,
-          song: hebrewName,
-          coverArt: imgURL
-        },
-      });
-    }}>
+    <ContentWrapper
+      onClick={() => {
+        navigate("/translating", {
+          state: {
+            artist,
+            song: hebrewName,
+            coverArt: imgURL,
+          },
+        });
+      }}
+    >
       <ClipArtImage
         borderRadius="30px"
-        imgURL={imgURL}
+        imgURL={songData?.coverArt}
         width="3.35rem"
         height="3.2rem"
       />
@@ -29,7 +43,8 @@ function SongListItem({ artist, arabicName, hebrewName, englishName, imgURL }) {
         fontSize="13px"
         lineHeight="17px"
       />
-      <TranslationSymbolsGroup />
+
+      <TranslationSymbolsGroup originalLanguage={songData?.originalLang} />
     </ContentWrapper>
   );
 }
