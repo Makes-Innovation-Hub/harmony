@@ -13,11 +13,12 @@ const HomeSearchBar = () => {
   const navigate = useNavigate();
 
   const inputHandler = (e) => {
-    setSearchTerm(e.target.value);
+    setSearchTerm(e.target.value.trim());
   };
 
   const sendSearchRequest = async () => {
     if (!searchTerm) {
+      navigate("/not-found");
       setErrorMessage("Please insert text in English, Hebrew, or Arabic");
       return;
     }

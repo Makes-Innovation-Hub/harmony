@@ -20,7 +20,7 @@ import { setLanguage } from "../../Redux/languageSlice.js";
 import "./Header.css";
 import { useTranslation } from "react-i18next";
 import i18n from "../../i18n.js";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -62,9 +62,11 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <AppIcon onClick={() => {
-        navigate('/');
-      }}>
+      <AppIcon
+        onClick={() => {
+          navigate("/");
+        }}
+      >
         <img className="dove" src={Dove} alt="" />
         <img className="ellipse" src={Ellipse3} alt="" />
       </AppIcon>
