@@ -52,23 +52,38 @@ export async function scrapGoogleFn(songName, singerName) {
 
     for (const link of filteredLinks) {
       await page.goto(link);
-      await page.waitForSelector(
-        ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, #songContentTPL, #lyric span, #song-body, .lyrics"
-      );
 
-      const lyricsText = await page.evaluate(() => {
-        const spanElement = document.querySelector(
+      // Check if the current link is from Genius
+      if (link.includes("genius.com")) {
+        await page.waitForSelector('[data-lyrics-container="true"]');
+
+        const lyricsText = await page.evaluate(() => {
+          const elements = Array.from(
+            document.querySelectorAll('[data-lyrics-container="true"]')
+          );
+          return elements.map((element) => element.innerText).join("\n\n");
+        });
+        lyrics.push(lyricsText);
+      } else {
+        // Fallback to original selector if not a Genius link
+        await page.waitForSelector(
           ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, #songContentTPL, #lyric span, #song-body, .lyrics"
         );
-        return spanElement.innerText;
-      });
-      lyrics.push(lyricsText);
+
+        const lyricsText = await page.evaluate(() => {
+          const spanElement = document.querySelector(
+            ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, #songContentTPL, #lyric span, #song-body, .lyrics"
+          );
+          return spanElement ? spanElement.innerText : "";
+        });
+        lyrics.push(lyricsText);
+      }
     }
 
     logger.info("lyrics from google scrap successfully");
     return lyrics;
   } catch (error) {
-    console.log("error", error);
+    logger.error("error", error);
     return false;
   }
 }
