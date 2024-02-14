@@ -8,16 +8,12 @@ import { useEffect } from "react";
 
 function SongListItem({ artist, arabicName, hebrewName, englishName, imgURL }) {
   const navigate = useNavigate();
-  const [songDataMutation, { data: songData, isSuccess: gotSongData }] =
-    useSongDataMutation();
+  const [songDataMutation, { data: songData }] = useSongDataMutation();
 
   useEffect(() => {
     songDataMutation({ song: englishName, artist });
   }, []);
 
-  if (gotSongData) {
-    console.log(songData);
-  }
   return (
     <ContentWrapper
       onClick={() => {
