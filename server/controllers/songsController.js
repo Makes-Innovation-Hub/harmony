@@ -12,8 +12,6 @@ import { scrapGoogleFn } from "../scrapping/scrappingGoogleLyrics.js";
 import Artist from "../models/Artist.js";
 import generateYoutubeId from "../youtube/youtube.js";
 
-
-
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
   const songsArray = await Song.find(filter).populate("artist");
@@ -205,7 +203,7 @@ const generateSongData = async function (song, artist, coverArt) {
     ...{ lyrics: lyricsObj },
     ...{ originalLang },
   };
-  
+
   // return song obj
   return finalSongData;
 };
