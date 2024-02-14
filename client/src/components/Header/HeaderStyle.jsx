@@ -100,6 +100,7 @@ export const LanguageList = styled.ul`
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   border: 1px solid #dcdcdc;
   border-radius: 0.5rem;
+  z-index: 999;
 `;
 export const LanguageP = styled.p`
   font-size: 0.7rem;
