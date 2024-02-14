@@ -20,6 +20,7 @@ function SongDetails({ artist, songName, img, originalLang }) {
 
   useEffect(() => {
     if (!isLoading && data) {
+      console.log(data);
       navigate("/Artist", { state: { artistData: data } });
     }
   }, [data, isLoading, navigate]);
