@@ -1,19 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import ImgCard from "../General/ImgCard";
 import LanguagesSign from "../LanguagesSign/LanguagesSign";
 import FE from "../Layout/FlexElments";
-import { useLazyGetArtistDataQuery } from '../../api/artistApiSlice';
-import { useNavigate } from 'react-router-dom';
+import { useLazyGetArtistDataQuery } from "../../api/artistApiSlice";
+import { useNavigate } from "react-router-dom";
 
-export default function ResultsCard({ imgURL, titles, languages = undefined, type, artistData = undefined }) {
+export default function ResultsCard({
+  imgURL,
+  titles,
+  languages = undefined,
+  type,
+  artistData = undefined,
+}) {
   const [artistTrigger, artistResults] = useLazyGetArtistDataQuery();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (artistResults && artistResults.status === 'fulfilled') {
+    if (artistResults && artistResults.status === "fulfilled") {
       navigate("/Artist", { state: { artistData: artistResults.data } });
     }
-  }, [artistResults])
+  }, [artistResults]);
 
   return (
     <FE.CenterRow
@@ -26,14 +32,14 @@ export default function ResultsCard({ imgURL, titles, languages = undefined, typ
         overflowY: "auto",
       }}
       onClick={() => {
-        if (type === 'artist') {
+        if (type === "artist") {
           artistTrigger(titles[0]);
-        } else if (type === 'song' && artistData) {
+        } else if (type === "song" && artistData) {
           navigate("/translating", {
             state: {
               artist: artistData.name[0],
               song: titles[0],
-              coverArt: imgURL
+              coverArt: imgURL,
             },
           });
         }
@@ -43,7 +49,7 @@ export default function ResultsCard({ imgURL, titles, languages = undefined, typ
         style={{
           flexGrow: languages ? 1 : 0.1,
           justifyContent: "flex-start",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <ImgCard src={imgURL} />
@@ -55,9 +61,10 @@ export default function ResultsCard({ imgURL, titles, languages = undefined, typ
           fontSize: "0.8rem",
         }}
       >
-        {titles && titles.map((title) => {
-          return <div key={title}>{title}</div>;
-        })}
+        {titles &&
+          titles.map((title, index) => {
+            return <div key={title + index}>{title}</div>;
+          })}
       </FE.CenterCol>
       <FE.CenterRow style={{ flexGrow: "1" }}>
         {languages && (

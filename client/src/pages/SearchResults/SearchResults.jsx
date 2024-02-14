@@ -61,6 +61,7 @@ const SearchResultsPage = ({ songs, artists }) => {
             <SC.Title>{t("Songs")}</SC.Title>
             {foundSongs &&
               foundSongs?.map((song) => {
+                console.log(song);
                 const titles = [];
                 for (const lang in song.name) {
                   if (Object.hasOwnProperty.call(song.name, lang)) {
@@ -74,8 +75,8 @@ const SearchResultsPage = ({ songs, artists }) => {
                     key={song.id}
                     imgURL={song.imgURL}
                     languages={{
-                      origin: song.originalLang,
-                      target: song.originalLang === "AR" ? "HE" : "AR",
+                      origin: song.originalLang === "arabic" ? "AR" : "HE",
+                      target: song.originalLang === "arabic" ? "HE" : "AR",
                     }}
                     titles={titles}
                     artistData={song.artist}
