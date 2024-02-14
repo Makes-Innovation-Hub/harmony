@@ -1,14 +1,18 @@
 import axios from "axios";
 import { Configuration, OpenAIApi } from "openai";
 import { openAiUrl } from "../constants/urls.js";
-import logger from '../logger.js';
+import logger from "../logger.js";
 
 const openAI = new OpenAIApi(
   new Configuration({ apiKey: process.env.OPEN_AI_API_KEY })
 );
 
 export async function generalTranslation(txt, originalLang, targetLang) {
-  logger.info(`translating ${txt.length < 15 ? txt : txt.slice(0, 15)}... from ${originalLang} to ${targetLang}`);
+  logger.info(
+    `translating ${
+      txt.length < 15 ? txt : txt.slice(0, 15)
+    }... from ${originalLang} to ${targetLang}`
+  );
   const prompt = `translate this text: ${txt} from original language: ${originalLang} to ${targetLang} language. respond only with the translated text, and nothing else`;
   try {
     const response = await openAI.createChatCompletion({
@@ -22,7 +26,6 @@ export async function generalTranslation(txt, originalLang, targetLang) {
     return null;
   }
 }
-
 
 export async function translateLyricsByOpenAi(
   lyrics,
