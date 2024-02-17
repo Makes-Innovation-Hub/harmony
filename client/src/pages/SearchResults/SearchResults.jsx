@@ -61,7 +61,6 @@ const SearchResultsPage = ({ songs, artists }) => {
             <SC.Title>{t("Songs")}</SC.Title>
             {foundSongs &&
               foundSongs?.map((song) => {
-                console.log(song);
                 const titles = [];
                 for (const lang in song.name) {
                   if (Object.hasOwnProperty.call(song.name, lang)) {
