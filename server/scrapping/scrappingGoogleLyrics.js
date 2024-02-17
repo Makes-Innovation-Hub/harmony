@@ -5,7 +5,7 @@ import { genGoogleLyricsUrl } from "../utils/googleLyricsUrl.js";
 export async function scrapGoogleFn(songName, singerName) {
   try {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       defaultViewport: null,
     });
 
@@ -69,7 +69,6 @@ export async function scrapGoogleFn(songName, singerName) {
     }
 
     logger.info("lyrics from google scrap successfully");
-    await browser.close();
     return lyrics;
   } catch (error) {
     logger.error("error", error);
