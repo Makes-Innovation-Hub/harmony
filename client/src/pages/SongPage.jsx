@@ -7,6 +7,7 @@ import Songcover from "../components/SongCover/Songcover";
 
 function SongPage() {
   const songData = useLocation().state;
+  console.log(songData);
   return (
     <>
       <Header />

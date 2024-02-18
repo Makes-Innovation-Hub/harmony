@@ -10,6 +10,7 @@ import { useState } from "react";
 import "./App.css";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
+import CoverPage from "./pages/CoverPage/CoverPage";
 
 const Router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const Router = createBrowserRouter([
   {
     path: "/results",
     element: <SearchResultsPage />,
+  },
+  {
+    path: "/cover",
+    element: <CoverPage />,
   },
 ]);
 
