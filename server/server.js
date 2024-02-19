@@ -40,8 +40,7 @@ app.use("/api/v1/search", searchRoutes);
 app.use("/api/v1/cover", coverArtRouter);
 app.use("/api/v1/lyrics", lyricsRoute);
 app.use("/api/v1/scrap", scrappingRoutes);
-
-app.use("/api/v1/auth", authRoutes); //liron work 2.18.24
+app.use("/api/v1/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));
