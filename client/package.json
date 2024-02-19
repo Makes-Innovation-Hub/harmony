@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@reduxjs/toolkit": "^1.9.5",
     "dotenv": "^16.3.1",
     "i18next": "^22.5.1",
