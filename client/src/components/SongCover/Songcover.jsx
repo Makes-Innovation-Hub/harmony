@@ -13,6 +13,7 @@ function Songcover({img}) {
       <br />
       <Status>By Artist Name </Status>
       <CoverBox>
+        
         <img
           width="560"
           height="255"
