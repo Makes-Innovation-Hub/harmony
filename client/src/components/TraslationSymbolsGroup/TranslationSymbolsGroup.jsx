@@ -5,7 +5,6 @@ import arrowImg from "../../assets/songDetails/Arrow 1.png";
 import Button from "./TranslationSymbolsGroup.style";
 
 function TranslationSymbolsGroup({ originalLanguage }) {
-  console.log(originalLanguage);
   return (
     <ContentWrapper flexDirection="row" justifyContent="center">
       <Button className="btn">

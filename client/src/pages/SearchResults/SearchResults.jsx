@@ -74,8 +74,8 @@ const SearchResultsPage = ({ songs, artists }) => {
                     key={song.id}
                     imgURL={song.imgURL}
                     languages={{
-                      origin: song.originalLang,
-                      target: song.originalLang === "AR" ? "HE" : "AR",
+                      origin: song.originalLang === "arabic" ? "AR" : "HE",
+                      target: song.originalLang === "arabic" ? "HE" : "AR",
                     }}
                     titles={titles}
                     artistData={song.artist}
