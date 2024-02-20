@@ -1,8 +1,21 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+/*
+  TO-DO
+
+  If totalResults>5 fetch again using the next page token to get a total of upto 10 results total
+
+  Create another function that returns the channel profile pic url (artistPic) for a certain song -V
+
+  instead of getting the id from the body change it to query params -V
+
+*/
+// GET Playlist data
+// localhost:5000/api/v1/playlist/?id=PLAYLIST_ID
 export const getPlaylistData = async (req, res) => {
-  const { id } = req.body;
+  // const { id } = req.body;
+  const { id } = req.query;
   if (!id) {
     res.status(400).send("ERROR: id is required");
   }
@@ -51,7 +64,7 @@ export const getPlaylistData = async (req, res) => {
       id: id, //playlist id
       items: playlistItemsData.items.map((item) => {
         return {
-          id: item.id, //video id
+          id: item.snippet.resourceId.videoId, //video id
           title: item.snippet.title, //video title
           thumbnailUrl: item.snippet.thumbnails.standard.url, //video thumbanil url
           channelTitle: item.snippet.videoOwnerChannelTitle, //channel title
@@ -65,6 +78,42 @@ export const getPlaylistData = async (req, res) => {
     res.status(200).json(playlistInfo);
   } catch (error) {
     console.error("Error fetching playlist data:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+// GET profilePicUrl of the channel to be in place of the artist picture
+export const getChannelProfilePic = async (req, res) => {
+  const { id } = req.query;
+
+  if (!id) {
+    return res.status(400).send("ERROR: Channel ID is required");
+  }
+
+  const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
+  if (!YOUTUBE_API_KEY) {
+    return res.status(400).send("ERROR: YOUTUBE_API_KEY is required");
+  }
+
+  try {
+    const channelResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${id}&key=${YOUTUBE_API_KEY}`
+    );
+    if (!channelResponse.ok) {
+      throw new Error("Failed to fetch channel information");
+    }
+    const channelData = await channelResponse.json();
+
+    if (!channelData.items || channelData.items.length === 0) {
+      throw new Error("Channel not found");
+    }
+
+    const profilePicUrl = channelData.items[0].snippet.thumbnails.default.url;
+    // const profilePicUrl = channelData.items[0].snippet.thumbnails.medium.url;
+
+    res.status(200).json({ profilePicUrl });
+  } catch (error) {
+    console.error("Error fetching channel profile picture:", error);
     res.status(500).send("Internal Server Error");
   }
 };
