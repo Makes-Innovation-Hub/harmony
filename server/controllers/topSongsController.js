@@ -12,7 +12,7 @@ import { getCoverArtForSong } from "../spotifyapi.js";
 import { all } from "axios";
 import detectLanguage from "../utils/detectLang.js";
 import { findOrCreateArtist } from "./artistsController.js";
-
+// .........................getOrCreateEachSong..............................................
 const getOrCreateEachSong = async (language, topSongsArray) => {
   let massagedResults;
   if (language === "arabic") {
@@ -36,7 +36,9 @@ const getOrCreateEachSong = async (language, topSongsArray) => {
   logger.info("Songs ID Array Created");
   return createdSongsIdArray;
 };
+// ............................................................................................
 
+// .........................getOrCreateTopSongsBothLangs.......................................
 const getOrCreateTopSongsBothLangs = async () => {
   const [hebrewTop, arabicTop] = await Promise.all([
     getOrCreateEachSong("hebrew"),
@@ -45,81 +47,9 @@ const getOrCreateTopSongsBothLangs = async () => {
   logger.info("Hebrew Top Song & Arabic Top Song created successfully");
   return { hebrewTop, arabicTop };
 };
+// ............................................................................................
 
-const createTopSongsInDB = async (language, topSongsIdArray) => {
-  logger.info(
-    `createTopSongsInDB with language ${language} and ID: ${topSongsIdArray}`
-  );
-  const topSongs = (
-    await TopSongs.create({ language, songs: topSongsIdArray })
-  ).populate("songs");
-  logger.info("Top Song Created successfully In MongoDB");
-  return topSongs;
-};
-
-const findTopSongs = async () => {
-  const topSongsArray = await TopSongs.find().populate("songs");
-  logger.info(`findTopSongs found`);
-  if (topSongsArray.length > 0) return topSongsArray;
-};
-
-const getCoverArtForTopSongs = async (scrapedTopSongs) => {
-  const songs = [];
-  for (const song of scrapedTopSongs) {
-    const coverArtResult = await getCoverArtForSong(song.song, song.artist);
-    logger.info(
-      `cover art found for song name: ${song.song} and artist name: ${song.artist}`
-    );
-    song.coverArt = coverArtResult;
-    songs.push(song);
-  }
-  return songs;
-};
-
-const generateTopSongsData = async (res) => {
-  logger.info("no relevant data found in db. generating");
-  const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
-    scrapeTopArabicSongs(),
-    scrapeTopHebrewSongs(),
-  ]);
-
-  const [arabicTopWithImage, hebrewTopWithImage] = await Promise.all([
-    getCoverArtForTopSongs(arabicScrapedTop),
-    getCoverArtForTopSongs(hebrewScrapedTop),
-  ]);
-  const topSongs = {
-    arabicSongs: arabicTopWithImage,
-    hebrewSongs: hebrewTopWithImage,
-  };
-  logger.info("generated all relevant data. sending");
-  res.status(200).json({
-    success: true,
-    data: topSongs,
-  });
-  logger.info("starting to save top song data in db");
-  try {
-    const arabicTopSongs = await createTopSongsInDB(
-      "arabic",
-      arabicTopWithImage.slice(0, 10)
-    );
-    if (!arabicTopSongs) {
-      return next(new ErrorResponse(`Error while creating Arabic topSongs`));
-    }
-    logger.info("Arabic Top Song Created successfully");
-    const hebrewTopSongs = await createTopSongsInDB(
-      "hebrew",
-      hebrewTopWithImage
-    );
-    if (!hebrewTopSongs) {
-      return next(new ErrorResponse(`Error while creating Hebrew topSongs`));
-    }
-    logger.info("hebrew Top Song Created successfully");
-  } catch (error) {
-    console.log("error", error);
-    logger.error(`error in creating Top Song ${error}`);
-  }
-};
-
+// .....................getTopSongs............................................................
 const getTopSongs = asyncHandler(async (req, res, next) => {
   logger.info(`createTopSongsOnStart initiating `);
   let topSongs = {
@@ -166,5 +96,89 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
     console.log("error", error);
   }
 });
+
+// ............................................................................................
+
+// ...........................findTopSongs.....................................................
+const findTopSongs = async () => {
+  const topSongsArray = await TopSongs.find().populate("songs");
+  logger.info(`findTopSongs found`);
+  if (topSongsArray.length > 0) return topSongsArray;
+};
+// ............................................................................................
+
+// ..........................generateTopSongsData..............................................
+const generateTopSongsData = async (res) => {
+  logger.info("no relevant data found in db. generating");
+  const [arabicScrapedTop, hebrewScrapedTop] = await Promise.all([
+    scrapeTopArabicSongs(),
+    scrapeTopHebrewSongs(),
+  ]);
+
+  const [arabicTopWithImage, hebrewTopWithImage] = await Promise.all([
+    getCoverArtForTopSongs(arabicScrapedTop),
+    getCoverArtForTopSongs(hebrewScrapedTop),
+  ]);
+  const topSongs = {
+    arabicSongs: arabicTopWithImage,
+    hebrewSongs: hebrewTopWithImage,
+  };
+  logger.info("generated all relevant data. sending");
+  res.status(200).json({
+    success: true,
+    data: topSongs,
+  });
+  logger.info("starting to save top song data in db");
+  try {
+    const arabicTopSongs = await createTopSongsInDB(
+      "arabic",
+      arabicTopWithImage.slice(0, 10)
+    );
+    if (!arabicTopSongs) {
+      return next(new ErrorResponse(`Error while creating Arabic topSongs`));
+    }
+    logger.info("Arabic Top Song Created successfully");
+    const hebrewTopSongs = await createTopSongsInDB(
+      "hebrew",
+      hebrewTopWithImage
+    );
+    if (!hebrewTopSongs) {
+      return next(new ErrorResponse(`Error while creating Hebrew topSongs`));
+    }
+    logger.info("hebrew Top Song Created successfully");
+  } catch (error) {
+    console.log("error", error);
+    logger.error(`error in creating Top Song ${error}`);
+  }
+};
+// ............................................................................................
+
+// ...........................getCoverArtForTopSongs...........................................
+const getCoverArtForTopSongs = async (scrapedTopSongs) => {
+  const songs = [];
+  for (const song of scrapedTopSongs) {
+    const coverArtResult = await getCoverArtForSong(song.song, song.artist);
+    logger.info(
+      `cover art found for song name: ${song.song} and artist name: ${song.artist}`
+    );
+    song.coverArt = coverArtResult;
+    songs.push(song);
+  }
+  return songs;
+};
+// ............................................................................................
+
+// ...............................createTopSongsInDB...........................................
+const createTopSongsInDB = async (language, topSongsIdArray) => {
+  logger.info(
+    `createTopSongsInDB with language ${language} and ID: ${topSongsIdArray}`
+  );
+  const topSongs = (
+    await TopSongs.create({ language, songs: topSongsIdArray })
+  ).populate("songs");
+  logger.info("Top Song Created successfully In MongoDB");
+  return topSongs;
+};
+// ............................................................................................
 
 export { getTopSongs };

@@ -20,7 +20,7 @@ export default function CoverPage() {
   return (
     <main>
       <Header />
-      <CoverArtistTitle>Cover by Artist Name</CoverArtistTitle>
+      <CoverArtistTitle>Cover by [Artist Name]</CoverArtistTitle>
 
       <BigContainer>
         <ArtistContainer>
