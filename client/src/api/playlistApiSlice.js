@@ -7,12 +7,16 @@ export const playlistApi = createApi({
   endpoints: (builder) => ({
     getPlaylistById: builder.query({
       query: (playlistId) => ({
-        url: `/playlist`,
+        url: `playlist/playlistData`,
         method: "GET",
         params: playlistId,
       }),
     }),
+    getAllPlaylistData: builder.query({
+      query: () => `/playlist/allPlaylistData`,
+    }),
   }),
 });
 
-export const { useGetPlaylistByIdQuery } = playlistApi;
+export const { useGetPlaylistByIdQuery, useGetAllPlaylistDataQuery } =
+  playlistApi;
