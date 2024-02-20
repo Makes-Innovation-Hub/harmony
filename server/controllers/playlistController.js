@@ -1,9 +1,11 @@
 import dotenv from "dotenv";
 dotenv.config();
+import { playlistData } from "../constants/playlistData.js";
 
 // GET Playlist data
 // localhost:5000/api/v1/playlist/?id=PLAYLIST_ID
 export const getPlaylistData = async (req, res) => {
+  console.log("hi from getPlaylistData");
   // Extract id from query params and verify that it was provided
   const { id } = req.query;
   if (!id) {
@@ -96,4 +98,12 @@ export const getChannelProfilePic = async (req, res) => {
     console.error("Error fetching channel profile picture:", error);
     res.status(500).send("Internal Server Error");
   }
+};
+
+// @des      Get all the static playlistsData
+// @route    GET /api/v1/playlist/allPlaylistData
+// @access   Public
+export const getAllPlaylistsData = (req, res) => {
+  const playlists = playlistData;
+  res.send(playlists);
 };
