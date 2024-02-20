@@ -6,6 +6,7 @@ const client = new OAuth2Client(CLIENT_ID);
 
 export const verifyToken = async (req, res) => {
   const { token } = req.body;
+  console.log(token);
 
   try {
     const ticket = await client.verifyIdToken({
