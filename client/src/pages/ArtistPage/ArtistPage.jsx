@@ -45,7 +45,7 @@ function ArtistPage() {
               arabicName={song.name.arabic}
               hebrewName={song.name.hebrew}
               englishName={song.name.english}
-              imgURL={song.imgURL}
+              imgURL={artistData.imgURL}
             />
           ))}
         </ContentWrapper>

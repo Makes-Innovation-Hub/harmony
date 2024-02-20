@@ -10,8 +10,13 @@ import { useState } from "react";
 import "./App.css";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
+import Login from "./pages/Login/Login";
 
 const Router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+  },
   {
     path: "/",
     element: <Home />,

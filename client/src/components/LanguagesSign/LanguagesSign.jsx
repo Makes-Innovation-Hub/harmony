@@ -2,8 +2,8 @@ import arrowImg from "../../assets/songDetails/Arrow 1.png";
 import LetterCircle from "../General/LetterCircle";
 import FE from "../Layout/FlexElments";
 
-import heSign from '../../assets/songDetails/ע.png';
-import arbSign from '../../assets/songDetails/ع.png'
+import heSign from "../../assets/songDetails/ע.png";
+import arbSign from "../../assets/songDetails/ع.png";
 
 export default function LanguagesSign({ leftIcon, rightIcon }) {
   return (

@@ -31,6 +31,8 @@ export async function scrapGoogleFn(songName, singerName) {
         "https://www.lyrics-arabic.com/",
         "https://lyricstranslate.com/",
         "https://www.boomplay.com/",
+        "https://www.musixmatch.com/",
+        "https://kalimat.anghami.com",
       ];
 
       linkElements.forEach((element) => {
@@ -52,15 +54,16 @@ export async function scrapGoogleFn(songName, singerName) {
 
     for (const link of filteredLinks) {
       await page.goto(link);
+
       await page.waitForSelector(
-        ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, #songContentTPL, #lyric span, #song-body, .lyrics"
+        '.artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics , div.mxm-lyrics > span , div.lyrics-page_lyrics__QEN3R > pre'
       );
 
       const lyricsText = await page.evaluate(() => {
         const spanElement = document.querySelector(
-          ".artist_lyrics_text, .Lyrics__Container-sc-1ynbvzw-5, #songContentTPL, #lyric span, #song-body, .lyrics"
+          '.artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics , div.mxm-lyrics > span , div.lyrics-page_lyrics__QEN3R > pre'
         );
-        return spanElement.innerText;
+        return spanElement ? spanElement.innerText : "";
       });
       lyrics.push(lyricsText);
     }
@@ -68,7 +71,7 @@ export async function scrapGoogleFn(songName, singerName) {
     logger.info("lyrics from google scrap successfully");
     return lyrics;
   } catch (error) {
-    console.log("error", error);
+    logger.error("error", error);
     return false;
   }
 }
