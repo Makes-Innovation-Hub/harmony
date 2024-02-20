@@ -12,12 +12,18 @@ import { scrapGoogleFn } from "../scrapping/scrappingGoogleLyrics.js";
 import Artist from "../models/Artist.js";
 import generateYoutubeId from "../youtube/youtube.js";
 
+
+
+
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
-  const songsArray = await Song.find(filter).populate("artist");
+  const songsArray = await Song.find(filter).populate("artist").populate("coverSong");
   if (songsArray.length > 0) return songsArray;
   logger.info(`findSong with song details ${songsArray} found successfully `);
 };
+
+
+
 
 const createSongInDB = async (req) => {
   const newSongObject = createObjectFromQuery(req.body);
@@ -31,6 +37,8 @@ const createSongInDB = async (req) => {
     req.body.name.english,
     req.body.coverArt
   );
+
+
   const song = await Song.create({
     name: {
       english: req.body.name.english,
@@ -50,6 +58,7 @@ const createSongInDB = async (req) => {
   );
   return song;
 };
+
 
 const findOrCreateSong = async (req) => {
   const songsArray = await findSong(req);
@@ -124,6 +133,8 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
       const artistData = await Artist.findById(songs[0].artist);
       const songData = songs[0];
       songData.artist = artistData;
+      console.log(songData)
+      songData.populate("coverSong");      
       res.json(songData);
     } else {
       // if not - generate song data - > save song in db
@@ -238,7 +249,7 @@ const prepareLyrics = async (song, artist) => {
     console.log("error", error);
   }
 };
-const translateText3Lang = (txt) => {
+const translateText3Lang = async (txt) => {
   const tanslatedObj = {
     hebrew: "",
     arabic: "",
@@ -255,23 +266,21 @@ const translateText3Lang = (txt) => {
     (lang) => lang !== txtLang
   );
   logger.info(`langs to translate the text: ${langsToTranslate}`);
-  return Promise.all([
-    generalTranslation(txt, txtLang, langsToTranslate[0]),
-    generalTranslation(txt, txtLang, langsToTranslate[1]),
-  ])
-    .then((transltatedArr) => {
-      tanslatedObj[langsToTranslate[0]] = transltatedArr[0];
-      tanslatedObj[langsToTranslate[1]] = transltatedArr[1];
-      return tanslatedObj;
-    })
-    .catch((err) => {
-      console.log(
-        `error in generating translations for ${
-          txt.length < 15 ? txt : txt.slice(15)
-        } + '...'`,
-        err
-      );
-    });
+  try {
+    const transltatedArr = await Promise.all([
+      generalTranslation(txt, txtLang, langsToTranslate[0]),
+      generalTranslation(txt, txtLang, langsToTranslate[1]),
+    ]);
+    tanslatedObj[langsToTranslate[0]] = transltatedArr[0];
+    tanslatedObj[langsToTranslate[1]] = transltatedArr[1];
+    return tanslatedObj;
+  } catch (err) {
+    console.log(
+      `error in generating translations for ${txt.length < 15 ? txt : txt.slice(15)} + '...'`,
+      err
+    );
+  }
 };
+
 
 export { getSongs, createSong, findSong, findOrCreateSong, getFullSongData };

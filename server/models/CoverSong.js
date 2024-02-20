@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const CoverSongSchema = new mongoose.Schema(
   {
     youtubeUrl: {
