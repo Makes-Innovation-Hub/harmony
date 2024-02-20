@@ -1,6 +1,7 @@
 import Header from "../components/Header/Header";
 import HomeSearchBar from "../components/HomeSerchBar/HomeSearchBar";
 import Tagline from "../components/Tagline/Tagline.component";
+import TestPlaylist from "../components/TestPlaylist/TestPlaylist";
 import TopSongGallary from "../components/TopSongGallary/TopSongGallary";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       <Tagline />
       <HomeSearchBar />
       <TopSongGallary />
+      <TestPlaylist />
     </>
   );
 }
