@@ -6,7 +6,11 @@ export const playlistApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: serverApiUrl }),
   endpoints: (builder) => ({
     getPlaylistById: builder.query({
-      query: (playlistId) => `/playlist/${playlistId}`,
+      query: (playlistId) => ({
+        url: `/playlist`,
+        method: "GET",
+        params: playlistId,
+      }),
     }),
   }),
 });
