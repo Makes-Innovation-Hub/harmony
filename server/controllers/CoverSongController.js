@@ -1,3 +1,4 @@
+import logger from "../logger.js";
 import CoverSong from "../models/CoverSong.js";
 import Song from "../models/Song.js";
 import { isValidObjectId } from "mongoose";
@@ -47,8 +48,11 @@ export const deleteCoverSongById = async (req, res, next) => {
     if (!deleteCover) {
       return res.status(404).json({ message: "CoverSong Not Found" });
     } else {
-      //detele the book
+      //delete the book
       await CoverSong.deleteOne(deleteCover);
+      logger.info(
+        `Cover song with the artist name of ${deleteCover.coverArtist} has been deleted  `
+      );
     }
     res.send(deleteCover);
   } catch (error) {
@@ -67,20 +71,22 @@ export const getAllCoverSongs = async (req, res, next) => {
 
 export const postCoverData = async (req, res, next) => {
   try {
-    //* gett the data from body
+    //* get the data from body
     const {
       youtubeUrl,
       coverArtist,
       originalSongCover,
       originalArtist,
       originalLanguage,
+      likes,
     } = req.body;
-    console.log(youtubeUrl);
     if (!(youtubeUrl && coverArtist)) {
       res.status(400);
       throw new Error(" Artist name & youtube link are required");
     }
+
     const existingyoutubeUrl = await CoverSong.findOne({ youtubeUrl });
+
     if (existingyoutubeUrl) {
       res.status(409);
       throw new Error(" CoverSong exist in the DB");
@@ -92,7 +98,11 @@ export const postCoverData = async (req, res, next) => {
       originalSongCover,
       originalArtist,
       originalLanguage,
+      likes,
     });
+    logger.info(
+      `Cover song with the Artist name of ${coverArtist} has been created`
+    );
 
     res.status(201).send(newCoverSong);
   } catch (error) {
