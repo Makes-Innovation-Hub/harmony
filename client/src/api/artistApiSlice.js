@@ -12,5 +12,6 @@ const artistApiSlice = createApi({
   }),
 });
 
-export const { useGetArtistDataQuery, useLazyGetArtistDataQuery } = artistApiSlice;
+export const { useGetArtistDataQuery, useLazyGetArtistDataQuery } =
+  artistApiSlice;
 export default artistApiSlice;
