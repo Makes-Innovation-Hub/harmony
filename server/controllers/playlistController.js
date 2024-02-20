@@ -5,7 +5,6 @@ import { playlistData } from "../constants/playlistData.js";
 // GET Playlist data
 // localhost:5000/api/v1/playlist/?id=PLAYLIST_ID
 export const getPlaylistData = async (req, res) => {
-  console.log("hi from getPlaylistData");
   // Extract id from query params and verify that it was provided
   const { id } = req.query;
   if (!id) {
