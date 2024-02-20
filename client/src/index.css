@@ -1,26 +1,30 @@
 @font-face {
-    font-family: "ABeeZee";
-    src: url("./assets/fonts/ABeeZee-Italic.ttf") format("truetype");
+  font-family: "ABeeZee";
+  src: url("./assets/fonts/ABeeZee-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("./assets/fonts/Roboto-Regular.ttf") format("truetype");
 }
 
 @media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        position: fixed;
-        overflow-y: auto;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        height: 100vh;
-        background-color: rgb(254, 254, 254);
-    }
+  :root {
+    color: #213547;
+    position: fixed;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(254, 254, 254);
+  }
 
-    body {
-        position: fixed;
-        overflow-y: scroll;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        height: 100vh;
-    }
+  body {
+    position: fixed;
+    overflow-y: scroll;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+  }
 }
