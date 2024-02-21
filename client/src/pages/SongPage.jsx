@@ -31,7 +31,12 @@ function SongPage() {
         youtubeUrl={songData.youtubeURL}
       />
 
-      <UploadCoverModal />
+      <UploadCoverModal
+        originalArtist={songData.artist.name.english}
+        originalLang={songData.originalLang}
+        originalSongCover={songData.coverArt}
+        originalSongName={songData.name.english}
+      />
 
       <Songcover img={songData.coverArt} />
     </>
