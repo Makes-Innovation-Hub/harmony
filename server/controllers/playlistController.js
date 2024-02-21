@@ -1,12 +1,15 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { playlistData } from "../constants/playlistData.js";
+import translateText3Lang from "../utils/translateText3Lang.js";
+import getSongNameFromTitle from "../utils/getSongNameFromTitle.js";
 
 // GET Playlist data
-// localhost:5000/api/v1/playlist/?id=PLAYLIST_ID
+// localhost:5000/api/v1/playlist/?id=PLAYLIST_ID&lang=originalLanguage
+//lang can be AR or HE
 export const getPlaylistData = async (req, res) => {
   // Extract id from query params and verify that it was provided
-  const { id } = req.query;
+  const { id, lang } = req.query;
   if (!id) {
     res.status(400).send("ERROR: id is required");
   }
@@ -54,9 +57,12 @@ export const getPlaylistData = async (req, res) => {
         const profilePicUrl = await fetchChannelProfilePic(
           item.snippet.videoOwnerChannelId
         );
+        const songName = getSongNameFromTitle(item.snippet.title, lang);
+        const translatTo3 = await translateText3Lang(songName);
         return {
           videoId: item.snippet.resourceId.videoId,
           title: item.snippet.title,
+          songName3Lang: translatTo3,
           thumbnailUrl: item.snippet.thumbnails.standard.url,
           channelTitle: item.snippet.videoOwnerChannelTitle,
           channelId: item.snippet.videoOwnerChannelId,
