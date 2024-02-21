@@ -12,3 +12,5 @@ songsRouter.route("/").get(getSongs).post(createSong).put(getFullSongData);
 songsRouter.get("/find/:id", findSongById);
 
 export default songsRouter;
+
+export default songsRouter;
