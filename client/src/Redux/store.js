@@ -6,6 +6,7 @@ import languageReducer from "./languageSlice";
 import searchResultsReducer from "./searchResultsSlice";
 import { songDataApi } from "../api/songDataApiSlice";
 import artistApiSlice from "../api/artistApiSlice";
+import addCoverToSong from "../api/addCoverToSongApi";
 
 export default configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export default configureStore({
     [songDataApi.reducerPath]: songDataApi.reducer,
     [searchsliceapi.reducerPath]: searchsliceapi.reducer,
     [artistApiSlice.reducerPath]: artistApiSlice.reducer,
+    [addCoverToSong.reducerPath]: addCoverToSong.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
@@ -24,6 +26,7 @@ export default configureStore({
       searchsliceapi.middleware,
       songDataApi.middleware,
       artistApiSlice.middleware,
+      addCoverToSong.middleware,
     ]);
   },
 });

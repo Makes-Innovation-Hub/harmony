@@ -12,18 +12,14 @@ import { scrapGoogleFn } from "../scrapping/scrappingGoogleLyrics.js";
 import Artist from "../models/Artist.js";
 import generateYoutubeId from "../youtube/youtube.js";
 
-
-
-
 const findSong = async (req) => {
   const filter = createObjectFromQuery(req.body);
-  const songsArray = await Song.find(filter).populate("artist").populate("coverSong");
+  const songsArray = await Song.find(filter)
+    .populate("artist")
+    .populate("coverSong");
   if (songsArray.length > 0) return songsArray;
   logger.info(`findSong with song details ${songsArray} found successfully `);
 };
-
-
-
 
 const createSongInDB = async (req) => {
   const newSongObject = createObjectFromQuery(req.body);
@@ -37,7 +33,6 @@ const createSongInDB = async (req) => {
     req.body.name.english,
     req.body.coverArt
   );
-
 
   const song = await Song.create({
     name: {
@@ -58,7 +53,6 @@ const createSongInDB = async (req) => {
   );
   return song;
 };
-
 
 const findOrCreateSong = async (req) => {
   const songsArray = await findSong(req);
@@ -124,7 +118,7 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
         { "name.arabic": { $regex: song, $options: "i" } },
         { "name.english": { $regex: song, $options: "i" } },
       ],
-    });
+    }).populate("coverSong");
     if (songs.length > 0) {
       // if there is - send back
       logger.info(
@@ -133,8 +127,6 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
       const artistData = await Artist.findById(songs[0].artist);
       const songData = songs[0];
       songData.artist = artistData;
-      console.log(songData)
-      songData.populate("coverSong");      
       res.json(songData);
     } else {
       // if not - generate song data - > save song in db
@@ -276,11 +268,12 @@ const translateText3Lang = async (txt) => {
     return tanslatedObj;
   } catch (err) {
     console.log(
-      `error in generating translations for ${txt.length < 15 ? txt : txt.slice(15)} + '...'`,
+      `error in generating translations for ${
+        txt.length < 15 ? txt : txt.slice(15)
+      } + '...'`,
       err
     );
   }
 };
-
 
 export { getSongs, createSong, findSong, findOrCreateSong, getFullSongData };
