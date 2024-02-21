@@ -14,47 +14,42 @@ import {
 import Youtube from "../../components/Youtube/Youtube";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
+import { useLocation } from "react-router-dom";
 
 export default function CoverPage() {
-  // function getYouTubeId(url) {
-  //   var regExp =
-  //     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  //   var match = url.match(regExp);
-  //   return match && match[7].length == 11 ? match[7] : false;
-  // }
-  // console.log(getYouTubeId("https://www.youtube.com/watch?v=y88nAMy3qsA"));
+  const { state: coverData } = useLocation();
+  console.log(coverData);
 
   return (
     <main>
       <Header />
-      <CoverArtistTitle>Cover by [Artist Name]</CoverArtistTitle>
+      <CoverArtistTitle>Cover by {coverData?.coverArtistName}</CoverArtistTitle>
 
       <BigContainer>
         <ArtistContainer>
           <div>
             <SongCover
-              src={`https://img.youtube.com/vi/S3Nif-EyPxk/maxresdefault.jpg`}
-              // src="https://i.scdn.co/image/ab67616d0000b273d3ee29593d43accb1bd79e72"
+              src={coverData?.originalSongCover}
               alt="Original song cover"
             />
           </div>
 
           <SongAndSingerContainer>
-            <SongName>Haygely Mawgow3</SongName>
-            <OriginalArtistName>Tamer Ashour</OriginalArtistName>
+            <SongName>{coverData?.originalSongName}</SongName>
+            <OriginalArtistName>{coverData?.originalArtist}</OriginalArtistName>
           </SongAndSingerContainer>
         </ArtistContainer>
 
         <div>
-          <Youtube youtubeUrl={"5_5PtfmoIQk"} />
+          <Youtube youtubeUrl={coverData?.youtubeUrl} />
           <VideoInfo className="video-info">
             <SameLine>
               <img src={shareSvg} alt="share svg" />
               <p>Share</p>
             </SameLine>
-            <p>0 Views</p>
+            <p>{coverData?.views} Views</p>
             <SameLine>
-              <p>0 Likes </p>
+              <p>{coverData?.likes.length} Likes </p>
               <img src={likeSvg} alt="share svg" />
             </SameLine>
           </VideoInfo>

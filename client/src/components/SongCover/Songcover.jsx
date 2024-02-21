@@ -1,27 +1,32 @@
-import Youtube from "../Youtube/Youtube";
-import { useEffect, useState } from "react";
-import { Status, CoverBox } from "./songcoverStyle";
+import { Link } from "react-router-dom";
+import {
+  CoverBox,
+  TitleContainer,
+  ByArtist,
+  ImgStyles,
+  LikesAndViewsContainer,
+} from "./SongCoverStyles";
 
-function Songcover({img}) {
+function Songcover({ backgroundImg, artist, state, likes, views }) {
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <Status>Covers</Status>
-      <br />
-      <br />
-      <Status>By Artist Name </Status>
+      <TitleContainer>
+        <ByArtist>By {artist}</ByArtist>
+      </TitleContainer>
       <CoverBox>
-        
-        <img
-          width="560"
-          height="255"
-          src={img}
-          alt="songcover"
-          style={{ borderRadius: "30px" }}
-        ></img>
+        <Link to={"/cover"} state={state}>
+          <ImgStyles
+            width="560"
+            height="255"
+            src={`https://img.youtube.com/vi/${backgroundImg}/maxresdefault.jpg`}
+            alt="Song cover"
+          ></ImgStyles>
+        </Link>
       </CoverBox>
+      <LikesAndViewsContainer>
+        <p>{views} views</p>
+        <p>{likes} likes</p>
+      </LikesAndViewsContainer>
     </>
   );
 }
