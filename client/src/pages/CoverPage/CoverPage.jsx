@@ -18,7 +18,6 @@ import { useLocation } from "react-router-dom";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
-  console.log(coverData);
 
   return (
     <main>

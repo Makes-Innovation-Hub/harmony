@@ -6,10 +6,12 @@ import Youtube from "../components/Youtube/Youtube";
 import UploadCoverModal from "../components/UploadButton/UploadCoverModal";
 import SongCover from "../components/SongCover/SongCover";
 import { CoversTitle } from "./SongPageStyles";
+import { useGetSongByIdQuery } from "../api/addCoverToSongApi";
 
 function SongPage() {
   const songData = useLocation().state;
-  console.log(songData);
+  const { data: songByIdData } = useGetSongByIdQuery(songData._id);
+
   return (
     <>
       <Header />
@@ -40,7 +42,7 @@ function SongPage() {
 
       {songData?.coverSong.length > 0 && <CoversTitle>Covers</CoversTitle>}
 
-      {songData?.coverSong.map((coverInfo) => {
+      {songByIdData?.coverSong.map((coverInfo) => {
         return (
           <div key={coverInfo._id}>
             <SongCover

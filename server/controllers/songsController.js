@@ -21,6 +21,22 @@ const findSong = async (req) => {
   logger.info(`findSong with song details ${songsArray} found successfully `);
 };
 
+export const findSongById = async (req, res, next) => {
+  try {
+    const song = await Song.findById(req.params.id)
+      .populate("artist")
+      .populate("coverSong");
+    if (!song) {
+      res.status(404);
+      throw new Error("Song not found");
+    }
+
+    res.send(song);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const createSongInDB = async (req) => {
   const newSongObject = createObjectFromQuery(req.body);
   logger.info(

@@ -15,7 +15,7 @@ const UploadCoverModal = ({
   originalSongCover,
   originalSongName,
 }) => {
-  const [createCover, { data: newCoverData }] = useCreateCoverMutation();
+  const [createCover] = useCreateCoverMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [coverData, setCoverData] = useState({
     artistName: "",
@@ -41,8 +41,8 @@ const UploadCoverModal = ({
     });
   };
 
-  async function addNewCoverSong() {
-    await createCover({
+  function addNewCoverSong() {
+    createCover({
       youtubeUrl: youtubeLinkRef.current.value,
       coverArtistName: artistRef.current.value,
       originalLanguage: originalLang,
@@ -50,8 +50,8 @@ const UploadCoverModal = ({
       originalSongCover: originalSongCover,
       originalSongName: originalSongName,
     });
-    console.log(newCoverData);
     closeModal();
+    setCoverData({ artistName: "", youtubeUrl: "" });
   }
 
   return (

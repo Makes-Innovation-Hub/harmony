@@ -3,20 +3,27 @@ import { serverApiUrl } from "../constants/urls";
 
 const addCoverToSong = createApi({
   reducerPath: "addCoverToSong",
-  tagTypes: ["CoverSong"],
-  baseQuery: fetchBaseQuery({ baseUrl: `${serverApiUrl}/coverSong` }),
+  tagTypes: ["getSongById"],
+  baseQuery: fetchBaseQuery({ baseUrl: `${serverApiUrl}` }),
   endpoints: (builder) => ({
     createCover: builder.mutation({
       query: (coverSong) => ({
-        url: "/add",
+        url: "/coverSong/add",
         method: "POST",
         body: coverSong,
       }),
-      invalidatesTags: ["CoverSong"],
+      invalidatesTags: ["getSongById"],
+    }),
+    getSongById: builder.query({
+      query: (id) => ({
+        url: `songs/find/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["getSongById"],
     }),
   }),
 });
 
-export const { useCreateCoverMutation } = addCoverToSong;
+export const { useCreateCoverMutation, useGetSongByIdQuery } = addCoverToSong;
 
 export default addCoverToSong;

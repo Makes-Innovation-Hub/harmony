@@ -16,7 +16,7 @@ export const ArtistContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 40px;
   padding-top: 30px;
   max-width: 100%;
 `;
