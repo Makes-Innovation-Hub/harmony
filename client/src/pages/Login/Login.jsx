@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import doveImage from "../../assets/dove.png";
-
+import googleLogo from "../../assets/Login/google.svg";
 import {
   LoginPageWrapper,
   AppIcon,
@@ -12,17 +12,17 @@ import {
   StyledGoogleSignInButton,
   GoogleLogo,
 } from "./LoginPageStyles";
-import googleLogo from "../../assets/Login/google.svg";
 
 const LoginPage = () => {
-  const backendUrl = `${import.meta.env.VITE_SERVER_BASE_URL}:${
-    import.meta.env.VITE_SERVER_PORT
-  }/api/v1/auth/google`;
   const navigate = useNavigate(); // Hook for redirection
 
-  // Function to send the token to the backend
+  // Function to send the token to the backend and store it in local storage if verified
   const sendTokenToBackend = async (token) => {
     try {
+      // Assuming your backend verifies the token and returns a custom token or user data
+      const backendUrl = `${import.meta.env.VITE_SERVER_BASE_URL}:${
+        import.meta.env.VITE_SERVER_PORT
+      }/api/v1/auth/google`;
       const response = await fetch(backendUrl, {
         method: "POST",
         headers: {
@@ -32,10 +32,14 @@ const LoginPage = () => {
       });
 
       const data = await response.json();
-      console.log("Response from backend:", data);
 
       if (data.verified) {
+        // Store the Google token or a custom token provided by your backend in local storage
+        localStorage.setItem("token", token); // Store the Google token; adjust if your backend returns a different token
         navigate("/"); // Navigate to the homepage upon successful verification
+      } else {
+        // Handle verification failure (optional)
+        consosle.error("Token verification failed.");
       }
     } catch (error) {
       console.error("Error sending data to backend:", error);
@@ -49,7 +53,6 @@ const LoginPage = () => {
 
   useEffect(() => {
     const handleCredentialResponse = (response) => {
-      console.log("Encoded JWT ID token from GIS: " + response.credential);
       sendTokenToBackend(response.credential); // Use the token to authenticate
     };
 
@@ -75,7 +78,6 @@ const LoginPage = () => {
         <GoogleLogo src={googleLogo} alt="Google logo" />
         Sign in with Google
       </StyledGoogleSignInButton>
-      {/* Other components */}
     </LoginPageWrapper>
   );
 };
