@@ -42,7 +42,7 @@ app.use("/api/v1/cover", coverArtRouter);
 app.use("/api/v1/lyrics", lyricsRoute);
 app.use("/api/v1/scrap", scrappingRoutes);
 app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/coversong", CoverSongRoute);
+app.use("/api/v1/coverSong", CoverSongRoute);
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));
