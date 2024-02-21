@@ -7,7 +7,6 @@ import { isValidObjectId } from "mongoose";
 // Implement CRUD Operations for CoverSongs
 
 // Description:
-// - `getSelectCoverData`: Placeholder function to retrieve specific data for a given ID (not yet implemented).
 // - `getDeleteAll`: Deletes all documents in the CoverSong collection.
 // - `deleteCoverSongById`: Deletes a specific CoverSong document based on the provided ID.
 // - `getAllCoverSongs`: Retrieves all CoverSongs from the database.
@@ -17,18 +16,10 @@ import { isValidObjectId } from "mongoose";
 // - The code includes error handling and validation for invalid IDs and existing entries.
 // - The commit addresses basic CRUD functionalities for the CoverSong model.
 
-export const getSelectCoverData = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const getDeleteAll = async (req, res, next) => {
   try {
     await CoverSong.deleteMany({});
-    res.send("All delete data successfuly");
+    res.send("All delete data successfully");
   } catch (error) {
     next(error);
   }
@@ -36,22 +27,21 @@ export const getDeleteAll = async (req, res, next) => {
 
 export const deleteCoverSongById = async (req, res, next) => {
   try {
-    //get the id
     const { id } = req.params;
     // check the id if valid
     if (!isValidObjectId(id)) {
       throw new Error("ID not Valid");
     }
-    //find the book
+
     const deleteCover = await CoverSong.findById(id);
-    //if book exist
+
     if (!deleteCover) {
-      return res.status(404).json({ message: "CoverSong Not Found" });
+      res.status(404);
+      throw new Error("Song Cover Not Found");
     } else {
-      //delete the book
       await CoverSong.deleteOne(deleteCover);
       logger.info(
-        `Cover song with the artist name of ${deleteCover.coverArtist} has been deleted  `
+        `Cover song with the artist name of ${deleteCover.coverArtist} has been deleted `
       );
     }
     res.send(deleteCover);
@@ -74,34 +64,54 @@ export const postCoverData = async (req, res, next) => {
     //* get the data from body
     const {
       youtubeUrl,
-      coverArtist,
+      coverArtistName,
       originalSongCover,
       originalArtist,
       originalLanguage,
+      originalSongName,
       likes,
     } = req.body;
-    if (!(youtubeUrl && coverArtist)) {
+
+    if (!(youtubeUrl && coverArtistName)) {
       res.status(400);
-      throw new Error(" Artist name & youtube link are required");
+      throw new Error("Artist name & youtube link are required");
     }
 
-    const existingyoutubeUrl = await CoverSong.findOne({ youtubeUrl });
+    const existingYoutubeUrl = await CoverSong.findOne({ youtubeUrl });
 
-    if (existingyoutubeUrl) {
+    if (existingYoutubeUrl) {
       res.status(409);
-      throw new Error(" CoverSong exist in the DB");
+      throw new Error("This cover song is already in the database");
     }
 
     const newCoverSong = await CoverSong.create({
       youtubeUrl,
-      coverArtist,
+      coverArtistName,
       originalSongCover,
       originalArtist,
       originalLanguage,
+      originalSongName,
       likes,
     });
     logger.info(
-      `Cover song with the Artist name of ${coverArtist} has been created`
+      `Cover song with the Artist name of ${coverArtistName} has been created`
+    );
+
+    const originalSong = await Song.findOne({ coverArt: originalSongCover });
+
+    if (!originalSong) {
+      res.status(404);
+      throw new Error("Song is not found");
+    }
+
+    const updateOriginalSong = await Song.findByIdAndUpdate(
+      originalSong._id,
+      {
+        $push: {
+          coverSong: newCoverSong._id,
+        },
+      },
+      { new: true }
     );
 
     res.status(201).send(newCoverSong);

@@ -56,10 +56,12 @@ const SongSchema = new mongoose.Schema(
     youtubeURL: {
       type: String,
     },
-    coverSong: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "CoverSong",
-    },
+    coverSong: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CoverSong",
+      },
+    ],
   },
   {
     toJSON: {
