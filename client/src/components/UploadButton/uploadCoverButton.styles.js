@@ -23,6 +23,7 @@ export const ModalBody = styled.div`
 export const ModalPositionContainer = styled.div`
   width: 100%;
   display: flex;
+  padding-bottom: 40px;
 `;
 
 export const FormContainer = styled.div`
