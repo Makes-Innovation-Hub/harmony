@@ -6,6 +6,7 @@ export const playlistData = {
         genre: " Hebrew Pop",
         coverArt:
           "https://i.scdn.co/image/ab67706f00000003b82f5272ca913b85b73f1690",
+        id: "PLk8TJAK4-CfByrW3UO4eb4Vh22tDVMzD6",
       },
     ],
     hebrewRockMix: [
@@ -34,6 +35,7 @@ export const playlistData = {
         genre: " Arabic Pop",
         coverArt:
           "https://i.scdn.co/image/ab67706c0000bebb570dd22b455637d0bca35cf7",
+        id: "PLk8TJAK4-CfD0wlqtZyOay1zzXByJMH-Y",
       },
     ],
     arabicRockMix: [
