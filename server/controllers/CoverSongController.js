@@ -59,11 +59,20 @@ export const getAllCoverSongs = async (req, res, next) => {
   }
 };
 
+// cuts the youtube link to get only the id of the link
+function getYouTubeAndBackgroundId(url) {
+  var regExp =
+    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  var match = url.match(regExp);
+  return match && match[7].length == 11 ? match[7] : false;
+}
+
 export const postCoverData = async (req, res, next) => {
   try {
     //* get the data from body
     const {
       youtubeUrl,
+      backgroundUrl,
       coverArtistName,
       originalSongCover,
       originalArtist,
@@ -83,9 +92,11 @@ export const postCoverData = async (req, res, next) => {
       res.status(409);
       throw new Error("This cover song is already in the database");
     }
+    const getLinkId = getYouTubeAndBackgroundId(youtubeUrl);
 
     const newCoverSong = await CoverSong.create({
-      youtubeUrl,
+      youtubeUrl: getLinkId,
+      backgroundUrl: getLinkId,
       coverArtistName,
       originalSongCover,
       originalArtist,

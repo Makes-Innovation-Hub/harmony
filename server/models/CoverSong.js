@@ -6,6 +6,7 @@ const CoverSongSchema = new mongoose.Schema(
       required: [true, "Please add coverSong link "],
       unique: true,
     },
+    backgroundUrl: String,
 
     coverArtistName: {
       type: String,

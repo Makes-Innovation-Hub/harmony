@@ -10,14 +10,12 @@ import { useEffect } from "react";
 
 const TranslatingPage = () => {
   const selectedData = useLocation().state;
-  console.log(selectedData);
   const [songDataMutation] = useSongDataMutation();
   const navigate = useNavigate();
   const { t } = useTranslation();
   useEffect(() => {
     songDataMutation(selectedData)
       .then((songData) => {
-        console.log(songData);
         navigate("/song", { state: songData.data });
       })
       .catch((err) => {

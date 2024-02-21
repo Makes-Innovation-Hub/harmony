@@ -14,9 +14,16 @@ import {
 import Youtube from "../../components/Youtube/Youtube";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
-import { t } from "i18next";
 
 export default function CoverPage() {
+  // function getYouTubeId(url) {
+  //   var regExp =
+  //     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  //   var match = url.match(regExp);
+  //   return match && match[7].length == 11 ? match[7] : false;
+  // }
+  // console.log(getYouTubeId("https://www.youtube.com/watch?v=y88nAMy3qsA"));
+
   return (
     <main>
       <Header />
@@ -26,8 +33,9 @@ export default function CoverPage() {
         <ArtistContainer>
           <div>
             <SongCover
-              src="https://i.scdn.co/image/ab67616d0000b273d3ee29593d43accb1bd79e72"
-              alt="Artist avatar"
+              src={`https://img.youtube.com/vi/S3Nif-EyPxk/maxresdefault.jpg`}
+              // src="https://i.scdn.co/image/ab67616d0000b273d3ee29593d43accb1bd79e72"
+              alt="Original song cover"
             />
           </div>
 
