@@ -1,3 +1,4 @@
+import logger from "../logger.js";
 import CoverSong from "../models/CoverSong.js";
 import Song from "../models/Song.js";
 import { isValidObjectId } from "mongoose";
@@ -6,7 +7,6 @@ import { isValidObjectId } from "mongoose";
 // Implement CRUD Operations for CoverSongs
 
 // Description:
-// - `getSelectCoverData`: Placeholder function to retrieve specific data for a given ID (not yet implemented).
 // - `getDeleteAll`: Deletes all documents in the CoverSong collection.
 // - `deleteCoverSongById`: Deletes a specific CoverSong document based on the provided ID.
 // - `getAllCoverSongs`: Retrieves all CoverSongs from the database.
@@ -16,18 +16,10 @@ import { isValidObjectId } from "mongoose";
 // - The code includes error handling and validation for invalid IDs and existing entries.
 // - The commit addresses basic CRUD functionalities for the CoverSong model.
 
-export const getSelectCoverData = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const getDeleteAll = async (req, res, next) => {
   try {
     await CoverSong.deleteMany({});
-    res.send("All delete data successfuly");
+    res.send("All delete data successfully");
   } catch (error) {
     next(error);
   }
@@ -35,20 +27,22 @@ export const getDeleteAll = async (req, res, next) => {
 
 export const deleteCoverSongById = async (req, res, next) => {
   try {
-    //get the id
     const { id } = req.params;
     // check the id if valid
     if (!isValidObjectId(id)) {
       throw new Error("ID not Valid");
     }
-    //find the book
+
     const deleteCover = await CoverSong.findById(id);
-    //if book exist
+
     if (!deleteCover) {
-      return res.status(404).json({ message: "CoverSong Not Found" });
+      res.status(404);
+      throw new Error("Song Cover Not Found");
     } else {
-      //detele the book
       await CoverSong.deleteOne(deleteCover);
+      logger.info(
+        `Cover song with the artist name of ${deleteCover.coverArtist} has been deleted `
+      );
     }
     res.send(deleteCover);
   } catch (error) {
@@ -65,34 +59,71 @@ export const getAllCoverSongs = async (req, res, next) => {
   }
 };
 
+// cuts the youtube link to get only the id of the link
+function getYouTubeAndBackgroundId(url) {
+  var regExp =
+    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  var match = url.match(regExp);
+  return match && match[7].length == 11 ? match[7] : false;
+}
+
 export const postCoverData = async (req, res, next) => {
   try {
-    //* gett the data from body
+    //* get the data from body
     const {
       youtubeUrl,
-      coverArtist,
+      backgroundUrl,
+      coverArtistName,
       originalSongCover,
       originalArtist,
       originalLanguage,
+      originalSongName,
+      likes,
     } = req.body;
-    console.log(youtubeUrl);
-    if (!(youtubeUrl && coverArtist)) {
+
+    if (!(youtubeUrl && coverArtistName)) {
       res.status(400);
-      throw new Error(" Artist name & youtube link are required");
-    }
-    const existingyoutubeUrl = await CoverSong.findOne({ youtubeUrl });
-    if (existingyoutubeUrl) {
-      res.status(409);
-      throw new Error(" CoverSong exist in the DB");
+      throw new Error("Artist name & youtube link are required");
     }
 
+    const existingYoutubeUrl = await CoverSong.findOne({ youtubeUrl });
+
+    if (existingYoutubeUrl) {
+      res.status(409);
+      throw new Error("This cover song is already in the database");
+    }
+    const getLinkId = getYouTubeAndBackgroundId(youtubeUrl);
+
     const newCoverSong = await CoverSong.create({
-      youtubeUrl,
-      coverArtist,
+      youtubeUrl: getLinkId,
+      backgroundUrl: getLinkId,
+      coverArtistName,
       originalSongCover,
       originalArtist,
       originalLanguage,
+      originalSongName,
+      likes,
     });
+    logger.info(
+      `Cover song with the Artist name of ${coverArtistName} has been created`
+    );
+
+    const originalSong = await Song.findOne({ coverArt: originalSongCover });
+
+    if (!originalSong) {
+      res.status(404);
+      throw new Error("Song is not found");
+    }
+
+    const updateOriginalSong = await Song.findByIdAndUpdate(
+      originalSong._id,
+      {
+        $push: {
+          coverSong: newCoverSong._id,
+        },
+      },
+      { new: true }
+    );
 
     res.status(201).send(newCoverSong);
   } catch (error) {

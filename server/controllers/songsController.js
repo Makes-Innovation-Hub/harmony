@@ -118,7 +118,7 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
         { "name.arabic": { $regex: song, $options: "i" } },
         { "name.english": { $regex: song, $options: "i" } },
       ],
-    });
+    }).populate("coverSong");
     if (songs.length > 0) {
       // if there is - send back
       logger.info(
@@ -127,7 +127,6 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
       const artistData = await Artist.findById(songs[0].artist);
       const songData = songs[0];
       songData.artist = artistData;
-      songData.populate("coverSong");
       res.json(songData);
     } else {
       // if not - generate song data - > save song in db

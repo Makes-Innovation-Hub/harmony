@@ -6,8 +6,9 @@ const CoverSongSchema = new mongoose.Schema(
       required: [true, "Please add coverSong link "],
       unique: true,
     },
+    backgroundUrl: String,
 
-    coverArtist: {
+    coverArtistName: {
       type: String,
       required: [true, "Please add name of the artist"],
       min: [6, "Artist name is too short"],
@@ -32,6 +33,8 @@ const CoverSongSchema = new mongoose.Schema(
     originalArtist: String,
 
     originalSongCover: String,
+
+    originalSongName: String,
   },
   {
     timestamps: true,

@@ -3,16 +3,14 @@ import {
   deleteCoverSongById,
   getAllCoverSongs,
   getDeleteAll,
-  getSelectCoverData,
   postCoverData,
 } from "../controllers/CoverSongController.js";
 
 const router = express.Router();
 
-router.get("/:id", getSelectCoverData);
 router.get("/", getAllCoverSongs);
 router.post("/add", postCoverData);
-router.delete("/deleteAll", getDeleteAll);
-router.delete("/delete/:id", deleteCoverSongById);
+router.delete("/deleteAll", getDeleteAll); // for dev
+router.delete("/delete/:id", deleteCoverSongById); // for dev
 
 export default router;

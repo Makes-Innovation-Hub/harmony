@@ -14,39 +14,42 @@ import {
 import Youtube from "../../components/Youtube/Youtube";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
-import { t } from "i18next";
+import { useLocation } from "react-router-dom";
 
 export default function CoverPage() {
+  const { state: coverData } = useLocation();
+  console.log(coverData);
+
   return (
     <main>
       <Header />
-      <CoverArtistTitle>Cover by [Artist Name]</CoverArtistTitle>
+      <CoverArtistTitle>Cover by {coverData?.coverArtistName}</CoverArtistTitle>
 
       <BigContainer>
         <ArtistContainer>
           <div>
             <SongCover
-              src="https://i.scdn.co/image/ab67616d0000b273d3ee29593d43accb1bd79e72"
-              alt="Artist avatar"
+              src={coverData?.originalSongCover}
+              alt="Original song cover"
             />
           </div>
 
           <SongAndSingerContainer>
-            <SongName>Haygely Mawgow3</SongName>
-            <OriginalArtistName>Tamer Ashour</OriginalArtistName>
+            <SongName>{coverData?.originalSongName}</SongName>
+            <OriginalArtistName>{coverData?.originalArtist}</OriginalArtistName>
           </SongAndSingerContainer>
         </ArtistContainer>
 
         <div>
-          <Youtube youtubeUrl={"5_5PtfmoIQk"} />
+          <Youtube youtubeUrl={coverData?.youtubeUrl} />
           <VideoInfo className="video-info">
             <SameLine>
               <img src={shareSvg} alt="share svg" />
               <p>Share</p>
             </SameLine>
-            <p>0 Views</p>
+            <p>{coverData?.views} Views</p>
             <SameLine>
-              <p>0 Likes </p>
+              <p>{coverData?.likes.length} Likes </p>
               <img src={likeSvg} alt="share svg" />
             </SameLine>
           </VideoInfo>
