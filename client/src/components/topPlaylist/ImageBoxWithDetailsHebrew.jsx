@@ -15,8 +15,8 @@ const ImageBoxWithDetailsHebrew = ({ img, mixName, genre }) => {
   };
 
   return (
-    <ImageBox>
-      <Image src={img} onClick={handleImageClick} />
+    <ImageBox onClick={handleMixClick}>
+      <Image src={img} onClick={handleMixClick} />
       <Box>
         <SongP onClick={handleMixClick}>{mixName}</SongP>
         <GenreType genre={genre} />
