@@ -4,7 +4,6 @@ const CoverSongSchema = new mongoose.Schema(
     youtubeUrl: {
       type: String,
       required: [true, "Please add coverSong link "],
-      unique: true,
     },
     backgroundUrl: String,
 

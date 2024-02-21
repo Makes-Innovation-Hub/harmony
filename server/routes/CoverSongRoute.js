@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get("/", getAllCoverSongs);
 router.post("/add", postCoverData);
-router.delete("/deleteAll", getDeleteAll); // for dev
-router.delete("/delete/:id", deleteCoverSongById); // for dev
+router.delete("/deleteAll", getDeleteAll);
+router.delete("/delete/:id", deleteCoverSongById);
 
 export default router;
