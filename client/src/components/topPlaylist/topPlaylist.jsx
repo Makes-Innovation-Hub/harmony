@@ -22,7 +22,6 @@ const TopPlaylist = () => {
     if (isSuccess) {
       setHebrewMixData(playlistData.hebrewPlaylists);
       setArabicMixData(playlistData.arabicPlaylists);
-      console.log(playlistData);
     }
   }, [isSuccess]);
 
@@ -67,6 +66,7 @@ const TopPlaylist = () => {
                   mixName={mix.name}
                   genre={mix.genre}
                   playlistId={mix.id}
+                  playlistLanguage={mix.language}
                   key={index}
                 />
               ))}

@@ -16,7 +16,6 @@ function ImageBoxWithDetailsPlaylist({
   const navigate = useNavigate();
   const handleMixClick = () => {
     console.log(data);
-    console.log(playlistId);
     dispatch(
       setPlaylist({
         playlist: [],
