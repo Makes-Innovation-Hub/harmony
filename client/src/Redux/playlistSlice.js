@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   playlist: [],
   playlistId: null,
-  playlistType: null,
+  playlistName: null,
+  playlistLanguage: null,
   currentSongIndex: null,
   currentSongIsPlaying: false,
 };
@@ -21,7 +22,8 @@ const playlistSlice = createSlice({
     setPlaylist(state, action) {
       state.playlist = action.payload.playlist;
       state.playlistId = action.payload.playlistId;
-      state.playlistType = action.payload.playlistType;
+      state.playlistName = action.payload.playlistName;
+      state.playlistLanguage = action.payload.playlistLanguage;
     },
   },
 });
