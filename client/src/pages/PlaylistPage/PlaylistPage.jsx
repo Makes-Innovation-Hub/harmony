@@ -6,6 +6,7 @@ function PlaylistPage() {
     <>
       <Header />
       <h3>PlaylistPage</h3>
+      <h3>PlaylistPage</h3>
     </>
   );
 }

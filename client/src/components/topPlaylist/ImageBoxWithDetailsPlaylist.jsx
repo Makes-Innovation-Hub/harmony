@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Image, ImageBox, SongP, GenreType } from "./topPlaylistStyle.js";
+import { Box, Image, ImageBox, SongP, GenreType } from "./PlaylistStyle.jsx";
 import { useNavigate } from "react-router-dom";
 
-function ImageBoxWithDetails({ img, mixName, genre }) {
+function ImageBoxWithDetailsPlaylist({ img, mixName, genre }) {
   const navigate = useNavigate();
   const handleMixClick = () => {
     navigate("/playlist");
@@ -18,4 +18,4 @@ function ImageBoxWithDetails({ img, mixName, genre }) {
   );
 }
 
-export default ImageBoxWithDetails;
+export default ImageBoxWithDetailsPlaylist;

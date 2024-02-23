@@ -4,13 +4,13 @@ import {
   TopAMixCountainer,
   Title,
   ImageBoxContainer,
-} from "./topPlaylistStyle";
+} from "./PlaylistStyle";
 import { useGetAllPlaylistDataQuery } from "../../api/playlistApiSlice";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { useState } from "react";
-import ImageBoxWithDetails from "../TopSongGallary/ImageBoxWithDetails";
+import ImageBoxWithDetailsPlaylist from "./ImageBoxWithDetailsPlaylist";
 
 const TopPlaylist = () => {
   const { data: playlistData, isSuccess } = useGetAllPlaylistDataQuery();
@@ -45,7 +45,7 @@ const TopPlaylist = () => {
             <Title>{t("Your Top Hebrew Mixes")}</Title>
             <ImageBoxContainer>
               {hebrewMixData.map((mix, index) => (
-                <ImageBoxWithDetails
+                <ImageBoxWithDetailsPlaylist
                   img={mix.coverArt}
                   mixName={mix.name}
                   genre={mix.genre}
@@ -59,7 +59,7 @@ const TopPlaylist = () => {
             <Title>{t("Your Top Arabic Mixes")}</Title>
             <ImageBoxContainer>
               {arabicMixData.map((mix, index) => (
-                <ImageBoxWithDetails
+                <ImageBoxWithDetailsPlaylist
                   img={mix.coverArt}
                   mixName={mix.name}
                   genre={mix.genre}
