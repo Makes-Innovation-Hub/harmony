@@ -18,7 +18,7 @@ function SongInPlaylist({ arabicName, hebrewName, englishName, imgURL }) {
           englishName={englishName}
           fontSize="13px"
           lineHeight="17.29px"
-          isPlaying={true}
+          isPlaying={false}
         />
       </ContentWrapper2>
     </ContentWrapper>
