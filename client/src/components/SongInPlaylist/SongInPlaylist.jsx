@@ -5,7 +5,7 @@ import { ContentWrapper, ContentWrapper2 } from "./SongInPlaylist.styled";
 
 function SongInPlaylist({ arabicName, hebrewName, englishName, imgURL }) {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
-  // TODO: Check if the song index matches the current song index and define the isActive value accordingly
+  // TODO: Check if the song index matches the current song index and define the isPlaying value accordingly
   return (
     <ContentWrapper>
       <ContentWrapper2>
