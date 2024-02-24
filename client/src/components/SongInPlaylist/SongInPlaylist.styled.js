@@ -7,4 +7,11 @@ const ContentWrapper = styled.div`
   width: 100%;
 `;
 
-export default ContentWrapper;
+const ContentWrapper2 = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+`;
+
+export { ContentWrapper, ContentWrapper2 };

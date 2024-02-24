@@ -1,22 +1,26 @@
+import { useSelector } from "react-redux";
 import ImgCard from "../General/ImgCard";
 import ThreeLangNames from "../ThreeLnagNames/ThreeLangNames";
-import ContentWrapper from "./SongInPlaylist.styled";
+import { ContentWrapper, ContentWrapper2 } from "./SongInPlaylist.styled";
 
 function SongInPlaylist({ arabicName, hebrewName, englishName, imgURL }) {
+  const currentPlaylistData = useSelector((state) => state.currentplaylist);
+  // TODO: Check if the song index matches the current song index and define the isActive value accordingly
   return (
     <ContentWrapper>
-      <ContentWrapper>
+      <ContentWrapper2>
         <ImgCard src={imgURL} />
-      </ContentWrapper>
-      <ContentWrapper>
+      </ContentWrapper2>
+      <ContentWrapper2>
         <ThreeLangNames
           arabicName={arabicName}
           hebrewName={hebrewName}
           englishName={englishName}
           fontSize="13px"
-          lineHeight="17px"
+          lineHeight="17.29px"
+          isPlaying={true}
         />
-      </ContentWrapper>
+      </ContentWrapper2>
     </ContentWrapper>
   );
 }

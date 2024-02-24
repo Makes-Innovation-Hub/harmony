@@ -35,6 +35,7 @@ function PlaylistPage() {
               {playlistQueryData.map((song, index) => (
                 <SongInPlaylist
                   key={index}
+                  songIndex={index}
                   artist={"artistData.name.hebrew"}
                   arabicName={song.songName3Lang.arabic}
                   hebrewName={song.songName3Lang.hebrew}

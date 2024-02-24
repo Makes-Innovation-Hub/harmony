@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   margin-bottom: 0.25rem;
 
   p {
-    color: #333333;
+    color: ${({ isPlaying }) => (isPlaying ? "#498af4" : "#333333")};
     font-family: "ABeeZee Italic";
     text-align: center;
     margin: 0.3rem;
