@@ -1,3 +1,4 @@
+import { response } from "express";
 import logger from "../logger.js";
 import CoverSong from "../models/CoverSong.js";
 import Song from "../models/Song.js";
@@ -120,6 +121,25 @@ export const postCoverData = async (req, res, next) => {
     );
 
     res.status(201).send(newCoverSong);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const clickToAddView = async (res, req, next) => {
+  try {
+    const coverSong = await CoverSong.findByIdAndUpdate(
+      req.params.id,
+      {
+        $inc: { views: 1 },
+      },
+      { new: true }
+    );
+    if (!coverSong) {
+      res.status(404);
+      throw new Error("Cover song not found");
+    }
+    res.send(coverSong);
   } catch (error) {
     next(error);
   }
