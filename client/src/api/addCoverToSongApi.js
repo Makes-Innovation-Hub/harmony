@@ -8,7 +8,7 @@ const addCoverToSong = createApi({
   endpoints: (builder) => ({
     createCover: builder.mutation({
       query: (coverSong) => ({
-        url: "/coverSong/add",
+        url: `/coverSong/add`,
         method: "POST",
         body: coverSong,
       }),
@@ -20,6 +20,12 @@ const addCoverToSong = createApi({
         method: "GET",
       }),
       providesTags: ["getSongById"],
+      transformResponse: (response) => {
+        response.coverSong.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        return response;
+      },
     }),
   }),
 });

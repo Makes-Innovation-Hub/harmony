@@ -14,6 +14,7 @@ const UploadCoverModal = ({
   originalArtist,
   originalSongCover,
   originalSongName,
+  originalSongId,
 }) => {
   const [createCover] = useCreateCoverMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,6 +50,7 @@ const UploadCoverModal = ({
       originalArtist: originalArtist,
       originalSongCover: originalSongCover,
       originalSongName: originalSongName,
+      originalSongId: originalSongId,
     });
     closeModal();
     setCoverData({ artistName: "", youtubeUrl: "" });
