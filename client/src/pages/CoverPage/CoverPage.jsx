@@ -18,17 +18,17 @@ import { useLocation } from "react-router-dom";
 import {
   useAddViewMutation,
   useGetSongByIdQuery,
+  useToggleLikeMutation,
 } from "../../api/viewsAndLikesApi";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
   const [addView] = useAddViewMutation();
+  const [toggleLike] = useToggleLikeMutation();
   const { data: updatedCoverSong } = useGetSongByIdQuery(coverData?._id);
 
-  console.log(updatedCoverSong);
   function addViewToCover() {
-    addView(coverData?._id);
-    console.log(`VIEW ++`);
+    toggleLike(coverData?._id);
   }
 
   return (
@@ -54,7 +54,7 @@ export default function CoverPage() {
         <div>
           <Youtube
             youtubeUrl={coverData?.youtubeUrl}
-            handleAddView={addViewToCover}
+            handleAddView={() => addView(coverData?._id)}
           />
           <VideoInfo className="video-info">
             <SameLine>
@@ -63,8 +63,12 @@ export default function CoverPage() {
             </SameLine>
             <p>{updatedCoverSong?.views} views</p>
             <SameLine>
-              <p>{coverData?.likes.length} Likes </p>
-              <img src={likeSvg} alt="share svg" />
+              <p>{updatedCoverSong?.likes.length} Likes </p>
+              <img
+                onClick={() => toggleLike(coverData?._id)}
+                src={likeSvg}
+                alt="share svg"
+              />
             </SameLine>
           </VideoInfo>
         </div>

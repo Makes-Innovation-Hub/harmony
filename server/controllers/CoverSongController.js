@@ -2,6 +2,7 @@ import logger from "../logger.js";
 import CoverSong from "../models/CoverSong.js";
 import Song from "../models/Song.js";
 import { isValidObjectId } from "mongoose";
+import User from "../models/User.js";
 
 // Commit Message:
 // Implement CRUD Operations for CoverSongs
@@ -148,6 +149,52 @@ export const clickToAddView = async (req, res, next) => {
       throw new Error("Cover song not found");
     }
     res.send(coverSong);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const toggleLike = async (req, res, next) => {
+  try {
+    const coverSong = await CoverSong.findById(req.params.id);
+
+    if (!coverSong) {
+      res.status(404);
+      logger.info(`cover song with id of ${req.params.id} is not found `);
+      throw new Error("coverSong not found");
+    }
+
+    if (coverSong.likes.includes(req.userId.toString())) {
+      const updatedCoverSong = await CoverSong.findByIdAndUpdate(
+        req.params.id,
+        {
+          $pull: { likes: req.userId.toString() },
+        },
+        { new: true }
+      );
+      logger.info(
+        `a user with id of ${req.userId.toString()} has unliked the cover song with id of ${
+          coverSong._id
+        } `
+      );
+
+      res.send(updatedCoverSong);
+    } else {
+      const updatedCoverSong = await CoverSong.findByIdAndUpdate(
+        req.params.id,
+        {
+          $push: { likes: req.userId.toString() },
+        },
+        { new: true }
+      );
+      logger.info(
+        `a user with id of ${req.userId.toString()} has liked the cover song with id of ${
+          coverSong._id
+        } `
+      );
+
+      res.send(updatedCoverSong);
+    }
   } catch (error) {
     next(error);
   }
