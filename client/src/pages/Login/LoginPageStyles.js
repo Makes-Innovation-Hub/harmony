@@ -74,6 +74,9 @@ export const DescriptionText = styled.div`
   width: 364px;
   margin-top: 25px; // Increased spacing
   margin-bottom: 50px; // Added bottom spacing for separation from the button
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 `;
 
 export const StyledGoogleSignInButton = styled.button`

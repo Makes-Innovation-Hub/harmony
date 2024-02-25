@@ -45,7 +45,8 @@ const LoginPage = () => {
       </AppIcon>
       <HarmonyText>Harmony</HarmonyText>
       <DescriptionText>
-        Translate songs between Hebrew and Arabic
+        <p>Translate songs between</p>
+        <p>Hebrew and Arabic</p>
       </DescriptionText>
       <StyledGoogleSignInButton onClick={handleSignInClick}>
         <GoogleLogo src={googleLogo} alt="Google logo" />
