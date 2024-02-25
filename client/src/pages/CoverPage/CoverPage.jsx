@@ -17,19 +17,21 @@ import likeSvg from "../../assets/svgs/thumps-up.svg";
 import { useLocation } from "react-router-dom";
 import {
   useAddViewMutation,
-  useGetSongByIdQuery,
+  useGetCoverSongByIdQuery,
+  useToggleLikeMutation,
 } from "../../api/viewsAndLikesApi";
+import { useGetSongByIdQuery } from "../../api/addCoverToSongApi";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
   const [addView] = useAddViewMutation();
-  const { data: updatedCoverSong } = useGetSongByIdQuery(coverData?._id);
+  const [toggleLike] = useToggleLikeMutation();
+  const { data: updatedCoverSong } = useGetCoverSongByIdQuery(coverData?._id);
+  const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId);
 
-  console.log(updatedCoverSong);
-  function addViewToCover() {
-    addView(coverData?._id);
-    console.log(`VIEW ++`);
-  }
+  useEffect(() => {
+    refetch();
+  }, [updatedCoverSong]);
 
   return (
     <main>
@@ -54,7 +56,7 @@ export default function CoverPage() {
         <div>
           <Youtube
             youtubeUrl={coverData?.youtubeUrl}
-            handleAddView={addViewToCover}
+            handleAddView={() => addView(coverData?._id)}
           />
           <VideoInfo className="video-info">
             <SameLine>
@@ -63,8 +65,12 @@ export default function CoverPage() {
             </SameLine>
             <p>{updatedCoverSong?.views} views</p>
             <SameLine>
-              <p>{coverData?.likes.length} Likes </p>
-              <img src={likeSvg} alt="share svg" />
+              <p>{updatedCoverSong?.likes.length} Likes </p>
+              <img
+                onClick={() => toggleLike(coverData?._id)}
+                src={likeSvg}
+                alt="share svg"
+              />
             </SameLine>
           </VideoInfo>
         </div>
