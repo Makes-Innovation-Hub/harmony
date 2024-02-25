@@ -24,7 +24,7 @@ const addViewsAndLikesApi = createApi({
       }),
       invalidatesTags: ["viewsAndLikes"],
     }),
-    getSongById: builder.query({
+    getCoverSongById: builder.query({
       query: (id) => ({
         url: `/${id}`,
       }),
@@ -42,7 +42,7 @@ const addViewsAndLikesApi = createApi({
 
 export const {
   useAddViewMutation,
-  useGetSongByIdQuery,
+  useGetCoverSongByIdQuery,
   useToggleLikeMutation,
 } = addViewsAndLikesApi;
 export default addViewsAndLikesApi;

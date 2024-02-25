@@ -17,15 +17,21 @@ import likeSvg from "../../assets/svgs/thumps-up.svg";
 import { useLocation } from "react-router-dom";
 import {
   useAddViewMutation,
-  useGetSongByIdQuery,
+  useGetCoverSongByIdQuery,
   useToggleLikeMutation,
 } from "../../api/viewsAndLikesApi";
+import { useGetSongByIdQuery } from "../../api/addCoverToSongApi";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
   const [addView] = useAddViewMutation();
   const [toggleLike] = useToggleLikeMutation();
-  const { data: updatedCoverSong } = useGetSongByIdQuery(coverData?._id);
+  const { data: updatedCoverSong } = useGetCoverSongByIdQuery(coverData?._id);
+  const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId);
+
+  useEffect(() => {
+    refetch();
+  }, [updatedCoverSong]);
 
   return (
     <main>
