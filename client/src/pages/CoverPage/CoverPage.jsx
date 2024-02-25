@@ -15,9 +15,11 @@ import Youtube from "../../components/Youtube/Youtube";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
 import { useLocation } from "react-router-dom";
+import { useAddViewMutation } from "../../api/viewsAndLikesApi";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
+  const [addView] = useAddViewMutation();
 
   return (
     <main>
@@ -40,7 +42,10 @@ export default function CoverPage() {
         </ArtistContainer>
 
         <div>
-          <Youtube youtubeUrl={coverData?.youtubeUrl} />
+          <Youtube
+            youtubeUrl={coverData?.youtubeUrl}
+            handleAddView={() => addView(coverData?._id)}
+          />
           <VideoInfo className="video-info">
             <SameLine>
               <img src={shareSvg} alt="share svg" />

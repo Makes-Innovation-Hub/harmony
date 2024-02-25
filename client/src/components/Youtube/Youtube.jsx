@@ -1,11 +1,12 @@
 import { OriginalSong, YoutubeBox } from "./YoutubeStyle";
 
-function Youtube({ songName, artistName, youtubeUrl }) {
+function Youtube({ songName, artistName, youtubeUrl, handleAddView }) {
   return (
     <div>
-      <OriginalSong>Original Version </OriginalSong>  
+      <OriginalSong>Original Version </OriginalSong>
       <YoutubeBox>
         <iframe
+          onClick={handleAddView}
           width="560"
           height="255"
           src={`https://www.youtube.com/embed/${youtubeUrl}`}
