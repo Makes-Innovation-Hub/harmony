@@ -4,7 +4,17 @@ import { serverApiUrl } from "../constants/urls";
 const addViewsAndLikesApi = createApi({
   reducerPath: "addViewsAndLikes",
   tagTypes: ["viewsAndLikes"],
-  baseQuery: fetchBaseQuery({ baseUrl: `${serverApiUrl}/coverSong` }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${serverApiUrl}/coverSong`,
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     addView: builder.mutation({
       query: (id, coverSong) => ({
@@ -20,8 +30,19 @@ const addViewsAndLikesApi = createApi({
       }),
       providesTags: ["viewsAndLikes"],
     }),
+    toggleLike: builder.mutation({
+      query: (id) => ({
+        url: `/like/${id}`,
+        method: "PUT",
+      }),
+      invalidatesTags: ["viewsAndLikes"],
+    }),
   }),
 });
 
-export const { useAddViewMutation, useGetSongByIdQuery } = addViewsAndLikesApi;
+export const {
+  useAddViewMutation,
+  useGetSongByIdQuery,
+  useToggleLikeMutation,
+} = addViewsAndLikesApi;
 export default addViewsAndLikesApi;
