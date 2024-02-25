@@ -1,4 +1,3 @@
-import { response } from "express";
 import logger from "../logger.js";
 import CoverSong from "../models/CoverSong.js";
 import Song from "../models/Song.js";
@@ -54,6 +53,15 @@ export const deleteCoverSongById = async (req, res, next) => {
 export const getAllCoverSongs = async (req, res, next) => {
   try {
     const coverSongs = await CoverSong.find({});
+    res.send(coverSongs);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCoverSongById = async (req, res, next) => {
+  try {
+    const coverSongs = await CoverSong.findById(req.params.id);
     res.send(coverSongs);
   } catch (error) {
     next(error);
@@ -126,7 +134,7 @@ export const postCoverData = async (req, res, next) => {
   }
 };
 
-export const clickToAddView = async (res, req, next) => {
+export const clickToAddView = async (req, res, next) => {
   try {
     const coverSong = await CoverSong.findByIdAndUpdate(
       req.params.id,

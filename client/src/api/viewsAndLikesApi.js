@@ -7,15 +7,21 @@ const addViewsAndLikesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: `${serverApiUrl}/coverSong` }),
   endpoints: (builder) => ({
     addView: builder.mutation({
-      query: (updatedCover) => ({
-        url: `/add-view/${updatedCover.id}`,
+      query: (id, coverSong) => ({
+        url: `/view/${id}`,
         method: "PUT",
-        body: updatedCover,
+        body: coverSong,
       }),
       invalidatesTags: ["viewsAndLikes"],
+    }),
+    getSongById: builder.query({
+      query: (id) => ({
+        url: `/${id}`,
+      }),
+      providesTags: ["viewsAndLikes"],
     }),
   }),
 });
 
-export const { useAddViewMutation } = addViewsAndLikesApi;
+export const { useAddViewMutation, useGetSongByIdQuery } = addViewsAndLikesApi;
 export default addViewsAndLikesApi;

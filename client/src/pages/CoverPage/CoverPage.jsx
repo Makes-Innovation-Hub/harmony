@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import {
   SongCover,
@@ -15,11 +15,21 @@ import Youtube from "../../components/Youtube/Youtube";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
 import { useLocation } from "react-router-dom";
-import { useAddViewMutation } from "../../api/viewsAndLikesApi";
+import {
+  useAddViewMutation,
+  useGetSongByIdQuery,
+} from "../../api/viewsAndLikesApi";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
   const [addView] = useAddViewMutation();
+  const { data: updatedCoverSong } = useGetSongByIdQuery(coverData?._id);
+
+  console.log(updatedCoverSong);
+  function addViewToCover() {
+    addView(coverData?._id);
+    console.log(`VIEW ++`);
+  }
 
   return (
     <main>
@@ -44,14 +54,14 @@ export default function CoverPage() {
         <div>
           <Youtube
             youtubeUrl={coverData?.youtubeUrl}
-            handleAddView={() => addView(coverData?._id)}
+            handleAddView={addViewToCover}
           />
           <VideoInfo className="video-info">
             <SameLine>
               <img src={shareSvg} alt="share svg" />
               <p>Share</p>
             </SameLine>
-            <p>{coverData?.views} Views</p>
+            <p>{updatedCoverSong?.views} views</p>
             <SameLine>
               <p>{coverData?.likes.length} Likes </p>
               <img src={likeSvg} alt="share svg" />
