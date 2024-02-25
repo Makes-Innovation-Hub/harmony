@@ -5,7 +5,8 @@ const initialState = {
   playlistId: null,
   playlistName: null,
   playlistLanguage: null,
-  currentSongIndex: null,
+  currentSong: null,
+  currentSongIndex: 0,
   currentSongIsPlaying: false,
 };
 
@@ -14,7 +15,8 @@ const playlistSlice = createSlice({
   initialState,
   reducers: {
     setCurrentSong(state, action) {
-      state.currentSongIndex = action.payload;
+      state.currentSong = action.payload.currentSong;
+      state.currentSongIndex = action.payload.songIndex;
     },
     playSong(state, action) {
       state.currentSongIsPlaying = action.payload;
@@ -24,9 +26,14 @@ const playlistSlice = createSlice({
       state.playlistId = action.payload.playlistId;
       state.playlistName = action.payload.playlistName;
       state.playlistLanguage = action.payload.playlistLanguage;
+      state.currentSongIndex = 0;
+    },
+    populatePlaylistArray(state, action) {
+      state.playlist = action.payload;
     },
   },
 });
 
-export const { setCurrentSong, playSong, setPlaylist } = playlistSlice.actions;
+export const { setCurrentSong, playSong, setPlaylist, populatePlaylistArray } =
+  playlistSlice.actions;
 export default playlistSlice.reducer;

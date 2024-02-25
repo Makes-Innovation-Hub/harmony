@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import Header from "../../components/Header/Header";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetPlaylistByIdQuery } from "../../api/playlistApiSlice";
+import { populatePlaylistArray } from "../../Redux/playlistSlice.js";
 import {
   ContentWrapper,
   PageWrapper,
@@ -12,18 +13,17 @@ import SongInPlaylist from "../../components/SongInPlaylist/SongInPlaylist.jsx";
 
 function PlaylistPage() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
+  const dispatch = useDispatch();
   const { data: playlistQueryData, isSuccess } = useGetPlaylistByIdQuery({
     id: currentPlaylistData.playlistId,
     lang: currentPlaylistData.playlistLanguage,
   });
-  useEffect(() => {
-    console.log(currentPlaylistData);
-  }, []);
 
   useEffect(() => {
     if (isSuccess) {
       console.log("playlistQueryData");
       console.log(playlistQueryData);
+      dispatch(populatePlaylistArray(playlistQueryData));
     }
   }, [isSuccess]);
   return (
@@ -44,7 +44,6 @@ function PlaylistPage() {
                   hebrewName={song.songName3Lang.hebrew}
                   englishName={song.songName3Lang.english}
                   imgURL={song.thumbnailUrl}
-                  isPlaying={index === 0 ? true : false}
                 />
               ))}
             </ContentWrapper>
