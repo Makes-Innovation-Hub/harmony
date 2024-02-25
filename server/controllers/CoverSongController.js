@@ -72,13 +72,13 @@ export const postCoverData = async (req, res, next) => {
     //* get the data from body
     const {
       youtubeUrl,
-      backgroundUrl,
       coverArtistName,
       originalSongCover,
       originalArtist,
       originalLanguage,
       originalSongName,
       likes,
+      originalSongId,
     } = req.body;
 
     if (!(youtubeUrl && coverArtistName)) {
@@ -103,20 +103,14 @@ export const postCoverData = async (req, res, next) => {
       originalLanguage,
       originalSongName,
       likes,
+      originalSongId,
     });
     logger.info(
       `Cover song with the Artist name of ${coverArtistName} has been created`
     );
 
-    const originalSong = await Song.findOne({ coverArt: originalSongCover });
-
-    if (!originalSong) {
-      res.status(404);
-      throw new Error("Song is not found");
-    }
-
-    const updateOriginalSong = await Song.findByIdAndUpdate(
-      originalSong._id,
+    await Song.findByIdAndUpdate(
+      originalSongId,
       {
         $push: {
           coverSong: newCoverSong._id,

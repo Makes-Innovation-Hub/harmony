@@ -34,6 +34,11 @@ const CoverSongSchema = new mongoose.Schema(
     originalSongCover: String,
 
     originalSongName: String,
+
+    originalSongId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Song",
+    },
   },
   {
     timestamps: true,

@@ -1,7 +1,7 @@
 import SongDetails from "../components/songDetails/SongDetails";
 import Lyrics from "../components/Lyrics/Lyrics";
 import Header from "../components/Header/Header";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Youtube from "../components/Youtube/Youtube";
 import UploadCoverModal from "../components/UploadButton/UploadCoverModal";
 import SongCover from "../components/SongCover/SongCover";
@@ -38,6 +38,7 @@ function SongPage() {
         originalLang={songData.originalLang}
         originalSongCover={songData.coverArt}
         originalSongName={songData.name.english}
+        originalSongId={songData._id}
       />
 
       {songData?.coverSong.length > 0 && <CoversTitle>Covers</CoversTitle>}
