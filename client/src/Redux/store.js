@@ -8,11 +8,13 @@ import { songDataApi } from "../api/songDataApiSlice";
 import artistApiSlice from "../api/artistApiSlice";
 import addCoverToSong from "../api/addCoverToSongApi";
 import addViewsAndLikesApi from "../api/viewsAndLikesApi";
+import authReducer from "./authSlice";
 
 export default configureStore({
   reducer: {
     languageSelect: languageReducer,
     searchResults: searchResultsReducer,
+    auth: authReducer,
     [hebrewSongsApi.reducerPath]: hebrewSongsApi.reducer,
     [topSongsApi.reducerPath]: topSongsApi.reducer,
     [songDataApi.reducerPath]: songDataApi.reducer,
