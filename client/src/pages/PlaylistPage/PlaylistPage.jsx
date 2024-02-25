@@ -40,7 +40,7 @@ function PlaylistPage() {
                   arabicName={song.songName3Lang.arabic}
                   hebrewName={song.songName3Lang.hebrew}
                   englishName={song.songName3Lang.english}
-                  imgURL={song.profilePicUrl}
+                  imgURL={song.thumbnailUrl}
                   isPlaying={index === 0 ? true : false}
                 />
               ))}

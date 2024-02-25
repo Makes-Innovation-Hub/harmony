@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import ImgCard from "../General/ImgCard";
 import ThreeLangNames from "../ThreeLnagNames/ThreeLangNames";
 import { ContentWrapper, ContentWrapper2 } from "./SongInPlaylist.styled";
+import ThreeLangSongName from "../ThreeLangSongName/ThreeLangSongName";
 
 function SongInPlaylist({
   arabicName,
@@ -18,7 +19,7 @@ function SongInPlaylist({
         <ImgCard src={imgURL} />
       </ContentWrapper2>
       <ContentWrapper2>
-        <ThreeLangNames
+        <ThreeLangSongName
           arabicName={arabicName}
           hebrewName={hebrewName}
           englishName={englishName}

@@ -47,6 +47,18 @@ export const Title = styled.h2`
     font-family: "ABeeZee";
   }
 `;
+export const Playlist = styled.h1`
+  @media (min-width: 0px) and (max-width: 700px) {
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #333333;
+    font-style: italic;
+    margin-left: 8%;
+    line-height: 1.912;
+    font-family: "ABeeZee";
+    text-decoration: underline;
+  }
+`;
 export const ImageBoxContainer = styled.div`
   overflow-x: auto;
   white-space: nowrap;

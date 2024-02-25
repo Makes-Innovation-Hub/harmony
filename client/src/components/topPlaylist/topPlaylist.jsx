@@ -4,6 +4,7 @@ import {
   TopAMixCountainer,
   Title,
   ImageBoxContainer,
+  Playlist,
 } from "./PlaylistStyle";
 import { useGetAllPlaylistDataQuery } from "../../api/playlistApiSlice";
 import { useDispatch } from "react-redux";
@@ -39,7 +40,7 @@ const TopPlaylist = () => {
     <>
       {hebrewMixData && arabicMixData && (
         <SongGallery>
-          <h2>Harmony Playlists</h2>
+          <Playlist>{t("Harmony Playlist")}</Playlist>
 
           <TopHMixCountainer>
             <Title>{t("Your Top Hebrew Mixes")}</Title>
