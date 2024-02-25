@@ -23,17 +23,30 @@ export const TopHMixCountainer = styled.div`
 `;
 export const ImageBox = styled.div`
   @media (min-width: 0px) and (max-width: 700px) {
-    width: 100%;
-    height: 100%;
-    padding: 15px;
+    width: 110%;
+    height: 105%;
+    padding-right: 35px;
   }
 `;
+
 export const Image = styled.img`
   @media (min-width: 0px) and (max-width: 700px) {
-    max-width: 115%;
-    max-height: 120%;
+    max-width: 105%;
+    max-height: 115%;
     object-fit: cover;
-    border-radius: 30px;
+    border-radius: 35px;
+  }
+`;
+export const Playlist = styled.h1`
+  @media (min-width: 0px) and (max-width: 700px) {
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #333333;
+    font-style: italic;
+    margin-left: 8%;
+    line-height: 1.912;
+    font-family: "ABeeZee";
+    text-decoration: underline;
   }
 `;
 export const Title = styled.h2`
@@ -87,6 +100,7 @@ export const Box = styled.div`
     margin-top: -3.18rem;
     width: 6rem;
     margin-left: 0.6rem;
+    padding-right: 20px;
   }
 `;
 export const SongP = styled.p`

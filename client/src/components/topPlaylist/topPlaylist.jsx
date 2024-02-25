@@ -4,6 +4,7 @@ import {
   TopAMixCountainer,
   Title,
   ImageBoxContainer,
+  Playlist,
 } from "./topPlaylistStyle";
 import { useGetAllPlaylistDataQuery } from "../../api/playlistApiSlice";
 import { useDispatch } from "react-redux";
@@ -38,107 +39,103 @@ const TopPlaylist = () => {
   };
 
   return (
-    <>
-      {hebrewMixData && arabicMixData && (
-        <SongGallery>
-          <h2>Harmony Playlists</h2>
+    <SongGallery>
+      <Playlist>{t("Harmony Playlist")}</Playlist>
 
-          <TopHMixCountainer>
-            <Title>{t("Your Top Hebrew Mixes")}</Title>
-            <ImageBoxContainer>
-              {hebrewMixData.hebrewRockMix.map((mix, index) => (
-                <Link
-                  to="/playlist"
-                  key={index}
-                  onClick={() => handleMixClick("hebrew", mix.name)}
-                >
-                  <ImageBoxWithDetailsHebrew
-                    img={mix.coverArt}
-                    mixName={mix.name}
-                    genre="Rock"
-                  />
-                </Link>
-              ))}
+      <TopHMixCountainer>
+        <Title>{t("Your Top Hebrew Mixes")}</Title>
+        <ImageBoxContainer>
+          {hebrewMixData?.hebrewRockMix?.map((mix, index) => (
+            <Link
+              to="/playlist"
+              key={index}
+              onClick={() => handleMixClick("hebrew", mix.name)}
+            >
+              <ImageBoxWithDetailsHebrew
+                img={mix.coverArt}
+                mixName={mix.name}
+                genre="Rock"
+              />
+            </Link>
+          ))}
 
-              {hebrewMixData.hebrewPopMix.map((mix, index) => (
-                <Link
-                  to="/playlist"
-                  key={index}
-                  onClick={() => handleMixClick("hebrew", mix.name)}
-                >
-                  <ImageBoxWithDetailsHebrew
-                    img={mix.coverArt}
-                    mixName={mix.name}
-                    genre="Pop"
-                  />
-                </Link>
-              ))}
+          {hebrewMixData?.hebrewPopMix?.map((mix, index) => (
+            <Link
+              to="/playlist"
+              key={index}
+              onClick={() => handleMixClick("hebrew", mix.name)}
+            >
+              <ImageBoxWithDetailsHebrew
+                img={mix.coverArt}
+                mixName={mix.name}
+                genre="Pop"
+              />
+            </Link>
+          ))}
 
-              {hebrewMixData.hebrewOrientalMix.map((mix, index) => (
-                <Link
-                  to="/playlist"
-                  key={index}
-                  onClick={() => handleMixClick("hebrew", mix.name)}
-                >
-                  <ImageBoxWithDetailsHebrew
-                    img={mix.coverArt}
-                    mixName={mix.name}
-                    genre="Oriental"
-                  />
-                </Link>
-              ))}
-            </ImageBoxContainer>
-          </TopHMixCountainer>
+          {hebrewMixData?.hebrewOrientalMix?.map((mix, index) => (
+            <Link
+              to="/playlist"
+              key={index}
+              onClick={() => handleMixClick("hebrew", mix.name)}
+            >
+              <ImageBoxWithDetailsHebrew
+                img={mix.coverArt}
+                mixName={mix.name}
+                genre="Oriental"
+              />
+            </Link>
+          ))}
+        </ImageBoxContainer>
+      </TopHMixCountainer>
 
-          <TopAMixCountainer>
-            <Title>{t("Your Top Arabic Mixes")}</Title>
-            <ImageBoxContainer>
-              {arabicMixData.arabicRockMix.map((mix, index) => (
-                <Link
-                  to="/playlist"
-                  key={index}
-                  onClick={() => handleMixClick("arabic", mix.name)}
-                >
-                  <ImageBoxWithDetailsArabic
-                    img={mix.coverArt}
-                    mixName={mix.name}
-                    genre="Rock"
-                  />
-                </Link>
-              ))}
+      <TopAMixCountainer>
+        <Title>{t("Your Top Arabic Mixes")}</Title>
+        <ImageBoxContainer>
+          {arabicMixData?.arabicRockMix?.map((mix, index) => (
+            <Link
+              to="/playlist"
+              key={index}
+              onClick={() => handleMixClick("arabic", mix.name)}
+            >
+              <ImageBoxWithDetailsArabic
+                img={mix.coverArt}
+                mixName={mix.name}
+                genre="Rock"
+              />
+            </Link>
+          ))}
 
-              {arabicMixData.arabicPopMix.map((mix, index) => (
-                <Link
-                  to="/playlist"
-                  key={index}
-                  onClick={() => handleMixClick("arabic", mix.name)}
-                >
-                  <ImageBoxWithDetailsArabic
-                    img={mix.coverArt}
-                    mixName={mix.name}
-                    genre="Pop"
-                  />
-                </Link>
-              ))}
+          {arabicMixData?.arabicPopMix?.map((mix, index) => (
+            <Link
+              to="/playlist"
+              key={index}
+              onClick={() => handleMixClick("arabic", mix.name)}
+            >
+              <ImageBoxWithDetailsArabic
+                img={mix.coverArt}
+                mixName={mix.name}
+                genre="Pop"
+              />
+            </Link>
+          ))}
 
-              {arabicMixData.arabicOrientalMix.map((mix, index) => (
-                <Link
-                  to="/playlist"
-                  key={index}
-                  onClick={() => handleMixClick("arabic", mix.name)}
-                >
-                  <ImageBoxWithDetailsArabic
-                    img={mix.coverArt}
-                    mixName={mix.name}
-                    genre="Oriental"
-                  />
-                </Link>
-              ))}
-            </ImageBoxContainer>
-          </TopAMixCountainer>
-        </SongGallery>
-      )}
-    </>
+          {arabicMixData?.arabicOrientalMix?.map((mix, index) => (
+            <Link
+              to="/playlist"
+              key={index}
+              onClick={() => handleMixClick("arabic", mix.name)}
+            >
+              <ImageBoxWithDetailsArabic
+                img={mix.coverArt}
+                mixName={mix.name}
+                genre="Oriental"
+              />
+            </Link>
+          ))}
+        </ImageBoxContainer>
+      </TopAMixCountainer>
+    </SongGallery>
   );
 };
 
