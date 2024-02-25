@@ -27,10 +27,6 @@ export default function CoverPage() {
   const [toggleLike] = useToggleLikeMutation();
   const { data: updatedCoverSong } = useGetSongByIdQuery(coverData?._id);
 
-  function addViewToCover() {
-    toggleLike(coverData?._id);
-  }
-
   return (
     <main>
       <Header />
