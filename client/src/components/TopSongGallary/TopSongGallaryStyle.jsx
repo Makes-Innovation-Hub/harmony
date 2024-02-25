@@ -55,6 +55,7 @@ export const ImageBoxContainer = styled.div`
   }
   @media (max-width: 700px) {
     display: flex;
+    gap: 0.2rem;
     flex-direction: row;
     margin-top: 4%;
     &::-webkit-scrollbar {
