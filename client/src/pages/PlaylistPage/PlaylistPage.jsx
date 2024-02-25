@@ -2,7 +2,11 @@ import React, { useEffect } from "react";
 import Header from "../../components/Header/Header";
 import { useSelector } from "react-redux";
 import { useGetPlaylistByIdQuery } from "../../api/playlistApiSlice";
-import { ContentWrapper, PageWrapper } from "./PlaylistPage.styled.js";
+import {
+  ContentWrapper,
+  PageWrapper,
+  PlaylistTitle,
+} from "./PlaylistPage.styled.js";
 import FlexGrowContainer from "../../components/FlexGrowContainer/FlexGrowContainer";
 import SongInPlaylist from "../../components/SongInPlaylist/SongInPlaylist.jsx";
 
@@ -27,9 +31,8 @@ function PlaylistPage() {
       <Header />
       {isSuccess && (
         <>
-          <FlexGrowContainer flexGrow="2" padding="0 0.8rem">
-            <h3>{currentPlaylistData.playlistName}</h3>
-          </FlexGrowContainer>
+          <PlaylistTitle>{currentPlaylistData.playlistName}</PlaylistTitle>
+
           <FlexGrowContainer flexGrow="6" padding="0 0.8rem">
             <ContentWrapper>
               {playlistQueryData.map((song, index) => (
