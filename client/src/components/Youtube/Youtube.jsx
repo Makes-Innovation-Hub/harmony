@@ -4,9 +4,8 @@ function Youtube({ songName, artistName, youtubeUrl, handleAddView }) {
   return (
     <div>
       <OriginalSong>Original Version </OriginalSong>
-      <YoutubeBox>
+      <YoutubeBox onClick={handleAddView}>
         <iframe
-          onClick={handleAddView}
           width="560"
           height="255"
           src={`https://www.youtube.com/embed/${youtubeUrl}`}
