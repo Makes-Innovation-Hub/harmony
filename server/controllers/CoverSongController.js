@@ -59,6 +59,15 @@ export const getAllCoverSongs = async (req, res, next) => {
   }
 };
 
+export const getCoverSongById = async (req, res, next) => {
+  try {
+    const coverSongs = await CoverSong.findById(req.params.id);
+    res.send(coverSongs);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // cuts the youtube link to get only the id of the link
 function getYouTubeAndBackgroundId(url) {
   var regExp =
@@ -120,6 +129,25 @@ export const postCoverData = async (req, res, next) => {
     );
 
     res.status(201).send(newCoverSong);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const clickToAddView = async (req, res, next) => {
+  try {
+    const coverSong = await CoverSong.findByIdAndUpdate(
+      req.params.id,
+      {
+        $inc: { views: 1 },
+      },
+      { new: true }
+    );
+    if (!coverSong) {
+      res.status(404);
+      throw new Error("Cover song not found");
+    }
+    res.send(coverSong);
   } catch (error) {
     next(error);
   }

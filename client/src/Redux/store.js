@@ -7,6 +7,7 @@ import searchResultsReducer from "./searchResultsSlice";
 import { songDataApi } from "../api/songDataApiSlice";
 import artistApiSlice from "../api/artistApiSlice";
 import addCoverToSong from "../api/addCoverToSongApi";
+import addViewsAndLikesApi from "../api/viewsAndLikesApi";
 import authReducer from "./authSlice";
 
 export default configureStore({
@@ -20,6 +21,7 @@ export default configureStore({
     [searchsliceapi.reducerPath]: searchsliceapi.reducer,
     [artistApiSlice.reducerPath]: artistApiSlice.reducer,
     [addCoverToSong.reducerPath]: addCoverToSong.reducer,
+    [addViewsAndLikesApi.reducerPath]: addViewsAndLikesApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
@@ -29,6 +31,7 @@ export default configureStore({
       songDataApi.middleware,
       artistApiSlice.middleware,
       addCoverToSong.middleware,
+      addViewsAndLikesApi.middleware,
     ]);
   },
 });
