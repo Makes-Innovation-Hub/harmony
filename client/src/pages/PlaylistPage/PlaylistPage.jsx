@@ -31,9 +31,8 @@ function PlaylistPage() {
       <Header />
       {isSuccess && (
         <>
-          <FlexGrowContainer flexGrow="2" padding="2rem 0.8rem">
-            <PlaylistTitle>{currentPlaylistData.playlistName}</PlaylistTitle>
-          </FlexGrowContainer>
+          <PlaylistTitle>{currentPlaylistData.playlistName}</PlaylistTitle>
+
           <FlexGrowContainer flexGrow="6" padding="0 0.8rem">
             <ContentWrapper>
               {playlistQueryData.map((song, index) => (
