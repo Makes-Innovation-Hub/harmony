@@ -41,9 +41,8 @@ const TopPlaylist = () => {
       {hebrewMixData && arabicMixData && (
         <SongGallery>
           <Playlist>{t("Harmony Playlist")}</Playlist>
-
           <TopHMixCountainer>
-            <Title>{t("Your Top Hebrew Mixes")}</Title>
+            <Title>{t("Your Top Hebrew mixes")}</Title>
             <ImageBoxContainer>
               {hebrewMixData.map((mix, index) => (
                 <ImageBoxWithDetailsPlaylist
@@ -59,7 +58,7 @@ const TopPlaylist = () => {
           </TopHMixCountainer>
 
           <TopAMixCountainer>
-            <Title>{t("Your Top Arabic Mixes")}</Title>
+            <Title>{t("Your Top Arabic mixes")}</Title>
             <ImageBoxContainer>
               {arabicMixData.map((mix, index) => (
                 <ImageBoxWithDetailsPlaylist
