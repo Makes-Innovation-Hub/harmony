@@ -17,16 +17,16 @@ function ImageBoxWithDetailsPlaylist({
   const handleMixClick = () => {
     console.log(data);
     //TODO If add check if the song is playing
-    if (!data.playlistId === playlistId) {
-      dispatch(
-        setPlaylist({
-          playlist: [],
-          playlistId: playlistId,
-          playlistName: mixName,
-          playlistLanguage: playlistLanguage,
-        })
-      );
-    }
+    // if (!data.playlistId === playlistId) {
+    // }
+    dispatch(
+      setPlaylist({
+        playlist: [],
+        playlistId: playlistId,
+        playlistName: mixName,
+        playlistLanguage: playlistLanguage,
+      })
+    );
 
     navigate("/playlist");
   };
