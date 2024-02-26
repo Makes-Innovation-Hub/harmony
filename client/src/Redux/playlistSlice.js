@@ -26,7 +26,7 @@ const playlistSlice = createSlice({
       state.playlistId = action.payload.playlistId;
       state.playlistName = action.payload.playlistName;
       state.playlistLanguage = action.payload.playlistLanguage;
-      state.currentSongIndex = 0;
+      // state.currentSongIndex = 0;
     },
     populatePlaylistArray(state, action) {
       state.playlist = action.payload;
