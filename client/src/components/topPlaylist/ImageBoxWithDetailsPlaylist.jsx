@@ -15,7 +15,6 @@ function ImageBoxWithDetailsPlaylist({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleMixClick = () => {
-    console.log(data);
     //TODO If add check if the song is playing
     // if (!data.playlistId === playlistId) {
     // }

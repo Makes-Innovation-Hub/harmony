@@ -22,7 +22,6 @@ function SongInPlaylist({
         songIndex: songIndex,
       })
     );
-    console.log(currentPlaylistData);
     navigate("/playlistSongPage");
   };
   return (

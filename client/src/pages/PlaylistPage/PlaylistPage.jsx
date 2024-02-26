@@ -21,8 +21,6 @@ function PlaylistPage() {
 
   useEffect(() => {
     if (isSuccess) {
-      console.log("playlistQueryData");
-      console.log(playlistQueryData);
       dispatch(populatePlaylistArray(playlistQueryData));
     }
   }, [isSuccess]);

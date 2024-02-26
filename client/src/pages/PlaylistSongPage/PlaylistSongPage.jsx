@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import Header from "../../components/Header/Header";
 
 function PlaylistSongPage() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
-  useEffect(() => {
-    console.log(currentPlaylistData);
-  }, [currentPlaylistData]);
-
   return (
     <>
       <Header />
