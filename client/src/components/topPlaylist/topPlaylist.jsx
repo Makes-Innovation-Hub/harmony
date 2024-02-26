@@ -27,14 +27,6 @@ const TopPlaylist = () => {
   }, [isSuccess]);
 
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-
-  const handleMixClick = (language, mixName) => {
-    dispatch({
-      type: "SET_SELECTED_MIX",
-      payload: { language, mixName },
-    });
-  };
 
   return (
     <>

@@ -16,6 +16,9 @@ function ImageBoxWithDetailsPlaylist({
   const navigate = useNavigate();
   const handleMixClick = () => {
     console.log(data);
+    //TODO If add check if the song is playing
+    // if (!data.playlistId === playlistId) {
+    // }
     dispatch(
       setPlaylist({
         playlist: [],
@@ -24,6 +27,7 @@ function ImageBoxWithDetailsPlaylist({
         playlistLanguage: playlistLanguage,
       })
     );
+
     navigate("/playlist");
   };
   return (
