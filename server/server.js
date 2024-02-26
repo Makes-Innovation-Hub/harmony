@@ -15,6 +15,7 @@ import errorHandler from "./middleware/errorHandler.js";
 import lyricsRoute from "./routes/lyricsRoute.js";
 import searchRoutes from "./routes/searchRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import CoverSongRoute from "./routes/CoverSongRoute.js";
 import playlistRouter from "./routes/playlistRoutes.js";
 import loggingMiddleware from "./reqLogger.js";
 
@@ -42,6 +43,7 @@ app.use("/api/v1/cover", coverArtRouter);
 app.use("/api/v1/lyrics", lyricsRoute);
 app.use("/api/v1/scrap", scrappingRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/coverSong", CoverSongRoute);
 app.use("/api/v1/playlist", playlistRouter);
 
 app.get("/", (req, res) => {

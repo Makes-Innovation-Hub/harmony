@@ -6,13 +6,19 @@ import ArtistPage from "./pages/ArtistPage/ArtistPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TranslatingPage from "./pages/TranslatingPage";
 import SearchResultsPage from "./pages/SearchResults/SearchResults";
-import { useState } from "react";
-import "./App.css";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
 import Login from "./pages/Login/Login";
+import CoverPage from "./pages/CoverPage/CoverPage";
+import SecureRoute from "./components/SecureRoute.jsx";
 import PlaylistPage from "./pages/PlaylistPage/PlaylistPage";
 import PlaylistSongPage from "./pages/PlaylistSongPage/PlaylistSongPage.jsx";
+
+const secureRoute = (Component) => (
+  <SecureRoute>
+    <Component />
+  </SecureRoute>
+);
 
 const Router = createBrowserRouter([
   {
@@ -21,44 +27,47 @@ const Router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Home />,
+    element: secureRoute(Home),
   },
   {
     path: "/song",
-    element: <SongPage />,
+    element: secureRoute(SongPage),
   },
   {
     path: "/Artist",
-    element: <ArtistPage />,
+    element: secureRoute(ArtistPage),
   },
   {
     path: "/translating",
-    element: <TranslatingPage />,
+    element: secureRoute(TranslatingPage),
   },
   {
     path: "/not-found",
-    element: <NotFoundPage />,
+    element: secureRoute(NotFoundPage),
   },
   {
     path: "/results",
-    element: <SearchResultsPage />,
+    element: secureRoute(SearchResultsPage),
+  },
+  {
+    path: "/cover",
+    element: secureRoute(CoverPage),
+  },
+  {
+    path: "/*",
+    element: secureRoute(NotFoundPage),
   },
   {
     path: "/playlist",
-    element: <PlaylistPage />,
+    element: secureRoute(PlaylistPage),
   },
   {
     path: "/playlistSongPage",
-    element: <PlaylistSongPage />,
+    element: secureRoute(PlaylistSongPage),
   },
 ]);
 
 function App() {
-  const [showError, setShowError] = useState(false);
-  if (showError) {
-    setShowError(true);
-    throw new Error("Oops! Something went wrong");
-  }
   return (
     <I18nextProvider i18n={i18n}>
       <div>
@@ -67,4 +76,5 @@ function App() {
     </I18nextProvider>
   );
 }
+
 export default App;
