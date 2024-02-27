@@ -11,6 +11,7 @@ import {
   SongName,
 } from "./PlaylistSongPage.styled";
 import Youtube from "../../components/Youtube/Youtube";
+import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
 
 function PlaylistSongPage() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
