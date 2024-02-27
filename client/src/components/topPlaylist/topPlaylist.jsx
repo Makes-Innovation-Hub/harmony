@@ -32,7 +32,7 @@ const TopPlaylist = () => {
     <>
       {hebrewMixData && arabicMixData && (
         <SongGallery>
-          <Playlist>{t("Harmony Playlist")}</Playlist>
+          <Playlist>{t("Harmony Playlists")}</Playlist>
           <TopHMixCountainer>
             <Title>{t("Your Top Hebrew mixes")}</Title>
             <ImageBoxContainer>
