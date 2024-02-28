@@ -5,7 +5,7 @@ import {
   getAllCoverSongs,
   getCoverSongById,
   getDeleteAll,
-  getMostLikedHebrewCoverSongs,
+  getHebrewCoverSongs,
   postCoverData,
   toggleLike,
 } from "../controllers/CoverSongController.js";
@@ -15,6 +15,7 @@ const router = express.Router();
 
 router.get("/", getAllCoverSongs);
 router.get("/:id", getCoverSongById);
+router.get("/hebrew-covers", getHebrewCoverSongs);
 router.post("/add", postCoverData);
 router.delete("/deleteAll", getDeleteAll);
 router.delete("/delete/:id", deleteCoverSongById);
@@ -22,6 +23,5 @@ router.put("/view/:id", clickToAddView);
 // protected router
 router.use(isAuthenticated);
 router.put("/like/:id", toggleLike);
-router.get("/most-liked", getMostLikedHebrewCoverSongs);
 
 export default router;

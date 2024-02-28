@@ -48,10 +48,10 @@ async function handleUser({ id, displayName, emails, provider }, done) {
   }
 }
 
-const serverPort = import.meta.env.VITE_SERVER_PORT;
-const serverBaseUrl = import.meta.env.VITE_SERVER_BASE_URL;
+const serverBaseUrl = process.env.SERVER_BASE_URL || "http://localhost";
+const serverPort = process.env.SERVER_PORT || 5000;
 
-// Construct the full server URL
+// Construct the full server URL dynamically
 const fullServerUrl = `${serverBaseUrl}:${serverPort}`;
 
 // Google Strategy
