@@ -5,17 +5,17 @@ import {
   getAllCoverSongs,
   getCoverSongById,
   getDeleteAll,
-  getHebrewCoverSongs,
+  getTopCoverSongs,
   postCoverData,
   toggleLike,
 } from "../controllers/CoverSongController.js";
 import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = express.Router();
+router.get("/top-covers", getTopCoverSongs);
 
 router.get("/", getAllCoverSongs);
 router.get("/:id", getCoverSongById);
-router.get("/hebrew-covers", getHebrewCoverSongs);
 router.post("/add", postCoverData);
 router.delete("/deleteAll", getDeleteAll);
 router.delete("/delete/:id", deleteCoverSongById);

@@ -203,18 +203,30 @@ export const toggleLike = async (req, res, next) => {
   }
 };
 
-export const getHebrewCoverSongs = async (req, res, next) => {
+export const getTopCoverSongs = async (req, res, next) => {
   try {
-    const hebrewSongs = await CoverSong.find({
-      originalLanguage: "hebrew",
-    });
-    if (!hebrewSongs) {
-      res.status(404);
-      throw new Error("Hebrew songs not found");
+    const language = req.query.language;
+    if (language === "hebrew") {
+      const hebrewSongs = await CoverSong.find({
+        originalLanguage: "hebrew",
+      });
+      if (!hebrewSongs) {
+        res.status(404);
+        throw new Error("Hebrew songs not found");
+      }
+      res.send(hebrewSongs);
     }
-    res.send(hebrewSongs);
+    if (language === "arabic") {
+      const arabicSongs = await CoverSong.find({
+        originalLanguage: "arabic",
+      });
+      if (!arabicSongs) {
+        res.status(404);
+        throw new Error("Arabic songs not found");
+      }
+      res.send(arabicSongs);
+    }
   } catch (error) {
-    res.status(500).send({ success: false, error: error.message });
     next(error);
   }
 };
