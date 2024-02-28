@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { verifyTokenWithBackend } from "../../components/authUtils"; // Ensure this path is correct
+import React from "react";
 import doveImage from "../../assets/dove.png";
 import googleLogo from "../../assets/Login/google.svg";
+import facebookLogo from "../../assets/Login/Facebook_icon.svg";
+import appleLogo from "../../assets/Login/apple.png";
 import {
   LoginPageWrapper,
   AppIcon,
@@ -11,28 +10,21 @@ import {
   DescriptionText,
   StyledDove,
   StyledEllipse,
-  StyledGoogleSignInButton,
-  GoogleLogo,
+  StyledSignInButton,
+  SignInLogo,
 } from "./LoginPageStyles";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const handleGoogleSignInClick = () => {
+    window.location.href = "http://localhost:5000/api/v1/auth/google";
+  };
 
-  useEffect(() => {
-    window.google?.accounts.id.initialize({
-      client_id: import.meta.env.VITE_CLIENT_ID,
-      callback: (response) => {
-        // Use the utility function for token verification
-        verifyTokenWithBackend(response.credential, dispatch, () =>
-          navigate("/")
-        );
-      },
-    });
-  }, [dispatch, navigate]);
+  const handleFacebookSignInClick = () => {
+    window.location.href = "http://localhost:5000/api/v1/auth/facebook";
+  };
 
-  const handleSignInClick = () => {
-    window.google.accounts.id.prompt();
+  const handleAppleSignInClick = () => {
+    window.location.href = "http://localhost:5000/api/v1/auth/apple";
   };
 
   return (
@@ -45,12 +37,20 @@ const LoginPage = () => {
       </AppIcon>
       <HarmonyText>Harmony</HarmonyText>
       <DescriptionText>
-        Translate songs between Hebrew and Arabic
+        Translate songs between <br></br> Hebrew and Arabic
       </DescriptionText>
-      <StyledGoogleSignInButton onClick={handleSignInClick}>
-        <GoogleLogo src={googleLogo} alt="Google logo" />
+      <StyledSignInButton onClick={handleFacebookSignInClick}>
+        <SignInLogo src={facebookLogo} alt="Facebook logo" />
+        Sign in with Facebook
+      </StyledSignInButton>
+      <StyledSignInButton onClick={handleGoogleSignInClick}>
+        <SignInLogo src={googleLogo} alt="Google logo" />
         Sign in with Google
-      </StyledGoogleSignInButton>
+      </StyledSignInButton>
+      <StyledSignInButton onClick={handleAppleSignInClick}>
+        <SignInLogo src={appleLogo} alt="Apple logo" />
+        Sign in with Apple
+      </StyledSignInButton>
     </LoginPageWrapper>
   );
 };
