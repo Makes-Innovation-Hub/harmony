@@ -5,6 +5,7 @@ import {
   getAllCoverSongs,
   getCoverSongById,
   getDeleteAll,
+  getMostLikedHebrewCoverSongs,
   postCoverData,
   toggleLike,
 } from "../controllers/CoverSongController.js";
@@ -22,5 +23,6 @@ router.put("/view/:id", clickToAddView);
 // protected router
 router.use(authenticate);
 router.put("/like/:id", toggleLike);
+router.get("/most-liked", getMostLikedHebrewCoverSongs);
 
 export default router;

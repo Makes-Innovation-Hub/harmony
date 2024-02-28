@@ -199,3 +199,17 @@ export const toggleLike = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getMostLikedHebrewCoverSongs = async (req, res, next) => {
+  try {
+    // const mostLikedCoverSongs = await CoverSong.findById({
+    //   req.params.id = mostLikedCoverSongs
+    //     .sort({ "likes.length": -1 })
+    //     .limit(10),
+    //     res.status(200).send({ success: true, data: mostLikedCoverSongs })
+    //   })
+  } catch (error) {
+    res.status(500).send({ success: false, error: error.message });
+    next(error);
+  }
+};
