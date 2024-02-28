@@ -3,16 +3,18 @@ import { serverApiUrl } from "../constants/urls";
 
 export const songDataApi = createApi({
   reducerPath: "songDataApi",
+  tagTypes: ["songData"],
   baseQuery: fetchBaseQuery({ baseUrl: serverApiUrl }),
   endpoints: (builder) => ({
     songData: builder.mutation({
-      query: ({ artist, song, coverArt }) => {
-        return {
-          url: "/songs/",
-          method: "PUT",
-          body: { artist, song, coverArt },
-        };
-      },
+      query: ({ artist, song, coverArt }) => ({
+        // return {
+        url: "/songs/",
+        method: "PUT",
+        body: { artist, song, coverArt },
+        // };
+      }),
+      invalidatesTags: ["songData"],
     }),
   }),
 });

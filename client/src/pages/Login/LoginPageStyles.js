@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import doveImage from "../../assets/dove.png";
 import ellipseImage from "../../assets/Ellipse3.png";
+import googleLogo from "../../assets/Login/google.SVG";
 
 export const StyledEllipse = styled.div`
   background-image: url(${ellipseImage});
@@ -14,7 +15,7 @@ export const StyledEllipse = styled.div`
 `;
 
 export const StyledDove = styled.div`
-  background-image: url(${doveImage});
+  /* background-image: url(${doveImage}); */
   position: absolute;
   width: 28px;
   height: 37px;
@@ -22,6 +23,7 @@ export const StyledDove = styled.div`
   left: 50%; // Center horizontally in AppIcon
   transform: translate(-50%, -50%); // Adjust for true centering
   background-size: cover;
+  z-index: 1000;
 `;
 
 export const AppIcon = styled.div`
@@ -58,7 +60,7 @@ export const HarmonyText = styled.div`
   font-size: 28px;
   line-height: 37.24px;
   color: #333333;
-  margin-top: 200px; // Increased spacing
+  margin-top: 20px; // Increased spacing
 `;
 
 export const DescriptionText = styled.div`
@@ -66,33 +68,48 @@ export const DescriptionText = styled.div`
   font-weight: 400;
   font-style: italic;
   font-size: 17px;
-  line-height: 22.61px;
+  line-height: 133%;
   text-align: center;
   color: #828282;
   width: 364px;
   margin-top: 25px; // Increased spacing
   margin-bottom: 50px; // Added bottom spacing for separation from the button
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 `;
 
 export const StyledGoogleSignInButton = styled.button`
   width: 218px;
   height: 42px;
-  background-color: #4285f4; // Assuming you want to keep the Google button color
-  color: white;
-  border: 1px solid #1e2432; // Updated border style
+
+  background-color: white;
+  border: 1px solid #1e24323b;
   border-radius: 8px;
-  // padding: 0px 136px 0px 17px; // Custom padding as specified
   cursor: pointer;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: "Roboto";
   font-size: 16px;
-  opacity: 0.23; // Adjusting opacity if needed, or remove this line if full color is desired
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.15px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  position: relative;
+  top: 100px;
 
   &:hover,
   &:focus {
     outline: none;
-    background-color: #4285f4; // Remove hover effect
+    /* background-color: #357ae8;  */
   }
+`;
+
+export const GoogleLogo = styled.img.attrs({
+  src: googleLogo,
+})`
+  height: 18px;
+  margin-right: 14px;
 `;

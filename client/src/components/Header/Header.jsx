@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   Title,
@@ -27,46 +27,53 @@ const Header = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  // Initialize language from localStorage or default to "English"
+  const initialLanguage = localStorage.getItem("language") || "English";
   const [showFlag, setShowFlag] = useState(true);
   const [showList, setShowList] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("");
-  const [selectedFlag, setSelectedFlag] = useState(USAFlag);
+  const [selectedLanguage, setSelectedLanguage] = useState(initialLanguage);
+  const flagMapping = {
+    English: USAFlag,
+    Hebrew: isrealFlag,
+    Arabic: palestineFlag,
+  };
+  const [selectedFlag, setSelectedFlag] = useState(
+    flagMapping[initialLanguage]
+  );
+
+  useEffect(() => {
+    // Change i18next language to match stored preference or default
+    const languageCode =
+      initialLanguage === "English"
+        ? "en"
+        : initialLanguage === "Hebrew"
+        ? "he"
+        : "ar";
+    i18n.changeLanguage(languageCode);
+    dispatch(setLanguage(languageCode)); // Update Redux state with initial or stored language
+  }, [dispatch, initialLanguage]);
 
   const handleClick = () => {
-    setShowFlag(false);
-    setShowList(true);
+    setShowFlag(!showFlag); // Toggle visibility of the flag
+    setShowList(!showList); // Toggle visibility of the language list
   };
 
   const handleLanguageSelect = (language) => {
+    const languageCode =
+      language === "English" ? "en" : language === "Hebrew" ? "he" : "ar";
     setSelectedLanguage(language);
+    localStorage.setItem("language", language); // Save new language preference
+    i18n.changeLanguage(languageCode); // Update i18next language
+    dispatch(setLanguage(languageCode)); // Update Redux state with new language
 
-    let flag = USAFlag; // Default flag
-
-    if (language === "English") {
-      flag = USAFlag;
-      i18n.changeLanguage("en"); // Change language to English
-    } else if (language === "Hebrew") {
-      flag = isrealFlag;
-      i18n.changeLanguage("he"); // Change language to Hebrew
-    } else if (language === "Arabic") {
-      flag = palestineFlag;
-      i18n.changeLanguage("ar"); // Change language to Arabic
-    }
-
-    setSelectedFlag(flag);
+    setSelectedFlag(flagMapping[language]);
     setShowList(false);
     setShowFlag(true);
-
-    dispatch(setLanguage(language.toLowerCase()));
   };
 
   return (
     <HeaderContainer>
-      <AppIcon
-        onClick={() => {
-          navigate("/");
-        }}
-      >
+      <AppIcon onClick={() => navigate("/")}>
         <img className="dove" src={Dove} alt="" />
         <img className="ellipse" src={Ellipse3} alt="" />
       </AppIcon>
@@ -99,5 +106,4 @@ const Header = () => {
     </HeaderContainer>
   );
 };
-
 export default Header;
