@@ -7,13 +7,9 @@ const addViewsAndLikesApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${serverApiUrl}/coverSong`,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("token");
-
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
       return headers;
     },
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     addView: builder.mutation({

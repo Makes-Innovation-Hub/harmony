@@ -8,8 +8,7 @@ import {
   postCoverData,
   toggleLike,
 } from "../controllers/CoverSongController.js";
-
-import authenticate from "../middleware/authenticate.js";
+import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = express.Router();
 
@@ -20,7 +19,7 @@ router.delete("/deleteAll", getDeleteAll);
 router.delete("/delete/:id", deleteCoverSongById);
 router.put("/view/:id", clickToAddView);
 // protected router
-router.use(authenticate);
+router.use(isAuthenticated);
 router.put("/like/:id", toggleLike);
 
 export default router;

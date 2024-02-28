@@ -1,13 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  isVerified: false,
+  user: null,
+};
+
 export const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    isVerified: false,
-  },
+  initialState,
   reducers: {
     setAuthState: (state, action) => {
       state.isVerified = action.payload.isVerified;
+      state.user = action.payload.user; // Optionally store user data
     },
   },
 });
