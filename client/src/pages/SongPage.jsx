@@ -4,9 +4,8 @@ import Header from "../components/Header/Header";
 import { useLocation } from "react-router-dom";
 import Youtube from "../components/Youtube/Youtube";
 import UploadCoverModal from "../components/UploadButton/UploadCoverModal";
-import SongCover from "../components/SongCover/SongCover";
-import { CoversTitle } from "./SongPageStyles";
 import { useGetSongByIdQuery } from "../api/addCoverToSongApi";
+import CoverSongData from "../components/CoverSongData/CoverSongData";
 
 function SongPage() {
   const songData = useLocation().state;
@@ -41,21 +40,7 @@ function SongPage() {
         originalSongId={songData._id}
       />
 
-      {songData?.coverSong.length > 0 && <CoversTitle>Covers</CoversTitle>}
-
-      {songByIdData?.coverSong.map((coverInfo) => {
-        return (
-          <div key={coverInfo._id}>
-            <SongCover
-              artist={coverInfo?.coverArtistName}
-              backgroundImg={coverInfo?.backgroundUrl}
-              state={coverInfo}
-              likes={coverInfo?.likes.length}
-              views={coverInfo?.views}
-            />
-          </div>
-        );
-      })}
+      <CoverSongData songData={songData} songByIdData={songByIdData} />
     </>
   );
 }
