@@ -10,6 +10,8 @@ import {
   SameLine,
   BigContainer,
   SongAndSingerContainer,
+  LikedCoverButton,
+  LikedCoverButtonWrapper,
 } from "./CoverPage.styles";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
@@ -30,7 +32,7 @@ export default function CoverPage() {
   const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId);
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
 
-  const playVideoRef = useRef();
+  // console.log(coverData);
 
   useEffect(() => {
     refetch();
@@ -38,20 +40,19 @@ export default function CoverPage() {
 
   function updateViews() {
     addView(coverData?._id);
-
-    // if (playVideoRef.current) {
-    //   playVideoRef.current.contentWindow.postMessage(
-    //     JSON.stringify({
-    //       event: "command",
-    //       func: "playVideo",
-    //       args: [],
-    //     }),
-    //     "*"
-    //   );
-    // }
-    // console.log(playVideoRef.current.contentWindow);
     setPlayVideoDiv(true);
   }
+
+  function updateLikes() {
+    toggleLike(coverData?._id);
+  }
+
+  // const usersThatLiked = coverData?.likes.map((id) => console.log(id));
+  // get current user id
+  // if(currentUser._id === usersThatLiked)
+  // give LikedCoverButtonWrapper a prop which checks
+  // if true give it background of cadetblue
+  // if false give it transparent background
 
   return (
     <main>
@@ -78,7 +79,6 @@ export default function CoverPage() {
             youtubeUrl={coverData?.youtubeUrl}
             handleAddView={updateViews}
             playVideoDiv={playVideoDiv}
-            playVideoRef={playVideoRef}
           />
           <VideoInfo className="video-info">
             <SameLine>
@@ -88,11 +88,9 @@ export default function CoverPage() {
             <p>{updatedCoverSong?.views} views</p>
             <SameLine>
               <p>{updatedCoverSong?.likes.length} Likes </p>
-              <img
-                onClick={() => toggleLike(coverData?._id)}
-                src={likeSvg}
-                alt="share svg"
-              />
+              <LikedCoverButtonWrapper onClick={updateLikes}>
+                <LikedCoverButton src={likeSvg} alt="like svg" />
+              </LikedCoverButtonWrapper>
             </SameLine>
           </VideoInfo>
         </div>

@@ -6,7 +6,6 @@ function Youtube({
   youtubeUrl,
   handleAddView,
   playVideoDiv,
-  playVideoRef,
 }) {
   return (
     <div>
@@ -14,7 +13,6 @@ function Youtube({
       <YoutubeBox>
         <PlayVideo $visible={playVideoDiv} onClick={handleAddView}></PlayVideo>
         <iframe
-          ref={playVideoRef}
           width="560"
           height="255"
           src={`https://www.youtube.com/embed/${youtubeUrl}`}

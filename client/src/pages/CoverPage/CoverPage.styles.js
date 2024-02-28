@@ -80,3 +80,14 @@ export const SameLine = styled.div`
   display: flex;
   gap: 10px;
 `;
+
+export const LikedCoverButtonWrapper = styled.div`
+  background-color: cadetblue;
+  display: inline-block;
+  border-radius: 50%;
+`;
+
+export const LikedCoverButton = styled.img`
+  width: 20px;
+  height: 20px;
+`;
