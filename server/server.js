@@ -26,7 +26,7 @@ const __dirname = dirname(__filename);
 
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.SERVER_PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
 const app = express();
 const BASE_SERVER_URL = process.env.BASE_SERVER_URL;
