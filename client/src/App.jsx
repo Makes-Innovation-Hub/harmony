@@ -11,6 +11,8 @@ import i18n from "./i18n";
 import Login from "./pages/Login/Login";
 import CoverPage from "./pages/CoverPage/CoverPage";
 import SecureRoute from "./components/SecureRoute.jsx";
+import PlaylistPage from "./pages/PlaylistPage/PlaylistPage";
+import PlaylistSongPage from "./pages/PlaylistSongPage/PlaylistSongPage.jsx";
 
 const secureRoute = (Component) => (
   <SecureRoute>
@@ -54,6 +56,14 @@ const Router = createBrowserRouter([
   {
     path: "/*",
     element: secureRoute(NotFoundPage),
+  },
+  {
+    path: "/playlist",
+    element: secureRoute(PlaylistPage),
+  },
+  {
+    path: "/playlistSongPage",
+    element: secureRoute(PlaylistSongPage),
   },
 ]);
 

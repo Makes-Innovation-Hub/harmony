@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 const ImgCard = styled.img`
-  border-radius: 50%;
+  border-radius: 30px;
   height: 4rem;
   width: 4rem;
 `;

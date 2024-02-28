@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header/Header";
 import {
   SongCover,
@@ -11,7 +11,6 @@ import {
   BigContainer,
   SongAndSingerContainer,
 } from "./CoverPage.styles";
-import Youtube from "../../components/Youtube/Youtube";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
 import { useLocation } from "react-router-dom";
@@ -21,6 +20,7 @@ import {
   useToggleLikeMutation,
 } from "../../api/viewsAndLikesApi";
 import { useGetSongByIdQuery } from "../../api/addCoverToSongApi";
+import CoverPageYoutube from "../../components/CoverPageYoutube/CoverPageYoutube";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
@@ -28,10 +28,30 @@ export default function CoverPage() {
   const [toggleLike] = useToggleLikeMutation();
   const { data: updatedCoverSong } = useGetCoverSongByIdQuery(coverData?._id);
   const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId);
+  const [playVideoDiv, setPlayVideoDiv] = useState(false);
+
+  const playVideoRef = useRef();
 
   useEffect(() => {
     refetch();
   }, [updatedCoverSong]);
+
+  function updateViews() {
+    addView(coverData?._id);
+
+    // if (playVideoRef.current) {
+    //   playVideoRef.current.contentWindow.postMessage(
+    //     JSON.stringify({
+    //       event: "command",
+    //       func: "playVideo",
+    //       args: [],
+    //     }),
+    //     "*"
+    //   );
+    // }
+    // console.log(playVideoRef.current.contentWindow);
+    setPlayVideoDiv(true);
+  }
 
   return (
     <main>
@@ -54,9 +74,11 @@ export default function CoverPage() {
         </ArtistContainer>
 
         <div>
-          <Youtube
+          <CoverPageYoutube
             youtubeUrl={coverData?.youtubeUrl}
-            handleAddView={() => addView(coverData?._id)}
+            handleAddView={updateViews}
+            playVideoDiv={playVideoDiv}
+            playVideoRef={playVideoRef}
           />
           <VideoInfo className="video-info">
             <SameLine>

@@ -1,5 +1,6 @@
 import styled from "styled-components";
-export const SongGallary = styled.div`
+
+export const SongGallery = styled.div`
   @media (min-width: 701px) {
     display: none;
   }
@@ -8,11 +9,12 @@ export const SongGallary = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 12%;
+    margin-top: 100px;
   }
 `;
-export const TopHSongCountainer = styled.div`
+export const TopHMixCountainer = styled.div`
   border-radius: 8px;
+  margin-top: 4%;
   @media (min-width: 701px) {
     display: none;
   }
@@ -24,14 +26,16 @@ export const ImageBox = styled.div`
   @media (min-width: 0px) and (max-width: 700px) {
     width: 100%;
     height: 100%;
+    padding: 18px;
+    margin-left: -18px;
   }
 `;
 export const Image = styled.img`
   @media (min-width: 0px) and (max-width: 700px) {
-    max-width: 90%;
-    max-height: 95%;
+    max-width: 115%;
+    max-height: 120%;
     object-fit: cover;
-    border-radius: 35px;
+    border-radius: 30px;
   }
 `;
 export const Title = styled.h2`
@@ -40,9 +44,22 @@ export const Title = styled.h2`
     font-size: 1.2rem;
     color: #333333;
     font-style: italic;
+    // margin-top:2.5%;
     margin-left: 8%;
     line-height: 1.912;
     font-family: "ABeeZee";
+  }
+`;
+export const Playlist = styled.h1`
+  @media (min-width: 0px) and (max-width: 700px) {
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #333333;
+    font-style: italic;
+    margin-left: 8%;
+    line-height: 1.912;
+    font-family: "ABeeZee";
+    text-decoration: underline;
   }
 `;
 export const ImageBoxContainer = styled.div`
@@ -55,9 +72,9 @@ export const ImageBoxContainer = styled.div`
   }
   @media (max-width: 700px) {
     display: flex;
-    gap: 0.2rem;
     flex-direction: row;
-    margin-top: 4%;
+    gap: 25px;
+    // margin-top: 4%;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -66,7 +83,7 @@ export const ImageBoxContainer = styled.div`
     }
   }
 `;
-export const TopASongCountainer = styled.div`
+export const TopAMixCountainer = styled.div`
   border-radius: 8px;
   margin-top: 4%;
   @media (min-width: 701px) {
@@ -86,6 +103,7 @@ export const Box = styled.div`
     margin-top: -3.18rem;
     width: 6rem;
     margin-left: 0.6rem;
+    padding-bottom: 0.8rem;
   }
 `;
 export const SongP = styled.p`
@@ -105,7 +123,7 @@ export const SongP = styled.p`
   }
 `;
 
-export const Songartist = styled.p`
+export const GenreType = styled.p`
   @media (min-width: 0px) and (max-width: 700px) {
     font-size: 0.4rem;
     font-weight: 50;

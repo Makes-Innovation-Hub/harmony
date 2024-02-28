@@ -1,11 +1,20 @@
-import { OriginalSong, YoutubeBox } from "./YoutubeStyle";
+import { OriginalSong, PlayVideo, YoutubeBox } from "./CoverPageYoutubeStyle";
 
-function Youtube({ songName, artistName, youtubeUrl }) {
+function Youtube({
+  songName,
+  artistName,
+  youtubeUrl,
+  handleAddView,
+  playVideoDiv,
+  playVideoRef,
+}) {
   return (
     <div>
       <OriginalSong>Original Version </OriginalSong>
       <YoutubeBox>
+        <PlayVideo $visible={playVideoDiv} onClick={handleAddView}></PlayVideo>
         <iframe
+          ref={playVideoRef}
           width="560"
           height="255"
           src={`https://www.youtube.com/embed/${youtubeUrl}`}
