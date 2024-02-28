@@ -29,9 +29,11 @@ dotenv.config({ path: join(__dirname, "./config/config.env") });
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;
 const app = express();
+const BASE_SERVER_URL = process.env.BASE_SERVER_URL;
+const CLIENT_PORT = process.env.CLIENT_PORT;
 
 const corsOptions = {
-  origin: "http://localhost:5173", // Adjust this to match your frontend's origin
+  origin: `${BASE_SERVER_URL}:${CLIENT_PORT}`,
   credentials: true, // This is important for cookies, authorization headers with HTTPS
 };
 

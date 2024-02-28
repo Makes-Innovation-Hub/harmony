@@ -15,16 +15,20 @@ import {
 } from "./LoginPageStyles";
 
 const LoginPage = () => {
+  const serverBaseUrl = import.meta.env.VITE_SERVER_BASE_URL;
+  const serverPort = import.meta.env.VITE_SERVER_PORT;
+  const fullServerUrl = `${serverBaseUrl}:${serverPort}`;
+
   const handleGoogleSignInClick = () => {
-    window.location.href = "http://localhost:5000/api/v1/auth/google";
+    window.location.href = `${fullServerUrl}/api/v1/auth/google`;
   };
 
   const handleFacebookSignInClick = () => {
-    window.location.href = "http://localhost:5000/api/v1/auth/facebook";
+    window.location.href = `${fullServerUrl}/api/v1/auth/facebook`;
   };
 
   const handleAppleSignInClick = () => {
-    window.location.href = "http://localhost:5000/api/v1/auth/apple";
+    window.location.href = `${fullServerUrl}/api/v1/auth/apple`;
   };
 
   return (
