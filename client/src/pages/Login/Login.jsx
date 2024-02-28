@@ -37,7 +37,8 @@ const LoginPage = () => {
       </AppIcon>
       <HarmonyText>Harmony</HarmonyText>
       <DescriptionText>
-        Translate songs between <br></br> Hebrew and Arabic
+        <p>Translate songs between</p>
+        <p>Hebrew and Arabic</p>
       </DescriptionText>
       <StyledSignInButton onClick={handleFacebookSignInClick}>
         <SignInLogo src={facebookLogo} alt="Facebook logo" />

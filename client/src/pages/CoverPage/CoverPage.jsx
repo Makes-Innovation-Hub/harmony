@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header/Header";
 import {
   SongCover,
@@ -10,8 +10,9 @@ import {
   SameLine,
   BigContainer,
   SongAndSingerContainer,
+  LikedCoverButton,
+  LikedCoverButtonWrapper,
 } from "./CoverPage.styles";
-import Youtube from "../../components/Youtube/Youtube";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
 import { useLocation } from "react-router-dom";
@@ -21,6 +22,7 @@ import {
   useToggleLikeMutation,
 } from "../../api/viewsAndLikesApi";
 import { useGetSongByIdQuery } from "../../api/addCoverToSongApi";
+import CoverPageYoutube from "../../components/CoverPageYoutube/CoverPageYoutube";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
@@ -28,10 +30,29 @@ export default function CoverPage() {
   const [toggleLike] = useToggleLikeMutation();
   const { data: updatedCoverSong } = useGetCoverSongByIdQuery(coverData?._id);
   const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId);
+  const [playVideoDiv, setPlayVideoDiv] = useState(false);
+
+  // console.log(coverData);
 
   useEffect(() => {
     refetch();
   }, [updatedCoverSong]);
+
+  function updateViews() {
+    addView(coverData?._id);
+    setPlayVideoDiv(true);
+  }
+
+  function updateLikes() {
+    toggleLike(coverData?._id);
+  }
+
+  // const usersThatLiked = coverData?.likes.map((id) => console.log(id));
+  // get current user id
+  // if(currentUser._id === usersThatLiked)
+  // give LikedCoverButtonWrapper a prop which checks
+  // if true give it background of cadetblue
+  // if false give it transparent background
 
   return (
     <main>
@@ -54,9 +75,10 @@ export default function CoverPage() {
         </ArtistContainer>
 
         <div>
-          <Youtube
+          <CoverPageYoutube
             youtubeUrl={coverData?.youtubeUrl}
-            handleAddView={() => addView(coverData?._id)}
+            handleAddView={updateViews}
+            playVideoDiv={playVideoDiv}
           />
           <VideoInfo className="video-info">
             <SameLine>
@@ -66,11 +88,9 @@ export default function CoverPage() {
             <p>{updatedCoverSong?.views} views</p>
             <SameLine>
               <p>{updatedCoverSong?.likes.length} Likes </p>
-              <img
-                onClick={() => toggleLike(coverData?._id)}
-                src={likeSvg}
-                alt="share svg"
-              />
+              <LikedCoverButtonWrapper onClick={updateLikes}>
+                <LikedCoverButton src={likeSvg} alt="like svg" />
+              </LikedCoverButtonWrapper>
             </SameLine>
           </VideoInfo>
         </div>

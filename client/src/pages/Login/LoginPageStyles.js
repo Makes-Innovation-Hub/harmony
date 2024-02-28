@@ -65,6 +65,11 @@ export const DescriptionText = styled.div`
   text-align: center;
   color: #828282;
   width: 364px;
+  margin-top: 25px; // Increased spacing
+  margin-bottom: 50px; // Added bottom spacing for separation from the button
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
   margin-top: 5vh; // Adjusted smaller gap
   margin-bottom: 10vh; // Adjusted larger gap to buttons
 `;

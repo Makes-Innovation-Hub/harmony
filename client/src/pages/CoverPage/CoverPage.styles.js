@@ -60,6 +60,7 @@ export const BigContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-bottom: 30px;
 `;
 
 export const VideoInfo = styled.div`
@@ -78,4 +79,15 @@ export const VideoInfo = styled.div`
 export const SameLine = styled.div`
   display: flex;
   gap: 10px;
+`;
+
+export const LikedCoverButtonWrapper = styled.div`
+  background-color: cadetblue;
+  display: inline-block;
+  border-radius: 50%;
+`;
+
+export const LikedCoverButton = styled.img`
+  width: 20px;
+  height: 20px;
 `;
