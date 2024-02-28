@@ -5,12 +5,14 @@ import {
   getAllCoverSongs,
   getCoverSongById,
   getDeleteAll,
+  getTopCoverSongs,
   postCoverData,
   toggleLike,
 } from "../controllers/CoverSongController.js";
 import isAuthenticated from "../middleware/isAuthenticated.js";
 
 const router = express.Router();
+router.get("/top-covers", getTopCoverSongs);
 
 router.get("/", getAllCoverSongs);
 router.get("/:id", getCoverSongById);
