@@ -14,7 +14,7 @@ export const playlistData = {
       genre: "Rock Mix",
       coverArt:
         "https://th.bing.com/th/id/OIP.FvMzi5nJTODyT1ud0fMGDQHaHa?rs=1&pid=ImgDetMain",
-      id: "",
+      id: "PLk8TJAK4-CfAzMsu09WSAdhhyAQBIT0Yn",
       language: "HE",
     },
 
@@ -23,7 +23,7 @@ export const playlistData = {
       genre: "Oriental Mix",
       coverArt:
         "https://th.bing.com/th/id/OIP.TrKeQHaeF4-s7OwDS0lAEgHaHa?rs=1&pid=ImgDetMain",
-      id: "",
+      id: "PLk8TJAK4-CfC5PTAmQoyOKIj70Ojg1hR8",
       language: "HE",
     },
   ],
@@ -42,7 +42,7 @@ export const playlistData = {
       genre: "Rock Mix",
       coverArt:
         "https://th.bing.com/th/id/R.4fe4ebb190a6f30164af13b3e371e905?rik=yr9YAX6i6pPloQ&riu=http%3a%2f%2f1.bp.blogspot.com%2f_ctSuGHRDuI4%2fTRoPRmgnXZI%2fAAAAAAAAB-w%2friDHIf8Z8Hk%2fs1600%2f8011_neon_rock_n_roll_rond.jpg&ehk=ngJZUaOwNKGjDFkvIQcdDIhTiMz4VMRpscYGSaUZibA%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1",
-      id: "",
+      id: "PLk8TJAK4-CfCX_hMMPTpGr5jkoP1bJ4Mj",
       language: "AR",
     },
 
@@ -51,7 +51,7 @@ export const playlistData = {
       genre: "Oriental Mix",
       coverArt:
         "https://th.bing.com/th/id/OIP.VkQrOQCn6N-jsafydbMDxgHaHa?rs=1&pid=ImgDetMain",
-      id: "",
+      id: "PLk8TJAK4-CfBeXD0XVe6jzWuE7z314fUP",
       language: "AR",
     },
   ],
