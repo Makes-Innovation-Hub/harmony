@@ -42,7 +42,6 @@ function PlaylistPage() {
                   hebrewName={song.songName3Lang.hebrew}
                   englishName={song.songName3Lang.english}
                   imgURL={song.profilePicUrl}
-                  isPlaying={index === 0 ? true : false}
                 />
               ))}
             </ContentWrapper>

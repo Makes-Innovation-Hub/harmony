@@ -47,7 +47,7 @@ export const playlistData = {
     },
 
     {
-      name: "Arabic",
+      name: "Arabic Oriental Mix",
       genre: "Oriental Mix",
       coverArt:
         "https://th.bing.com/th/id/OIP.VkQrOQCn6N-jsafydbMDxgHaHa?rs=1&pid=ImgDetMain",
