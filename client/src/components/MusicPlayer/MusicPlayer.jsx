@@ -1,72 +1,114 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 import play from "../../assets/musicPlayer/play.png";
-// import pause from "../../assets/musicPlayer/pause.png";
+import pause from "../../assets/musicPlayer/pause.png";
 import next from "../../assets/musicPlayer/next.png";
 import previous from "../../assets/musicPlayer/previous.png";
 import shuffle from "../../assets/musicPlayer/shuffle.png";
 import { MusicPlayerContainer, PlayBoxContainer } from "./MusicPlayer.styled";
+import { useDispatch, useSelector } from "react-redux";
 // import blueShuffle from "../../assets/musicPlayer/blue-shuffle.png";
 
 function MusicPlayer() {
-  const playlist = ["dUQCrQYzZzY", "dUQCrQYzZzY", "dUQCrQYzZzY"]; // Replace with your video IDs
-  const [playing, setPlaying] = useState(false);
-  const [currentVideo, setCurrentVideo] = useState(playlist[0]);
+  const currentPlaylistData = useSelector((state) => state.currentplaylist);
+  const dispatch = useDispatch();
+  const [isPlaying, setIsPlaying] = useState(false);
+  useEffect(() => {
+    if (currentPlaylistData) {
+      console.log(currentPlaylistData);
+    }
+  }, []);
+
+  const playerRef = useRef(null);
+  const playlist = currentPlaylistData.playlist;
+  const [currentVideo, setCurrentVideo] = useState(
+    currentPlaylistData.currentSong.videoId
+  );
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const opts = {
-    height: "0", // Setting the height to 0 hides the video
-    width: "0", // Setting the width to 0 hides the video
+    height: "0",
+    width: "0",
     playerVars: {
-      autoplay: 1,
-      controls: 0, // Hides video controls
-      loop: 1,
-      start: 0, // Start at the beginning
-      modestbranding: 1,
-      iv_load_policy: 3, // Hide video annotations
-      showinfo: 0, // Hide video title and uploader
-      disablekb: 1, // Disable keyboard controls
-      fs: 0, // Disable fullscreen button
-      autohide: 0, // Don't hide video controls automatically
-      playsinline: 1, // Play inline on mobile devices
-      listType: "playlist",
-      list: playlist.join(","),
-      volume: 100,
+      autoplay: isPlaying ? 1 : 0,
     },
   };
 
-  const handlePlayClick = () => {
-    console.log("handlePlayClick");
-    setPlaying(true);
+  const handlePlayerReady = (event) => {
+    // Pause the video when the player is ready
+    event.target.pauseVideo();
   };
 
+  const handleTogglePlayPause = () => {
+    if (playerRef.current) {
+      if (isPlaying) {
+        playerRef.current.internalPlayer.pauseVideo(); // Pause the video
+      } else {
+        playerRef.current.internalPlayer.playVideo(); // Play the video
+      }
+      setIsPlaying(!isPlaying); // Toggle the playing state
+    }
+  };
+  const handleNextVideo = () => {
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < playlist.length) {
+      setCurrentVideo(playlist[nextIndex].videoId);
+      setCurrentIndex(nextIndex);
+    } else {
+      // If the current video is the last one in the playlist, loop back to the first video
+      setCurrentVideo(playlist[0].videoId);
+      setCurrentIndex(0);
+    }
+  };
+  const handlePreviousVideo = () => {
+    const previousIndex = currentIndex - 1;
+    if (previousIndex >= 0) {
+      setCurrentVideo(playlist[previousIndex].videoId);
+      setCurrentIndex(previousIndex);
+    } else {
+      // If the current video is the first one in the playlist, loop to the last video
+      setCurrentVideo(playlist[playlist.length - 1].videoId);
+      setCurrentIndex(playlist.length - 1);
+    }
+  };
   return (
     <MusicPlayerContainer>
-      {playing && (
+      <YouTube
+        videoId={currentVideo}
+        opts={opts}
+        onReady={handlePlayerReady}
+        ref={playerRef}
+        onEnd={() => {
+          const nextIndex = currentIndex + 1;
+
+          if (nextIndex < playlist.length) {
+            setCurrentVideo(playlist[nextIndex].videoId);
+            setCurrentIndex(nextIndex);
+          } else {
+            setCurrentVideo(playlist[0].videoId);
+            setCurrentIndex(0);
+          }
+        }}
+      />
+      {isPlaying && (
         <>
-          <YouTube
-            videoId={currentVideo}
-            opts={opts}
-            onEnd={() => {
-              const nextIndex = playlist.indexOf(currentVideo) + 1;
-              if (nextIndex < playlist.length) {
-                setCurrentVideo(playlist[nextIndex]);
-              } else {
-                setPlaying(false);
-                setCurrentVideo(playlist[0]);
-              }
-            }}
-          />
           <h1>Playing ...</h1>
         </>
       )}
       <PlayBoxContainer>
-        <button>
+        <button onClick={handlePreviousVideo}>
           <img src={previous} alt="previous" />
         </button>
-        <button onClick={() => handlePlayClick()}>
-          <img src={play} alt="play" />
+
+        <button onClick={handleTogglePlayPause}>
+          {isPlaying ? (
+            <img src={pause} alt="pause" />
+          ) : (
+            <img src={play} alt="play" />
+          )}
         </button>
-        <button>
+
+        <button onClick={handleNextVideo}>
           <img src={next} alt="next" />
         </button>
       </PlayBoxContainer>
