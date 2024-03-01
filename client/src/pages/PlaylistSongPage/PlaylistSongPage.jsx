@@ -12,19 +12,26 @@ import {
 } from "./PlaylistSongPage.styled";
 import Youtube from "../../components/Youtube/Youtube";
 import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
+import { useNavigate } from "react-router-dom";
 
 function PlaylistSongPage() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
+  const navigate = useNavigate();
   useEffect(() => {
     if (currentPlaylistData) console.log(currentPlaylistData);
   }, [currentPlaylistData]);
+  const handlePlaylistTitleClick = () => {
+    navigate("/playlist");
+  };
   return (
     <>
       <Header />
 
       {currentPlaylistData && (
         <>
-          <PlaylistTitle>{currentPlaylistData.playlistName}</PlaylistTitle>
+          <PlaylistTitle onClick={handlePlaylistTitleClick}>
+            {currentPlaylistData.playlistName}
+          </PlaylistTitle>
           {/* <h5>{currentPlaylistData.currentSong.title}</h5> */}
           <BigContainer>
             <ArtistContainer>

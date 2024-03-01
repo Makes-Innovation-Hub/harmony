@@ -14,6 +14,8 @@ import SongInPlaylist from "../../components/SongInPlaylist/SongInPlaylist.jsx";
 function PlaylistPage() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
   const dispatch = useDispatch();
+
+  // TODO: Check if the playlist in Redux matches the desired playlist; if so, skip the query
   const { data: playlistQueryData, isSuccess } = useGetPlaylistByIdQuery({
     id: currentPlaylistData.playlistId,
     lang: currentPlaylistData.playlistLanguage,
