@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   margin-bottom: 0.25rem;
 
   p {
-    color: ${({ playing }) => (playing ? "#498af4" : "#333333")};
+    color: ${(props) => (props.isplaying === "true" ? "#498af4" : "#333333")};
     font-family: "ABeeZee Italic";
     text-align: center;
     margin: 0.3rem;
@@ -18,3 +18,5 @@ const Wrapper = styled.div`
   }
 `;
 export default Wrapper;
+
+// color: ${({ playing }) => (playing ? "#498af4" : "#333333")};

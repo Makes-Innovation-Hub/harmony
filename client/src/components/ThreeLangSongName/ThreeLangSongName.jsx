@@ -11,7 +11,7 @@ function ThreeLangSongName({
   return (
     <>
       <Wrapper
-        playing={Boolean(isPlaying)}
+        isplaying={isPlaying.toString()}
         style={{ fontSize: `${fontSize}`, lineHeight: `${lineHeight}` }}
       >
         <p>
