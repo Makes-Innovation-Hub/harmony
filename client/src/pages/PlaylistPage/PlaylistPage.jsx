@@ -14,26 +14,34 @@ import SongInPlaylist from "../../components/SongInPlaylist/SongInPlaylist.jsx";
 function PlaylistPage() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
   const dispatch = useDispatch();
-  const { data: playlistQueryData, isSuccess } = useGetPlaylistByIdQuery({
-    id: currentPlaylistData.playlistId,
-    lang: currentPlaylistData.playlistLanguage,
-  });
+
+  // Only call the query if the playlist length is zero
+  const shouldFetchPlaylist = currentPlaylistData.playlist.length === 0;
+
+  const { data: playlistQueryData, isSuccess } = useGetPlaylistByIdQuery(
+    {
+      id: currentPlaylistData.playlistId,
+      lang: currentPlaylistData.playlistLanguage,
+    },
+    { skip: !shouldFetchPlaylist }
+  );
 
   useEffect(() => {
     if (isSuccess) {
       dispatch(populatePlaylistArray(playlistQueryData));
     }
   }, [isSuccess]);
+
   return (
     <PageWrapper>
       <Header />
-      {isSuccess && (
+      {(isSuccess || !shouldFetchPlaylist) && (
         <>
           <PlaylistTitle>{currentPlaylistData.playlistName}</PlaylistTitle>
 
           <FlexGrowContainer flexGrow="6" padding="0 0.8rem">
             <ContentWrapper>
-              {playlistQueryData.map((song, index) => (
+              {currentPlaylistData.playlist.map((song, index) => (
                 <SongInPlaylist
                   key={index}
                   songIndex={index}
@@ -42,7 +50,6 @@ function PlaylistPage() {
                   hebrewName={song.songName3Lang.hebrew}
                   englishName={song.songName3Lang.english}
                   imgURL={song.profilePicUrl}
-                  isPlaying={index === 0 ? true : false}
                 />
               ))}
             </ContentWrapper>

@@ -13,6 +13,7 @@ import CoverPage from "./pages/CoverPage/CoverPage";
 import SecureRoute from "./components/SecureRoute.jsx";
 import PlaylistPage from "./pages/PlaylistPage/PlaylistPage";
 import PlaylistSongPage from "./pages/PlaylistSongPage/PlaylistSongPage.jsx";
+import YouTubePlayer from "./components/YouTubePlayer/YouTubePlayer.jsx";
 
 const secureRoute = (Component) => (
   <SecureRoute>
@@ -71,6 +72,7 @@ function App() {
   return (
     <I18nextProvider i18n={i18n}>
       <div>
+        <YouTubePlayer />
         <RouterProvider router={Router} />
       </div>
     </I18nextProvider>
