@@ -1,12 +1,15 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { playlistData } from "../constants/playlistData.js";
+import translateText3Lang from "../utils/translateText3Lang.js";
+import getSongNameFromTitle from "../utils/getSongNameFromTitle.js";
 
 // GET Playlist data
-// localhost:5000/api/v1/playlist/?id=PLAYLIST_ID
+// localhost:5000/api/v1/playlist/?id=PLAYLIST_ID&lang=originalLanguage
+//lang can be AR or HE
 export const getPlaylistData = async (req, res) => {
   // Extract id from query params and verify that it was provided
-  const { id } = req.query;
+  const { id, lang } = req.query;
   if (!id) {
     res.status(400).send("ERROR: id is required");
   }
@@ -36,7 +39,7 @@ export const getPlaylistData = async (req, res) => {
     }
 
     // Extract relevant information from the response
-    const playlistInfo = {
+    /*const playlistInfo = {
       id: id, //playlist id
       items: playlistItemsData.items.map((item) => {
         return {
@@ -47,10 +50,30 @@ export const getPlaylistData = async (req, res) => {
           channelId: item.snippet.channelId, //channelId
         };
       }),
-    };
+    };*/
+
+    const itemsWithProfilePic = await Promise.all(
+      playlistItemsData.items.map(async (item) => {
+        const profilePicUrl = await fetchChannelProfilePic(
+          item.snippet.videoOwnerChannelId
+        );
+        const songName = getSongNameFromTitle(item.snippet.title, lang);
+        const translatTo3 = await translateText3Lang(songName);
+        return {
+          videoId: item.snippet.resourceId.videoId,
+          title: item.snippet.title,
+          songName3Lang: translatTo3,
+          thumbnailUrl: item.snippet.thumbnails.standard.url,
+          channelTitle: item.snippet.videoOwnerChannelTitle,
+          channelId: item.snippet.videoOwnerChannelId,
+          profilePicUrl: profilePicUrl,
+        };
+      })
+    );
 
     // Send the playlist data in the response
-    res.status(200).json(playlistInfo);
+    // res.status(200).json(playlistInfo);
+    res.status(200).json(itemsWithProfilePic);
   } catch (error) {
     console.error("Error fetching playlist data:", error);
     res.status(500).send("Internal Server Error");
@@ -105,4 +128,35 @@ export const getChannelProfilePic = async (req, res) => {
 export const getAllPlaylistsData = (req, res) => {
   const playlists = playlistData;
   res.send(playlists);
+};
+
+//NEW
+
+// Function to fetch profile picture URL for a channel ID
+const fetchChannelProfilePic = async (channelId) => {
+  const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
+  if (!YOUTUBE_API_KEY) {
+    throw new Error("YOUTUBE_API_KEY is required");
+  }
+
+  try {
+    const channelResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${YOUTUBE_API_KEY}`
+    );
+
+    if (!channelResponse.ok) {
+      throw new Error("Failed to fetch channel information");
+    }
+
+    const channelData = await channelResponse.json();
+
+    if (!channelData.items || channelData.items.length === 0) {
+      throw new Error("Channel not found");
+    }
+
+    return channelData.items[0].snippet.thumbnails.default.url;
+  } catch (error) {
+    console.error("Error fetching channel profile picture:", error);
+    throw error;
+  }
 };

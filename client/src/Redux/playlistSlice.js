@@ -3,8 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   playlist: [],
   playlistId: null,
-  playlistType: null,
-  currentSongIndex: null,
+  playlistName: null,
+  playlistLanguage: null,
+  currentSong: null,
+  currentSongIndex: 0,
   currentSongIsPlaying: false,
 };
 
@@ -13,18 +15,33 @@ const playlistSlice = createSlice({
   initialState,
   reducers: {
     setCurrentSong(state, action) {
-      state.currentSongIndex = action.payload;
+      state.currentSong = action.payload.currentSong;
+      state.currentSongIndex = action.payload.songIndex;
     },
     playSong(state, action) {
       state.currentSongIsPlaying = action.payload;
     },
+    setCurrentPlayingSong(state, action) {
+      state.currentSongIndex = action.songIndex;
+    },
     setPlaylist(state, action) {
       state.playlist = action.payload.playlist;
       state.playlistId = action.payload.playlistId;
-      state.playlistType = action.payload.playlistType;
+      state.playlistName = action.payload.playlistName;
+      state.playlistLanguage = action.payload.playlistLanguage;
+      // state.currentSongIndex = 0;
+    },
+    populatePlaylistArray(state, action) {
+      state.playlist = action.payload;
     },
   },
 });
 
-export const { setCurrentSong, playSong, setPlaylist } = playlistSlice.actions;
+export const {
+  setCurrentSong,
+  playSong,
+  setCurrentPlayingSong,
+  setPlaylist,
+  populatePlaylistArray,
+} = playlistSlice.actions;
 export default playlistSlice.reducer;
