@@ -8,12 +8,9 @@ function YouTubePlayer() {
   const playerRef = useRef(null);
   const playlist = currentPlaylistData.playlist;
   const [currentVideo, setCurrentVideo] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
   useEffect(() => {
     if (currentPlaylistData) {
       setCurrentVideo(currentPlaylistData.currentSong?.videoId);
-      //   setCurrentVideo(playlist[currentPlaylistData?.currentSongIndex]?.videoId);
-      console.log(currentPlaylistData);
     }
   }, [currentPlaylistData]);
   const opts = {
@@ -47,11 +44,6 @@ function YouTubePlayer() {
           songIndex: nextIndex,
         })
       );
-      // dispatch(
-      //   setCurrentPlayingSong({
-      //     songIndex: nextIndex,
-      //   })
-      // );
     } else {
       // If the current video is the last one in the playlist, loop back to the first video
       dispatch(
@@ -60,11 +52,6 @@ function YouTubePlayer() {
           songIndex: 0,
         })
       );
-      // dispatch(
-      //   setCurrentPlayingSong({
-      //     songIndex: 0,
-      //   })
-      // );
     }
   };
   return (
@@ -81,16 +68,3 @@ function YouTubePlayer() {
 }
 
 export default YouTubePlayer;
-
-// const oldEnd = () => {
-//   const nextIndex = currentPlaylistData.currentSongIndex + 1;
-
-//   if (nextIndex < playlist.length) {
-//     // need dispatch
-//     setCurrentVideo(playlist[nextIndex].videoId);
-//     setCurrentIndex(nextIndex);
-//   } else {
-//     setCurrentVideo(playlist[0].videoId);
-//     setCurrentIndex(0);
-//   }
-// };

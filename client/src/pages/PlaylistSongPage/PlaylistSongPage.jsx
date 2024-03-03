@@ -10,16 +10,13 @@ import {
   SongCover,
   SongName,
 } from "./PlaylistSongPage.styled";
-import Youtube from "../../components/Youtube/Youtube";
 import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
 import { useNavigate } from "react-router-dom";
+import YoutubeVideo from "../../components/YoutubeVideo/YoutubeVideo";
 
 function PlaylistSongPage() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (currentPlaylistData) console.log(currentPlaylistData);
-  }, [currentPlaylistData]);
   const handlePlaylistTitleClick = () => {
     navigate("/playlist");
   };
@@ -32,7 +29,6 @@ function PlaylistSongPage() {
           <PlaylistTitle onClick={handlePlaylistTitleClick}>
             {currentPlaylistData.playlistName}
           </PlaylistTitle>
-          {/* <h5>{currentPlaylistData.currentSong.title}</h5> */}
           <BigContainer>
             <ArtistContainer>
               <div>
@@ -53,9 +49,8 @@ function PlaylistSongPage() {
             </ArtistContainer>
 
             <div>
-              <Youtube
+              <YoutubeVideo
                 youtubeUrl={currentPlaylistData.currentSong.videoId}
-                handleAddView={() => {}}
               />
             </div>
             <MusicPlayer />

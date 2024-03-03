@@ -59,7 +59,7 @@ export const OriginalArtistName = styled.p`
 export const BigContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 `;
 
 export const VideoInfo = styled.div`

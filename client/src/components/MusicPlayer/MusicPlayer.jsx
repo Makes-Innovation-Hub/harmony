@@ -4,14 +4,15 @@ import { MusicPlayerContainer, PlayBoxContainer } from "./MusicPlayer.styled";
 import {
   setCurrentSong,
   playSong,
+  shufflePlaylist,
   setCurrentPlayingSong,
 } from "../../Redux/playlistSlice.js";
-import play from "../../assets/musicPlayer/play.png";
-import pause from "../../assets/musicPlayer/pause.png";
-import next from "../../assets/musicPlayer/next.png";
-import previous from "../../assets/musicPlayer/previous.png";
-import shuffle from "../../assets/musicPlayer/shuffle.png";
-// import blueShuffle from "../../assets/musicPlayer/blue-shuffle.png";
+import play from "../../assets/musicPlayer/play.svg";
+import pause from "../../assets/musicPlayer/pause.svg";
+import next from "../../assets/musicPlayer/next.svg";
+import previous from "../../assets/musicPlayer/previous.svg";
+import shuffle from "../../assets/musicPlayer/shuffle.svg";
+import blueShuffle from "../../assets/musicPlayer/blue-shuffle.svg";
 
 function MusicPlayer() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
@@ -19,12 +20,6 @@ function MusicPlayer() {
     currentPlaylistData.currentSongIsPlaying
   );
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (currentPlaylistData) {
-      console.log(currentPlaylistData);
-    }
-  }, []);
 
   const playlist = currentPlaylistData.playlist;
 
@@ -72,35 +67,36 @@ function MusicPlayer() {
       );
     }
   };
+
+  const handleShuffle = () => {
+    if (!isPlaying) {
+      dispatch(shufflePlaylist());
+    }
+  };
+
   return (
     <MusicPlayerContainer>
-      {isPlaying && (
-        <>
-          <h1>Playing ...</h1>
-        </>
-      )}
       <PlayBoxContainer>
-        <button onClick={handlePreviousVideo}>
-          <img src={previous} alt="previous" />
-        </button>
+        <img
+          src={previous}
+          style={{ background: "#f4e6d1", padding: "6px" }}
+          alt="previous"
+          onClick={handlePreviousVideo}
+        />
 
-        <button onClick={handleTogglePlayPause}>
-          {isPlaying ? (
-            <img src={pause} alt="pause" />
-          ) : (
-            <img src={play} alt="play" />
-          )}
-        </button>
+        <img
+          src={isPlaying ? pause : play}
+          alt={isPlaying ? "pause" : "play"}
+          onClick={handleTogglePlayPause}
+        />
 
-        <button onClick={handleNextVideo}>
-          <img src={next} alt="next" />
-        </button>
+        <img src={next} alt="next" onClick={handleNextVideo} />
       </PlayBoxContainer>
-      <div>
-        <button>
-          <img src={shuffle} alt="shuffle" />
-        </button>
-      </div>
+      <img
+        src={isPlaying ? blueShuffle : shuffle}
+        alt="shuffle"
+        onClick={handleShuffle}
+      />
     </MusicPlayerContainer>
   );
 }
