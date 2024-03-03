@@ -9,7 +9,9 @@ import CoverSongData from "../components/CoverSongData/CoverSongData";
 
 function SongPage() {
   const songData = useLocation().state;
-  const { data: songByIdData } = useGetSongByIdQuery(songData._id);
+  const { data: songByIdData } = useGetSongByIdQuery(songData?._id, {
+    skip: !songData?._id,
+  });
 
   return (
     <>
