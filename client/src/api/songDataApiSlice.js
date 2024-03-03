@@ -8,11 +8,9 @@ export const songDataApi = createApi({
   endpoints: (builder) => ({
     songData: builder.mutation({
       query: ({ artist, song, coverArt }) => ({
-        // return {
         url: "/songs/",
         method: "PUT",
         body: { artist, song, coverArt },
-        // };
       }),
       invalidatesTags: ["songData"],
     }),

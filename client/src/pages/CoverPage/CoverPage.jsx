@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import {
   SongCover,
@@ -11,11 +11,11 @@ import {
   BigContainer,
   SongAndSingerContainer,
   LikedCoverButton,
-  LikedCoverButtonWrapper,
 } from "./CoverPage.styles";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
-import { useLocation } from "react-router-dom";
+import likedSvg from "../../assets/svgs/thumbs-up-liked.svg";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   useAddViewMutation,
   useGetCoverSongByIdQuery,
@@ -23,6 +23,7 @@ import {
 } from "../../api/viewsAndLikesApi";
 import { useGetSongByIdQuery } from "../../api/addCoverToSongApi";
 import CoverPageYoutube from "../../components/CoverPageYoutube/CoverPageYoutube";
+import { useSelector } from "react-redux";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
@@ -31,8 +32,29 @@ export default function CoverPage() {
   const { data: updatedCoverSong } = useGetCoverSongByIdQuery(coverData?._id);
   const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId);
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
+  const [likedVideo, setLikedVideo] = useState(false);
 
+  const currentUser = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
+
+  // console.log(currentUser);
   // console.log(coverData);
+
+  const goBackToOriginalSong = () => {
+    // console.log({
+    //   artist: coverData?.originalArtist,
+    //   song: coverData?.originalSongName,
+    //   coverArt: coverData?.originalSongCover,
+    // });
+
+    navigate("/translating", {
+      state: {
+        artist: coverData?.originalArtist,
+        song: coverData?.originalSongName,
+        coverArt: coverData?.originalSongCover,
+      },
+    });
+  };
 
   useEffect(() => {
     refetch();
@@ -47,12 +69,13 @@ export default function CoverPage() {
     toggleLike(coverData?._id);
   }
 
-  // const usersThatLiked = coverData?.likes.map((id) => console.log(id));
-  // get current user id
-  // if(currentUser._id === usersThatLiked)
-  // give LikedCoverButtonWrapper a prop which checks
-  // if true give it background of cadetblue
-  // if false give it transparent background
+  useEffect(() => {
+    if (updatedCoverSong?.likes.includes(currentUser.id)) {
+      setLikedVideo(true);
+    } else {
+      setLikedVideo(false);
+    }
+  }, [updatedCoverSong]);
 
   return (
     <main>
@@ -63,12 +86,13 @@ export default function CoverPage() {
         <ArtistContainer>
           <div>
             <SongCover
+              onClick={goBackToOriginalSong}
               src={coverData?.originalSongCover}
               alt="Original song cover"
             />
           </div>
 
-          <SongAndSingerContainer>
+          <SongAndSingerContainer onClick={goBackToOriginalSong}>
             <SongName>{coverData?.originalSongName}</SongName>
             <OriginalArtistName>{coverData?.originalArtist}</OriginalArtistName>
           </SongAndSingerContainer>
@@ -80,17 +104,34 @@ export default function CoverPage() {
             handleAddView={updateViews}
             playVideoDiv={playVideoDiv}
           />
-          <VideoInfo className="video-info">
+          <VideoInfo>
             <SameLine>
               <img src={shareSvg} alt="share svg" />
               <p>Share</p>
             </SameLine>
             <p>{updatedCoverSong?.views} views</p>
             <SameLine>
-              <p>{updatedCoverSong?.likes.length} Likes </p>
-              <LikedCoverButtonWrapper onClick={updateLikes}>
-                <LikedCoverButton src={likeSvg} alt="like svg" />
-              </LikedCoverButtonWrapper>
+              <p className="likes">{updatedCoverSong?.likes.length} Likes </p>
+              <div onClick={updateLikes}>
+                {likedVideo ? (
+                  <LikedCoverButton
+                    $likedCover={likedVideo}
+                    src={likedSvg}
+                    alt="like svg"
+                  />
+                ) : (
+                  <LikedCoverButton
+                    $likedCover={likedVideo}
+                    src={likeSvg}
+                    alt="like svg"
+                  />
+                )}
+                {/* <LikedCoverButton
+                  $likedCover={likedVideo}
+                  src={likeSvg}
+                  alt="like svg"
+                /> */}
+              </div>
             </SameLine>
           </VideoInfo>
         </div>
