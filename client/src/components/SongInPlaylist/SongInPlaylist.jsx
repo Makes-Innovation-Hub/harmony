@@ -36,7 +36,10 @@ function SongInPlaylist({
           englishName={englishName}
           fontSize="13px"
           lineHeight="17.29px"
-          isPlaying={currentPlaylistData.currentSongIndex === songIndex}
+          isPlaying={
+            currentPlaylistData.currentSongIndex === songIndex &&
+            currentPlaylistData.currentSongIsPlaying
+          }
         />
       </ContentWrapper2>
     </ContentWrapper>

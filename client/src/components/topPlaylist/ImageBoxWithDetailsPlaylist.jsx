@@ -2,7 +2,11 @@ import React from "react";
 import { Box, Image, ImageBox, SongP } from "./PlaylistStyle.jsx";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setPlaylist } from "../../Redux/playlistSlice.js";
+import {
+  setPlaylist,
+  setCurrentSong,
+  playSong,
+} from "../../Redux/playlistSlice.js";
 
 function ImageBoxWithDetailsPlaylist({
   img,
@@ -15,18 +19,23 @@ function ImageBoxWithDetailsPlaylist({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleMixClick = () => {
-    //TODO If add check if the song is playing
-    // if (!data.playlistId === playlistId) {
-    // }
-    dispatch(
-      setPlaylist({
-        playlist: [],
-        playlistId: playlistId,
-        playlistName: mixName,
-        playlistLanguage: playlistLanguage,
-      })
-    );
-
+    if (data.playlistId !== playlistId || data.playlistId === null) {
+      dispatch(
+        setPlaylist({
+          playlist: [],
+          playlistId: playlistId,
+          playlistName: mixName,
+          playlistLanguage: playlistLanguage,
+        })
+      );
+      dispatch(
+        setCurrentSong({
+          currentSong: null,
+          songIndex: 0,
+        })
+      );
+      dispatch(playSong(false));
+    }
     navigate("/playlist");
   };
   return (
