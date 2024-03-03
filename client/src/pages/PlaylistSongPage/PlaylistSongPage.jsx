@@ -17,11 +17,6 @@ import YoutubeVideo from "../../components/YoutubeVideo/YoutubeVideo";
 function PlaylistSongPage() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (currentPlaylistData) {
-  //     console.log(currentPlaylistData);
-  //   }
-  // }, [currentPlaylistData]);
   const handlePlaylistTitleClick = () => {
     navigate("/playlist");
   };
@@ -34,12 +29,6 @@ function PlaylistSongPage() {
           <PlaylistTitle onClick={handlePlaylistTitleClick}>
             {currentPlaylistData.playlistName}
           </PlaylistTitle>
-          {/* <h5>
-            {
-              currentPlaylistData.playlist[currentPlaylistData.currentSongIndex]
-                .title
-            }
-          </h5> */}
           <BigContainer>
             <ArtistContainer>
               <div>

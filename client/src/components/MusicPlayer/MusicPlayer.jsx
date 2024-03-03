@@ -21,12 +21,6 @@ function MusicPlayer() {
   );
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (currentPlaylistData) {
-      console.log(currentPlaylistData);
-    }
-  }, []);
-
   const playlist = currentPlaylistData.playlist;
 
   const handleTogglePlayPause = () => {
