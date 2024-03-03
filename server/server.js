@@ -1,6 +1,8 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import session from "express-session";
+import passport from "passport";
 import logger from "./logger.js";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
@@ -22,18 +24,39 @@ import loggingMiddleware from "./reqLogger.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const PORT = process.env.PORT || 5000;
-const NODE_ENV = process.env.NODE_ENV;
-const app = express();
-
 dotenv.config({ path: join(__dirname, "./config/config.env") });
 
-app.use(cors());
-app.use(express.static(join(__dirname, "../client/dist")));
+const PORT = process.env.SERVER_PORT || 5000;
+const NODE_ENV = process.env.NODE_ENV;
+const app = express();
+const BASE_SERVER_URL = process.env.BASE_SERVER_URL;
+const CLIENT_PORT = process.env.CLIENT_PORT;
 
-// Middlewares
+const corsOptions = {
+  origin: `${BASE_SERVER_URL}:${CLIENT_PORT}`,
+  credentials: true, // This is important for cookies, authorization headers with HTTPS
+};
+
+app.use(cors(corsOptions));
+
+app.use(express.static(join(__dirname, "../client/dist")));
 app.use(express.json());
 app.use(loggingMiddleware); // Apply loggingMiddleware for all routes
+
+// Configure session management
+app.use(
+  session({
+    secret: process.env.SESSION_SECERT,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: "auto" }, // Set to true in production if using HTTPS
+  })
+);
+
+// Initialize Passport and restore authentication state, if any, from the session
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use("/api/v1/songs", songsRouter);
 app.use("/api/v1/artists", artistsRouter);
 app.use("/api/v1/topSongs", topSongsRouter);
@@ -53,13 +76,12 @@ app.use(errorHandler);
 
 connectDB();
 
-app.listen(
-  PORT,
-  logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`)
-);
+app.listen(PORT, () => {
+  logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
+});
 
 process.on("unhandledRejection", (err, promise) => {
   logger.error(`Error in server: ${err.message}`);
   closeDBConnection();
-  // app.close(() => process.exit(1));
+  // Optionally, close the server with app.close() if needed
 });
