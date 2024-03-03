@@ -156,44 +156,75 @@ export const clickToAddView = async (req, res, next) => {
 
 export const toggleLike = async (req, res, next) => {
   try {
+    const userId = req.user._id;
     const coverSong = await CoverSong.findById(req.params.id);
 
     if (!coverSong) {
       res.status(404);
-      logger.info(`cover song with id of ${req.params.id} is not found `);
-      throw new Error("coverSong not found");
+      logger.info(`Cover song with id of ${req.params.id} is not found.`);
+      return res.send("Cover song not found.");
     }
 
-    if (coverSong.likes.includes(req.userId.toString())) {
-      const updatedCoverSong = await CoverSong.findByIdAndUpdate(
+    // Check if the user has already liked the cover song
+    const isLiked = coverSong.likes.includes(userId.toString());
+
+    if (isLiked) {
+      // User has liked the cover song, so remove the like
+      await CoverSong.findByIdAndUpdate(
         req.params.id,
-        {
-          $pull: { likes: req.userId.toString() },
-        },
+        { $pull: { likes: userId.toString() } },
         { new: true }
       );
       logger.info(
-        `a user with id of ${req.userId.toString()} has unliked the cover song with id of ${
+        `User with id of ${userId.toString()} has unliked the cover song with id of ${
           coverSong._id
-        } `
+        }.`
       );
-
-      res.send(updatedCoverSong);
     } else {
-      const updatedCoverSong = await CoverSong.findByIdAndUpdate(
+      // User has not liked the cover song, so add a like
+      await CoverSong.findByIdAndUpdate(
         req.params.id,
-        {
-          $push: { likes: req.userId.toString() },
-        },
+        { $push: { likes: userId.toString() } },
         { new: true }
       );
       logger.info(
-        `a user with id of ${req.userId.toString()} has liked the cover song with id of ${
+        `User with id of ${userId.toString()} has liked the cover song with id of ${
           coverSong._id
-        } `
+        }.`
       );
+    }
 
-      res.send(updatedCoverSong);
+    // Refetch the coverSong to send the updated document as a response
+    const updatedCoverSong = await CoverSong.findById(req.params.id);
+    res.send(updatedCoverSong);
+  } catch (error) {
+    logger.error(`Error in toggleLike: ${error.message}`);
+    next(error);
+  }
+};
+
+export const getTopCoverSongs = async (req, res, next) => {
+  try {
+    const language = req.query.language;
+    if (language === "hebrew") {
+      const hebrewSongs = await CoverSong.find({
+        originalLanguage: "hebrew",
+      });
+      if (!hebrewSongs) {
+        res.status(404);
+        throw new Error("Hebrew songs not found");
+      }
+      res.send(hebrewSongs);
+    }
+    if (language === "arabic") {
+      const arabicSongs = await CoverSong.find({
+        originalLanguage: "arabic",
+      });
+      if (!arabicSongs) {
+        res.status(404);
+        throw new Error("Arabic songs not found");
+      }
+      res.send(arabicSongs);
     }
   } catch (error) {
     next(error);
