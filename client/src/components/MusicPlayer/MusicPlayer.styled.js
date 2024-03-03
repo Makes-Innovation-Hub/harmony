@@ -5,7 +5,7 @@ export const MusicPlayerContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   width: 100%;
 `;
 export const PlayBoxContainer = styled.div`
@@ -13,6 +13,6 @@ export const PlayBoxContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
   width: 100%;
 `;
