@@ -16,12 +16,15 @@ export const ArtistContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
   padding-top: 30px;
   max-width: 100%;
 `;
 
-export const SongCover = styled.img`
+export const ProfileImgContainer = styled.div`
+  width: 46%;
+  padding-left: 1.2rem;
+`;
+export const ProfileImg = styled.img`
   width: 149px;
   height: 145px;
   top: 154px;
@@ -30,9 +33,13 @@ export const SongCover = styled.img`
 `;
 
 export const SongAndSingerContainer = styled.div`
+  width: 54%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 7px;
+  padding-bottom: 30px;
 `;
 
 export const SongName = styled.h3`

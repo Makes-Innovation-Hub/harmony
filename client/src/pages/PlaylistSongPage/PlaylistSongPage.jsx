@@ -6,9 +6,10 @@ import {
   BigContainer,
   OriginalArtistName,
   PlaylistTitle,
+  ProfileImg,
   SongAndSingerContainer,
-  SongCover,
   SongName,
+  ProfileImgContainer,
 } from "./PlaylistSongPage.styled";
 import MusicPlayer from "../../components/MusicPlayer/MusicPlayer";
 import { useNavigate } from "react-router-dom";
@@ -31,12 +32,12 @@ function PlaylistSongPage() {
           </PlaylistTitle>
           <BigContainer>
             <ArtistContainer>
-              <div>
-                <SongCover
+              <ProfileImgContainer>
+                <ProfileImg
                   src={currentPlaylistData.currentSong.profilePicUrl}
                   alt="profile picture"
                 />
-              </div>
+              </ProfileImgContainer>
 
               <SongAndSingerContainer>
                 <SongName>
