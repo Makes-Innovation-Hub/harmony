@@ -21,6 +21,9 @@ const playlistSlice = createSlice({
     playSong(state, action) {
       state.currentSongIsPlaying = action.payload;
     },
+    setCurrentPlayingSong(state, action) {
+      state.currentSongIndex = action.songIndex;
+    },
     setPlaylist(state, action) {
       state.playlist = action.payload.playlist;
       state.playlistId = action.payload.playlistId;
@@ -34,6 +37,11 @@ const playlistSlice = createSlice({
   },
 });
 
-export const { setCurrentSong, playSong, setPlaylist, populatePlaylistArray } =
-  playlistSlice.actions;
+export const {
+  setCurrentSong,
+  playSong,
+  setCurrentPlayingSong,
+  setPlaylist,
+  populatePlaylistArray,
+} = playlistSlice.actions;
 export default playlistSlice.reducer;
