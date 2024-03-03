@@ -4,6 +4,7 @@ import { MusicPlayerContainer, PlayBoxContainer } from "./MusicPlayer.styled";
 import {
   setCurrentSong,
   playSong,
+  shufflePlaylist,
   setCurrentPlayingSong,
 } from "../../Redux/playlistSlice.js";
 import play from "../../assets/musicPlayer/play.svg";
@@ -72,6 +73,13 @@ function MusicPlayer() {
       );
     }
   };
+
+  const handleShuffle = () => {
+    if (!isPlaying) {
+      dispatch(shufflePlaylist());
+    }
+  };
+
   return (
     <MusicPlayerContainer>
       <PlayBoxContainer>
@@ -90,7 +98,11 @@ function MusicPlayer() {
 
         <img src={next} alt="next" onClick={handleNextVideo} />
       </PlayBoxContainer>
-      <img src={isPlaying ? blueShuffle : shuffle} alt="shuffle" />
+      <img
+        src={isPlaying ? blueShuffle : shuffle}
+        alt="shuffle"
+        onClick={handleShuffle}
+      />
     </MusicPlayerContainer>
   );
 }
