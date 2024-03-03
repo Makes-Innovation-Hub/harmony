@@ -27,26 +27,21 @@ import { useSelector } from "react-redux";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
+  const navigate = useNavigate();
+
   const [addView] = useAddViewMutation();
   const [toggleLike] = useToggleLikeMutation();
   const { data: updatedCoverSong } = useGetCoverSongByIdQuery(coverData?._id);
-  const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId);
+  const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId, {
+    skip: !updatedCoverSong?.originalSongId,
+  });
+
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
   const [likedVideo, setLikedVideo] = useState(false);
 
   const currentUser = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
-
-  // console.log(currentUser);
-  // console.log(coverData);
 
   const goBackToOriginalSong = () => {
-    // console.log({
-    //   artist: coverData?.originalArtist,
-    //   song: coverData?.originalSongName,
-    //   coverArt: coverData?.originalSongCover,
-    // });
-
     navigate("/translating", {
       state: {
         artist: coverData?.originalArtist,
@@ -57,7 +52,9 @@ export default function CoverPage() {
   };
 
   useEffect(() => {
-    refetch();
+    if (updatedCoverSong?.originalSongId) {
+      refetch();
+    }
   }, [updatedCoverSong]);
 
   function updateViews() {
@@ -88,13 +85,17 @@ export default function CoverPage() {
             <SongCover
               onClick={goBackToOriginalSong}
               src={coverData?.originalSongCover}
-              alt="Original song cover"
+              alt="Original song cover art"
             />
           </div>
 
-          <SongAndSingerContainer onClick={goBackToOriginalSong}>
-            <SongName>{coverData?.originalSongName}</SongName>
-            <OriginalArtistName>{coverData?.originalArtist}</OriginalArtistName>
+          <SongAndSingerContainer>
+            <SongName onClick={goBackToOriginalSong}>
+              {coverData?.originalSongName}
+            </SongName>
+            <OriginalArtistName onClick={goBackToOriginalSong}>
+              {coverData?.originalArtist}
+            </OriginalArtistName>
           </SongAndSingerContainer>
         </ArtistContainer>
 
@@ -117,20 +118,15 @@ export default function CoverPage() {
                   <LikedCoverButton
                     $likedCover={likedVideo}
                     src={likedSvg}
-                    alt="like svg"
+                    alt="liked svg"
                   />
                 ) : (
                   <LikedCoverButton
                     $likedCover={likedVideo}
                     src={likeSvg}
-                    alt="like svg"
+                    alt="not liked svg"
                   />
                 )}
-                {/* <LikedCoverButton
-                  $likedCover={likedVideo}
-                  src={likeSvg}
-                  alt="like svg"
-                /> */}
               </div>
             </SameLine>
           </VideoInfo>

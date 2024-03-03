@@ -81,13 +81,14 @@ export const SameLine = styled.div`
   gap: 10px;
 
   .likes {
-    margin-top: 4px;
+    margin-top: 3px;
   }
 `;
 
 export const LikedCoverButton = styled.img`
   width: 20px;
   height: 20px;
+  margin-top: -2.5px;
 
   animation: ${(props) => props.$likedCover && "jump 0.8s ease  alternate"};
 
