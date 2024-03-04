@@ -53,7 +53,7 @@ export const deleteCoverSongById = async (req, res, next) => {
 
 export const getAllCoverSongs = async (req, res, next) => {
   try {
-    const coverSongs = await CoverSong.find({});
+    const coverSongs = await CoverSong.find({}).populate("comments");
     res.send(coverSongs);
   } catch (error) {
     next(error);
@@ -62,7 +62,9 @@ export const getAllCoverSongs = async (req, res, next) => {
 
 export const getCoverSongById = async (req, res, next) => {
   try {
-    const coverSongs = await CoverSong.findById(req.params.id);
+    const coverSongs = await CoverSong.findById(req.params.id).populate(
+      "comments"
+    );
     res.send(coverSongs);
   } catch (error) {
     next(error);
