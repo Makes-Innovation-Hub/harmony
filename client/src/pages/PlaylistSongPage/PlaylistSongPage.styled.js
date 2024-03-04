@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CoverArtistTitle = styled.h3`
+export const PlaylistTitle = styled.h3`
   font-family: ABeeZee;
   font-size: 17px;
   font-style: italic;
@@ -59,8 +59,7 @@ export const OriginalArtistName = styled.p`
 export const BigContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding-bottom: 30px;
+  gap: 15px;
 `;
 
 export const VideoInfo = styled.div`
@@ -79,30 +78,4 @@ export const VideoInfo = styled.div`
 export const SameLine = styled.div`
   display: flex;
   gap: 10px;
-
-  .likes {
-    margin-top: 3px;
-  }
-`;
-
-export const LikedCoverButton = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-top: -2.5px;
-
-  animation: ${(props) => props.$likedCover && "jump 0.8s ease  alternate"};
-
-  @keyframes jump {
-    0% {
-      -webkit-transform: scale(1.1, 0.9);
-      transform: scale(1.1, 0.9);
-    }
-    50% {
-      -webkit-transform: scale(0.9, 1.1) translateY(-0.5rem);
-    }
-    70% {
-      -webkit-transform: scale(1);
-      transform: scale(1);
-    }
-  }
 `;
