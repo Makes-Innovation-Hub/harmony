@@ -1,9 +1,8 @@
-import { OriginalSong, YoutubeBox } from "./YoutubeStyle";
-
-function Youtube({ songName, artistName, youtubeUrl }) {
+import React from "react";
+import { YoutubeBox } from "./YoutubeVideo.styled";
+function YoutubeVideo({ youtubeUrl }) {
   return (
     <div>
-      <OriginalSong>Original Version </OriginalSong>
       <YoutubeBox>
         <iframe
           width="560"
@@ -18,4 +17,4 @@ function Youtube({ songName, artistName, youtubeUrl }) {
   );
 }
 
-export default Youtube;
+export default YoutubeVideo;

@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import translatingGif from "../assets/animations/translating-animation.gif";
 import Animation from "../components/Animation/Animation.component";
 import Header from "../components/Header/Header";

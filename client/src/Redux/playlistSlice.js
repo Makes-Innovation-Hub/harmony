@@ -34,6 +34,14 @@ const playlistSlice = createSlice({
     populatePlaylistArray(state, action) {
       state.playlist = action.payload;
     },
+    shufflePlaylist(state) {
+      state.playlist.sort(() => Math.random() - 0.5);
+      while (state.playlist[0] === state.currentSong) {
+        state.playlist.sort(() => Math.random() - 0.5);
+      }
+      state.currentSong = state.playlist[0];
+      state.currentSongIndex = 0;
+    },
   },
 });
 
@@ -43,5 +51,6 @@ export const {
   setCurrentPlayingSong,
   setPlaylist,
   populatePlaylistArray,
+  shufflePlaylist,
 } = playlistSlice.actions;
 export default playlistSlice.reducer;

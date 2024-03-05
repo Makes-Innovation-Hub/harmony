@@ -1,26 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { verifyTokenWithBackend } from "../components/authUtils.js";
+import { verifySessionWithBackend } from "../components/authUtils";
+import Animation from "../components/Animation/Animation.component";
+import translatingGif from "../assets/animations/translating-animation.gif";
+import { useTranslation } from "react-i18next";
 
 const SecureRoute = ({ children }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const isVerified = useSelector((state) => state.auth.isVerified);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!isVerified); // Start loading only if not already verified
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token && !isVerified) {
-      verifyTokenWithBackend(token, dispatch);
-    } else {
-      setLoading(false);
+    // Only verify session with backend if not already verified
+    if (!isVerified) {
+      verifySessionWithBackend(dispatch, navigate).finally(() =>
+        setLoading(false)
+      );
     }
-  }, [dispatch, isVerified]);
+  }, [dispatch, navigate, isVerified]); // Dependency array ensures this effect runs only when isVerified changes
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Animation
+        animationGif={translatingGif}
+        animationText={[t("Verifying session, please wait...")]}
+      />
+    );
   }
 
   return isVerified ? children : <Navigate to="/login" replace />;
 };
+
 export default SecureRoute;
