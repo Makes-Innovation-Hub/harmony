@@ -3,7 +3,10 @@ import Header from "../../components/Header/Header";
 import translatingGif from "../../assets/animations/translating-animation.gif";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetPlaylistByIdQuery } from "../../api/playlistApiSlice";
-import { populatePlaylistArray } from "../../Redux/playlistSlice.js";
+import {
+  populatePlaylistArray,
+  rearrangePlaylistArray,
+} from "../../Redux/playlistSlice.js";
 import {
   ContentWrapper,
   PageWrapper,
@@ -33,6 +36,12 @@ function PlaylistPage() {
       dispatch(populatePlaylistArray(playlistQueryData));
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (currentPlaylistData.currentSongIsPlaying) {
+      dispatch(rearrangePlaylistArray());
+    }
+  }, [currentPlaylistData.currentSong]);
 
   return (
     <PageWrapper>

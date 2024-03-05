@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { rotatLeftArray } from "../utils/arrayHelpers";
 
 const initialState = {
   playlist: [],
@@ -42,6 +43,11 @@ const playlistSlice = createSlice({
       state.currentSong = state.playlist[0];
       state.currentSongIndex = 0;
     },
+    rearrangePlaylistArray(state) {
+      let index = state.currentSongIndex;
+      rotatLeftArray(state.playlist, index);
+      state.currentSongIndex = 0;
+    },
   },
 });
 
@@ -52,5 +58,6 @@ export const {
   setPlaylist,
   populatePlaylistArray,
   shufflePlaylist,
+  rearrangePlaylistArray,
 } = playlistSlice.actions;
 export default playlistSlice.reducer;

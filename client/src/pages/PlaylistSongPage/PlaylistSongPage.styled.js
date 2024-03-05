@@ -40,6 +40,7 @@ export const SongAndSingerContainer = styled.div`
   align-items: center;
   gap: 7px;
   padding-bottom: 30px;
+  padding-right: 1.2rem;
 `;
 
 export const SongName = styled.h3`
