@@ -7,11 +7,7 @@ import {
   populatePlaylistArray,
   rearrangePlaylistArray,
 } from "../../Redux/playlistSlice.js";
-import {
-  ContentWrapper,
-  PageWrapper,
-  PlaylistTitle,
-} from "./PlaylistPage.styled.js";
+import * as S from "./PlaylistPage.styled.js";
 import FlexGrowContainer from "../../components/FlexGrowContainer/FlexGrowContainer";
 import SongInPlaylist from "../../components/SongInPlaylist/SongInPlaylist.jsx";
 import Animation from "../../components/Animation/Animation.component.jsx";
@@ -20,7 +16,6 @@ function PlaylistPage() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
   const dispatch = useDispatch();
 
-  // Only call the query if the playlist length is zero
   const shouldFetchPlaylist = currentPlaylistData.playlist.length === 0;
 
   const { data: playlistQueryData, isSuccess } = useGetPlaylistByIdQuery(
@@ -44,7 +39,7 @@ function PlaylistPage() {
   }, [currentPlaylistData.currentSong]);
 
   return (
-    <PageWrapper>
+    <S.PageWrapper>
       <Header />
       {!isSuccess && shouldFetchPlaylist && (
         <Animation
@@ -53,11 +48,11 @@ function PlaylistPage() {
         />
       )}
 
-      <PlaylistTitle>{currentPlaylistData.playlistName}</PlaylistTitle>
+      <S.PlaylistTitle>{currentPlaylistData.playlistName}</S.PlaylistTitle>
       {(isSuccess || !shouldFetchPlaylist) && (
         <>
           <FlexGrowContainer flexGrow="6" padding="0 0.8rem">
-            <ContentWrapper>
+            <S.ContentWrapper>
               {currentPlaylistData.playlist.map((song, index) => (
                 <SongInPlaylist
                   key={index}
@@ -69,11 +64,11 @@ function PlaylistPage() {
                   imgURL={song.profilePicUrl}
                 />
               ))}
-            </ContentWrapper>
+            </S.ContentWrapper>
           </FlexGrowContainer>
         </>
       )}
-    </PageWrapper>
+    </S.PageWrapper>
   );
 }
 

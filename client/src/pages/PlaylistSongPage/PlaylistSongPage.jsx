@@ -26,7 +26,6 @@ function PlaylistSongPage() {
             <S.ArtistContainer>
               <S.ProfileImgContainer>
                 <S.ProfileImg
-                  // Check if profilePicUrl is undefined
                   src={currentPlaylistData.currentSong.profilePicUrl}
                   alt="profile picture"
                 />
@@ -42,11 +41,9 @@ function PlaylistSongPage() {
               </S.SongAndSingerContainer>
             </S.ArtistContainer>
 
-            <div>
-              <YoutubeVideo
-                youtubeUrl={currentPlaylistData.currentSong.videoId}
-              />
-            </div>
+            <YoutubeVideo
+              youtubeUrl={currentPlaylistData.currentSong.videoId}
+            />
             <MusicPlayer />
           </S.BigContainer>
         </>

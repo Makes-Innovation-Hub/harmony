@@ -1,4 +1,4 @@
-export const rotatLeftArray = (array, rotations) => {
+export const rotateLeftArray = (array, rotations) => {
   for (let i = 0; i < rotations; i++) {
     array.push(array.shift());
     array;

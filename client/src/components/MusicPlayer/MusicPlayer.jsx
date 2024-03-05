@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MusicPlayerContainer, PlayBoxContainer } from "./MusicPlayer.styled";
+import * as S from "./MusicPlayer.styled";
 import {
   setCurrentSong,
   playSong,
@@ -16,10 +16,11 @@ import blueShuffle from "../../assets/musicPlayer/blue-shuffle.svg";
 
 function MusicPlayer() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
+  const dispatch = useDispatch();
+
   const [isPlaying, setIsPlaying] = useState(
     currentPlaylistData.currentSongIsPlaying
   );
-  const dispatch = useDispatch();
 
   const playlist = currentPlaylistData.playlist;
 
@@ -31,6 +32,7 @@ function MusicPlayer() {
     }
     setIsPlaying(!isPlaying);
   };
+
   const handleNextVideo = () => {
     const nextIndex = currentPlaylistData.currentSongIndex + 1;
     if (nextIndex < playlist.length) {
@@ -75,8 +77,8 @@ function MusicPlayer() {
   };
 
   return (
-    <MusicPlayerContainer>
-      <PlayBoxContainer>
+    <S.MusicPlayerContainer>
+      <S.PlayBoxContainer>
         <img
           src={previous}
           style={{ background: "#f4e6d1", padding: "6px" }}
@@ -91,13 +93,13 @@ function MusicPlayer() {
         />
 
         <img src={next} alt="next" onClick={handleNextVideo} />
-      </PlayBoxContainer>
+      </S.PlayBoxContainer>
       <img
         src={isPlaying ? blueShuffle : shuffle}
         alt="shuffle"
         onClick={handleShuffle}
       />
-    </MusicPlayerContainer>
+    </S.MusicPlayerContainer>
   );
 }
 
