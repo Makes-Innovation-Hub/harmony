@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import Header from "../../components/Header/Header";
+import translatingGif from "../../assets/animations/translating-animation.gif";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetPlaylistByIdQuery } from "../../api/playlistApiSlice";
-import { populatePlaylistArray } from "../../Redux/playlistSlice.js";
 import {
-  ContentWrapper,
-  PageWrapper,
-  PlaylistTitle,
-} from "./PlaylistPage.styled.js";
+  populatePlaylistArray,
+  rearrangePlaylistArray,
+} from "../../Redux/playlistSlice.js";
+import * as S from "./PlaylistPage.styled.js";
 import FlexGrowContainer from "../../components/FlexGrowContainer/FlexGrowContainer";
 import SongInPlaylist from "../../components/SongInPlaylist/SongInPlaylist.jsx";
+import Animation from "../../components/Animation/Animation.component.jsx";
 
 function PlaylistPage() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
   const dispatch = useDispatch();
 
-  // Only call the query if the playlist length is zero
   const shouldFetchPlaylist = currentPlaylistData.playlist.length === 0;
 
   const { data: playlistQueryData, isSuccess } = useGetPlaylistByIdQuery(
@@ -32,15 +32,27 @@ function PlaylistPage() {
     }
   }, [isSuccess]);
 
+  useEffect(() => {
+    if (currentPlaylistData.currentSongIsPlaying) {
+      dispatch(rearrangePlaylistArray());
+    }
+  }, [currentPlaylistData.currentSong]);
+
   return (
-    <PageWrapper>
+    <S.PageWrapper>
       <Header />
+      {!isSuccess && shouldFetchPlaylist && (
+        <Animation
+          animationGif={translatingGif}
+          animationText={["Loading playlist..."]}
+        />
+      )}
+
+      <S.PlaylistTitle>{currentPlaylistData.playlistName}</S.PlaylistTitle>
       {(isSuccess || !shouldFetchPlaylist) && (
         <>
-          <PlaylistTitle>{currentPlaylistData.playlistName}</PlaylistTitle>
-
           <FlexGrowContainer flexGrow="6" padding="0 0.8rem">
-            <ContentWrapper>
+            <S.ContentWrapper>
               {currentPlaylistData.playlist.map((song, index) => (
                 <SongInPlaylist
                   key={index}
@@ -52,11 +64,11 @@ function PlaylistPage() {
                   imgURL={song.profilePicUrl}
                 />
               ))}
-            </ContentWrapper>
+            </S.ContentWrapper>
           </FlexGrowContainer>
         </>
       )}
-    </PageWrapper>
+    </S.PageWrapper>
   );
 }
 

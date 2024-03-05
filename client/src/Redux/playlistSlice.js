@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { rotateLeftArray } from "../utils/arrayHelpers";
 
 const initialState = {
   playlist: [],
@@ -34,12 +35,31 @@ const playlistSlice = createSlice({
     populatePlaylistArray(state, action) {
       state.playlist = action.payload;
     },
+
     shufflePlaylist(state) {
-      state.playlist.sort(() => Math.random() - 0.5);
-      while (state.playlist[0] === state.currentSong) {
-        state.playlist.sort(() => Math.random() - 0.5);
+      const shuffledPlaylist = [...state.playlist].sort(
+        () => Math.random() - 0.5
+      );
+
+      if (
+        shuffledPlaylist[0].videoId === state.currentSong.videoId &&
+        shuffledPlaylist.length > 1
+      ) {
+        const temp = shuffledPlaylist[0];
+        shuffledPlaylist[0] = shuffledPlaylist[shuffledPlaylist.length - 1];
+        shuffledPlaylist[shuffledPlaylist.length - 1] = temp;
       }
-      state.currentSong = state.playlist[0];
+
+      state.playlist = shuffledPlaylist;
+      state.currentSong = shuffledPlaylist[0];
+      state.currentSongIndex = 0;
+    },
+
+    rearrangePlaylistArray(state) {
+      let index = state.currentSongIndex;
+      const newArrangedArry = [...state.playlist];
+      rotateLeftArray(newArrangedArry, index);
+      state.playlist = newArrangedArry;
       state.currentSongIndex = 0;
     },
   },
@@ -52,5 +72,6 @@ export const {
   setPlaylist,
   populatePlaylistArray,
   shufflePlaylist,
+  rearrangePlaylistArray,
 } = playlistSlice.actions;
 export default playlistSlice.reducer;
