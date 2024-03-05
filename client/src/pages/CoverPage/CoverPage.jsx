@@ -132,6 +132,7 @@ export default function CoverPage() {
           </VideoInfo>
         </div>
       </BigContainer>
+      <div>comments</div>
     </main>
   );
 }
