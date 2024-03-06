@@ -65,12 +65,12 @@ export async function scrapGoogleFn(songName, singerName) {
       await page.goto(link);
 
       await page.waitForSelector(
-        '.artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics , div.mxm-lyrics > span   , div.lyrics-page_lyrics__QEN3R > pre'
+        'div.css-175oi2r.r-13awgt0.r-eqz5dr.r-1v1z2uz , .artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics , div.mxm-lyrics > span   , div.lyrics-page_lyrics__QEN3R > pre'
       );
 
       const lyricsText = await page.evaluate(() => {
         const spanElement = document.querySelector(
-          '.artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics , div.mxm-lyrics > span , div.lyrics-page_lyrics__QEN3R > pre'
+          'div.css-175oi2r.r-13awgt0.r-eqz5dr.r-1v1z2uz , .artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics , div.mxm-lyrics > span , div.lyrics-page_lyrics__QEN3R > pre'
         );
         return spanElement ? spanElement.innerText : "";
       });
