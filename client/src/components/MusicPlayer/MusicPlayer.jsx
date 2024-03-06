@@ -79,26 +79,27 @@ function MusicPlayer() {
   return (
     <S.MusicPlayerContainer>
       <S.PlayBoxContainer>
-        <img
+        <S.ButtonImage
           src={previous}
           style={{ background: "#f4e6d1", padding: "6px" }}
           alt="previous"
           onClick={handlePreviousVideo}
         />
 
-        <img
+        <S.ButtonImage
           src={isPlaying ? pause : play}
           alt={isPlaying ? "pause" : "play"}
           onClick={handleTogglePlayPause}
         />
 
-        <img src={next} alt="next" onClick={handleNextVideo} />
+        <S.ButtonImage src={next} alt="next" onClick={handleNextVideo} />
       </S.PlayBoxContainer>
-      <img
-        src={isPlaying ? blueShuffle : shuffle}
-        alt="shuffle"
-        onClick={handleShuffle}
-      />
+
+      {isPlaying ? (
+        <img src={blueShuffle} alt="blueShuffle" />
+      ) : (
+        <S.ButtonImage src={shuffle} alt="shuffle" onClick={handleShuffle} />
+      )}
     </S.MusicPlayerContainer>
   );
 }

@@ -25,9 +25,9 @@ function SongInPlaylist({
     navigate("/playlistSongPage");
   };
   return (
-    <ContentWrapper>
+    <ContentWrapper onClick={handleSelectSong}>
       <ContentWrapper2>
-        <ImgCard src={imgURL} onClick={handleSelectSong} />
+        <ImgCard src={imgURL} />
       </ContentWrapper2>
       <ContentWrapper2>
         <ThreeLangSongName

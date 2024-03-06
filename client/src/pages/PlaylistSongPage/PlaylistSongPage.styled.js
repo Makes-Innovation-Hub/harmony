@@ -10,25 +10,34 @@ export const PlaylistTitle = styled.h3`
   text-align: center;
   color: #828282;
   margin-top: 20px;
+  @media (min-width: 768px) {
+    padding-bottom: 55px;
+    &:hover {
+      color: #333333;
+      cursor: pointer;
+    }
+  }
 `;
 
 export const ArtistContainer = styled.div`
   display: flex;
+  gap: 10px;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   padding-top: 30px;
-  max-width: 100%;
+  width: 329px;
+  /* height: 160px ; */
+  /* border: saddlebrown solid 1px; */
 `;
 
 export const ProfileImgContainer = styled.div`
   width: 46%;
-  padding-left: 1.2rem;
+  /* border: rebeccapurple solid 1px; */
+  /* padding-left: 1.2rem; */
 `;
 export const ProfileImg = styled.img`
   width: 149px;
   height: 145px;
-  top: 154px;
-  left: 31px;
   border-radius: 30px;
 `;
 
@@ -39,8 +48,8 @@ export const SongAndSingerContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 7px;
-  padding-bottom: 30px;
-  padding-right: 1.2rem;
+  padding-top: 25px;
+  /* border: saddlebrown solid 1px; */
 `;
 
 export const SongName = styled.h3`
@@ -67,23 +76,7 @@ export const OriginalArtistName = styled.p`
 export const BigContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
-`;
-
-export const VideoInfo = styled.div`
-  display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  font-family: ABeeZee;
-  font-size: 12px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0em;
-  text-align: center;
-`;
-
-export const SameLine = styled.div`
-  display: flex;
-  gap: 10px;
+  gap: 23px;
 `;
