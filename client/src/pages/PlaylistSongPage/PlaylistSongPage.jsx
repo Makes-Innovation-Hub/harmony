@@ -15,7 +15,6 @@ function PlaylistSongPage() {
   };
   useEffect(() => {
     setAnimationKey((prevKey) => prevKey + 1);
-    console.log(currentPlaylistData);
   }, [currentPlaylistData.currentSongIndex, currentPlaylistData.currentSong]);
   return (
     <>
