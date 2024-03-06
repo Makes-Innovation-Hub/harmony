@@ -20,6 +20,7 @@ function SongInPlaylist({
       setCurrentSong({
         currentSong: currentPlaylistData.playlist[songIndex],
         songIndex: songIndex,
+        direction: "left",
       })
     );
     navigate("/playlistSongPage");

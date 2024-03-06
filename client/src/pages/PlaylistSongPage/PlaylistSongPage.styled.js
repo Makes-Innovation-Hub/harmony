@@ -1,5 +1,22 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+// Define keyframes for the animation
+const slideInFromLeft = keyframes`
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
 
+const slideInFromRight = keyframes`
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
 export const PlaylistTitle = styled.h3`
   font-family: ABeeZee;
   font-size: 17px;
@@ -26,14 +43,10 @@ export const ArtistContainer = styled.div`
   align-items: start;
   padding-top: 30px;
   width: 329px;
-  /* height: 160px ; */
-  /* border: saddlebrown solid 1px; */
 `;
 
 export const ProfileImgContainer = styled.div`
   width: 46%;
-  /* border: rebeccapurple solid 1px; */
-  /* padding-left: 1.2rem; */
 `;
 export const ProfileImg = styled.img`
   width: 149px;
@@ -71,6 +84,17 @@ export const OriginalArtistName = styled.p`
   letter-spacing: 0em;
   text-align: center;
   color: #828282;
+`;
+
+export const SongDataContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 23px;
+  animation: ${({ direction }) =>
+      direction === "left" ? slideInFromLeft : slideInFromRight}
+    0.7s forwards;
 `;
 
 export const BigContainer = styled.div`

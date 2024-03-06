@@ -42,6 +42,7 @@ function YouTubePlayer() {
         setCurrentSong({
           currentSong: playlist[nextIndex],
           songIndex: nextIndex,
+          direction: "left",
         })
       );
     } else {
@@ -50,6 +51,7 @@ function YouTubePlayer() {
         setCurrentSong({
           currentSong: playlist[0],
           songIndex: 0,
+          direction: "left",
         })
       );
     }
