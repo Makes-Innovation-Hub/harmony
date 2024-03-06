@@ -5,7 +5,16 @@ import { genGoogleLyricsUrl } from "../utils/googleLyricsUrl.js";
 export async function scrapGoogleFn(songName, singerName) {
   try {
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: "new",
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage", // Addresses issues with shared memory in Docker
+        "--disable-accelerated-2d-canvas", // Performance improvement
+        "--no-first-run",
+        "--no-zygote",
+        "--disable-gpu", // May help performance in headless environments, though often not necessary
+      ],
       defaultViewport: null,
     });
 
@@ -56,7 +65,7 @@ export async function scrapGoogleFn(songName, singerName) {
       await page.goto(link);
 
       await page.waitForSelector(
-        '.artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics , div.mxm-lyrics > span , div.lyrics-page_lyrics__QEN3R > pre'
+        '.artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics , div.mxm-lyrics > span   , div.lyrics-page_lyrics__QEN3R > pre'
       );
 
       const lyricsText = await page.evaluate(() => {
