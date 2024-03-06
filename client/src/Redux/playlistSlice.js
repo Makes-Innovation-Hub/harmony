@@ -8,6 +8,7 @@ const initialState = {
   playlistLanguage: null,
   currentSong: null,
   currentSongIndex: 0,
+  animationDirection: "left",
   currentSongIsPlaying: false,
 };
 
@@ -18,13 +19,12 @@ const playlistSlice = createSlice({
     setCurrentSong(state, action) {
       state.currentSong = action.payload.currentSong;
       state.currentSongIndex = action.payload.songIndex;
+      state.animationDirection = action.payload.direction;
     },
     playSong(state, action) {
       state.currentSongIsPlaying = action.payload;
     },
-    setCurrentPlayingSong(state, action) {
-      state.currentSongIndex = action.songIndex;
-    },
+
     setPlaylist(state, action) {
       state.playlist = action.payload.playlist;
       state.playlistId = action.payload.playlistId;
@@ -53,6 +53,7 @@ const playlistSlice = createSlice({
       state.playlist = shuffledPlaylist;
       state.currentSong = shuffledPlaylist[0];
       state.currentSongIndex = 0;
+      state.animationDirection = "left";
     },
 
     rearrangePlaylistArray(state) {
@@ -61,6 +62,7 @@ const playlistSlice = createSlice({
       rotateLeftArray(newArrangedArry, index);
       state.playlist = newArrangedArry;
       state.currentSongIndex = 0;
+      state.animationDirection = "left";
     },
   },
 });
@@ -68,7 +70,6 @@ const playlistSlice = createSlice({
 export const {
   setCurrentSong,
   playSong,
-  setCurrentPlayingSong,
   setPlaylist,
   populatePlaylistArray,
   shufflePlaylist,
