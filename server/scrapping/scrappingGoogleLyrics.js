@@ -39,7 +39,7 @@ export async function scrapGoogleFn(songName, singerName) {
         "https://www.tab4u.com/",
         "https://www.lyrics-arabic.com/",
         "https://lyricstranslate.com/",
-        "https://www.boomplay.com/",
+        // "https://www.boomplay.com/",
         "https://www.musixmatch.com/",
         "https://kalimat.anghami.com",
       ];
@@ -59,26 +59,25 @@ export async function scrapGoogleFn(songName, singerName) {
     const filteredLinks = links.filter(Boolean).slice(0, 1);
     logger.info(`the link to scrap lyrics google is: ${filteredLinks}`);
 
-    const lyrics = [];
-
     for (const link of filteredLinks) {
       await page.goto(link);
 
       await page.waitForSelector(
-        'div.css-175oi2r.r-13awgt0.r-eqz5dr.r-1v1z2uz , .artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics , div.mxm-lyrics > span   , div.lyrics-page_lyrics__QEN3R > pre'
+        'div.css-175oi2r.r-13awgt0.r-eqz5dr.r-1v1z2uz div.r-zd98yo , .artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics, div.lyrics-page_lyrics__QEN3R > pre'
       );
 
       const lyricsText = await page.evaluate(() => {
-        const spanElement = document.querySelector(
-          'div.css-175oi2r.r-13awgt0.r-eqz5dr.r-1v1z2uz , .artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics , div.mxm-lyrics > span , div.lyrics-page_lyrics__QEN3R > pre'
+        const spanElement = Array.from(
+          document.querySelectorAll(
+            'div.css-175oi2r.r-13awgt0.r-eqz5dr.r-1v1z2uz div.r-zd98yo , .artist_lyrics_text,[data-lyrics-container="true"], #songContentTPL, #lyrics-text > span, #song-body, .lyrics , div.mxm-lyrics > span'
+          )
         );
-        return spanElement ? spanElement.innerText : "";
+        return spanElement.map((element) => element.innerText.trim());
       });
-      lyrics.push(lyricsText);
-    }
 
-    logger.info("lyrics from google scrap successfully");
-    return lyrics;
+      logger.info("lyrics from google scrap successfully");
+      return [lyricsText.join("\n")];
+    }
   } catch (error) {
     logger.error("error", error);
     return false;
