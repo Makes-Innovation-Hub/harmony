@@ -6,43 +6,60 @@ import Youtube from "../components/Youtube/Youtube";
 import UploadCoverModal from "../components/UploadButton/UploadCoverModal";
 import { useGetSongByIdQuery } from "../api/addCoverToSongApi";
 import CoverSongData from "../components/CoverSongData/CoverSongData";
+import { useParams } from "react-router-dom";
 
 function SongPage() {
+  const { id } = useParams();
+  // console.log('id', id)
+  // console.log('params', params)
+  // console.log("TESTING ID:", _id);
   const songData = useLocation().state;
-  const { data: songByIdData } = useGetSongByIdQuery(songData?._id, {
-    skip: !songData?._id,
-  });
+  console.log("TESTING SONG DATA:", songData);
+  const { data: songByIdData, isSuccess: fetchedSongData } =
+    useGetSongByIdQuery(id, {
+      skip: !id,
+    });
+  console.log("songByIdData", songByIdData);
+  // const { data: songByIdData } = useGetSongByIdQuery(songData?._id, {
+  //   skip: !songData?._id,
+  // });
 
   return (
     <>
       <Header />
-      <SongDetails
-        img={songData.coverArt}
-        artist={songData.artist.name.english}
-        songName={songData.name.english}
-        originalLang={songData.originalLang}
-      />
-      <Lyrics
-        originalLang={songData.originalLang}
-        lyrics={songData.lyrics}
-        name={songData.name}
-      />
+      {fetchedSongData ? (
+        <>
+          <SongDetails
+            img={songByIdData.coverArt}
+            artist={songByIdData.artist.name.english}
+            songName={songByIdData.name.english}
+            originalLang={songByIdData.originalLang}
+          />
+          <Lyrics
+            originalLang={songByIdData.originalLang}
+            lyrics={songByIdData.lyrics}
+            name={songByIdData.name}
+          />
 
-      <Youtube
-        songName={songData.name.hebrew}
-        artistName={songData.artist.name.hebrew}
-        youtubeUrl={songData.youtubeURL}
-      />
+          <Youtube
+            songName={songByIdData.name.hebrew}
+            artistName={songByIdData.artist.name.hebrew}
+            youtubeUrl={songByIdData.youtubeURL}
+          />
 
-      <UploadCoverModal
-        originalArtist={songData.artist.name.english}
-        originalLang={songData.originalLang}
-        originalSongCover={songData.coverArt}
-        originalSongName={songData.name.english}
-        originalSongId={songData._id}
-      />
+          <UploadCoverModal
+            originalArtist={songByIdData.artist.name.english}
+            originalLang={songByIdData.originalLang}
+            originalSongCover={songByIdData.coverArt}
+            originalSongName={songByIdData.name.english}
+            originalSongId={songByIdData._id}
+          />
 
-      <CoverSongData songData={songData} songByIdData={songByIdData} />
+          <CoverSongData songData={songByIdData} songByIdData={songByIdData} />
+        </>
+      ) : (
+        <h1>Loading</h1>
+      )}
     </>
   );
 }

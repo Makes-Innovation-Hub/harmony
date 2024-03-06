@@ -28,11 +28,13 @@ const Router = createBrowserRouter([
   },
   {
     path: "/",
-    element: secureRoute(Home),
+    element: <Home />,
+    // element: secureRoute(Home),
   },
   {
-    path: "/song",
-    element: secureRoute(SongPage),
+    path: "/song/:id",
+    element: <SongPage />,
+    // element: secureRoute(SongPage),
   },
   {
     path: "/Artist",
@@ -40,7 +42,8 @@ const Router = createBrowserRouter([
   },
   {
     path: "/translating",
-    element: secureRoute(TranslatingPage),
+    // element: secureRoute(TranslatingPage),
+    element: <TranslatingPage />,
   },
   {
     path: "/not-found",
@@ -51,8 +54,9 @@ const Router = createBrowserRouter([
     element: secureRoute(SearchResultsPage),
   },
   {
-    path: "/cover",
-    element: secureRoute(CoverPage),
+    path: "/cover/:id",
+    element: <CoverPage />,
+    // element: secureRoute(CoverPage),
   },
   {
     path: "/*",
