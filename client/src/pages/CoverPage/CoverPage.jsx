@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { EmailShareButton, FacebookShareButton } from "react-share";
 import Header from "../../components/Header/Header";
 import {
   SongCover,
@@ -65,6 +66,10 @@ export default function CoverPage() {
   function updateLikes() {
     toggleLike(coverData?._id);
   }
+  const [showShareOptions, setShowShareOptions] = useState(false);
+  const toggleShareOptions = () => {
+    setShowShareOptions(!showShareOptions);
+  };
 
   useEffect(() => {
     if (updatedCoverSong?.likes.includes(currentUser.id)) {
@@ -106,9 +111,40 @@ export default function CoverPage() {
             playVideoDiv={playVideoDiv}
           />
           <VideoInfo>
-            <SameLine>
+            <SameLine onClick={toggleShareOptions}  style={{ cursor: 'pointer', position: 'relative' }}>
               <img src={shareSvg} alt="share svg" />
+
               <p>Share</p>
+              {showShareOptions && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "100%",
+                    left: 0,
+                    backgroundColor: "white",
+                    boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
+                    zIndex: 1,
+                    width: "auto",
+                    padding: "10px",
+                  }}
+                >
+                  <EmailShareButton
+                    url={window.location.href}
+                    subject={coverData?.originalSongName}
+                    style={{ margin: "5px", display: "block" }}
+                  >
+                    Email
+                  </EmailShareButton>
+                  <FacebookShareButton
+                    url={window.location.href}
+                    quote={coverData?.originalSongName}
+                    style={{ margin: "5px", display: "block" }}
+                  >
+                    Facebook
+                  </FacebookShareButton>
+                  {/* Add more share buttons as needed */}
+                </div>
+              )}
             </SameLine>
             <p>{updatedCoverSong?.views} views</p>
             <SameLine>
