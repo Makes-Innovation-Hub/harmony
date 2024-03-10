@@ -15,11 +15,21 @@ import PlaylistPage from "./pages/PlaylistPage/PlaylistPage";
 import PlaylistSongPage from "./pages/PlaylistSongPage/PlaylistSongPage.jsx";
 import YouTubePlayer from "./components/YouTubePlayer/YouTubePlayer.jsx";
 
-const secureRoute = (Component) => (
-  <SecureRoute>
-    <Component />
-  </SecureRoute>
-);
+// Check environment variable and apply secureRoute conditionally
+const conditionalRoute = (Component) => {
+  // Check if the environment variable is set to "Phone"
+  if (import.meta.env.VITE_APP_DEVICE_TYPE === "Phone") {
+    // Return the component directly without the secureRoute
+    return <Component />;
+  } else {
+    // Use the secureRoute
+    return (
+      <SecureRoute>
+        <Component />
+      </SecureRoute>
+    );
+  }
+};
 
 const Router = createBrowserRouter([
   {
@@ -28,43 +38,43 @@ const Router = createBrowserRouter([
   },
   {
     path: "/",
-    element: secureRoute(Home),
+    element: conditionalRoute(Home),
   },
   {
     path: "/song",
-    element: secureRoute(SongPage),
+    element: conditionalRoute(SongPage),
   },
   {
     path: "/Artist",
-    element: secureRoute(ArtistPage),
+    element: conditionalRoute(ArtistPage),
   },
   {
     path: "/translating",
-    element: secureRoute(TranslatingPage),
+    element: conditionalRoute(TranslatingPage),
   },
   {
     path: "/not-found",
-    element: secureRoute(NotFoundPage),
+    element: conditionalRoute(NotFoundPage),
   },
   {
     path: "/results",
-    element: secureRoute(SearchResultsPage),
+    element: conditionalRoute(SearchResultsPage),
   },
   {
     path: "/cover",
-    element: secureRoute(CoverPage),
+    element: conditionalRoute(CoverPage),
   },
   {
     path: "/*",
-    element: secureRoute(NotFoundPage),
+    element: conditionalRoute(NotFoundPage),
   },
   {
     path: "/playlist",
-    element: secureRoute(PlaylistPage),
+    element: conditionalRoute(PlaylistPage),
   },
   {
     path: "/playlistSongPage",
-    element: secureRoute(PlaylistSongPage),
+    element: conditionalRoute(PlaylistSongPage),
   },
 ]);
 
