@@ -64,10 +64,7 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV === "production" ? true : "auto",
       sameSite: process.env.NODE_ENV === "production" ? "none" : true,
-      domain:
-        process.env.NODE_ENV === "production"
-          ? "harmony-dev-new.netlify.app"
-          : ``,
+      httpOnly: true,
     },
   })
 );
