@@ -38,6 +38,8 @@ const allowedOrigins = [
   "https://harmony-dev-new.netlify.app",
 ];
 
+app.set("trust proxy", 1);
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
