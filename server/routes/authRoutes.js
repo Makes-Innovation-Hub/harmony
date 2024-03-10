@@ -3,6 +3,7 @@ import passport from "passport";
 import "../middleware/AuthSetup.js";
 import dotenv from "dotenv";
 import logger from "../logger.js";
+import { clientUrl } from "../utils/urls.js";
 
 dotenv.config(); // Load environment variables
 
@@ -15,10 +16,7 @@ const providers = [
   { route: "apple" },
 ];
 
-const BASE_SERVER_URL = process.env.BASE_SERVER_URL;
-const CLIENT_PORT = process.env.CLIENT_PORT;
-
-const FULL_SERVER_URL = `${BASE_SERVER_URL}:${CLIENT_PORT}`;
+const FULL_SERVER_URL = clientUrl;
 logger.info(`The full server URL is: ${FULL_SERVER_URL}`);
 
 providers.forEach(({ route, scope }) => {
