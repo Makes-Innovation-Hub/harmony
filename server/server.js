@@ -66,7 +66,7 @@ app.use(
       sameSite: process.env.NODE_ENV === "production" ? "none" : true,
       domain:
         process.env.NODE_ENV === "production"
-          ? "https://harmony-dev-new.netlify.app"
+          ? "harmony-dev-new.netlify.app"
           : ``,
     },
   })
