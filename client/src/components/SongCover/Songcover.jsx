@@ -7,7 +7,13 @@ import {
   LikesAndViewsContainer,
 } from "./SongCoverStyles";
 
-function SongCover({ backgroundImg, artist, state, likes, views }) {
+export default function SongCover({
+  backgroundImg,
+  artist,
+  state,
+  likes,
+  views,
+}) {
   return (
     <>
       <TitleContainer>
@@ -30,5 +36,3 @@ function SongCover({ backgroundImg, artist, state, likes, views }) {
     </>
   );
 }
-
-export default SongCover;

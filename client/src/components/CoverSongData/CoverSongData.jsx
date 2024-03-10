@@ -1,6 +1,6 @@
 import React from "react";
-import SongCover from "../SongCover/SongCover";
 import { CoversTitle } from "./CoverSongDataStyles";
+import SongCover from "../SongCover/SongCover";
 
 export default function CoverSongData({ songData, songByIdData }) {
   return (
