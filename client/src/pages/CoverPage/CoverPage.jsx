@@ -1,6 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { EmailShareButton, FacebookShareButton } from "react-share";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  WhatsappShareButton,
+  TwitterShareButton,
+  FacebookMessengerShareButton,
+  FacebookMessengerIcon,
+} from "react-share";
+import {
+  EmailIcon,
+  FacebookIcon,
+  WhatsappIcon,
+  TwitterIcon,
+} from "react-share";
 import Header from "../../components/Header/Header";
+import "../CoverPage/Coverpage.css"; // Assuming you're using a separate CSS file for styles
+
 import {
   SongCover,
   ArtistContainer,
@@ -70,6 +85,35 @@ export default function CoverPage() {
   const toggleShareOptions = () => {
     setShowShareOptions(!showShareOptions);
   };
+  const [shareFallback, setShareFallback] = useState(false);
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Check out this song cover!",
+          text: `Here's a great cover of ${coverData?.originalSongName} by ${coverData?.coverArtistName}`,
+          url: window.location.href,
+        });
+        console.log('Share was successful.');
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      // Trigger fallback for browsers that do not support Web Share API
+      setShareFallback(true);
+      console.log('Web Share not supported on this browser, triggering fallback.');
+    }
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      alert('Link copied to clipboard!');
+      setShareFallback(false); // Hide fallback after copying
+    }, (err) => {
+      console.error('Could not copy text: ', err);
+    });
+  };
 
   useEffect(() => {
     if (updatedCoverSong?.likes.includes(currentUser.id)) {
@@ -111,38 +155,39 @@ export default function CoverPage() {
             playVideoDiv={playVideoDiv}
           />
           <VideoInfo>
-            <SameLine onClick={toggleShareOptions}  style={{ cursor: 'pointer', position: 'relative' }}>
+            <SameLine
+              onClick={handleShare}
+              style={{ cursor: "pointer", position: "relative" }}
+            >
               <img src={shareSvg} alt="share svg" />
 
-              <p>Share</p>
-              {showShareOptions && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: 0,
-                    backgroundColor: "white",
-                    boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
-                    zIndex: 1,
-                    width: "auto",
-                    padding: "10px",
-                  }}
-                >
-                  <EmailShareButton
-                    url={window.location.href}
-                    subject={coverData?.originalSongName}
-                    style={{ margin: "5px", display: "block" }}
+              <p >Share</p>
+              {shareFallback && (
+                <div className="share-options" >
+                  <WhatsappShareButton
+                    url={`https://youtu.be/${coverData.youtubeUrl}`}
+                    title={coverData?.originalSongName}
                   >
-                    Email
-                  </EmailShareButton>
+                    <WhatsappIcon size={35} round />
+                  </WhatsappShareButton>
                   <FacebookShareButton
-                    url={window.location.href}
+                    url={`https://youtu.be/${coverData.youtubeUrl}`}
                     quote={coverData?.originalSongName}
-                    style={{ margin: "5px", display: "block" }}
                   >
-                    Facebook
+                    <FacebookIcon size={35} round />
                   </FacebookShareButton>
-                  {/* Add more share buttons as needed */}
+                  <TwitterShareButton
+                    url={`https://youtu.be/${coverData.youtubeUrl}`}
+                    title={coverData?.originalSongName}
+                  >
+                    <TwitterIcon size={35} round />
+                  </TwitterShareButton>
+                  <FacebookMessengerShareButton
+                    url={`https://youtu.be/${coverData.youtubeUrl}`}
+                    title={coverData?.originalSongName}
+                  >
+                    <FacebookMessengerIcon size={35} round />
+                  </FacebookMessengerShareButton>
                 </div>
               )}
             </SameLine>
