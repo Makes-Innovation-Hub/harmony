@@ -63,6 +63,7 @@ app.use(
     secret: process.env.SESSION_SECERT,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI_DEV }),
     cookie: {
       secure: process.env.NODE_ENV === "production" ? true : "auto",
       sameSite: process.env.NODE_ENV === "production" ? "none" : true,
@@ -93,10 +94,10 @@ app.get("/", (req, res) => {
 });
 app.use(errorHandler);
 
-connectDB();
-
-app.listen(PORT, () => {
-  logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
+  });
 });
 
 process.on("unhandledRejection", (err, promise) => {
