@@ -33,12 +33,23 @@ const app = express();
 const BASE_SERVER_URL = process.env.BASE_SERVER_URL;
 const CLIENT_PORT = process.env.CLIENT_PORT;
 
+const allowedOrigins = [
+  `${BASE_SERVER_URL}:${CLIENT_PORT}`,
+  "https://harmony-dev-new.onrender.com",
+];
+
 const corsOptions = {
-  origin: `${BASE_SERVER_URL}:${CLIENT_PORT}`,
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Invalid origin"));
+    }
+  },
   credentials: true, // This is important for cookies, authorization headers with HTTPS
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.static(join(__dirname, "../client/dist")));
 app.use(express.json());
