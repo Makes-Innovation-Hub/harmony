@@ -1,6 +1,6 @@
 import React from "react";
 import doveImage from "../../assets/dove.png";
-import googleLogo from "../../assets/Login/google.svg";
+import googleLogo from "../../assets/Login/Google.svg";
 import facebookLogo from "../../assets/Login/Facebook_icon.svg";
 import appleLogo from "../../assets/Login/apple.png";
 import {
