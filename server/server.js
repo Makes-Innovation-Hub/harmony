@@ -60,7 +60,7 @@ app.use(
   session({
     secret: process.env.SESSION_SECERT,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
       secure: process.env.NODE_ENV === "production" ? true : "auto",
       sameSite: process.env.NODE_ENV === "production" ? "none" : true,
