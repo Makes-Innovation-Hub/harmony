@@ -32,12 +32,16 @@ providers.forEach(({ route, scope }) => {
 
 // verify route
 router.get("/verify-session", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({
-      isAuthenticated: true,
-      user: req.user ? { id: req.user.id, name: req.user.name } : null,
-    });
-  } else {
+  try {
+    if (req.isAuthenticated()) {
+      res.json({
+        isAuthenticated: true,
+        user: req.user ? { id: req.user.id, name: req.user.name } : null,
+      });
+    } else {
+      res.status(401).json({ isAuthenticated: false });
+    }
+  } catch (error) {
     res.status(401).json({ isAuthenticated: false });
   }
 });
