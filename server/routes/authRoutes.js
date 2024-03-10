@@ -3,6 +3,7 @@ import passport from "passport";
 import "../middleware/AuthSetup.js";
 import dotenv from "dotenv";
 import logger from "../logger.js";
+import { clientUrl } from "../utils/urls.js";
 
 dotenv.config(); // Load environment variables
 
@@ -15,10 +16,7 @@ const providers = [
   { route: "apple" },
 ];
 
-const BASE_SERVER_URL = process.env.BASE_SERVER_URL;
-const CLIENT_PORT = process.env.CLIENT_PORT;
-
-const FULL_SERVER_URL = `${BASE_SERVER_URL}:${CLIENT_PORT}`;
+const FULL_SERVER_URL = clientUrl;
 logger.info(`The full server URL is: ${FULL_SERVER_URL}`);
 
 providers.forEach(({ route, scope }) => {
@@ -34,12 +32,16 @@ providers.forEach(({ route, scope }) => {
 
 // verify route
 router.get("/verify-session", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({
-      isAuthenticated: true,
-      user: req.user ? { id: req.user.id, name: req.user.name } : null,
-    });
-  } else {
+  try {
+    if (req.isAuthenticated()) {
+      res.json({
+        isAuthenticated: true,
+        user: req.user ? { id: req.user.id, name: req.user.name } : null,
+      });
+    } else {
+      res.status(401).json({ isAuthenticated: false });
+    }
+  } catch (error) {
     res.status(401).json({ isAuthenticated: false });
   }
 });

@@ -33,8 +33,19 @@ const app = express();
 const BASE_SERVER_URL = process.env.BASE_SERVER_URL;
 const CLIENT_PORT = process.env.CLIENT_PORT;
 
+const allowedOrigins = [
+  `${BASE_SERVER_URL}:${CLIENT_PORT}`,
+  "https://harmony-dev-new.netlify.app",
+];
+
 const corsOptions = {
-  origin: `${BASE_SERVER_URL}:${CLIENT_PORT}`,
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Invalid origin"));
+    }
+  },
   credentials: true, // This is important for cookies, authorization headers with HTTPS
 };
 
@@ -50,7 +61,7 @@ app.use(
     secret: process.env.SESSION_SECERT,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: "auto" }, // Set to true in production if using HTTPS
+    cookie: { secure: process.env.NODE_ENV === "production" ? true : "auto" }, // Set to true in production if using HTTPS
   })
 );
 
