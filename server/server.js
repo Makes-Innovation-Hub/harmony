@@ -38,6 +38,8 @@ const allowedOrigins = [
   "https://harmony-dev-new.netlify.app",
 ];
 
+app.set("trust proxy", 1);
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
@@ -60,8 +62,11 @@ app.use(
   session({
     secret: process.env.SESSION_SECERT,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === "production" ? true : "auto" }, // Set to true in production if using HTTPS
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production" ? true : "auto",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : true,
+    },
   })
 );
 
@@ -87,10 +92,10 @@ app.get("/", (req, res) => {
 });
 app.use(errorHandler);
 
-connectDB();
-
-app.listen(PORT, () => {
-  logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
+  });
 });
 
 process.on("unhandledRejection", (err, promise) => {
