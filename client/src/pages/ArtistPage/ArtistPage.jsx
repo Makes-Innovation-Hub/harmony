@@ -13,9 +13,7 @@ function ArtistPage() {
 
   return (
     <PageWrapper>
-      <S.FlexGrowthContainer $grow="1">
-        <Header />
-      </S.FlexGrowthContainer>
+      <Header />
 
       <S.MainContainer>
         <S.FlexGrowthContainer $grow="2" $padding="0 3rem">
@@ -35,7 +33,7 @@ function ArtistPage() {
         </S.FlexGrowthContainer>
       </S.MainContainer>
 
-      <S.FlexGrowthContainer $grow="6" $padding="0 3rem">
+      <S.FlexGrowthContainer $grow="6" $padding="0 3rem" $marginTop="125px">
         <ContentWrapper>
           {artistData.songs.slice(0, 3).map((song) => (
             <SongListItem
