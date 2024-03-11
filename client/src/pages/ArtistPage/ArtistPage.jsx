@@ -5,7 +5,7 @@ import ThreeLangNames from "../../components/ThreeLnagNames/ThreeLangNames";
 import SongListItem from "../../components/SongListItem/SongListItem";
 import ClipArtImage from "../../components/ClipArtImage/ClipArtImage";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import * as S from "./ArtistPage.styled";
 function ArtistPage() {
   const location = useLocation();
   const artistData = location.state.artistData;
@@ -13,30 +13,28 @@ function ArtistPage() {
 
   return (
     <PageWrapper>
-      <FlexGrowContainer flexGrow="1">
+      <S.FlexGrowthContainer $grow="1">
         <Header />
-      </FlexGrowContainer>
-      <FlexGrowContainer flexGrow="2" padding="0 0.8rem">
-        <ThreeLangNames
-          arabicName={artistData.name.arabic}
-          hebrewName={artistData.name.hebrew}
-          englishName={artistData.name.english}
-          fontSize="1.15rem"
-          lineHeight="133%"
-        />
-      </FlexGrowContainer>
+      </S.FlexGrowthContainer>
+      <S.MainContainer>
+        <S.FlexGrowthContainer $grow="2" $padding="0 3rem">
+          <ThreeLangNames
+            fontSize={"23px"}
+            gap={"7px"}
+            arabicName={artistData.name.arabic}
+            hebrewName={artistData.name.hebrew}
+            englishName={artistData.name.english}
+          />
+        </S.FlexGrowthContainer>
 
-      <FlexGrowContainer flexGrow="12" padding="0 0.8rem">
-        <ClipArtImage
-          width="100%"
-          height="100%"
-          border="1px solid"
-          minHeight="14rem"
-          imgURL={artistData.imgURL}
-        />
-      </FlexGrowContainer>
+        <S.FlexGrowthContainer $grow="12" $padding="0 0.8rem">
+          <S.Img
+            $background={`url('${artistData.imgURL}') no-repeat center center/cover`}
+          ></S.Img>
+        </S.FlexGrowthContainer>
+      </S.MainContainer>
 
-      <FlexGrowContainer flexGrow="6" padding="0 0.8rem">
+      <S.FlexGrowthContainer $grow="6" $padding="0 3rem">
         <ContentWrapper>
           {artistData.songs.slice(0, 3).map((song) => (
             <SongListItem
@@ -49,7 +47,7 @@ function ArtistPage() {
             />
           ))}
         </ContentWrapper>
-      </FlexGrowContainer>
+      </S.FlexGrowthContainer>
     </PageWrapper>
   );
 }

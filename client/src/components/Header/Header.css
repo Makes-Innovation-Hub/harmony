@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -6,6 +6,11 @@
 
 html {
   font-size: 20px;
+} */
+body,
+html {
+  margin: 0;
+  padding: 0;
 }
 
 @font-face {
@@ -20,7 +25,7 @@ html {
 
 .dove {
   position: absolute;
-  top: 0;
+  top: 65px;
   left: 50%;
   transform: translate(-50%, -50%);
   margin-left: 1.5rem;

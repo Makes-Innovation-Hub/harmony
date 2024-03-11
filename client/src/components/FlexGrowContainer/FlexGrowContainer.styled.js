@@ -6,5 +6,6 @@ const Div = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+  background-color: red;
 `;
 export default Div;

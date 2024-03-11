@@ -4,7 +4,7 @@ import {
   ModalBackground,
   ModalBody,
   ModalPositionContainer,
-} from "./UploadCoverButton.styles";
+} from "./uploadCoverButton.styles";
 
 const UploadCoverButton = ({
   children,
