@@ -27,6 +27,11 @@ export const FlexGrowthContainer = styled.div`
   position: relative;
   flex-grow: ${(props) => props.$grow};
   padding: ${({ $padding }) => $padding};
+
+  @media screen and (max-width: 768px) and (max-height: 780px) {
+    margin-top: ${({ $marginTop }) => $marginTop};
+    border: 1px solid red;
+  }
 `;
 
 export const MainContainer = styled.main`
