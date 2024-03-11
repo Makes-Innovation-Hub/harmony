@@ -6,7 +6,7 @@ export const hebrewSongsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: `${serverApiUrl}/scrap` }),
   endpoints: (builder) => ({
     getTopHebrewSongs: builder.query({
-      query: () => "topHebrewSongs",
+      query: () => "/topHebrewSongs",
     }),
   }),
 });
