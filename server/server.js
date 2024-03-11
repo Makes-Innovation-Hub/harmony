@@ -20,6 +20,7 @@ import authRoutes from "./routes/authRoutes.js";
 import CoverSongRoute from "./routes/CoverSongRoute.js";
 import playlistRouter from "./routes/playlistRoutes.js";
 import loggingMiddleware from "./reqLogger.js";
+import commentsRouter from "./routes/coverSongCommentsRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,8 +33,21 @@ const app = express();
 const BASE_SERVER_URL = process.env.BASE_SERVER_URL;
 const CLIENT_PORT = process.env.CLIENT_PORT;
 
+const allowedOrigins = [
+  `${BASE_SERVER_URL}:${CLIENT_PORT}`,
+  "https://harmony-dev-new.netlify.app",
+];
+
+app.set("trust proxy", 1);
+
 const corsOptions = {
-  origin: `${BASE_SERVER_URL}:${CLIENT_PORT}`,
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Invalid origin"));
+    }
+  },
   credentials: true, // This is important for cookies, authorization headers with HTTPS
 };
 
@@ -48,8 +62,11 @@ app.use(
   session({
     secret: process.env.SESSION_SECERT,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: "auto" }, // Set to true in production if using HTTPS
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production" ? true : "auto",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : true,
+    },
   })
 );
 
@@ -68,16 +85,17 @@ app.use("/api/v1/scrap", scrappingRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/coverSong", CoverSongRoute);
 app.use("/api/v1/playlist", playlistRouter);
+app.use("/api/v1/comments", commentsRouter);
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));
 });
 app.use(errorHandler);
 
-connectDB();
-
-app.listen(PORT, () => {
-  logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
+  });
 });
 
 process.on("unhandledRejection", (err, promise) => {

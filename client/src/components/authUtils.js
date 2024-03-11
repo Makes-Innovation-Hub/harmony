@@ -1,15 +1,18 @@
 import { setAuthState } from "../Redux/authSlice"; // Adjust the import path as necessary
+import { serverApiUrl } from "../constants/urls";
 
 export const verifySessionWithBackend = async (dispatch, navigate = null) => {
   try {
-    const backendUrl = `${import.meta.env.VITE_SERVER_BASE_URL}:${
-      import.meta.env.VITE_SERVER_PORT
-    }/api/v1/auth/verify-session`;
+    const backendUrl = `${serverApiUrl}/auth/verify-session`;
 
     const response = await fetch(backendUrl, {
       method: "GET",
       credentials: "include",
     });
+
+    if (!response.ok) {
+      console.log(`RESPONSE IS NOT OK`, response);
+    }
 
     const data = await response.json();
 
