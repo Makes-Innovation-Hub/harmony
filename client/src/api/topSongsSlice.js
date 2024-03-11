@@ -5,7 +5,7 @@ export const topSongsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: `${serverApiUrl}` }),
   endpoints: (builder) => ({
     getTopSongs: builder.query({
-      query: () => "topSongs",
+      query: () => "/topSongs",
     }),
   }),
 });

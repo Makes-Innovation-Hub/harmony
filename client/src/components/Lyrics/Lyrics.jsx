@@ -34,6 +34,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
         <div key="arabic" style={{ height: "100%" }}>
           <Status>Original</Status>
           <div>
+            
             <SongTitle>
               {name && removeParentheses(name[originalLang])}
             </SongTitle>
@@ -48,7 +49,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
         </div>
       );
     }
-
+     
     return renderedLyrics;
   };
 

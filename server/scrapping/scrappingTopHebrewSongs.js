@@ -3,10 +3,11 @@ import logger from "../logger.js";
 import { hebrewTopSongsUrl } from "../constants/urls.js";
 import { getCoverArtForSong } from "../spotifyapi.js";
 
-const scrapeTopHebrewSongs = async ()=> {
+const scrapeTopHebrewSongs = async () => {
   logger.info("start scrap top Hebrew songs");
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: "new",
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
     defaultViewport: null,
   });
 
@@ -37,9 +38,8 @@ const scrapeTopHebrewSongs = async ()=> {
 
   await browser.close();
   logger.info("top Hebrew songs scrapped successfully");
-  
-  return formattedData
-  
+
+  return formattedData;
 };
 
 export default scrapeTopHebrewSongs;

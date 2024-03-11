@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import doveImage from "../../assets/dove.png";
-
+import googleLogo from "../../assets/Login/Google.svg";
+import facebookLogo from "../../assets/Login/Facebook_icon.svg";
+import appleLogo from "../../assets/Login/apple.png";
 import {
   LoginPageWrapper,
   AppIcon,
@@ -9,55 +10,25 @@ import {
   DescriptionText,
   StyledDove,
   StyledEllipse,
-  StyledGoogleSignInButton,
-  GoogleLogo,
+  StyledSignInButton,
+  SignInLogo,
 } from "./LoginPageStyles";
-import googleLogo from "../../assets/Login/google.svg";
+import { serverApiUrl } from "../../constants/urls";
 
 const LoginPage = () => {
-  const backendUrl = `${import.meta.env.VITE_SERVER_BASE_URL}:${
-    import.meta.env.VITE_SERVER_PORT
-  }/api/v1/auth/google`;
-  const navigate = useNavigate(); // Hook for redirection
+  const fullServerUrl = serverApiUrl;
 
-  // Function to send the token to the backend
-  const sendTokenToBackend = async (token) => {
-    try {
-      const response = await fetch(backendUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token }),
-      });
-
-      const data = await response.json();
-      console.log("Response from backend:", data);
-
-      if (data.verified) {
-        navigate("/"); // Navigate to the homepage upon successful verification
-      }
-    } catch (error) {
-      console.error("Error sending data to backend:", error);
-    }
+  const handleGoogleSignInClick = () => {
+    window.location.href = `${fullServerUrl}/auth/google`;
   };
 
-  // Function to handle the sign-in button click
-  const handleSignInClick = () => {
-    window.google.accounts.id.prompt(); // Triggers the Google Sign-In flow
+  const handleFacebookSignInClick = () => {
+    window.location.href = `${fullServerUrl}/auth/facebook`;
   };
 
-  useEffect(() => {
-    const handleCredentialResponse = (response) => {
-      console.log("Encoded JWT ID token from GIS: " + response.credential);
-      sendTokenToBackend(response.credential); // Use the token to authenticate
-    };
-
-    window.google?.accounts.id.initialize({
-      client_id: import.meta.env.VITE_CLIENT_ID, // Ensure this is your actual client ID
-      callback: handleCredentialResponse,
-    });
-  }, []);
+  const handleAppleSignInClick = () => {
+    window.location.href = `${fullServerUrl}/auth/apple`;
+  };
 
   return (
     <LoginPageWrapper>
@@ -69,13 +40,21 @@ const LoginPage = () => {
       </AppIcon>
       <HarmonyText>Harmony</HarmonyText>
       <DescriptionText>
-        Translate songs between <br></br> Hebrew and Arabic
+        <p>Translate songs between</p>
+        <p>Hebrew and Arabic</p>
       </DescriptionText>
-      <StyledGoogleSignInButton onClick={handleSignInClick}>
-        <GoogleLogo src={googleLogo} alt="Google logo" />
+      <StyledSignInButton onClick={handleFacebookSignInClick}>
+        <SignInLogo src={facebookLogo} alt="Facebook logo" />
+        Sign in with Facebook
+      </StyledSignInButton>
+      <StyledSignInButton onClick={handleGoogleSignInClick}>
+        <SignInLogo src={googleLogo} alt="Google logo" />
         Sign in with Google
-      </StyledGoogleSignInButton>
-      {/* Other components */}
+      </StyledSignInButton>
+      <StyledSignInButton onClick={handleAppleSignInClick}>
+        <SignInLogo src={appleLogo} alt="Apple logo" />
+        Sign in with Apple
+      </StyledSignInButton>
     </LoginPageWrapper>
   );
 };

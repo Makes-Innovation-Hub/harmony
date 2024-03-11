@@ -1,8 +1,9 @@
-import { YoutubeBox } from "./YoutubeStyle";
+import { OriginalSong, YoutubeBox } from "./YoutubeStyle";
 
 function Youtube({ songName, artistName, youtubeUrl }) {
   return (
     <div>
+      <OriginalSong>Original Version </OriginalSong>
       <YoutubeBox>
         <iframe
           width="560"

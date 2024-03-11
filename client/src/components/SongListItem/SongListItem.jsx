@@ -38,6 +38,7 @@ function SongListItem({ artist, arabicName, hebrewName, englishName, imgURL }) {
         englishName={englishName}
         fontSize="13px"
         lineHeight="17px"
+        gap={"0px"}
       />
 
       <TranslationSymbolsGroup originalLanguage={songData?.originalLang} />

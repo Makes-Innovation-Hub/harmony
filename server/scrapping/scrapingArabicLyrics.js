@@ -11,7 +11,8 @@ const scrapeArabicLyrics = async (artist, songName) => {
   try {
     const reformatedInput = reformatScrapingInput(artist, songName);
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: "new",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
       defaultViewport: {
         width: 1920,
         height: 1080,
