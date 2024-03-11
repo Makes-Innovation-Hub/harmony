@@ -4,6 +4,7 @@ import { Strategy as FacebookStrategy } from "passport-facebook";
 import AppleStrategy from "passport-apple";
 import User from "../models/User.js";
 import "dotenv/config";
+import { serverApiUrl } from "../utils/urls.js";
 
 // Helper function to handle user creation or retrieval
 async function handleUser({ id, displayName, emails, provider }, done) {
@@ -48,11 +49,8 @@ async function handleUser({ id, displayName, emails, provider }, done) {
   }
 }
 
-const serverBaseUrl = process.env.SERVER_BASE_URL || "http://localhost";
-const serverPort = process.env.SERVER_PORT || 5000;
-
 // Construct the full server URL dynamically
-const fullServerUrl = `${serverBaseUrl}:${serverPort}`;
+const fullServerUrl = serverApiUrl;
 
 // Google Strategy
 passport.use(

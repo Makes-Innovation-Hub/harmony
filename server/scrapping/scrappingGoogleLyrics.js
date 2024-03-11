@@ -76,6 +76,7 @@ export async function scrapGoogleFn(songName, singerName) {
       });
 
       logger.info("lyrics from google scrap successfully");
+      browser.close();
       return [lyricsText.join("\n")];
     }
   } catch (error) {

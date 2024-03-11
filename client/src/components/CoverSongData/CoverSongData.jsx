@@ -1,6 +1,6 @@
 import React from "react";
-import SongCover from "../SongCover/SongCover";
 import { CoversTitle } from "./CoverSongDataStyles";
+import SongCoverNew from "../SongCoverNew/SongCoverNew";
 
 export default function CoverSongData({ songData, songByIdData }) {
   return (
@@ -10,7 +10,7 @@ export default function CoverSongData({ songData, songByIdData }) {
       {songByIdData?.coverSong.map((coverInfo) => {
         return (
           <div key={coverInfo._id}>
-            <SongCover
+            <SongCoverNew
               artist={coverInfo?.coverArtistName}
               backgroundImg={coverInfo?.backgroundUrl}
               state={coverInfo}
