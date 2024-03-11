@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import translatingGif from "../assets/animations/translating-animation.gif";
 import Animation from "../components/Animation/Animation.component";
 import Header from "../components/Header/Header";
@@ -10,14 +9,12 @@ import { useEffect } from "react";
 
 const TranslatingPage = () => {
   const selectedData = useLocation().state;
-  console.log(selectedData);
   const [songDataMutation] = useSongDataMutation();
   const navigate = useNavigate();
   const { t } = useTranslation();
   useEffect(() => {
     songDataMutation(selectedData)
       .then((songData) => {
-        console.log(songData);
         navigate("/song", { state: songData.data });
       })
       .catch((err) => {
