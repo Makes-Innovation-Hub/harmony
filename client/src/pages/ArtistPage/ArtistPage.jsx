@@ -16,6 +16,7 @@ function ArtistPage() {
       <S.FlexGrowthContainer $grow="1">
         <Header />
       </S.FlexGrowthContainer>
+
       <S.MainContainer>
         <S.FlexGrowthContainer $grow="2" $padding="0 3rem">
           <ThreeLangNames

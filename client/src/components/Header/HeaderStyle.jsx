@@ -26,14 +26,11 @@ export const Title = styled.h1`
   margin-bottom: 10px;
   margin-top: 10px;
 
-  width: 131px;
-  height: 37px;
-  top: 28px;
-  left: 106px;
   color: #333333;
 
   @media screen and (max-width: 767px) {
-    margin-right: 1rem;
+    /* margin-right: 1rem; */
+    width: auto;
     flex-grow: 1;
   }
   @media screen and (max-width: 280px) {
@@ -150,5 +147,5 @@ export const TaglineSetup = styled.div`
 `;
 export const TitleContainer = styled.div`
   display: flex;
-  gap: 40px;
+  gap: 25px;
 `;
