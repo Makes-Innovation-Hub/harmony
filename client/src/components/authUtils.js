@@ -19,7 +19,6 @@ export const verifySessionWithBackend = async (dispatch, navigate = null) => {
     if (response.ok && data.isAuthenticated && data.user) {
       localStorage.setItem("userId", data.user.id);
       dispatch(setAuthState({ isVerified: true, user: data.user }));
-      if (navigate) navigate("/");
     } else {
       console.error("Session verification failed or user data is missing.");
       dispatch(setAuthState({ isVerified: false }));

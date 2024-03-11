@@ -7,43 +7,52 @@ import "dotenv/config";
 import { serverApiUrl } from "../utils/urls.js";
 
 // Helper function to handle user creation or retrieval
-async function handleUser({ id, displayName, emails, provider }, done) {
+async function handleUser({ id, displayName, emails, provider, photos }, done) {
+  // Default to a placeholder email if none is provided
   const email =
-    emails && emails[0].value ? emails[0].value : `hidden_${id}@example.com`;
+    emails && emails.length > 0 ? emails[0].value : `hidden_${id}@example.com`;
+
+  // Extract the avatar URL. For Google and Facebook, it's available in the photos array.
+  // Note: Apple does not provide an avatar URL in its OAuth response, so it's handled accordingly.
+  let avatarUrl = "";
+  if (provider === "google" || provider === "facebook") {
+    avatarUrl = photos && photos.length > 0 ? photos[0].value : "";
+  }
+  console.log(`Avatar URL for ${provider}:`, avatarUrl);
+
   try {
-    const query = {};
-    query[`${provider}Id`] = id;
+    const query = { [`${provider}Id`]: id };
     let user = await User.findOne(query);
 
     if (!user) {
+      // Create a new user if one doesn't exist
       const newUser = {
         name: displayName || "OAuth User",
         email,
+        avatar: avatarUrl || "OAuth User",
         [`${provider}Id`]: id,
         [`is${
           provider.charAt(0).toUpperCase() + provider.slice(1)
         }Account`]: true,
       };
+
       try {
         user = await User.create(newUser);
       } catch (error) {
         if (error.code === 11000) {
-          // If there's a duplicate key error, specifically for the email, handle it
+          // Handle duplicate key error for email
           console.log(`A user with the email ${email} already exists.`);
-          // Attempt to retrieve the existing user by email
           user = await User.findOne({ email: email });
           if (!user) {
-            // If for some reason the user isn't found (which should not happen in this case), pass the error to done
             return done(error);
           }
         } else {
-          // If it's another type of error, pass it to done
           return done(error);
         }
       }
     }
 
-    done(null, user); // User is either found or successfully created
+    done(null, user);
   } catch (error) {
     done(error);
   }
@@ -72,11 +81,11 @@ passport.use(
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
       callbackURL: `${fullServerUrl}/api/v1/auth/facebook/callback`,
-      profileFields: ["id", "displayName", "emails"],
+      profileFields: ["id", "displayName", "emails", "photos"], // Include "photos" here
     },
     (accessToken, refreshToken, profile, done) =>
       handleUser({ ...profile, provider: "facebook" }, done)
-  )
+  ) // Removed the semicolon here
 );
 
 // Apple Strategy
