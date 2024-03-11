@@ -15,7 +15,7 @@ const Wrapped = styled.div`
   .search-input {
     padding-left: 1%;
     margin-right: 2%;
-    margin-top: -13%;
+    /* margin-top: -13%; */
     height: 1.8rem;
     width: 72%;
     font-family: ABeeZee;
@@ -26,7 +26,7 @@ const Wrapped = styled.div`
   button {
     padding: 0.2rem;
     margin-left: 0.4rem;
-    margin-top: -13%;
+    /* margin-top: -13%; */
     width: 2.1rem;
     height: 2.1rem;
     mix-blend-mode: normal;
