@@ -30,7 +30,6 @@ export const FlexGrowthContainer = styled.div`
 
   @media screen and (max-width: 768px) and (max-height: 780px) {
     margin-top: ${({ $marginTop }) => $marginTop};
-    border: 1px solid red;
   }
 `;
 
