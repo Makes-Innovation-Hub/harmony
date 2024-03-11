@@ -5,8 +5,8 @@ function YoutubeVideo({ youtubeUrl }) {
     <div>
       <YoutubeBox>
         <iframe
-          width="560"
-          height="255"
+          width="329"
+          height="188"
           src={`https://www.youtube.com/embed/${youtubeUrl}`}
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
