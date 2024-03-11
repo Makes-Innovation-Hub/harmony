@@ -16,7 +16,7 @@ const addCoverToSong = createApi({
     }),
     getSongById: builder.query({
       query: (id) => ({
-        url: `songs/find/${id}`,
+        url: `/songs/find/${id}`,
         method: "GET",
       }),
       providesTags: ["getSongById"],
