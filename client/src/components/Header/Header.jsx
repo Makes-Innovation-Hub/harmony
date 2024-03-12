@@ -10,6 +10,8 @@ import {
   LanguageList,
   LanguageP,
   LanguageHAP,
+  TaglineSetup,
+  TitleContainer,
 } from "./HeaderStyle";
 import USAFlag from "../../assets/USA.png";
 import palestineFlag from "../../assets/palestine.jpg";
@@ -73,12 +75,18 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <AppIcon onClick={() => navigate("/")}>
-        <img className="dove" src={Dove} alt="" />
-        <img className="ellipse" src={Ellipse3} alt="" />
-      </AppIcon>
-
-      <Title>{t("title")}</Title>
+      <TitleContainer>
+        <AppIcon onClick={() => navigate("/")}>
+          <img className="dove" src={Dove} alt="" />
+          <img className="ellipse" src={Ellipse3} alt="" />
+        </AppIcon>
+        <Title>{t("title")}</Title>
+      </TitleContainer>
+      <TaglineSetup>
+        <p>
+          {t("tagline_1")} <br /> {t("tagline_2")}
+        </p>
+      </TaglineSetup>
 
       {showFlag && (
         <div onClick={handleClick}>

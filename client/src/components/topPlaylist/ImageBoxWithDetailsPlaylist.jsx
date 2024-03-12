@@ -32,6 +32,7 @@ function ImageBoxWithDetailsPlaylist({
         setCurrentSong({
           currentSong: null,
           songIndex: 0,
+          direction: "left",
         })
       );
       dispatch(playSong(false));

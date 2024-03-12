@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { rotateLeftArray } from "../utils/arrayHelpers";
 
 const initialState = {
   playlist: [],
@@ -7,6 +8,7 @@ const initialState = {
   playlistLanguage: null,
   currentSong: null,
   currentSongIndex: 0,
+  animationDirection: "left",
   currentSongIsPlaying: false,
 };
 
@@ -17,13 +19,12 @@ const playlistSlice = createSlice({
     setCurrentSong(state, action) {
       state.currentSong = action.payload.currentSong;
       state.currentSongIndex = action.payload.songIndex;
+      state.animationDirection = action.payload.direction;
     },
     playSong(state, action) {
       state.currentSongIsPlaying = action.payload;
     },
-    setCurrentPlayingSong(state, action) {
-      state.currentSongIndex = action.songIndex;
-    },
+
     setPlaylist(state, action) {
       state.playlist = action.payload.playlist;
       state.playlistId = action.payload.playlistId;
@@ -34,13 +35,34 @@ const playlistSlice = createSlice({
     populatePlaylistArray(state, action) {
       state.playlist = action.payload;
     },
+
     shufflePlaylist(state) {
-      state.playlist.sort(() => Math.random() - 0.5);
-      while (state.playlist[0] === state.currentSong) {
-        state.playlist.sort(() => Math.random() - 0.5);
+      const shuffledPlaylist = [...state.playlist].sort(
+        () => Math.random() - 0.5
+      );
+
+      if (
+        shuffledPlaylist[0].videoId === state.currentSong.videoId &&
+        shuffledPlaylist.length > 1
+      ) {
+        const temp = shuffledPlaylist[0];
+        shuffledPlaylist[0] = shuffledPlaylist[shuffledPlaylist.length - 1];
+        shuffledPlaylist[shuffledPlaylist.length - 1] = temp;
       }
-      state.currentSong = state.playlist[0];
+
+      state.playlist = shuffledPlaylist;
+      state.currentSong = shuffledPlaylist[0];
       state.currentSongIndex = 0;
+      state.animationDirection = "left";
+    },
+
+    rearrangePlaylistArray(state) {
+      let index = state.currentSongIndex;
+      const newArrangedArry = [...state.playlist];
+      rotateLeftArray(newArrangedArry, index);
+      state.playlist = newArrangedArry;
+      state.currentSongIndex = 0;
+      state.animationDirection = "left";
     },
   },
 });
@@ -48,9 +70,9 @@ const playlistSlice = createSlice({
 export const {
   setCurrentSong,
   playSong,
-  setCurrentPlayingSong,
   setPlaylist,
   populatePlaylistArray,
   shufflePlaylist,
+  rearrangePlaylistArray,
 } = playlistSlice.actions;
 export default playlistSlice.reducer;
