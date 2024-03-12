@@ -81,39 +81,33 @@ export default function CoverPage() {
   function updateLikes() {
     toggleLike(coverData?._id);
   }
+  const [shareFallback, setShareFallback] = useState(false);
   const [showShareOptions, setShowShareOptions] = useState(false);
   const toggleShareOptions = () => {
-    setShowShareOptions(!showShareOptions);
+    setShareFallback(prev=>!prev);
   };
-  const [shareFallback, setShareFallback] = useState(false);
+ 
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Check out this song cover!",
-          text: `Here's a great cover of ${coverData?.originalSongName} by ${coverData?.coverArtistName}`,
-          url: window.location.href,
-        });
-        console.log('Share was successful.');
-      } catch (error) {
-        console.error('Error sharing:', error);
-      }
-    } else {
-      // Trigger fallback for browsers that do not support Web Share API
-      setShareFallback(true);
-      console.log('Web Share not supported on this browser, triggering fallback.');
-    }
-  };
+  // const handleShare = async () => {
+  //   if (navigator.share) {
+  //     try {
+  //       await navigator.share({
+  //         title: "Check out this song cover!",
+  //         text: `Here's a great cover of ${coverData?.originalSongName} by ${coverData?.coverArtistName}`,
+  //         url: window.location.href,
+  //       });
+  //       console.log('Share was successful.');
+  //     } catch (error) {
+  //       console.error('Error sharing:', error);
+  //     }
+  //   } else {
+  //     // Trigger fallback for browsers that do not support Web Share API
+  //     setShareFallback(true);
+  //     console.log('Web Share not supported on this browser, triggering fallback.');
+  //   }
+  // };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      alert('Link copied to clipboard!');
-      setShareFallback(false); // Hide fallback after copying
-    }, (err) => {
-      console.error('Could not copy text: ', err);
-    });
-  };
+
 
   useEffect(() => {
     if (updatedCoverSong?.likes.includes(currentUser.id)) {
@@ -156,7 +150,7 @@ export default function CoverPage() {
           />
           <VideoInfo>
             <SameLine
-              onClick={handleShare}
+              onClick={toggleShareOptions}
               style={{ cursor: "pointer", position: "relative" }}
             >
               <img src={shareSvg} alt="share svg" />
