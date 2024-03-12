@@ -51,7 +51,7 @@ const corsOptions = {
   credentials: true, // This is important for cookies, authorization headers with HTTPS
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.static(join(__dirname, "../client/dist")));
 app.use(express.json());

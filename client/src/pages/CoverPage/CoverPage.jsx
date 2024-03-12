@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import {
   EmailShareButton,
+
   FacebookShareButton,
   WhatsappShareButton,
   TwitterShareButton,
   FacebookMessengerShareButton,
   FacebookMessengerIcon,
+  
 } from "react-share";
 import {
   EmailIcon,
   FacebookIcon,
   WhatsappIcon,
   TwitterIcon,
+  
 } from "react-share";
 import Header from "../../components/Header/Header";
-import "../CoverPage/Coverpage.css"; // Assuming you're using a separate CSS file for styles
 
 import {
   SongCover,
@@ -27,6 +29,7 @@ import {
   BigContainer,
   SongAndSingerContainer,
   LikedCoverButton,
+  ShareLinks,
 } from "./CoverPage.styles";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
@@ -54,6 +57,8 @@ export default function CoverPage() {
 
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
   const [likedVideo, setLikedVideo] = useState(false);
+  const [shareFallback, setShareFallback] = useState(false);
+
 
   const currentUser = useSelector((state) => state.auth.user);
 
@@ -81,11 +86,11 @@ export default function CoverPage() {
   function updateLikes() {
     toggleLike(coverData?._id);
   }
-  const [shareFallback, setShareFallback] = useState(false);
-  const [showShareOptions, setShowShareOptions] = useState(false);
+
   const toggleShareOptions = () => {
     setShareFallback(prev=>!prev);
   };
+ 
  
 
   // const handleShare = async () => {
@@ -157,32 +162,39 @@ export default function CoverPage() {
 
               <p >Share</p>
               {shareFallback && (
-                <div className="share-options" >
+                <ShareLinks >
                   <WhatsappShareButton
                     url={`https://youtu.be/${coverData.youtubeUrl}`}
                     title={coverData?.originalSongName}
                   >
-                    <WhatsappIcon size={35} round />
+                    <WhatsappIcon size={40} round />
                   </WhatsappShareButton>
                   <FacebookShareButton
                     url={`https://youtu.be/${coverData.youtubeUrl}`}
                     quote={coverData?.originalSongName}
                   >
-                    <FacebookIcon size={35} round />
+                    <FacebookIcon size={40} round />
                   </FacebookShareButton>
                   <TwitterShareButton
                     url={`https://youtu.be/${coverData.youtubeUrl}`}
                     title={coverData?.originalSongName}
                   >
-                    <TwitterIcon size={35} round />
+                    <TwitterIcon size={40} round />
                   </TwitterShareButton>
                   <FacebookMessengerShareButton
                     url={`https://youtu.be/${coverData.youtubeUrl}`}
                     title={coverData?.originalSongName}
                   >
-                    <FacebookMessengerIcon size={35} round />
+                    <FacebookMessengerIcon size={40} round />
                   </FacebookMessengerShareButton>
-                </div>
+
+                  <EmailShareButton
+                    url={`https://youtu.be/${coverData.youtubeUrl}`}
+                    title={coverData?.originalSongName}
+                  >
+                    <EmailIcon size={40} round />
+                  </EmailShareButton>
+                </ShareLinks>
               )}
             </SameLine>
             <p>{updatedCoverSong?.views} views</p>
