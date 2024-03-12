@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import {
   EmailShareButton,
-
   FacebookShareButton,
   WhatsappShareButton,
   TwitterShareButton,
   FacebookMessengerShareButton,
   FacebookMessengerIcon,
-  
 } from "react-share";
+
 import {
   EmailIcon,
   FacebookIcon,
   WhatsappIcon,
   TwitterIcon,
-  
 } from "react-share";
 import Header from "../../components/Header/Header";
 
@@ -59,7 +57,6 @@ export default function CoverPage() {
   const [likedVideo, setLikedVideo] = useState(false);
   const [shareFallback, setShareFallback] = useState(false);
 
-
   const currentUser = useSelector((state) => state.auth.user);
 
   const goBackToOriginalSong = () => {
@@ -88,31 +85,8 @@ export default function CoverPage() {
   }
 
   const toggleShareOptions = () => {
-    setShareFallback(prev=>!prev);
+    setShareFallback((prev) => !prev);
   };
- 
- 
-
-  // const handleShare = async () => {
-  //   if (navigator.share) {
-  //     try {
-  //       await navigator.share({
-  //         title: "Check out this song cover!",
-  //         text: `Here's a great cover of ${coverData?.originalSongName} by ${coverData?.coverArtistName}`,
-  //         url: window.location.href,
-  //       });
-  //       console.log('Share was successful.');
-  //     } catch (error) {
-  //       console.error('Error sharing:', error);
-  //     }
-  //   } else {
-  //     // Trigger fallback for browsers that do not support Web Share API
-  //     setShareFallback(true);
-  //     console.log('Web Share not supported on this browser, triggering fallback.');
-  //   }
-  // };
-
-
 
   useEffect(() => {
     if (updatedCoverSong?.likes.includes(currentUser.id)) {
@@ -160,9 +134,9 @@ export default function CoverPage() {
             >
               <img src={shareSvg} alt="share svg" />
 
-              <p >Share</p>
+              <p>Share</p>
               {shareFallback && (
-                <ShareLinks >
+                <ShareLinks>
                   <WhatsappShareButton
                     url={`https://youtu.be/${coverData.youtubeUrl}`}
                     title={coverData?.originalSongName}
