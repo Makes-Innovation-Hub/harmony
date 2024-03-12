@@ -11,6 +11,7 @@ import addViewsAndLikesApi from "../api/viewsAndLikesApi";
 import authReducer from "./authSlice";
 import { playlistApi } from "../api/playlistApiSlice";
 import playlistReducer from "./playlistSlice";
+import topCoversApi from "../api/topCoversApi";
 
 export default configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export default configureStore({
     [addCoverToSong.reducerPath]: addCoverToSong.reducer,
     [addViewsAndLikesApi.reducerPath]: addViewsAndLikesApi.reducer,
     [playlistApi.reducerPath]: playlistApi.reducer,
+    [topCoversApi.reducerPath]: topCoversApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
@@ -37,6 +39,7 @@ export default configureStore({
       addCoverToSong.middleware,
       addViewsAndLikesApi.middleware,
       playlistApi.middleware,
+      topCoversApi.middleware,
     ]);
   },
 });
