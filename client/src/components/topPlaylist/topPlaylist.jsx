@@ -7,7 +7,6 @@ import {
   Playlist,
 } from "./PlaylistStyle";
 import { useGetAllPlaylistDataQuery } from "../../api/playlistApiSlice";
-import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { useState } from "react";
