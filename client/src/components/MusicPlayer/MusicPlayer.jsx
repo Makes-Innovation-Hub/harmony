@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MusicPlayerContainer, PlayBoxContainer } from "./MusicPlayer.styled";
+import * as S from "./MusicPlayer.styled";
 import {
   setCurrentSong,
   playSong,
   shufflePlaylist,
-  setCurrentPlayingSong,
 } from "../../Redux/playlistSlice.js";
 import play from "../../assets/musicPlayer/play.svg";
 import pause from "../../assets/musicPlayer/pause.svg";
@@ -16,10 +15,11 @@ import blueShuffle from "../../assets/musicPlayer/blue-shuffle.svg";
 
 function MusicPlayer() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
+  const dispatch = useDispatch();
+
   const [isPlaying, setIsPlaying] = useState(
     currentPlaylistData.currentSongIsPlaying
   );
-  const dispatch = useDispatch();
 
   const playlist = currentPlaylistData.playlist;
 
@@ -31,6 +31,7 @@ function MusicPlayer() {
     }
     setIsPlaying(!isPlaying);
   };
+
   const handleNextVideo = () => {
     const nextIndex = currentPlaylistData.currentSongIndex + 1;
     if (nextIndex < playlist.length) {
@@ -38,6 +39,7 @@ function MusicPlayer() {
         setCurrentSong({
           currentSong: playlist[nextIndex],
           songIndex: nextIndex,
+          direction: "left",
         })
       );
     } else {
@@ -45,6 +47,7 @@ function MusicPlayer() {
         setCurrentSong({
           currentSong: playlist[0],
           songIndex: 0,
+          direction: "left",
         })
       );
     }
@@ -56,6 +59,7 @@ function MusicPlayer() {
         setCurrentSong({
           currentSong: playlist[previousIndex],
           songIndex: previousIndex,
+          direction: "right",
         })
       );
     } else {
@@ -63,6 +67,7 @@ function MusicPlayer() {
         setCurrentSong({
           currentSong: playlist[playlist.length - 1],
           songIndex: playlist.length - 1,
+          direction: "right",
         })
       );
     }
@@ -75,29 +80,30 @@ function MusicPlayer() {
   };
 
   return (
-    <MusicPlayerContainer>
-      <PlayBoxContainer>
-        <img
+    <S.MusicPlayerContainer>
+      <S.PlayBoxContainer>
+        <S.ButtonImage
           src={previous}
           style={{ background: "#f4e6d1", padding: "6px" }}
           alt="previous"
           onClick={handlePreviousVideo}
         />
 
-        <img
+        <S.ButtonImage
           src={isPlaying ? pause : play}
           alt={isPlaying ? "pause" : "play"}
           onClick={handleTogglePlayPause}
         />
 
-        <img src={next} alt="next" onClick={handleNextVideo} />
-      </PlayBoxContainer>
-      <img
-        src={isPlaying ? blueShuffle : shuffle}
-        alt="shuffle"
-        onClick={handleShuffle}
-      />
-    </MusicPlayerContainer>
+        <S.ButtonImage src={next} alt="next" onClick={handleNextVideo} />
+      </S.PlayBoxContainer>
+
+      {isPlaying ? (
+        <img src={blueShuffle} alt="blueShuffle" />
+      ) : (
+        <S.ButtonImage src={shuffle} alt="shuffle" onClick={handleShuffle} />
+      )}
+    </S.MusicPlayerContainer>
   );
 }
 

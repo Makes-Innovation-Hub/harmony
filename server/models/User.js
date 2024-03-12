@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please provide an email"],
     unique: true,
   },
+  avatar: {
+    type: String,
+    required: false,
+  },
   googleId: {
     type: String,
   },

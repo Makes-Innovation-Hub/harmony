@@ -6,10 +6,17 @@ function ThreeLangNames({
   englishName,
   fontSize,
   lineHeight,
+  gap,
 }) {
   return (
     <>
-      <Wrapper style={{ fontSize: `${fontSize}`, lineHeight: `${lineHeight}` }}>
+      <Wrapper
+        style={{
+          fontSize: `${fontSize}`,
+          lineHeight: `${lineHeight}`,
+          gap: `${gap}`,
+        }}
+      >
         <p>{englishName}</p>
         <p>{hebrewName}</p>
         <p>{arabicName}</p>
