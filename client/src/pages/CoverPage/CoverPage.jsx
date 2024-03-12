@@ -1,5 +1,23 @@
 import React, { useEffect, useState } from "react";
+import {
+  EmailShareButton,
+
+  FacebookShareButton,
+  WhatsappShareButton,
+  TwitterShareButton,
+  FacebookMessengerShareButton,
+  FacebookMessengerIcon,
+  
+} from "react-share";
+import {
+  EmailIcon,
+  FacebookIcon,
+  WhatsappIcon,
+  TwitterIcon,
+  
+} from "react-share";
 import Header from "../../components/Header/Header";
+
 import {
   SongCover,
   ArtistContainer,
@@ -11,6 +29,7 @@ import {
   BigContainer,
   SongAndSingerContainer,
   LikedCoverButton,
+  ShareLinks,
 } from "./CoverPage.styles";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
@@ -38,6 +57,8 @@ export default function CoverPage() {
 
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
   const [likedVideo, setLikedVideo] = useState(false);
+  const [shareFallback, setShareFallback] = useState(false);
+
 
   const currentUser = useSelector((state) => state.auth.user);
 
@@ -65,6 +86,33 @@ export default function CoverPage() {
   function updateLikes() {
     toggleLike(coverData?._id);
   }
+
+  const toggleShareOptions = () => {
+    setShareFallback(prev=>!prev);
+  };
+ 
+ 
+
+  // const handleShare = async () => {
+  //   if (navigator.share) {
+  //     try {
+  //       await navigator.share({
+  //         title: "Check out this song cover!",
+  //         text: `Here's a great cover of ${coverData?.originalSongName} by ${coverData?.coverArtistName}`,
+  //         url: window.location.href,
+  //       });
+  //       console.log('Share was successful.');
+  //     } catch (error) {
+  //       console.error('Error sharing:', error);
+  //     }
+  //   } else {
+  //     // Trigger fallback for browsers that do not support Web Share API
+  //     setShareFallback(true);
+  //     console.log('Web Share not supported on this browser, triggering fallback.');
+  //   }
+  // };
+
+
 
   useEffect(() => {
     if (updatedCoverSong?.likes.includes(currentUser.id)) {
@@ -106,9 +154,48 @@ export default function CoverPage() {
             playVideoDiv={playVideoDiv}
           />
           <VideoInfo>
-            <SameLine>
+            <SameLine
+              onClick={toggleShareOptions}
+              style={{ cursor: "pointer", position: "relative" }}
+            >
               <img src={shareSvg} alt="share svg" />
-              <p>Share</p>
+
+              <p >Share</p>
+              {shareFallback && (
+                <ShareLinks >
+                  <WhatsappShareButton
+                    url={`https://youtu.be/${coverData.youtubeUrl}`}
+                    title={coverData?.originalSongName}
+                  >
+                    <WhatsappIcon size={40} round />
+                  </WhatsappShareButton>
+                  <FacebookShareButton
+                    url={`https://youtu.be/${coverData.youtubeUrl}`}
+                    quote={coverData?.originalSongName}
+                  >
+                    <FacebookIcon size={40} round />
+                  </FacebookShareButton>
+                  <TwitterShareButton
+                    url={`https://youtu.be/${coverData.youtubeUrl}`}
+                    title={coverData?.originalSongName}
+                  >
+                    <TwitterIcon size={40} round />
+                  </TwitterShareButton>
+                  <FacebookMessengerShareButton
+                    url={`https://youtu.be/${coverData.youtubeUrl}`}
+                    title={coverData?.originalSongName}
+                  >
+                    <FacebookMessengerIcon size={40} round />
+                  </FacebookMessengerShareButton>
+
+                  <EmailShareButton
+                    url={`https://youtu.be/${coverData.youtubeUrl}`}
+                    title={coverData?.originalSongName}
+                  >
+                    <EmailIcon size={40} round />
+                  </EmailShareButton>
+                </ShareLinks>
+              )}
             </SameLine>
             <p>{updatedCoverSong?.views} views</p>
             <SameLine>
