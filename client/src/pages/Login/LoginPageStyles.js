@@ -9,11 +9,12 @@ export const LoginPageWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  min-height: 700px;
 `;
 
 export const AppIcon = styled.div`
   position: absolute;
-  top: 20vh; // Adjusted for higher placement
+  top: 15vh; // Adjusted for higher placement
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -53,7 +54,7 @@ export const HarmonyText = styled.div`
   font-size: 28px;
   line-height: 37.24px;
   color: #333333;
-  margin-top: 30vh; // Adjusted spacing
+  margin-top: 10vh; // Adjusted spacing
 `;
 
 export const DescriptionText = styled.div`
