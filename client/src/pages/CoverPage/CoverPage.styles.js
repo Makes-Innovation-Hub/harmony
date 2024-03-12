@@ -109,27 +109,26 @@ export const LikedCoverButton = styled.img`
 
 export const ShareLinks = styled.div`
   position: fixed;
-  bottom: -6px;
-  left: 50vw;
+  bottom: -12px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
   padding: 5px;
   width: 101%;
-  height: 8vh;
+  height: 9vh;
   background-color: rgba(0, 0, 0, 0.6);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  animation: slideIn 0.3s ease-out forwards;
+  animation: slideIn 0.5s ease-out;
 
   @keyframes slideIn {
     from {
       opacity: 0;
-      transform: translateX(-50%) translateY(-10px);
+      transform: translateY(40px);
     }
     to {
       opacity: 1;
-      transform: translateX(-50%) translateY(0);
+      transform: translateY(0);
     }
   }
 `;
