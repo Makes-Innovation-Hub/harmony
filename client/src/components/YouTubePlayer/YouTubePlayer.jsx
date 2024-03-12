@@ -57,7 +57,7 @@ function YouTubePlayer() {
     }
   };
   return (
-    <div>
+    <div style={{ height: 0, width: 0 }}>
       <YouTube
         videoId={currentVideo}
         opts={opts}
