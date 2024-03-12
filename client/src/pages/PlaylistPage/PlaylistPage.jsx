@@ -6,25 +6,44 @@ import { useGetPlaylistByIdQuery } from "../../api/playlistApiSlice";
 import {
   populatePlaylistArray,
   rearrangePlaylistArray,
+  setPlaylist,
 } from "../../Redux/playlistSlice.js";
 import * as S from "./PlaylistPage.styled.js";
 import FlexGrowContainer from "../../components/FlexGrowContainer/FlexGrowContainer";
 import SongInPlaylist from "../../components/SongInPlaylist/SongInPlaylist.jsx";
 import Animation from "../../components/Animation/Animation.component.jsx";
+import { useSearchParams } from "react-router-dom";
 
 function PlaylistPage() {
+  const [searchParams] = useSearchParams();
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
+  const listIdQuery = searchParams.get("id");
+  const listNameQuery = searchParams.get("name");
+  const listLanguageIdQuery = searchParams.get("language");
   const dispatch = useDispatch();
 
   const shouldFetchPlaylist = currentPlaylistData.playlist.length === 0;
 
   const { data: playlistQueryData, isSuccess } = useGetPlaylistByIdQuery(
     {
-      id: currentPlaylistData.playlistId,
-      lang: currentPlaylistData.playlistLanguage,
+      // id: currentPlaylistData.playlistId,
+      // lang: currentPlaylistData.playlistLanguage,
+      id: listIdQuery,
+      lang: listLanguageIdQuery,
     },
     { skip: !shouldFetchPlaylist }
   );
+  useEffect(() => {
+    console.log(listIdQuery, listLanguageIdQuery, listNameQuery);
+    dispatch(
+      setPlaylist({
+        playlist: [],
+        playlistId: listIdQuery,
+        playlistName: listNameQuery,
+        playlistLanguage: listLanguageIdQuery,
+      })
+    );
+  }, []);
 
   useEffect(() => {
     if (isSuccess) {

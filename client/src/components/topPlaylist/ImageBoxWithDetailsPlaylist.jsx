@@ -37,7 +37,9 @@ function ImageBoxWithDetailsPlaylist({
       );
       dispatch(playSong(false));
     }
-    navigate("/playlist");
+    navigate(
+      `/playlist?id=${playlistId}&name=${mixName}&language=${playlistLanguage}`
+    );
   };
   return (
     <ImageBox>
