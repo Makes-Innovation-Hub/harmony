@@ -24,6 +24,7 @@ import {
 import { useGetSongByIdQuery } from "../../api/addCoverToSongApi";
 import CoverPageYoutube from "../../components/CoverPageYoutube/CoverPageYoutube";
 import { useSelector } from "react-redux";
+import ShareButton from "../../components/ShareButton/ShareButton";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
@@ -38,8 +39,16 @@ export default function CoverPage() {
 
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
   const [likedVideo, setLikedVideo] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const currentUser = useSelector((state) => state.auth.user);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const goBackToOriginalSong = () => {
     navigate("/translating", {
@@ -73,6 +82,9 @@ export default function CoverPage() {
       setLikedVideo(false);
     }
   }, [updatedCoverSong]);
+
+  const shareUrl = `https://youtu.be/${coverData.youtubeUrl}`;
+  const title = `Checkout this cover on the song : ${coverData.originalSongName}`;
 
   return (
     <main>
@@ -108,7 +120,7 @@ export default function CoverPage() {
           <VideoInfo>
             <SameLine>
               <img src={shareSvg} alt="share svg" />
-              <p>Share</p>
+              <ShareButton url={shareUrl} title={title} />
             </SameLine>
             <p>{updatedCoverSong?.views} views</p>
             <SameLine>
