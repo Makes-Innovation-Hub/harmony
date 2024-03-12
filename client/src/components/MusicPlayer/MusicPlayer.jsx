@@ -12,10 +12,12 @@ import next from "../../assets/musicPlayer/next.svg";
 import previous from "../../assets/musicPlayer/previous.svg";
 import shuffle from "../../assets/musicPlayer/shuffle.svg";
 import blueShuffle from "../../assets/musicPlayer/blue-shuffle.svg";
+import { useNavigate } from "react-router-dom";
 
 function MusicPlayer() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isPlaying, setIsPlaying] = useState(
     currentPlaylistData.currentSongIsPlaying
@@ -75,7 +77,14 @@ function MusicPlayer() {
 
   const handleShuffle = () => {
     if (!isPlaying) {
-      dispatch(shufflePlaylist());
+      console.log(currentPlaylistData);
+      let res = dispatch(shufflePlaylist());
+      //TODO i have to get the new state !
+      console.log(currentPlaylistData);
+      const songId = currentPlaylistData.playlist[0].videoId;
+      navigate(
+        `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+      );
     }
   };
 

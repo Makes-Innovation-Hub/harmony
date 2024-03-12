@@ -15,14 +15,14 @@ import Animation from "../../components/Animation/Animation.component.jsx";
 import { useSearchParams } from "react-router-dom";
 
 function PlaylistPage() {
-  const [searchParams] = useSearchParams();
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
+  const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
   const listIdQuery = searchParams.get("id");
   const listNameQuery = searchParams.get("name");
   const listLanguageIdQuery = searchParams.get("language");
-  const dispatch = useDispatch();
 
-  const shouldFetchPlaylist = currentPlaylistData.playlist.length === 0;
+  const shouldFetchPlaylist = currentPlaylistData.playlist === null;
 
   const { data: playlistQueryData, isSuccess } = useGetPlaylistByIdQuery(
     {
@@ -34,15 +34,16 @@ function PlaylistPage() {
     { skip: !shouldFetchPlaylist }
   );
   useEffect(() => {
-    console.log(listIdQuery, listLanguageIdQuery, listNameQuery);
-    dispatch(
-      setPlaylist({
-        playlist: [],
-        playlistId: listIdQuery,
-        playlistName: listNameQuery,
-        playlistLanguage: listLanguageIdQuery,
-      })
-    );
+    if (shouldFetchPlaylist) {
+      dispatch(
+        setPlaylist({
+          playlist: null,
+          playlistId: listIdQuery,
+          playlistName: listNameQuery,
+          playlistLanguage: listLanguageIdQuery,
+        })
+      );
+    }
   }, []);
 
   useEffect(() => {
@@ -68,25 +69,29 @@ function PlaylistPage() {
       )}
 
       <S.PlaylistTitle>{currentPlaylistData.playlistName}</S.PlaylistTitle>
-      {(isSuccess || !shouldFetchPlaylist) && (
-        <>
-          <FlexGrowContainer flexGrow="6" padding="0 0.8rem">
-            <S.ContentWrapper>
-              {currentPlaylistData.playlist.map((song, index) => (
-                <SongInPlaylist
-                  key={index}
-                  songIndex={index}
-                  artist={"artistData.name.hebrew"}
-                  arabicName={song.songName3Lang.arabic}
-                  hebrewName={song.songName3Lang.hebrew}
-                  englishName={song.songName3Lang.english}
-                  imgURL={song.profilePicUrl}
-                />
-              ))}
-            </S.ContentWrapper>
-          </FlexGrowContainer>
-        </>
-      )}
+      {(isSuccess || !shouldFetchPlaylist) &&
+        currentPlaylistData.playlist !== null && (
+          <>
+            <FlexGrowContainer flexGrow="6" padding="0 0.8rem">
+              <S.ContentWrapper>
+                {currentPlaylistData.playlist.map((song, index) => {
+                  return (
+                    <SongInPlaylist
+                      key={index}
+                      songIndex={index}
+                      songId={song.videoId}
+                      artist={"artistData.name.hebrew"}
+                      arabicName={song.songName3Lang.arabic}
+                      hebrewName={song.songName3Lang.hebrew}
+                      englishName={song.songName3Lang.english}
+                      imgURL={song.profilePicUrl}
+                    />
+                  );
+                })}
+              </S.ContentWrapper>
+            </FlexGrowContainer>
+          </>
+        )}
     </S.PageWrapper>
   );
 }
