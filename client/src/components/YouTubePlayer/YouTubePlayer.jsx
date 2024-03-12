@@ -42,6 +42,7 @@ function YouTubePlayer() {
         setCurrentSong({
           currentSong: playlist[nextIndex],
           songIndex: nextIndex,
+          direction: "left",
         })
       );
     } else {
@@ -50,12 +51,13 @@ function YouTubePlayer() {
         setCurrentSong({
           currentSong: playlist[0],
           songIndex: 0,
+          direction: "left",
         })
       );
     }
   };
   return (
-    <div>
+    <div style={{ height: 0, width: 0 }}>
       <YouTube
         videoId={currentVideo}
         opts={opts}

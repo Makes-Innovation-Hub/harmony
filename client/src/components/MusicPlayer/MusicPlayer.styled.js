@@ -16,3 +16,15 @@ export const PlayBoxContainer = styled.div`
   gap: 15px;
   width: 100%;
 `;
+
+export const ButtonImage = styled.img`
+  /* Add your image styles here */
+  outline: 0; /* Initially no outline */
+
+  @media (min-width: 768px) {
+    &:hover {
+      cursor: pointer;
+      outline: 2px solid black; /* Add outline on hover */
+    }
+  }
+`;

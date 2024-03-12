@@ -1,6 +1,6 @@
 import React from "react";
 import doveImage from "../../assets/dove.png";
-import googleLogo from "../../assets/Login/google.svg";
+import googleLogo from "../../assets/Login/Google.svg";
 import facebookLogo from "../../assets/Login/Facebook_icon.svg";
 import appleLogo from "../../assets/Login/apple.png";
 import {
@@ -13,22 +13,21 @@ import {
   StyledSignInButton,
   SignInLogo,
 } from "./LoginPageStyles";
+import { serverApiUrl } from "../../constants/urls";
 
 const LoginPage = () => {
-  const serverBaseUrl = import.meta.env.VITE_SERVER_BASE_URL;
-  const serverPort = import.meta.env.VITE_SERVER_PORT;
-  const fullServerUrl = `${serverBaseUrl}:${serverPort}`;
+  const fullServerUrl = serverApiUrl;
 
   const handleGoogleSignInClick = () => {
-    window.location.href = `${fullServerUrl}/api/v1/auth/google`;
+    window.location.href = `${fullServerUrl}/auth/google`;
   };
 
   const handleFacebookSignInClick = () => {
-    window.location.href = `${fullServerUrl}/api/v1/auth/facebook`;
+    window.location.href = `${fullServerUrl}/auth/facebook`;
   };
 
   const handleAppleSignInClick = () => {
-    window.location.href = `${fullServerUrl}/api/v1/auth/apple`;
+    window.location.href = `${fullServerUrl}/auth/apple`;
   };
 
   return (
