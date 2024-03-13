@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as S from "./MusicPlayer.styled";
 import {
@@ -18,10 +18,22 @@ function MusicPlayer() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isShuffling, setIsShuffling] = useState(false);
 
   const [isPlaying, setIsPlaying] = useState(
     currentPlaylistData.currentSongIsPlaying
   );
+
+  useEffect(() => {
+    if (isShuffling) {
+      setIsShuffling(false);
+      console.log(currentPlaylistData);
+      const songId = currentPlaylistData.playlist[0].videoId;
+      navigate(
+        `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+      );
+    }
+  }, [isShuffling]);
 
   const playlist = currentPlaylistData.playlist;
 
@@ -79,12 +91,13 @@ function MusicPlayer() {
     if (!isPlaying) {
       console.log(currentPlaylistData);
       let res = dispatch(shufflePlaylist());
+      setIsShuffling(true);
       //TODO i have to get the new state !
-      console.log(currentPlaylistData);
-      const songId = currentPlaylistData.playlist[0].videoId;
-      navigate(
-        `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
-      );
+      // console.log(currentPlaylistData);
+      // const songId = currentPlaylistData.playlist[0].videoId;
+      // navigate(
+      //   `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+      // );
     }
   };
 
