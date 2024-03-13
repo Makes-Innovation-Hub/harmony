@@ -135,7 +135,9 @@ export const AllCommentContainer = styled.div`
 
 export const CommentContainer = styled.div`
   display: flex;
+  flex-direction: ${({ $flexDirection }) => $flexDirection};
   gap: 10px;
+  padding-bottom: ${({ $paddingBottom }) => $paddingBottom};
   margin-left: 40px;
 
   @media screen and (max-width: 400px) and (max-height: 900px) {
@@ -150,7 +152,7 @@ export const UserAvatar = styled.img`
 `;
 
 export const CommentInput = styled.textarea`
-  border: 1px solid gray;
+  border: 1px solid #80808054;
   border-radius: 10px;
   padding-top: 15px;
   padding-left: 10px;
@@ -191,4 +193,27 @@ export const SendButton = styled.button`
   @media screen and (max-width: 400px) and (min-height: 800px) {
     margin-left: 66%;
   }
+`;
+
+export const CommentContentContainer = styled.div`
+  display: flex;
+  gap: 15px;
+`;
+
+export const CommentedUser = styled.h3`
+  font-family: Rubik;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  margin-top: 8px;
+`;
+
+export const CommentContent = styled.p`
+  color: #67727e;
+  font-family: Rubik;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
 `;

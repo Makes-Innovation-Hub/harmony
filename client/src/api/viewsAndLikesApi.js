@@ -3,9 +3,9 @@ import { serverApiUrl } from "../constants/urls";
 
 const addViewsAndLikesApi = createApi({
   reducerPath: "addViewsAndLikes",
-  tagTypes: ["viewsAndLikes"],
+  tagTypes: ["songCover"],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${serverApiUrl}/coverSong`,
+    baseUrl: `${serverApiUrl}`,
     prepareHeaders: (headers) => {
       return headers;
     },
@@ -14,24 +14,31 @@ const addViewsAndLikesApi = createApi({
   endpoints: (builder) => ({
     addView: builder.mutation({
       query: (id, coverSong) => ({
-        url: `/view/${id}`,
+        url: `/coverSong/view/${id}`,
         method: "PUT",
         body: coverSong,
       }),
-      invalidatesTags: ["viewsAndLikes"],
+      invalidatesTags: ["songCover"],
     }),
     getCoverSongById: builder.query({
       query: (id) => ({
-        url: `/${id}`,
+        url: `/coverSong/${id}`,
       }),
-      providesTags: ["viewsAndLikes"],
+      providesTags: ["songCover"],
     }),
     toggleLike: builder.mutation({
       query: (id) => ({
-        url: `/like/${id}`,
+        url: `/coverSong/like/${id}`,
         method: "PUT",
       }),
-      invalidatesTags: ["viewsAndLikes"],
+      invalidatesTags: ["songCover"],
+    }),
+    addComment: builder.mutation({
+      query: (id) => ({
+        url: `/comments/add/${id}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["songCover"],
     }),
   }),
 });
@@ -40,5 +47,6 @@ export const {
   useAddViewMutation,
   useGetCoverSongByIdQuery,
   useToggleLikeMutation,
+  useAddCommentMutation,
 } = addViewsAndLikesApi;
 export default addViewsAndLikesApi;

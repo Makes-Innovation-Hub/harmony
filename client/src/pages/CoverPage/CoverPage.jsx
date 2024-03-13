@@ -7,6 +7,7 @@ import likedSvg from "../../assets/svgs/thumbs-up-liked.svg";
 import commentSvg from "../../assets/svgs/comment.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
+  useAddCommentMutation,
   useAddViewMutation,
   useGetCoverSongByIdQuery,
   useToggleLikeMutation,
@@ -22,48 +23,28 @@ export default function CoverPage() {
 
   const [addView] = useAddViewMutation();
   const [toggleLike] = useToggleLikeMutation();
-  const { data: updatedCoverSong } = useGetCoverSongByIdQuery(coverData?._id);
+  const { data: updatedCoverSong, isSuccess: updatedCoverSongSuccess } =
+    useGetCoverSongByIdQuery(coverData?._id);
   const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId, {
     skip: !updatedCoverSong?.originalSongId,
   });
+  const [addComment] = useAddCommentMutation();
 
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
   const [likedVideo, setLikedVideo] = useState(false);
   const [shareFallback, setShareFallback] = useState(false);
-  const [isCommenting, setIsCommenting] = useState(false);
+  const [isCommenting, setIsCommenting] = useState(true);
   const commentRef = useRef();
 
   const currentUser = useSelector((state) => state.auth.user);
-  console.log(currentUser);
-
-  const goBackToOriginalSong = () => {
-    navigate("/translating", {
-      state: {
-        artist: coverData?.originalArtist,
-        song: coverData?.originalSongName,
-        coverArt: coverData?.originalSongCover,
-      },
-    });
-  };
+  // console.log(currentUser);
+  // console.log(updatedCoverSong);
 
   useEffect(() => {
     if (updatedCoverSong?.originalSongId) {
       refetch();
     }
   }, [updatedCoverSong]);
-
-  function updateViews() {
-    addView(coverData?._id);
-    setPlayVideoDiv(true);
-  }
-
-  function updateLikes() {
-    toggleLike(coverData?._id);
-  }
-
-  const toggleShareOptions = () => {
-    setShareFallback((prev) => !prev);
-  };
 
   useEffect(() => {
     if (updatedCoverSong?.likes.includes(currentUser.id)) {
@@ -79,8 +60,43 @@ export default function CoverPage() {
     }
   }, [isCommenting]);
 
+  const goBackToOriginalSong = () => {
+    navigate("/translating", {
+      state: {
+        artist: coverData?.originalArtist,
+        song: coverData?.originalSongName,
+        coverArt: coverData?.originalSongCover,
+      },
+    });
+  };
+
+  function updateViews() {
+    addView(coverData?._id);
+    setPlayVideoDiv(true);
+  }
+
+  function updateLikes() {
+    toggleLike(coverData?._id);
+  }
+
+  const toggleShareOptions = () => {
+    setShareFallback((prev) => !prev);
+  };
+
   function handleShowComment() {
     setIsCommenting((prev) => !prev);
+  }
+
+  function handleAddComment() {
+    console.log(coverData?._id);
+    console.log({
+      name: currentUser?.name,
+      content: commentRef?.current.value,
+    });
+    addComment(updatedCoverSong?._id, {
+      name: currentUser?.name,
+      content: commentRef?.current.value,
+    });
   }
 
   const url = `https://youtu.be/${coverData?.youtubeUrl}`;
@@ -158,6 +174,27 @@ export default function CoverPage() {
       </S.BigContainer>
 
       {/* <h1>comments</h1> */}
+      {updatedCoverSongSuccess && (
+        <>
+          {updatedCoverSong?.comments.map((comment) => {
+            return (
+              <S.CommentContainer
+                $flexDirection={"column"}
+                $paddingBottom="30px"
+                key={comment?._id}
+              >
+                <S.CommentContentContainer>
+                  <S.UserAvatar src={currentUser?.avatar} alt="user's avatar" />
+                  <S.CommentedUser>{comment?.name}</S.CommentedUser>
+                </S.CommentContentContainer>
+                <S.CommentContent>{comment?.content}</S.CommentContent>
+              </S.CommentContainer>
+            );
+          })}
+        </>
+      )}
+
+      {/*  */}
 
       {isCommenting && (
         <S.AllCommentContainer>
@@ -169,9 +206,10 @@ export default function CoverPage() {
               type="text"
               placeholder="Add a comment…"
               ref={commentRef}
+              required={true}
             ></S.CommentInput>
           </S.CommentContainer>
-          <S.SendButton>SEND</S.SendButton>
+          <S.SendButton onClick={handleAddComment}>SEND</S.SendButton>
         </S.AllCommentContainer>
       )}
     </main>
