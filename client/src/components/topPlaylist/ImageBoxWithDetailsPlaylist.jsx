@@ -41,9 +41,6 @@ function ImageBoxWithDetailsPlaylist({
       `/playlist?id=${playlistId}&name=${mixName}&language=${playlistLanguage}`
     );
   };
-  useEffect(() => {
-    console.log(img, mixName, genre, playlistId, playlistLanguage);
-  }, []);
   return (
     <ImageBox>
       <Image src={img} onClick={handleMixClick} />

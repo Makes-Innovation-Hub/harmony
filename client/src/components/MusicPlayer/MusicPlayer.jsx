@@ -27,7 +27,6 @@ function MusicPlayer() {
   useEffect(() => {
     if (isShuffling) {
       setIsShuffling(false);
-      console.log(currentPlaylistData);
       const songId = currentPlaylistData.playlist[0].videoId;
       navigate(
         `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
@@ -48,6 +47,7 @@ function MusicPlayer() {
 
   const handleNextVideo = () => {
     const nextIndex = currentPlaylistData.currentSongIndex + 1;
+    let songId;
     if (nextIndex < playlist.length) {
       dispatch(
         setCurrentSong({
@@ -56,6 +56,7 @@ function MusicPlayer() {
           direction: "left",
         })
       );
+      songId = playlist[nextIndex].videoId;
     } else {
       dispatch(
         setCurrentSong({
@@ -64,10 +65,15 @@ function MusicPlayer() {
           direction: "left",
         })
       );
+      songId = playlist[0].videoId;
     }
+    navigate(
+      `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+    );
   };
   const handlePreviousVideo = () => {
     const previousIndex = currentPlaylistData.currentSongIndex - 1;
+    let songId;
     if (previousIndex >= 0) {
       dispatch(
         setCurrentSong({
@@ -76,6 +82,7 @@ function MusicPlayer() {
           direction: "right",
         })
       );
+      songId = playlist[previousIndex].videoId;
     } else {
       dispatch(
         setCurrentSong({
@@ -84,20 +91,17 @@ function MusicPlayer() {
           direction: "right",
         })
       );
+      songId = playlist[playlist.length - 1].videoId;
     }
+    navigate(
+      `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+    );
   };
 
   const handleShuffle = () => {
     if (!isPlaying) {
-      console.log(currentPlaylistData);
-      let res = dispatch(shufflePlaylist());
+      dispatch(shufflePlaylist());
       setIsShuffling(true);
-      //TODO i have to get the new state !
-      // console.log(currentPlaylistData);
-      // const songId = currentPlaylistData.playlist[0].videoId;
-      // navigate(
-      //   `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
-      // );
     }
   };
 

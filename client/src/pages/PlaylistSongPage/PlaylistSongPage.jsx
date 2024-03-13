@@ -8,6 +8,8 @@ import YoutubeVideo from "../../components/YoutubeVideo/YoutubeVideo";
 import { useGetPlaylistByIdQuery } from "../../api/playlistApiSlice";
 import { setCurrentSong, setPlaylist } from "../../Redux/playlistSlice";
 import { getSongIndex } from "../../utils/arrayHelpers";
+import Animation from "../../components/Animation/Animation.component";
+import translatingGif from "../../assets/animations/translating-animation.gif";
 
 function PlaylistSongPage() {
   const [animationKey, setAnimationKey] = useState(0);
@@ -61,10 +63,22 @@ function PlaylistSongPage() {
   }, [isSuccess]);
   useEffect(() => {
     setAnimationKey((prevKey) => prevKey + 1);
+    if (currentPlaylistData.currentSong !== null) {
+      const songId = currentPlaylistData.currentSong.videoId;
+      navigate(
+        `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+      );
+    }
   }, [currentPlaylistData.currentSongIndex, currentPlaylistData.currentSong]);
   return (
     <>
       <Header />
+      {!isSuccess && !dataIsAvailable && (
+        <Animation
+          animationGif={translatingGif}
+          animationText={["Loading song ..."]}
+        />
+      )}
 
       {dataIsAvailable && (
         <>
