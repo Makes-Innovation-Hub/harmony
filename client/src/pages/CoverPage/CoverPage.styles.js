@@ -79,16 +79,12 @@ export const VideoInfo = styled.div`
 export const SameLine = styled.div`
   display: flex;
   gap: 10px;
-
-  .likes {
-    margin-top: 3px;
-  }
+  align-items: center;
 `;
 
 export const LikedCoverButton = styled.img`
   width: 20px;
   height: 20px;
-  margin-top: -2.5px;
 
   animation: ${(props) => props.$likedCover && "jump 0.8s ease  alternate"};
 
@@ -130,5 +126,69 @@ export const ShareLinks = styled.div`
       opacity: 1;
       transform: translateY(0);
     }
+  }
+`;
+
+export const AllCommentContainer = styled.div`
+  padding-bottom: 30px;
+`;
+
+export const CommentContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-left: 40px;
+
+  @media screen and (max-width: 400px) and (max-height: 900px) {
+    margin-left: 10px;
+  }
+`;
+
+export const UserAvatar = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+`;
+
+export const CommentInput = styled.textarea`
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-bottom: 60px;
+  padding-right: 20px;
+  width: 285px;
+  resize: none;
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SendButton = styled.button`
+  font-family: Rubik;
+  font-size: 12px;
+  font-weight: 500;
+
+  color: #ffffff;
+  background: #4285f4;
+  border: none;
+  width: 87px;
+  height: 29px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin-left: 66.5%;
+  margin-top: 20px;
+
+  @media screen and (max-height: 900px) {
+    margin-left: 69%;
+  }
+
+  @media screen and (max-width: 400px) and (min-height: 800px) {
+    margin-left: 66%;
   }
 `;

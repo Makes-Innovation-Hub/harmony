@@ -1,20 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header/Header";
-import {
-  SongCover,
-  ArtistContainer,
-  CoverArtistTitle,
-  SongName,
-  OriginalArtistName,
-  VideoInfo,
-  SameLine,
-  BigContainer,
-  SongAndSingerContainer,
-  LikedCoverButton,
-} from "./CoverPage.styles";
+import * as S from "./CoverPage.styles";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
 import likedSvg from "../../assets/svgs/thumbs-up-liked.svg";
+import commentSvg from "../../assets/svgs/comment.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   useAddViewMutation,
@@ -41,6 +31,7 @@ export default function CoverPage() {
   const [likedVideo, setLikedVideo] = useState(false);
   const [shareFallback, setShareFallback] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
+  const commentRef = useRef();
 
   const currentUser = useSelector((state) => state.auth.user);
   console.log(currentUser);
@@ -82,33 +73,45 @@ export default function CoverPage() {
     }
   }, [updatedCoverSong]);
 
+  useEffect(() => {
+    if (isCommenting) {
+      commentRef.current.focus();
+    }
+  }, [isCommenting]);
+
+  function handleShowComment() {
+    setIsCommenting((prev) => !prev);
+  }
+
   const url = `https://youtu.be/${coverData?.youtubeUrl}`;
-  const title = `Check out my cover song that i created on this song: ${coverData?.originalSongName}`;
+  const title = `Check out this cover song that has been created on this song: ${coverData?.originalSongName}`;
 
   return (
     <main>
       <Header />
-      <CoverArtistTitle>Cover by {coverData?.coverArtistName}</CoverArtistTitle>
+      <S.CoverArtistTitle>
+        Cover by {coverData?.coverArtistName}
+      </S.CoverArtistTitle>
 
-      <BigContainer>
-        <ArtistContainer>
+      <S.BigContainer>
+        <S.ArtistContainer>
           <div>
-            <SongCover
+            <S.SongCover
               onClick={goBackToOriginalSong}
               src={coverData?.originalSongCover}
               alt="Original song cover art"
             />
           </div>
 
-          <SongAndSingerContainer>
-            <SongName onClick={goBackToOriginalSong}>
+          <S.SongAndSingerContainer>
+            <S.SongName onClick={goBackToOriginalSong}>
               {coverData?.originalSongName}
-            </SongName>
-            <OriginalArtistName onClick={goBackToOriginalSong}>
+            </S.SongName>
+            <S.OriginalArtistName onClick={goBackToOriginalSong}>
               {coverData?.originalArtist}
-            </OriginalArtistName>
-          </SongAndSingerContainer>
-        </ArtistContainer>
+            </S.OriginalArtistName>
+          </S.SongAndSingerContainer>
+        </S.ArtistContainer>
 
         <div>
           <CoverPageYoutube
@@ -116,39 +119,61 @@ export default function CoverPage() {
             handleAddView={updateViews}
             playVideoDiv={playVideoDiv}
           />
-          <VideoInfo>
-            <SameLine
+          <S.VideoInfo>
+            <S.SameLine
               onClick={toggleShareOptions}
               style={{ cursor: "pointer", position: "relative" }}
             >
               <img src={shareSvg} alt="share svg" />
 
               <p>Share</p>
-            </SameLine>
+            </S.SameLine>
             {shareFallback && <ShareButton title={title} url={url} />}
-            <p>{updatedCoverSong?.views} views</p>
-            <SameLine>
+            <S.SameLine>
+              <p>{updatedCoverSong?.views} Views</p>
+            </S.SameLine>
+            <S.SameLine onClick={handleShowComment}>
+              <img src={commentSvg} alt="comment svg" />
+            </S.SameLine>
+            <S.SameLine>
               <p className="likes">{updatedCoverSong?.likes.length} Likes </p>
               <div onClick={updateLikes}>
                 {likedVideo ? (
-                  <LikedCoverButton
+                  <S.LikedCoverButton
                     $likedCover={likedVideo}
                     src={likedSvg}
                     alt="liked svg"
                   />
                 ) : (
-                  <LikedCoverButton
+                  <S.LikedCoverButton
                     $likedCover={likedVideo}
                     src={likeSvg}
                     alt="not liked svg"
                   />
                 )}
               </div>
-            </SameLine>
-          </VideoInfo>
+            </S.SameLine>
+          </S.VideoInfo>
         </div>
-      </BigContainer>
-      <div>comments</div>
+      </S.BigContainer>
+
+      {/* <h1>comments</h1> */}
+
+      {isCommenting && (
+        <S.AllCommentContainer>
+          <S.CommentContainer>
+            <S.UserAvatar src={currentUser?.avatar} alt="user's avatar" />
+            <S.CommentInput
+              name="comment"
+              id="comment"
+              type="text"
+              placeholder="Add a comment…"
+              ref={commentRef}
+            ></S.CommentInput>
+          </S.CommentContainer>
+          <S.SendButton>SEND</S.SendButton>
+        </S.AllCommentContainer>
+      )}
     </main>
   );
 }
