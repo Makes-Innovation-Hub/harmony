@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import axios from "axios"; // Import Axios for making HTTP requests
+import axios from "axios";
 import { SongGallery, Cover, CoverCard, CoverImage } from "./Coversstyles";
 
 const HarmonyCovers = () => {
