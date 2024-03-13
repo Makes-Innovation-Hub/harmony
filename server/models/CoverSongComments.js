@@ -7,6 +7,9 @@ const CommentSchema = new mongoose.Schema(
     content: {
       type: String,
     },
+    avatar: {
+      type: String,
+    },
   },
   {
     timestamps: true,

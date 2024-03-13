@@ -91,7 +91,6 @@ export default function CoverPage() {
   function handleAddComment() {
     addComment({
       id: updatedCoverSong?._id,
-      name: currentUser?.name,
       content: commentRef?.current.value,
     });
     commentRef.current.value = "";
@@ -157,10 +156,7 @@ export default function CoverPage() {
       </S.BigContainer>
 
       {updatedCoverSongSuccess && (
-        <CommentSection
-          avatar={currentUser?.avatar}
-          arrayToMap={updatedCoverSong?.comments}
-        />
+        <CommentSection arrayToMap={updatedCoverSong?.comments} />
       )}
 
       {isCommenting && (

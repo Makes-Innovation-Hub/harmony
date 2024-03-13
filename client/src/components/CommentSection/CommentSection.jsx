@@ -8,7 +8,7 @@ export default function CommentSection({ arrayToMap, avatar }) {
         return (
           <S.CommentContainer key={comment?._id}>
             <S.CommentContentContainer>
-              <S.UserAvatar src={avatar} alt="user's avatar" />
+              <S.UserAvatar src={comment?.avatar} alt="user's avatar" />
               <S.CommentedUser>{comment?.name}</S.CommentedUser>
             </S.CommentContentContainer>
             <S.CommentContent>{comment?.content}</S.CommentContent>

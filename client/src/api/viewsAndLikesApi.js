@@ -34,10 +34,10 @@ const addViewsAndLikesApi = createApi({
       invalidatesTags: ["songCover"],
     }),
     addComment: builder.mutation({
-      query: ({ id, name, content }) => ({
+      query: ({ id, content }) => ({
         url: `/comments/add/${id}`,
         method: "POST",
-        body: { name, content },
+        body: { content },
       }),
       invalidatesTags: ["songCover"],
     }),
