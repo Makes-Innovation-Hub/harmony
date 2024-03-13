@@ -40,8 +40,10 @@ export default function CoverPage() {
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
   const [likedVideo, setLikedVideo] = useState(false);
   const [shareFallback, setShareFallback] = useState(false);
+  const [isCommenting, setIsCommenting] = useState(false);
 
   const currentUser = useSelector((state) => state.auth.user);
+  console.log(currentUser);
 
   const goBackToOriginalSong = () => {
     navigate("/translating", {
