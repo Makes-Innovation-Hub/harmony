@@ -15,7 +15,7 @@ import {
 import { useGetSongByIdQuery } from "../../api/addCoverToSongApi";
 import CoverPageYoutube from "../../components/CoverPageYoutube/CoverPageYoutube";
 import { useSelector } from "react-redux";
-import ShareButton from "../../components/ShareButton/ShareButton";
+import ShareButton from "../../components/shareButton/ShareButton";
 import AddComment from "../../components/AddComment/AddComment";
 import CommentSection from "../../components/CommentSection/CommentSection";
 import SongAndSingerContainer from "../../components/SongAndSingerContainer/SongAndSingerContainer";
