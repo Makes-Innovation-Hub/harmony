@@ -14,7 +14,7 @@ import translatingGif from "../../assets/animations/translating-animation.gif";
 function PlaylistSongPage() {
   const [animationKey, setAnimationKey] = useState(0);
   const dispatch = useDispatch();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const songIdQuery = searchParams.get("songId");
   const playlistIdQuery = searchParams.get("playlistId");
   const playlistNameQuery = searchParams.get("name");
@@ -65,9 +65,15 @@ function PlaylistSongPage() {
     setAnimationKey((prevKey) => prevKey + 1);
     if (currentPlaylistData.currentSong !== null) {
       const songId = currentPlaylistData.currentSong.videoId;
-      navigate(
-        `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
-      );
+      setSearchParams({
+        songId: songId,
+        playlistId: currentPlaylistData.playlistId,
+        name: currentPlaylistData.playlistName,
+        language: currentPlaylistData.playlistLanguage,
+      });
+      // navigate(
+      //   `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+      // );
     }
   }, [currentPlaylistData.currentSongIndex, currentPlaylistData.currentSong]);
   return (

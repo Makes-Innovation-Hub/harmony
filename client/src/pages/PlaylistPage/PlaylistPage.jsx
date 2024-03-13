@@ -26,8 +26,6 @@ function PlaylistPage() {
 
   const { data: playlistQueryData, isSuccess } = useGetPlaylistByIdQuery(
     {
-      // id: currentPlaylistData.playlistId,
-      // lang: currentPlaylistData.playlistLanguage,
       id: listIdQuery,
       lang: listLanguageIdQuery,
     },

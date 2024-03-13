@@ -15,7 +15,7 @@ import {
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
 import likedSvg from "../../assets/svgs/thumbs-up-liked.svg";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   useAddViewMutation,
   useGetCoverSongByIdQuery,
@@ -26,8 +26,6 @@ import CoverPageYoutube from "../../components/CoverPageYoutube/CoverPageYoutube
 import { useSelector } from "react-redux";
 
 export default function CoverPage() {
-  const { id } = useParams();
-
   const { state: coverData } = useLocation();
   const navigate = useNavigate();
 
