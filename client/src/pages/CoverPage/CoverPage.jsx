@@ -156,10 +156,7 @@ export default function CoverPage() {
       </S.BigContainer>
 
       {updatedCoverSongSuccess && (
-        <CommentSection
-          // avatar={currentUser?.avatar}
-          arrayToMap={updatedCoverSong?.comments}
-        />
+        <CommentSection arrayToMap={updatedCoverSong?.comments} />
       )}
 
       {isCommenting && (
