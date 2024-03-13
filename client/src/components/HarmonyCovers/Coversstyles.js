@@ -57,6 +57,16 @@ export const ImageBoxContainer = styled.div`
   }
 `;
 
+export const TopHMixCountainer = styled.div`
+  border-radius: 8px;
+  margin-top: 4%;
+  @media (min-width: 701px) {
+    display: none;
+  }
+  @media (min-width: 0px) and (max-width: 700px) {
+    width: 100%;
+  }
+`;
 export const CoverCard = styled.div`
   // Add your styles for each cover card
 `;
