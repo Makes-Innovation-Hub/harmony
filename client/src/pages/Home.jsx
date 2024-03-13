@@ -9,19 +9,11 @@ import translatingGif from "../assets/animations/translating-animation.gif";
 import HarmonyCovers from "../components/HarmonyCovers/HarmonyCovers";
 
 export default function Home() {
-  const [pageLoaded, setPageLoaded] = useState(false);
-
-  useEffect(() => {
-    const handlePageLoad = () => {
-      setPageLoaded(true);
-    };
-
-    window.addEventListener("load", handlePageLoad);
-
-    return () => {
-      window.removeEventListener("load", handlePageLoad);
-    };
-  }, []);
+  const [availableData, setLoadingData] = useState({
+    TopSongGallary: false,
+    TopPlaylist: false,
+    HarmonyCovers: false,
+  });
 
   return (
     <>
@@ -29,7 +21,7 @@ export default function Home() {
       <Tagline />
       <HomeSearchBar />
 
-      {!pageLoaded && (
+      {!availableData.TopSongGallary && (
         <Animation
           animationGif={translatingGif}
           animationText={["Loading songs, please wait..."]}
@@ -37,11 +29,14 @@ export default function Home() {
         />
       )}
 
-      {pageLoaded && (
+      {availableData.TopSongGallary && (
         <>
-          <TopSongGallary />
-          <HarmonyCovers />
-          <TopPlaylist />
+          <TopSongGallary
+            handleData={setLoadingData}
+            availableData={availableData}
+          />
+          {/* <HarmonyCovers handleData={setLoadingData}/>
+          <TopPlaylist handleData={setLoadingData}/> */}
         </>
       )}
     </>

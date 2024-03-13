@@ -14,7 +14,7 @@ import {
 import { useGetTopCoversQuery } from "../../api/topCoversApi";
 import SongCoverNew from "../SongCoverNew/SongCoverNew";
 
-const HarmonyCovers = () => {
+const HarmonyCovers = ({ handleData }) => {
   const { t } = useTranslation();
 
   const { data: arabicTopCoversData, isSuccess: arabicTopCoversSuccess } =
@@ -22,9 +22,14 @@ const HarmonyCovers = () => {
 
   const { data: hebrewTopCoversData, isSuccess: hebrewTopCoversSuccess } =
     useGetTopCoversQuery("hebrew");
-  if (hebrewTopCoversSuccess) {
-    console.log(hebrewTopCoversData);
+
+  // Check if any of the data is still loading
+  const isLoading = !arabicTopCoversSuccess || !hebrewTopCoversSuccess;
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
+
   return (
     <SongGallery>
       <Cover>{t("Harmony Covers")}</Cover>
@@ -34,46 +39,34 @@ const HarmonyCovers = () => {
           <TopHMixCountainer>
             <Title>{t("Top Hebrew Covers in Arabic")}</Title>
             <ImageBoxContainer>
-              {hebrewTopCoversSuccess && (
-                <>
-                  {hebrewTopCoversData.map((coverInfo) => {
-                    return (
-                      <div key={coverInfo._id}>
-                        <SongCoverNew
-                          artist={coverInfo?.coverArtistName}
-                          backgroundImg={coverInfo?.backgroundUrl}
-                          state={coverInfo}
-                          likes={coverInfo?.likes.length}
-                          views={coverInfo?.views}
-                        />
-                      </div>
-                    );
-                  })}
-                </>
-              )}
+              {hebrewTopCoversData.map((coverInfo) => (
+                <div key={coverInfo._id}>
+                  <SongCoverNew
+                    artist={coverInfo?.coverArtistName}
+                    backgroundImg={coverInfo?.backgroundUrl}
+                    state={coverInfo}
+                    likes={coverInfo?.likes.length}
+                    views={coverInfo?.views}
+                  />
+                </div>
+              ))}
             </ImageBoxContainer>
           </TopHMixCountainer>
 
           <TopHMixCountainer>
             <Title>{t("Top Arabic Covers in Hebrew")}</Title>
             <ImageBoxContainer>
-              {arabicTopCoversSuccess && (
-                <>
-                  {arabicTopCoversData.map((coverInfo) => {
-                    return (
-                      <div key={coverInfo._id}>
-                        <SongCoverNew
-                          artist={coverInfo?.coverArtistName}
-                          backgroundImg={coverInfo?.backgroundUrl}
-                          state={coverInfo}
-                          likes={coverInfo?.likes.length}
-                          views={coverInfo?.views}
-                        />
-                      </div>
-                    );
-                  })}
-                </>
-              )}
+              {arabicTopCoversData.map((coverInfo) => (
+                <div key={coverInfo._id}>
+                  <SongCoverNew
+                    artist={coverInfo?.coverArtistName}
+                    backgroundImg={coverInfo?.backgroundUrl}
+                    state={coverInfo}
+                    likes={coverInfo?.likes.length}
+                    views={coverInfo?.views}
+                  />
+                </div>
+              ))}
             </ImageBoxContainer>
           </TopHMixCountainer>
         </div>
