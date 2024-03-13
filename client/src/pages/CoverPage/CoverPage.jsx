@@ -16,6 +16,9 @@ import { useGetSongByIdQuery } from "../../api/addCoverToSongApi";
 import CoverPageYoutube from "../../components/CoverPageYoutube/CoverPageYoutube";
 import { useSelector } from "react-redux";
 import ShareButton from "../../components/ShareButton/ShareButton";
+import AddComment from "../../components/AddComment/AddComment";
+import CommentSection from "../../components/CommentSection/CommentSection";
+import SongAndSingerContainer from "../../components/SongAndSingerContainer/SongAndSingerContainer";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
@@ -23,22 +26,20 @@ export default function CoverPage() {
 
   const [addView] = useAddViewMutation();
   const [toggleLike] = useToggleLikeMutation();
+  const [addComment] = useAddCommentMutation();
   const { data: updatedCoverSong, isSuccess: updatedCoverSongSuccess } =
     useGetCoverSongByIdQuery(coverData?._id);
   const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId, {
     skip: !updatedCoverSong?.originalSongId,
   });
-  const [addComment] = useAddCommentMutation();
 
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
   const [likedVideo, setLikedVideo] = useState(false);
   const [shareFallback, setShareFallback] = useState(false);
-  const [isCommenting, setIsCommenting] = useState(true);
+  const [isCommenting, setIsCommenting] = useState(false);
   const commentRef = useRef();
 
   const currentUser = useSelector((state) => state.auth.user);
-  // console.log(currentUser);
-  // console.log(updatedCoverSong);
 
   useEffect(() => {
     if (updatedCoverSong?.originalSongId) {
@@ -88,15 +89,12 @@ export default function CoverPage() {
   }
 
   function handleAddComment() {
-    console.log(coverData?._id);
-    console.log({
+    addComment({
+      id: updatedCoverSong?._id,
       name: currentUser?.name,
       content: commentRef?.current.value,
     });
-    addComment(updatedCoverSong?._id, {
-      name: currentUser?.name,
-      content: commentRef?.current.value,
-    });
+    commentRef.current.value = "";
   }
 
   const url = `https://youtu.be/${coverData?.youtubeUrl}`;
@@ -110,24 +108,12 @@ export default function CoverPage() {
       </S.CoverArtistTitle>
 
       <S.BigContainer>
-        <S.ArtistContainer>
-          <div>
-            <S.SongCover
-              onClick={goBackToOriginalSong}
-              src={coverData?.originalSongCover}
-              alt="Original song cover art"
-            />
-          </div>
-
-          <S.SongAndSingerContainer>
-            <S.SongName onClick={goBackToOriginalSong}>
-              {coverData?.originalSongName}
-            </S.SongName>
-            <S.OriginalArtistName onClick={goBackToOriginalSong}>
-              {coverData?.originalArtist}
-            </S.OriginalArtistName>
-          </S.SongAndSingerContainer>
-        </S.ArtistContainer>
+        <SongAndSingerContainer
+          goBackToOriginalSong={goBackToOriginalSong}
+          songCoverImg={coverData?.originalSongCover}
+          originalArtistName={coverData?.originalArtist}
+          originalSongName={coverData?.originalSongName}
+        />
 
         <div>
           <CoverPageYoutube
@@ -136,10 +122,7 @@ export default function CoverPage() {
             playVideoDiv={playVideoDiv}
           />
           <S.VideoInfo>
-            <S.SameLine
-              onClick={toggleShareOptions}
-              style={{ cursor: "pointer", position: "relative" }}
-            >
+            <S.SameLine onClick={toggleShareOptions}>
               <img src={shareSvg} alt="share svg" />
 
               <p>Share</p>
@@ -173,44 +156,19 @@ export default function CoverPage() {
         </div>
       </S.BigContainer>
 
-      {/* <h1>comments</h1> */}
       {updatedCoverSongSuccess && (
-        <>
-          {updatedCoverSong?.comments.map((comment) => {
-            return (
-              <S.CommentContainer
-                $flexDirection={"column"}
-                $paddingBottom="30px"
-                key={comment?._id}
-              >
-                <S.CommentContentContainer>
-                  <S.UserAvatar src={currentUser?.avatar} alt="user's avatar" />
-                  <S.CommentedUser>{comment?.name}</S.CommentedUser>
-                </S.CommentContentContainer>
-                <S.CommentContent>{comment?.content}</S.CommentContent>
-              </S.CommentContainer>
-            );
-          })}
-        </>
+        <CommentSection
+          avatar={currentUser?.avatar}
+          arrayToMap={updatedCoverSong?.comments}
+        />
       )}
 
-      {/*  */}
-
       {isCommenting && (
-        <S.AllCommentContainer>
-          <S.CommentContainer>
-            <S.UserAvatar src={currentUser?.avatar} alt="user's avatar" />
-            <S.CommentInput
-              name="comment"
-              id="comment"
-              type="text"
-              placeholder="Add a comment…"
-              ref={commentRef}
-              required={true}
-            ></S.CommentInput>
-          </S.CommentContainer>
-          <S.SendButton onClick={handleAddComment}>SEND</S.SendButton>
-        </S.AllCommentContainer>
+        <AddComment
+          avatar={currentUser?.avatar}
+          commentRef={commentRef}
+          handleAddComment={handleAddComment}
+        />
       )}
     </main>
   );

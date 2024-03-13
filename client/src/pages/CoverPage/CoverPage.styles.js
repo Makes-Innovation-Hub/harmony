@@ -12,50 +12,6 @@ export const CoverArtistTitle = styled.h3`
   margin-top: 20px;
 `;
 
-export const ArtistContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  padding-top: 30px;
-  max-width: 100%;
-`;
-
-export const SongCover = styled.img`
-  width: 149px;
-  height: 145px;
-  top: 154px;
-  left: 31px;
-  border-radius: 30px;
-`;
-
-export const SongAndSingerContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-`;
-
-export const SongName = styled.h3`
-  font-family: ABeeZee;
-  font-size: 23px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 31px;
-  letter-spacing: 0em;
-  text-align: center;
-`;
-
-export const OriginalArtistName = styled.p`
-  font-family: ABeeZee;
-  font-size: 17px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 23px;
-  letter-spacing: 0em;
-  text-align: center;
-  color: #828282;
-`;
-
 export const BigContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -80,6 +36,8 @@ export const SameLine = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
+  cursor: "pointer";
+  position: "relative";
 `;
 
 export const LikedCoverButton = styled.img`
@@ -127,93 +85,4 @@ export const ShareLinks = styled.div`
       transform: translateY(0);
     }
   }
-`;
-
-export const AllCommentContainer = styled.div`
-  padding-bottom: 30px;
-`;
-
-export const CommentContainer = styled.div`
-  display: flex;
-  flex-direction: ${({ $flexDirection }) => $flexDirection};
-  gap: 10px;
-  padding-bottom: ${({ $paddingBottom }) => $paddingBottom};
-  margin-left: 40px;
-
-  @media screen and (max-width: 400px) and (max-height: 900px) {
-    margin-left: 10px;
-  }
-`;
-
-export const UserAvatar = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-`;
-
-export const CommentInput = styled.textarea`
-  border: 1px solid #80808054;
-  border-radius: 10px;
-  padding-top: 15px;
-  padding-left: 10px;
-  padding-bottom: 60px;
-  padding-right: 20px;
-  width: 285px;
-  resize: none;
-`;
-
-export const InputContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const SendButton = styled.button`
-  font-family: Rubik;
-  font-size: 12px;
-  font-weight: 500;
-
-  color: #ffffff;
-  background: #4285f4;
-  border: none;
-  width: 87px;
-  height: 29px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  margin-left: 66.5%;
-  margin-top: 20px;
-
-  @media screen and (max-height: 900px) {
-    margin-left: 69%;
-  }
-
-  @media screen and (max-width: 400px) and (min-height: 800px) {
-    margin-left: 66%;
-  }
-`;
-
-export const CommentContentContainer = styled.div`
-  display: flex;
-  gap: 15px;
-`;
-
-export const CommentedUser = styled.h3`
-  font-family: Rubik;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19px;
-  text-align: left;
-  margin-top: 8px;
-`;
-
-export const CommentContent = styled.p`
-  color: #67727e;
-  font-family: Rubik;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 24px;
-  text-align: left;
 `;

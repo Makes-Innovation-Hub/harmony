@@ -15,10 +15,10 @@ export const postComments = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { content, name } = req.body;
-    // if (!content || !name) {
-    //   res.status(404);
-    //   throw new Error("all fields are required");
-    // }
+    if (!content || !name) {
+      res.status(404);
+      throw new Error("all fields are required");
+    }
 
     const createdComment = await CoverComments.create({
       name,
