@@ -44,7 +44,6 @@ export const Title = styled.h2`
     font-size: 1.2rem;
     color: #333333;
     font-style: italic;
-    // margin-top:2.5%;
     margin-left: 8%;
     line-height: 1.912;
     font-family: "ABeeZee";
@@ -74,7 +73,6 @@ export const ImageBoxContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 25px;
-    // margin-top: 4%;
     &::-webkit-scrollbar {
       display: none;
     }

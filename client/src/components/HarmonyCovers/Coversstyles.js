@@ -9,12 +9,13 @@ export const SongGallery = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 12%;
+    margin-top: 100px;
   }
 `;
 
 export const TopHCoversCountainer = styled.div`
   border-radius: 8px;
+  margin-top: 4%;
   @media (min-width: 701px) {
     display: none;
   }
@@ -34,11 +35,12 @@ export const Title = styled.h2`
     font-family: "ABeeZee";
   }
 `;
-
-export const ImageBox = styled.div`
+export const CoverBox = styled.div`
   @media (min-width: 0px) and (max-width: 700px) {
     width: 100%;
     height: 100%;
+    padding: 18px;
+    margin-left: -18px;
   }
 `;
 
@@ -47,18 +49,18 @@ export const ImageBoxContainer = styled.div`
   white-space: nowrap;
   margin-left: 5%;
   overflow-y: hidden;
-  & > ${ImageBox} {
+  & > ${CoverBox} {
     margin-right: -0.25rem;
   }
   @media (max-width: 700px) {
     display: flex;
-    gap: 0.2rem;
     flex-direction: row;
-    margin-top: 4%;
+    gap: 25px;
+    // margin-top: 4%;
     &::-webkit-scrollbar {
       display: none;
     }
-    & > ${ImageBox} {
+    & > ${CoverBox} {
       flex: 0 0 calc(100% / 2 - 0.2rem);
     }
   }
@@ -136,9 +138,9 @@ export const Songartist = styled.p`
 
 export const Image = styled.img`
   @media (min-width: 0px) and (max-width: 700px) {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 115%;
+    max-height: 120%;
     object-fit: cover;
-    border-radius: 35px;
+    border-radius: 30px;
   }
 `;

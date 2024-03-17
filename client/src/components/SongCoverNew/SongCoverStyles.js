@@ -1,48 +1,51 @@
 import styled from "styled-components";
 
 export const TitleContainer = styled.div`
-  margin-top: 50px;
+  @media (min-width: 0px) and (max-width: 700px) {
+    min-height: 2rem;
+    background: rgba(223, 220, 220, 0.28);
+    box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
+    backdrop-filter: blur(8px);
+    border-radius: 8px 8px 12px 12px;
+    margin-top: -3.18rem;
+    width: 6rem;
+    margin-left: 0.6rem;
+    padding-bottom: 0.8rem;
+  }
 `;
 
 export const ByArtist = styled.p`
-  font-family: ABeeZee;
-  font-size: 12px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0em;
-  text-align: center;
-  text-decoration: underline;
+  @media (min-width: 0px) and (max-width: 700px) {
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: #ffff;
+    font-style: italic;
+    margin-left: 2%;
+    margin-top: 3%;
+    padding: 0.43rem;
+    line-height: 1.081rem;
+    font-family: "ABeeZee";
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const CoverBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 2rem 0 2rem;
+  @media (min-width: 0px) and (max-width: 700px) {
+    width: 150%;
+    height: 60%;
+    padding: 18px;
+    padding-right: 55px;
+    margin-left: -18px;
+  }
 `;
 
 export const ImgStyles = styled.img`
-  border-radius: 30px;
-  width: 100%;
-`;
-
-export const LikesAndViewsContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  padding-bottom: 40px;
-
-  p {
-    font-family: ABeeZee;
-    font-size: 12px;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: #333333;
-    padding-top: 3px;
+  @media (min-width: 0px) and (max-width: 700px) {
+    max-width: 100%;
+    max-height: 120%;
+    object-fit: cover;
+    border-radius: 30px;
   }
 `;

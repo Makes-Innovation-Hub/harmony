@@ -10,9 +10,9 @@ import HarmonyCovers from "../components/HarmonyCovers/HarmonyCovers";
 
 export default function Home() {
   const [availableData, setLoadingData] = useState({
-    TopSongGallary: false,
-    TopPlaylist: false,
-    HarmonyCovers: false,
+    TopSongGallary: true,
+    TopPlaylist: true,
+    HarmonyCovers: true,
   });
 
   return (
