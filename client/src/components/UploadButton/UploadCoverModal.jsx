@@ -1,9 +1,4 @@
-import {
-  FormLabel,
-  FormInput,
-  FormButton,
-  XButton,
-} from "./uploadCoverModal.styles";
+import * as S from "./uploadCoverModal.styles";
 
 import React, { useRef, useState } from "react";
 import Modal from "./UploadCoverButton";
@@ -22,6 +17,7 @@ const UploadCoverModal = ({
     artistName: "",
     youtubeUrl: "",
   });
+  const [errorMsg, setErrorMsg] = useState("");
 
   const artistRef = useRef();
   const youtubeLinkRef = useRef();
@@ -40,6 +36,20 @@ const UploadCoverModal = ({
       ...coverData,
       [name]: value,
     });
+  };
+
+  const validateYouTubeUrl = (url) => {
+    if (url !== undefined && url !== "") {
+      const regExp =
+        /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      if (match && match[2].length === 11) {
+        addNewCoverSong();
+        setErrorMsg("");
+      } else {
+        setErrorMsg("Invalid URL, please enter a valid YouTube link");
+      }
+    }
   };
 
   function addNewCoverSong() {
@@ -64,28 +74,33 @@ const UploadCoverModal = ({
         onRequestOpen={openModal}
       >
         <form>
-          <FormLabel>Artist Name:</FormLabel>
-          <FormInput
+          <S.FormLabel>Artist Name:</S.FormLabel>
+          <S.FormInput
             type="text"
             name="artistName"
             value={coverData.artistName}
             onChange={handleInputChange}
             ref={artistRef}
           />
-          <FormLabel>Youtube Link:</FormLabel>
-          <FormInput
+          <S.FormLabel>Youtube Link:</S.FormLabel>
+          <S.FormInput
             type="text"
             name="youtubeUrl"
             value={coverData.youtubeUrl}
             onChange={handleInputChange}
             ref={youtubeLinkRef}
           />
+
+          <S.ErrorMsg>{errorMsg}</S.ErrorMsg>
           <div style={{ width: "100%", display: "flex" }}>
-            <FormButton type="button" onClick={addNewCoverSong}>
+            <S.FormButton
+              type="button"
+              onClick={() => validateYouTubeUrl(coverData.youtubeUrl)}
+            >
               Create
-            </FormButton>
+            </S.FormButton>
           </div>
-          <XButton onClick={closeModal}>X</XButton>
+          <S.XButton onClick={closeModal}>X</S.XButton>
         </form>
       </Modal>
     </main>
