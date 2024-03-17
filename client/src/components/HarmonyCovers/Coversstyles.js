@@ -1,4 +1,3 @@
-// components/HarmonyCovers/HarmonyCovers.styles.js
 import styled from "styled-components";
 
 export const SongGallery = styled.div`
@@ -10,7 +9,58 @@ export const SongGallery = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 12%;
+  }
+`;
+
+export const TopHCoversCountainer = styled.div`
+  border-radius: 8px;
+  @media (min-width: 701px) {
+    display: none;
+  }
+  @media (min-width: 0px) and (max-width: 700px) {
+    width: 100%;
+  }
+`;
+
+export const Title = styled.h2`
+  @media (min-width: 0px) and (max-width: 700px) {
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #333333;
+    font-style: italic;
+    margin-left: 8%;
+    line-height: 1.912;
+    font-family: "ABeeZee";
+  }
+`;
+
+export const ImageBox = styled.div`
+  @media (min-width: 0px) and (max-width: 700px) {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+export const ImageBoxContainer = styled.div`
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-left: 5%;
+  overflow-y: hidden;
+  & > ${ImageBox} {
+    margin-right: -0.25rem;
+  }
+  @media (max-width: 700px) {
+    display: flex;
+    gap: 0.2rem;
+    flex-direction: row;
+    margin-top: 4%;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & > ${ImageBox} {
+      flex: 0 0 calc(100% / 2 - 0.2rem);
+    }
   }
 `;
 
@@ -27,50 +77,68 @@ export const Cover = styled.h1`
   }
 `;
 
-export const Title = styled.h2`
-  @media (min-width: 0px) and (max-width: 700px) {
-    font-weight: 400;
-    font-size: 1.2rem;
-    color: #333333;
-    font-style: italic;
-    // margin-top:2.5%;
-    margin-left: 8%;
-    line-height: 1.912;
-    font-family: "ABeeZee";
-  }
-`;
-
-export const ImageBoxContainer = styled.div`
-  overflow-x: auto;
-  white-space: nowrap;
-  margin-left: 5%;
-  overflow-y: hidden;
-
-  @media (max-width: 700px) {
-    display: flex;
-    flex-direction: row;
-    gap: 25px;
-    // margin-top: 4%;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-`;
-
-export const TopHMixCountainer = styled.div`
+export const TopACoversCountainer = styled.div`
   border-radius: 8px;
   margin-top: 4%;
   @media (min-width: 701px) {
     display: none;
   }
   @media (min-width: 0px) and (max-width: 700px) {
-    width: 100%;
+    height: 20%;
   }
 `;
-export const CoverCard = styled.div`
-  // Add your styles for each cover card
+
+export const Box = styled.div`
+  @media (min-width: 0px) and (max-width: 700px) {
+    min-height: 2rem;
+    background: rgba(223, 220, 220, 0.28);
+    box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
+    backdrop-filter: blur(8px);
+    border-radius: 8px 8px 12px 12px;
+    margin-top: -3.18rem;
+    width: 6rem;
+    margin-left: 0.6rem;
+  }
 `;
 
-export const CoverImage = styled.img`
-  // Add your styles for cover images
+export const SongP = styled.p`
+  @media (min-width: 0px) and (max-width: 700px) {
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: #ffff;
+    font-style: italic;
+    margin-left: 2%;
+    margin-top: 4%;
+    padding: 0.43rem;
+    line-height: 1.081rem;
+    font-family: "ABeeZee";
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+
+export const Songartist = styled.p`
+  @media (min-width: 0px) and (max-width: 700px) {
+    font-size: 0.4rem;
+    font-weight: 50;
+    font-style: italic;
+    margin-left: 0.6rem;
+    line-height: 0.831rem;
+    color: #ffff;
+    font-family: "ABeeZee";
+    margin-top: -0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+
+export const Image = styled.img`
+  @media (min-width: 0px) and (max-width: 700px) {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: cover;
+    border-radius: 35px;
+  }
 `;

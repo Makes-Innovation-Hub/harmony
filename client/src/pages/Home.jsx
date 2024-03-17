@@ -21,7 +21,9 @@ export default function Home() {
       <Tagline />
       <HomeSearchBar />
 
-      {!availableData.TopSongGallary && (
+      {(!availableData.TopSongGallary ||
+        !availableData.HarmonyCovers ||
+        !availableData.TopPlaylist) && (
         <Animation
           animationGif={translatingGif}
           animationText={["Loading songs, please wait..."]}
@@ -29,16 +31,22 @@ export default function Home() {
         />
       )}
 
-      {availableData.TopSongGallary && (
+      {
         <>
           <TopSongGallary
             handleData={setLoadingData}
             availableData={availableData}
           />
-          {/* <HarmonyCovers handleData={setLoadingData}/>
-          <TopPlaylist handleData={setLoadingData}/> */}
+          <HarmonyCovers
+            handleData={setLoadingData}
+            availableData={availableData}
+          />
+          <TopPlaylist
+            handleData={setLoadingData}
+            availableData={availableData}
+          />
         </>
-      )}
+      }
     </>
   );
 }

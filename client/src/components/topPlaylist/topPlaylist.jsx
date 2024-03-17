@@ -1,10 +1,10 @@
 import {
   SongGallery,
+  Playlist,
   TopHMixCountainer,
   TopAMixCountainer,
   Title,
   ImageBoxContainer,
-  Playlist,
 } from "./PlaylistStyle";
 import { useGetAllPlaylistDataQuery } from "../../api/playlistApiSlice";
 import { useTranslation } from "react-i18next";
