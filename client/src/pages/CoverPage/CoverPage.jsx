@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import Header from "../../components/Header/Header";
 import * as S from "./CoverPage.styles";
 import shareSvg from "../../assets/svgs/share.svg";
@@ -15,7 +15,7 @@ import {
 import { useGetSongByIdQuery } from "../../api/addCoverToSongApi";
 import CoverPageYoutube from "../../components/CoverPageYoutube/CoverPageYoutube";
 import { useSelector } from "react-redux";
-import ShareButton from "../../components/ShareButton/ShareButton";
+import ShareButton from "../../components/shareButton/ShareButton";
 import AddComment from "../../components/AddComment/AddComment";
 import CommentSection from "../../components/CommentSection/CommentSection";
 import SongAndSingerContainer from "../../components/SongAndSingerContainer/SongAndSingerContainer";
@@ -23,6 +23,7 @@ import SongAndSingerContainer from "../../components/SongAndSingerContainer/Song
 export default function CoverPage() {
   const { state: coverData } = useLocation();
   const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.auth.user);
 
   const [addView] = useAddViewMutation();
   const [toggleLike] = useToggleLikeMutation();
@@ -34,32 +35,59 @@ export default function CoverPage() {
   });
 
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
-  const [likedVideo, setLikedVideo] = useState(false);
+  const [likesCount, setLikesCount] = useState(
+    updatedCoverSong?.likes.length || 0
+  );
+  const [userHasLiked, setUserHasLiked] = useState(
+    updatedCoverSong?.likes.includes(currentUser.id)
+  );
   const [shareFallback, setShareFallback] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
   const commentRef = useRef();
-
-  const currentUser = useSelector((state) => state.auth.user);
+  const debounceTimerRef = useRef(null);
+  const clickCountRef = useRef(0);
 
   useEffect(() => {
     if (updatedCoverSong?.originalSongId) {
       refetch();
     }
-  }, [updatedCoverSong]);
+  }, [updatedCoverSong, refetch]);
 
   useEffect(() => {
-    if (updatedCoverSong?.likes.includes(currentUser.id)) {
-      setLikedVideo(true);
-    } else {
-      setLikedVideo(false);
-    }
-  }, [updatedCoverSong]);
+    setLikesCount(updatedCoverSong?.likes.length || 0);
+    setUserHasLiked(updatedCoverSong?.likes.includes(currentUser.id));
+  }, [updatedCoverSong, currentUser.id]);
 
   useEffect(() => {
     if (isCommenting) {
       commentRef.current.focus();
     }
   }, [isCommenting]);
+
+  const debounceToggleLike = useCallback(() => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    debounceTimerRef.current = setTimeout(() => {
+      // Use clickCountRef.current to check the number of clicks
+      if (clickCountRef.current % 2 !== 0) {
+        toggleLikeOnServer();
+      } else {
+        refetch();
+      }
+      // Reset the counter after processing
+      clickCountRef.current = 0;
+    }, 200); // 200ms debounce time
+  }, []); // Removed dependencies to prevent re-creation of the callback
+
+  async function toggleLikeOnServer() {
+    try {
+      await toggleLike(coverData?._id);
+    } catch (error) {
+      console.error("Failed to synchronize like state with server:", error);
+    }
+  }
 
   const goBackToOriginalSong = () => {
     navigate("/translating", {
@@ -77,7 +105,10 @@ export default function CoverPage() {
   }
 
   function updateLikes() {
-    toggleLike(coverData?._id);
+    setUserHasLiked((prev) => !prev); // Optimistically toggle the like state
+    setLikesCount((prev) => prev + (userHasLiked ? -1 : 1));
+    clickCountRef.current += 1; // Update the click counter
+    debounceToggleLike();
   }
 
   const toggleShareOptions = () => {
@@ -95,9 +126,6 @@ export default function CoverPage() {
     });
     commentRef.current.value = "";
   }
-
-  const url = `https://youtu.be/${coverData?.youtubeUrl}`;
-  const title = `Check out this cover song that has been created on this song: ${coverData?.originalSongName}`;
 
   return (
     <main>
@@ -123,10 +151,9 @@ export default function CoverPage() {
           <S.VideoInfo>
             <S.SameLine onClick={toggleShareOptions}>
               <img src={shareSvg} alt="share svg" />
-
               <p>Share</p>
             </S.SameLine>
-            {shareFallback && <ShareButton title={title} url={url} />}
+            {shareFallback && <ShareButton coverData={coverData} />}
             <S.SameLine>
               <p>{updatedCoverSong?.views} Views</p>
             </S.SameLine>
@@ -134,21 +161,13 @@ export default function CoverPage() {
               <img src={commentSvg} alt="comment svg" />
             </S.SameLine>
             <S.SameLine>
-              <p className="likes">{updatedCoverSong?.likes.length} Likes </p>
+              <p className="likes">{likesCount} Likes</p>
               <div onClick={updateLikes}>
-                {likedVideo ? (
-                  <S.LikedCoverButton
-                    $likedCover={likedVideo}
-                    src={likedSvg}
-                    alt="liked svg"
-                  />
-                ) : (
-                  <S.LikedCoverButton
-                    $likedCover={likedVideo}
-                    src={likeSvg}
-                    alt="not liked svg"
-                  />
-                )}
+                <S.LikedCoverButton
+                  $likedCover={userHasLiked}
+                  src={userHasLiked ? likedSvg : likeSvg}
+                  alt="like svg"
+                />
               </div>
             </S.SameLine>
           </S.VideoInfo>
