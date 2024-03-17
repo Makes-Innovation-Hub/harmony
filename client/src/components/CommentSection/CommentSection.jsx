@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./CommentSectionStyles";
 
-export default function CommentSection({ arrayToMap, avatar }) {
+export default function CommentSection({ arrayToMap }) {
   return (
     <>
       {arrayToMap.map((comment) => {
