@@ -12,7 +12,9 @@ import {
 } from "react-share";
 import { ShareLinks } from "../../pages/CoverPage/CoverPage.styles";
 
-function ShareButton({ url, title }) {
+function ShareButton({ coverData }) {
+  const url = `https://youtu.be/${coverData?.youtubeUrl}`;
+  const title = `Check out this cover song that has been created on this song: ${coverData?.originalSongName}`;
   return (
     <ShareLinks>
       <FacebookShareButton url={url} title={title}>
@@ -27,7 +29,7 @@ function ShareButton({ url, title }) {
       <TelegramShareButton url={url} title={title}>
         <TelegramIcon size={40} round={true} />
       </TelegramShareButton>
-      <EmailShareButton url={url} title={title}>
+      <EmailShareButton url={url} subject={title}>
         <EmailIcon size={40} round={true} />
       </EmailShareButton>
     </ShareLinks>

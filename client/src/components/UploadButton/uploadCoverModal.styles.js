@@ -76,3 +76,13 @@ export const XButton = styled.div`
     color: red;
   }
 `;
+
+export const ErrorMsg = styled.p`
+  font-family: ABeeZee;
+  color: red;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+`;

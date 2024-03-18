@@ -10,10 +10,6 @@ export const verifySessionWithBackend = async (dispatch, navigate = null) => {
       credentials: "include",
     });
 
-    if (!response.ok) {
-      console.log(`RESPONSE IS NOT OK`, response);
-    }
-
     const data = await response.json();
 
     if (response.ok && data.isAuthenticated && data.user) {
