@@ -28,7 +28,8 @@ export const PlaylistTitle = styled.h3`
   color: #828282;
   margin-top: 20px;
   @media (min-width: 768px) {
-    padding-bottom: 55px;
+    padding-top: 150px;
+    padding-bottom: 120px;
     &:hover {
       color: #333333;
       cursor: pointer;
@@ -103,4 +104,7 @@ export const BigContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 23px;
+  @media (min-width: 768px) {
+    padding-bottom: 160px;
+  }
 `;
