@@ -5,11 +5,7 @@ export const CommentContainer = styled.div`
   flex-direction: column;
   gap: 10px;
   padding-bottom: 30px;
-  margin: 0 40px;
-
-  @media screen and (max-width: 400px) and (max-height: 900px) {
-    margin-left: 10px;
-  }
+  width: 100%;
 `;
 
 export const CommentContentContainer = styled.div`
@@ -30,6 +26,8 @@ export const CommentedUser = styled.h3`
   line-height: 19px;
   text-align: left;
   margin-top: 8px;
+  /* border: 1px solid red; */
+  width: 100%;
 `;
 
 export const CommentContent = styled.p`

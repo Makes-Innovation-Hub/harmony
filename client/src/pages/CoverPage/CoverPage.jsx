@@ -79,7 +79,7 @@ export default function CoverPage() {
       // Reset the counter after processing
       clickCountRef.current = 0;
     }, 200); // 200ms debounce time
-  }, []); // Removed dependencies to prevent re-creation of the callback
+  }, []);
 
   async function toggleLikeOnServer() {
     try {
@@ -130,61 +130,65 @@ export default function CoverPage() {
   return (
     <main>
       <Header />
-      <S.CoverArtistTitle>
-        Cover by {coverData?.coverArtistName}
-      </S.CoverArtistTitle>
+      <S.Section>
+        <S.CoverArtistTitle>
+          Cover by {coverData?.coverArtistName}
+        </S.CoverArtistTitle>
 
-      <S.BigContainer>
-        <SongAndSingerContainer
-          goBackToOriginalSong={goBackToOriginalSong}
-          songCoverImg={coverData?.originalSongCover}
-          originalArtistName={coverData?.originalArtist}
-          originalSongName={coverData?.originalSongName}
-        />
-
-        <div>
-          <CoverPageYoutube
-            youtubeUrl={coverData?.youtubeUrl}
-            handleAddView={updateViews}
-            playVideoDiv={playVideoDiv}
+        <S.BigContainer>
+          <SongAndSingerContainer
+            goBackToOriginalSong={goBackToOriginalSong}
+            songCoverImg={coverData?.originalSongCover}
+            originalArtistName={coverData?.originalArtist}
+            originalSongName={coverData?.originalSongName}
           />
-          <S.VideoInfo>
-            <S.SameLine onClick={toggleShareOptions}>
-              <img src={shareSvg} alt="share svg" />
-              <p>Share</p>
-            </S.SameLine>
-            {shareFallback && <ShareButton coverData={coverData} />}
-            <S.SameLine>
-              <p>{updatedCoverSong?.views} Views</p>
-            </S.SameLine>
-            <S.SameLine onClick={handleShowComment}>
-              <img src={commentSvg} alt="comment svg" />
-            </S.SameLine>
-            <S.SameLine>
-              <p className="likes">{likesCount} Likes</p>
-              <div onClick={updateLikes}>
-                <S.LikedCoverButton
-                  $likedCover={userHasLiked}
-                  src={userHasLiked ? likedSvg : likeSvg}
-                  alt="like svg"
-                />
-              </div>
-            </S.SameLine>
-          </S.VideoInfo>
-        </div>
-      </S.BigContainer>
 
-      {updatedCoverSongSuccess && (
-        <CommentSection arrayToMap={updatedCoverSong?.comments} />
-      )}
+          <div>
+            <CoverPageYoutube
+              youtubeUrl={coverData?.youtubeUrl}
+              handleAddView={updateViews}
+              playVideoDiv={playVideoDiv}
+            />
+            <S.VideoInfo>
+              <S.SameLine onClick={toggleShareOptions}>
+                <S.Svgs src={shareSvg} alt="share svg" />
+                <p>Share</p>
+              </S.SameLine>
+              {shareFallback && <ShareButton coverData={coverData} />}
+              <S.SameLine>
+                <p>{updatedCoverSong?.views} Views</p>
+              </S.SameLine>
+              <S.SameLine onClick={handleShowComment}>
+                <S.Svgs src={commentSvg} alt="comment svg" />
+              </S.SameLine>
+              <S.SameLine>
+                <p className="likes">{likesCount} Likes</p>
+                <div onClick={updateLikes}>
+                  <S.LikedCoverButton
+                    $likedCover={userHasLiked}
+                    src={userHasLiked ? likedSvg : likeSvg}
+                    alt="like svg"
+                  />
+                </div>
+              </S.SameLine>
+            </S.VideoInfo>
+          </div>
+        </S.BigContainer>
 
-      {isCommenting && (
-        <AddComment
-          avatar={currentUser?.avatar}
-          commentRef={commentRef}
-          handleAddComment={handleAddComment}
-        />
-      )}
+        <S.CommentSection>
+          {updatedCoverSongSuccess && (
+            <CommentSection arrayToMap={updatedCoverSong?.comments} />
+          )}
+
+          {isCommenting && (
+            <AddComment
+              avatar={currentUser?.avatar}
+              commentRef={commentRef}
+              handleAddComment={handleAddComment}
+            />
+          )}
+        </S.CommentSection>
+      </S.Section>
     </main>
   );
 }
