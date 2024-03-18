@@ -1,10 +1,3 @@
-// import {
-//   FormContainer,
-//   ModalBackground,
-//   ModalBody,
-//   ModalPositionContainer,
-//   ButtonCover,
-// } from "./uploadCoverButton.styles";
 import * as S from "./uploadCoverButton.styles";
 
 const UploadCoverButton = ({
