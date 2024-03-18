@@ -26,7 +26,6 @@ export const CommentedUser = styled.h3`
   line-height: 19px;
   text-align: left;
   margin-top: 8px;
-  /* border: 1px solid red; */
   width: 100%;
 `;
 
