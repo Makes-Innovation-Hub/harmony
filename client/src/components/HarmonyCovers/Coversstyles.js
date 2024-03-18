@@ -10,6 +10,7 @@ export const SongGallery = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 100px;
+    margin-bottom: -150px;
   }
 `;
 
@@ -21,6 +22,7 @@ export const TopHCoversCountainer = styled.div`
   }
   @media (min-width: 0px) and (max-width: 700px) {
     width: 100%;
+    margin-bottom: -25%;
   }
 `;
 
@@ -55,7 +57,7 @@ export const ImageBoxContainer = styled.div`
   @media (max-width: 700px) {
     display: flex;
     flex-direction: row;
-    gap: 25px;
+    gap: 30px;
     // margin-top: 4%;
     &::-webkit-scrollbar {
       display: none;
@@ -86,7 +88,7 @@ export const TopACoversCountainer = styled.div`
     display: none;
   }
   @media (min-width: 0px) and (max-width: 700px) {
-    height: 20%;
+    // height: 20%;
   }
 `;
 
@@ -139,7 +141,7 @@ export const Songartist = styled.p`
 export const Image = styled.img`
   @media (min-width: 0px) and (max-width: 700px) {
     max-width: 115%;
-    max-height: 120%;
+    // max-height: 120%;
     object-fit: cover;
     border-radius: 30px;
   }

@@ -34,9 +34,9 @@ export const ByArtist = styled.p`
 export const CoverBox = styled.div`
   @media (min-width: 0px) and (max-width: 700px) {
     width: 150%;
-    height: 60%;
+    height: 55%;
     padding: 18px;
-    padding-right: 55px;
+    padding-right: 37px;
     margin-left: -18px;
   }
 `;
