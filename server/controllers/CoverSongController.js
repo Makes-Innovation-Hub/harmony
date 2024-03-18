@@ -98,13 +98,14 @@ export const postCoverData = async (req, res, next) => {
       throw new Error("Artist name & youtube link are required");
     }
 
-    const existingYoutubeUrl = await CoverSong.findOne({ youtubeUrl });
-
+    const getLinkId = getYouTubeAndBackgroundId(youtubeUrl);
+    const existingYoutubeUrl = await CoverSong.findOne({
+      youtubeUrl: getLinkId,
+    });
     if (existingYoutubeUrl) {
       res.status(409);
-      throw new Error("This cover song is already in the database");
+      throw new Error("This cover song has been already added");
     }
-    const getLinkId = getYouTubeAndBackgroundId(youtubeUrl);
 
     const newCoverSong = await CoverSong.create({
       youtubeUrl: getLinkId,

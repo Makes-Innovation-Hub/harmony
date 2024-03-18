@@ -1,10 +1,11 @@
-import { ButtonCover } from "./uploadCoverModal.styles";
-import {
-  FormContainer,
-  ModalBackground,
-  ModalBody,
-  ModalPositionContainer,
-} from "./uploadCoverButton.styles";
+// import {
+//   FormContainer,
+//   ModalBackground,
+//   ModalBody,
+//   ModalPositionContainer,
+//   ButtonCover,
+// } from "./uploadCoverButton.styles";
+import * as S from "./uploadCoverButton.styles";
 
 const UploadCoverButton = ({
   children,
@@ -14,20 +15,20 @@ const UploadCoverButton = ({
 }) => {
   return (
     <>
-      <FormContainer>
-        <ModalPositionContainer>
-          <ButtonCover onClick={() => onRequestOpen()}>
+      <S.FormContainer>
+        <S.ModalPositionContainer>
+          <S.ButtonCover onClick={() => onRequestOpen()}>
             Upload Cover
-          </ButtonCover>
+          </S.ButtonCover>
           {isOpen && (
-            <ModalBackground onClick={() => onRequestClose()}>
-              <ModalBody onClick={(e) => e.stopPropagation()}>
+            <S.ModalBackground onClick={() => onRequestClose()}>
+              <S.ModalBody onClick={(e) => e.stopPropagation()}>
                 {children}
-              </ModalBody>
-            </ModalBackground>
+              </S.ModalBody>
+            </S.ModalBackground>
           )}
-        </ModalPositionContainer>
-      </FormContainer>
+        </S.ModalPositionContainer>
+      </S.FormContainer>
     </>
   );
 };
