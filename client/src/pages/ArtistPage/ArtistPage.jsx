@@ -8,6 +8,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import * as S from "./ArtistPage.styled";
 import { useGetArtistDataQuery } from "../../api/artistApiSlice";
 import { useEffect, useState } from "react";
+import Animation from "../../components/Animation/Animation.component";
+import translatingGif from "../../assets/animations/translating-animation.gif";
 function ArtistPage() {
   // const location = useLocation();
   // // const artistData = location.state.artistData;
@@ -65,7 +67,10 @@ function ArtistPage() {
           </S.FlexGrowthContainer>
         </>
       ) : (
-        <></>
+        <Animation
+          animationGif={translatingGif}
+          animationText={["Loading artist ..."]}
+        />
       )}
     </PageWrapper>
   );
