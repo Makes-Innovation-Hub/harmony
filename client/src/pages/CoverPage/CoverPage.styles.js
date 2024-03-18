@@ -1,5 +1,17 @@
 import styled from "styled-components";
 
+export const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 20px;
+  }
+`;
+
 export const CoverArtistTitle = styled.h3`
   font-family: ABeeZee;
   font-size: 17px;
@@ -9,7 +21,10 @@ export const CoverArtistTitle = styled.h3`
   letter-spacing: 0em;
   text-align: center;
   color: #828282;
-  margin-top: 20px;
+
+  @media screen and (min-width: 768px) {
+    padding-bottom: 20px;
+  }
 `;
 
 export const BigContainer = styled.div`
@@ -43,6 +58,7 @@ export const SameLine = styled.div`
 export const LikedCoverButton = styled.img`
   width: 20px;
   height: 20px;
+  cursor: pointer;
 
   animation: ${(props) => props.$likedCover && "jump 0.8s ease  alternate"};
 
@@ -85,4 +101,19 @@ export const ShareLinks = styled.div`
       transform: translateY(0);
     }
   }
+`;
+
+export const CommentSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  width: 93%;
+
+  @media screen and (min-width: 768px) {
+    width: 20%;
+  }
+`;
+
+export const Svgs = styled.img`
+  cursor: pointer;
 `;

@@ -1,6 +1,6 @@
 import * as S from "./uploadCoverModal.styles";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Modal from "./UploadCoverButton";
 import { useCreateCoverMutation } from "../../api/addCoverToSongApi";
 
@@ -13,7 +13,11 @@ const UploadCoverModal = ({
 }) => {
   const [
     createCover,
-    { error: createCoverErrorMsg, isError: createCoverIsError },
+    {
+      error: createCoverErrorMsg,
+      isError: createCoverIsError,
+      isSuccess: createCoverIsSuccess,
+    },
   ] = useCreateCoverMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [coverData, setCoverData] = useState({
@@ -24,6 +28,12 @@ const UploadCoverModal = ({
 
   const artistRef = useRef();
   const youtubeLinkRef = useRef();
+
+  useEffect(() => {
+    if (createCoverIsSuccess) {
+      closeModal();
+    }
+  }, [createCoverIsSuccess]);
 
   const openModal = () => {
     setIsModalOpen(true);
