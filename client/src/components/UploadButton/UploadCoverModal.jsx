@@ -11,7 +11,10 @@ const UploadCoverModal = ({
   originalSongName,
   originalSongId,
 }) => {
-  const [createCover] = useCreateCoverMutation();
+  const [
+    createCover,
+    { error: createCoverErrorMsg, isError: createCoverIsError },
+  ] = useCreateCoverMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [coverData, setCoverData] = useState({
     artistName: "",
@@ -62,7 +65,7 @@ const UploadCoverModal = ({
       originalSongName: originalSongName,
       originalSongId: originalSongId,
     });
-    closeModal();
+
     setCoverData({ artistName: "", youtubeUrl: "" });
   }
 
@@ -81,6 +84,7 @@ const UploadCoverModal = ({
             value={coverData.artistName}
             onChange={handleInputChange}
             ref={artistRef}
+            maxLength={25}
           />
           <S.FormLabel>Youtube Link:</S.FormLabel>
           <S.FormInput
@@ -92,14 +96,21 @@ const UploadCoverModal = ({
           />
 
           <S.ErrorMsg>{errorMsg}</S.ErrorMsg>
-          <div style={{ width: "100%", display: "flex" }}>
+          {!errorMsg && (
+            <>
+              {createCoverIsError && (
+                <S.ErrorMsg>{createCoverErrorMsg.data.error}</S.ErrorMsg>
+              )}
+            </>
+          )}
+          <S.CreateCoverButtonContainer>
             <S.FormButton
               type="button"
               onClick={() => validateYouTubeUrl(coverData.youtubeUrl)}
             >
               Create
             </S.FormButton>
-          </div>
+          </S.CreateCoverButtonContainer>
           <S.XButton onClick={closeModal}>X</S.XButton>
         </form>
       </Modal>
