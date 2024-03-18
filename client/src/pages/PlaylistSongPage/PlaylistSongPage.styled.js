@@ -28,8 +28,8 @@ export const PlaylistTitle = styled.h3`
   color: #828282;
   margin-top: 20px;
   @media (min-width: 768px) {
-    padding-top: 150px;
-    padding-bottom: 120px;
+    padding-top: 100px;
+    padding-bottom: 100px;
     &:hover {
       color: #333333;
       cursor: pointer;
