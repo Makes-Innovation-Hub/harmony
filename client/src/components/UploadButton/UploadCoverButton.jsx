@@ -5,13 +5,15 @@ const UploadCoverButton = ({
   isOpen,
   onRequestClose,
   onRequestOpen,
+  btnText,
 }) => {
   return (
     <>
       <S.FormContainer>
         <S.ModalPositionContainer>
           <S.ButtonCover onClick={() => onRequestOpen()}>
-            Upload Cover
+            {/* Upload Cover */}
+            {btnText}
           </S.ButtonCover>
           {isOpen && (
             <S.ModalBackground onClick={() => onRequestClose()}>

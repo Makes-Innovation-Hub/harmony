@@ -18,20 +18,21 @@ function ShareButton({ coverData }) {
   return (
     <ShareLinks>
       <FacebookShareButton url={url} title={title}>
-        <FacebookIcon size={40} round={true} />
+        <FacebookIcon size={75} round />
       </FacebookShareButton>
+
       <WhatsappShareButton url={url} title={title}>
-        <WhatsappIcon size={40} round={true} />
+        <WhatsappIcon size={75} round />
       </WhatsappShareButton>
       <TwitterShareButton url={url} title={title}>
-        <TwitterIcon size={40} round={true} />
+        <TwitterIcon size={75} round />
       </TwitterShareButton>
-      <TelegramShareButton url={url} title={title}>
-        <TelegramIcon size={40} round={true} />
-      </TelegramShareButton>
       <EmailShareButton url={url} subject={title}>
-        <EmailIcon size={40} round={true} />
+        <EmailIcon size={75} round />
       </EmailShareButton>
+      <TelegramShareButton url={url} title={title}>
+        <TelegramIcon size={75} round />
+      </TelegramShareButton>
     </ShareLinks>
   );
 }

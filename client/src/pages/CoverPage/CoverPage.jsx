@@ -19,6 +19,7 @@ import ShareButton from "../../components/shareButton/ShareButton";
 import AddComment from "../../components/AddComment/AddComment";
 import CommentSection from "../../components/CommentSection/CommentSection";
 import SongAndSingerContainer from "../../components/SongAndSingerContainer/SongAndSingerContainer";
+import UploadCoverButton from "../../components/UploadButton/UploadCoverButton";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
@@ -43,6 +44,8 @@ export default function CoverPage() {
   );
   const [shareFallback, setShareFallback] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const commentRef = useRef();
   const debounceTimerRef = useRef(null);
   const clickCountRef = useRef(0);
@@ -127,6 +130,14 @@ export default function CoverPage() {
     commentRef.current.value = "";
   }
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <main>
       <Header />
@@ -188,6 +199,17 @@ export default function CoverPage() {
             />
           )}
         </S.CommentSection>
+
+        <UploadCoverButton
+          btnText={"Share"}
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          onRequestOpen={openModal}
+        >
+          <S.ShareMsg>Share this cover song with your friends</S.ShareMsg>
+          <ShareButton coverData={coverData} />
+          <S.XButton onClick={closeModal}>X</S.XButton>
+        </UploadCoverButton>
       </S.Section>
     </main>
   );

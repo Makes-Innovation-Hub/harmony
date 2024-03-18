@@ -18,6 +18,13 @@ export const ModalBody = styled.div`
   padding: 45px;
   width: 80%;
   height: auto;
+  top: 25%;
+
+  @media screen and (min-width: 768px) {
+    top: 20%;
+    width: 50%;
+    height: 25%;
+  }
 `;
 
 export const ModalPositionContainer = styled.div`

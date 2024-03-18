@@ -78,28 +78,19 @@ export const LikedCoverButton = styled.img`
 `;
 
 export const ShareLinks = styled.div`
-  position: fixed;
-  bottom: -12px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  padding: 5px;
-  width: 101%;
-  height: 9vh;
-  background-color: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  animation: slideIn 0.5s ease-out;
+  gap: 20px;
+  height: fit-content;
+  width: 300px;
+  overflow-x: auto;
+  margin-top: 20px;
 
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  @media screen and (min-width: 768px) {
+    overflow: visible;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
   }
 `;
 
@@ -116,4 +107,37 @@ export const CommentSection = styled.section`
 
 export const Svgs = styled.img`
   cursor: pointer;
+`;
+
+export const ShareMsg = styled.p`
+  font-family: ABeeZee;
+  white-space: nowrap;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.7rem;
+  }
+`;
+
+export const XButton = styled.div`
+  position: absolute;
+  font-family: ABeeZee;
+  font-style: italic;
+  color: black;
+  cursor: pointer;
+  &:hover {
+    color: red;
+  }
+  top: 10px;
+  right: 15 px;
+  font-size: 20px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 30px;
+    top: 20px;
+    right: 30px;
+  }
 `;
