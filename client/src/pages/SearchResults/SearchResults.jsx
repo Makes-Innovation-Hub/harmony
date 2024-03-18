@@ -4,22 +4,49 @@ import HomeSearchBar from "../../components/HomeSerchBar/HomeSearchBar";
 import ResultsCard from "../../components/ResultsCard/ResultsCard";
 import FE from "../../components/Layout/FlexElments";
 import SC from "./SearchRes.style";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchMutation } from "../../api/searchsliceApi";
+import { setResults } from "../../Redux/searchResultsSlice";
 
 const SearchResultsPage = ({ songs, artists }) => {
+  const dispatch = useDispatch();
+  const [searchMutation] = useSearchMutation();
+
   const searchResults = useSelector((state) => state.searchResults.results);
   const foundSongs = searchResults?.songs;
   const foundArtists = searchResults?.artists;
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get("searchTerm");
   const { t } = useTranslation();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!(foundArtists && foundSongs)) {
-      navigate("/");
+      const sendSearchRequest = async () => {
+        if (!searchTerm) {
+          navigate("/not-found");
+          return;
+        }
+        try {
+          const results = await searchMutation(searchTerm);
+          if (
+            results.data.artists.length === 0 &&
+            results.data.songs.length === 0
+          ) {
+            navigate("/not-found");
+          } else {
+            dispatch(setResults(results.data));
+          }
+        } catch (error) {
+          console.error("Search error:", error);
+        }
+      };
+      sendSearchRequest();
+      // navigate("/");
     }
   }, []);
 

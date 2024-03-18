@@ -17,7 +17,11 @@ export default function ResultsCard({
 
   useEffect(() => {
     if (artistResults && artistResults.status === "fulfilled") {
-      navigate("/Artist", { state: { artistData: artistResults.data } });
+      const encodedArtist = encodeURIComponent(artistResults.data.name.english);
+      console.log(encodedArtist);
+      navigate(`/Artist/${encodedArtist}`, {
+        state: { artistData: artistResults.data },
+      });
     }
   }, [artistResults]);
 
