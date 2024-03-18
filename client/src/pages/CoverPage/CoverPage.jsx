@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Header from "../../components/Header/Header";
 import {
   SongCover,
@@ -70,83 +70,89 @@ export default function CoverPage() {
 
   const toggleShareOptions = () => {
     setShareFallback((prev) => !prev);
-  };
-
-  useEffect(() => {
-    if (updatedCoverSong?.likes.includes(currentUser.id)) {
-      setLikedVideo(true);
-    } else {
-      setLikedVideo(false);
+    if (shareFallback) {
+      window.addEventListener("click", () => {
+        setShareFallback(false);
+      });
     }
-  }, [updatedCoverSong]);
 
-  const url = `https://youtu.be/${coverData?.youtubeUrl}`;
-  const title = `Check out my cover song that i created on this song: ${coverData?.originalSongName}`;
+    useEffect(() => {
+      if (updatedCoverSong?.likes.includes(currentUser.id)) {
+        setLikedVideo(true);
+      } else {
+        setLikedVideo(false);
+      }
+    }, [updatedCoverSong]);
 
-  return (
-    <main>
-      <Header />
-      <CoverArtistTitle>Cover by {coverData?.coverArtistName}</CoverArtistTitle>
+    const url = `https://youtu.be/${coverData?.youtubeUrl}`;
+    const title = `Check out my cover song that i created on this song: ${coverData?.originalSongName}`;
 
-      <BigContainer>
-        <ArtistContainer>
+    return (
+      <main>
+        <Header />
+        <CoverArtistTitle>
+          Cover by {coverData?.coverArtistName}
+        </CoverArtistTitle>
+
+        <BigContainer>
+          <ArtistContainer>
+            <div>
+              <SongCover
+                onClick={goBackToOriginalSong}
+                src={coverData?.originalSongCover}
+                alt="Original song cover art"
+              />
+            </div>
+
+            <SongAndSingerContainer>
+              <SongName onClick={goBackToOriginalSong}>
+                {coverData?.originalSongName}
+              </SongName>
+              <OriginalArtistName onClick={goBackToOriginalSong}>
+                {coverData?.originalArtist}
+              </OriginalArtistName>
+            </SongAndSingerContainer>
+          </ArtistContainer>
           <div>
-            <SongCover
-              onClick={goBackToOriginalSong}
-              src={coverData?.originalSongCover}
-              alt="Original song cover art"
+            <CoverPageYoutube
+              youtubeUrl={coverData?.youtubeUrl}
+              handleAddView={updateViews}
+              playVideoDiv={playVideoDiv}
             />
+            <VideoInfo>
+              <SameLine
+                onClick={toggleShareOptions}
+                style={{ cursor: "pointer", position: "relative" }}
+              >
+                {shareFallback && <ShareButton title={title} url={url} />}
+                <img src={shareSvg} alt="share svg" />
+
+                <p>Share</p>
+              </SameLine>
+              <p>{updatedCoverSong?.views} views</p>
+              <SameLine>
+                <p className="likes">{updatedCoverSong?.likes.length} Likes </p>
+                <div onClick={updateLikes}>
+                  {likedVideo ? (
+                    <LikedCoverButton
+                      $likedCover={likedVideo}
+                      src={likedSvg}
+                      alt="liked svg"
+                    />
+                  ) : (
+                    <LikedCoverButton
+                      $likedCover={likedVideo}
+                      src={likeSvg}
+                      alt="not liked svg"
+                    />
+                  )}
+                </div>
+              </SameLine>
+            </VideoInfo>
           </div>
-
-          <SongAndSingerContainer>
-            <SongName onClick={goBackToOriginalSong}>
-              {coverData?.originalSongName}
-            </SongName>
-            <OriginalArtistName onClick={goBackToOriginalSong}>
-              {coverData?.originalArtist}
-            </OriginalArtistName>
-          </SongAndSingerContainer>
-        </ArtistContainer>
-
-        <div>
-          <CoverPageYoutube
-            youtubeUrl={coverData?.youtubeUrl}
-            handleAddView={updateViews}
-            playVideoDiv={playVideoDiv}
-          />
-          <VideoInfo>
-            <SameLine
-              onClick={toggleShareOptions}
-              style={{ cursor: "pointer", position: "relative" }}
-            >
-              <img src={shareSvg} alt="share svg" />
-
-              <p>Share</p>
-            </SameLine>
-            {shareFallback && <ShareButton title={title} url={url} />}
-            <p>{updatedCoverSong?.views} views</p>
-            <SameLine>
-              <p className="likes">{updatedCoverSong?.likes.length} Likes </p>
-              <div onClick={updateLikes}>
-                {likedVideo ? (
-                  <LikedCoverButton
-                    $likedCover={likedVideo}
-                    src={likedSvg}
-                    alt="liked svg"
-                  />
-                ) : (
-                  <LikedCoverButton
-                    $likedCover={likedVideo}
-                    src={likeSvg}
-                    alt="not liked svg"
-                  />
-                )}
-              </div>
-            </SameLine>
-          </VideoInfo>
-        </div>
-      </BigContainer>
-      <div>comments</div>
-    </main>
-  );
+        </BigContainer>
+        <div>comments</div>
+      </main>
+    );
+  };
 }

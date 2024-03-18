@@ -109,13 +109,14 @@ export const LikedCoverButton = styled.img`
 
 export const ShareLinks = styled.div`
   position: fixed;
-  bottom: -12px;
+  bottom: -11px;
+  right: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
   padding: 5px;
-  width: 101%;
+  width: 100%;
   height: 9vh;
   background-color: rgba(0, 0, 0, 0.6);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
