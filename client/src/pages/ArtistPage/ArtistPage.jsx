@@ -11,22 +11,12 @@ import { useEffect, useState } from "react";
 import Animation from "../../components/Animation/Animation.component";
 import translatingGif from "../../assets/animations/translating-animation.gif";
 function ArtistPage() {
-  // const location = useLocation();
-  // // const artistData = location.state.artistData;
   const { name } = useParams();
-  // let decodedArtist;
-  // const [decodedArtist, setDecodedArtist] = useState(null);
   const {
     data: artistData,
     isLoading,
     isSuccess,
   } = useGetArtistDataQuery(decodeURIComponent(name));
-
-  // useEffect(() => {
-  //   console.log("hello from artist page");
-  //   console.log(name);
-  //   setDecodedArtist();
-  // }, []);
 
   return (
     <PageWrapper>

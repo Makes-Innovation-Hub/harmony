@@ -46,7 +46,6 @@ const SearchResultsPage = ({ songs, artists }) => {
         }
       };
       sendSearchRequest();
-      // navigate("/");
     }
   }, []);
 

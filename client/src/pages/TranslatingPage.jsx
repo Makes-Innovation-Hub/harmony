@@ -13,12 +13,10 @@ const TranslatingPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   useEffect(() => {
-    console.log("songDataMutation");
     songDataMutation(selectedData);
   }, []);
   useEffect(() => {
     if (isSuccess) {
-      console.log(data);
       navigate(`/song/${data._id}`);
     }
   }, [isSuccess]);

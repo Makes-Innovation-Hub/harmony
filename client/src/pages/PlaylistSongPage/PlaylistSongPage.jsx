@@ -35,13 +35,8 @@ function PlaylistSongPage() {
     { skip: dataIsAvailable }
   );
   useEffect(() => {
-    console.log("dataIsAvailable");
-    console.log(dataIsAvailable);
-
     if (!dataIsAvailable && isSuccess) {
-      console.log("this runs only after f5 or refresh");
       const songIndex = getSongIndex(playlistQueryData, songIdQuery);
-      console.log(songIndex);
 
       dispatch(
         setPlaylist({
