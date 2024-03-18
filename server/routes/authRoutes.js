@@ -36,7 +36,9 @@ router.get("/verify-session", (req, res) => {
     if (req.isAuthenticated()) {
       res.json({
         isAuthenticated: true,
-        user: req.user ? { id: req.user.id, name: req.user.name } : null,
+        user: req.user
+          ? { id: req.user.id, name: req.user.name, avatar: req.user.avatar }
+          : null,
       });
     } else {
       res.status(401).json({ isAuthenticated: false });

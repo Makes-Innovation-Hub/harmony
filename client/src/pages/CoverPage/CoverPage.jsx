@@ -1,22 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header/Header";
-import {
-  SongCover,
-  ArtistContainer,
-  CoverArtistTitle,
-  SongName,
-  OriginalArtistName,
-  VideoInfo,
-  SameLine,
-  BigContainer,
-  SongAndSingerContainer,
-  LikedCoverButton,
-} from "./CoverPage.styles";
+import * as S from "./CoverPage.styles";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
 import likedSvg from "../../assets/svgs/thumbs-up-liked.svg";
+import commentSvg from "../../assets/svgs/comment.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
+  useAddCommentMutation,
   useAddViewMutation,
   useGetCoverSongByIdQuery,
   useToggleLikeMutation,
@@ -24,6 +15,10 @@ import {
 import { useGetSongByIdQuery } from "../../api/addCoverToSongApi";
 import CoverPageYoutube from "../../components/CoverPageYoutube/CoverPageYoutube";
 import { useSelector } from "react-redux";
+import ShareButton from "../../components/shareButton/ShareButton";
+import AddComment from "../../components/AddComment/AddComment";
+import CommentSection from "../../components/CommentSection/CommentSection";
+import SongAndSingerContainer from "../../components/SongAndSingerContainer/SongAndSingerContainer";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
@@ -31,15 +26,40 @@ export default function CoverPage() {
 
   const [addView] = useAddViewMutation();
   const [toggleLike] = useToggleLikeMutation();
-  const { data: updatedCoverSong } = useGetCoverSongByIdQuery(coverData?._id);
+  const [addComment] = useAddCommentMutation();
+  const { data: updatedCoverSong, isSuccess: updatedCoverSongSuccess } =
+    useGetCoverSongByIdQuery(coverData?._id);
   const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId, {
     skip: !updatedCoverSong?.originalSongId,
   });
 
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
   const [likedVideo, setLikedVideo] = useState(false);
+  const [shareFallback, setShareFallback] = useState(false);
+  const [isCommenting, setIsCommenting] = useState(false);
+  const commentRef = useRef();
 
   const currentUser = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    if (updatedCoverSong?.originalSongId) {
+      refetch();
+    }
+  }, [updatedCoverSong]);
+
+  useEffect(() => {
+    if (updatedCoverSong?.likes.includes(currentUser.id)) {
+      setLikedVideo(true);
+    } else {
+      setLikedVideo(false);
+    }
+  }, [updatedCoverSong]);
+
+  useEffect(() => {
+    if (isCommenting) {
+      commentRef.current.focus();
+    }
+  }, [isCommenting]);
 
   const goBackToOriginalSong = () => {
     navigate("/translating", {
@@ -51,12 +71,6 @@ export default function CoverPage() {
     });
   };
 
-  useEffect(() => {
-    if (updatedCoverSong?.originalSongId) {
-      refetch();
-    }
-  }, [updatedCoverSong]);
-
   function updateViews() {
     addView(coverData?._id);
     setPlayVideoDiv(true);
@@ -66,38 +80,39 @@ export default function CoverPage() {
     toggleLike(coverData?._id);
   }
 
-  useEffect(() => {
-    if (updatedCoverSong?.likes.includes(currentUser.id)) {
-      setLikedVideo(true);
-    } else {
-      setLikedVideo(false);
-    }
-  }, [updatedCoverSong]);
+  const toggleShareOptions = () => {
+    setShareFallback((prev) => !prev);
+  };
+
+  function handleShowComment() {
+    setIsCommenting((prev) => !prev);
+  }
+
+  function handleAddComment() {
+    addComment({
+      id: updatedCoverSong?._id,
+      content: commentRef?.current.value,
+    });
+    commentRef.current.value = "";
+  }
+
+  const url = `https://youtu.be/${coverData?.youtubeUrl}`;
+  const title = `Check out this cover song that has been created on this song: ${coverData?.originalSongName}`;
 
   return (
     <main>
       <Header />
-      <CoverArtistTitle>Cover by {coverData?.coverArtistName}</CoverArtistTitle>
+      <S.CoverArtistTitle>
+        Cover by {coverData?.coverArtistName}
+      </S.CoverArtistTitle>
 
-      <BigContainer>
-        <ArtistContainer>
-          <div>
-            <SongCover
-              onClick={goBackToOriginalSong}
-              src={coverData?.originalSongCover}
-              alt="Original song cover art"
-            />
-          </div>
-
-          <SongAndSingerContainer>
-            <SongName onClick={goBackToOriginalSong}>
-              {coverData?.originalSongName}
-            </SongName>
-            <OriginalArtistName onClick={goBackToOriginalSong}>
-              {coverData?.originalArtist}
-            </OriginalArtistName>
-          </SongAndSingerContainer>
-        </ArtistContainer>
+      <S.BigContainer>
+        <SongAndSingerContainer
+          goBackToOriginalSong={goBackToOriginalSong}
+          songCoverImg={coverData?.originalSongCover}
+          originalArtistName={coverData?.originalArtist}
+          originalSongName={coverData?.originalSongName}
+        />
 
         <div>
           <CoverPageYoutube
@@ -105,34 +120,52 @@ export default function CoverPage() {
             handleAddView={updateViews}
             playVideoDiv={playVideoDiv}
           />
-          <VideoInfo>
-            <SameLine>
+          <S.VideoInfo>
+            <S.SameLine onClick={toggleShareOptions}>
               <img src={shareSvg} alt="share svg" />
+
               <p>Share</p>
-            </SameLine>
-            <p>{updatedCoverSong?.views} views</p>
-            <SameLine>
+            </S.SameLine>
+            {shareFallback && <ShareButton title={title} url={url} />}
+            <S.SameLine>
+              <p>{updatedCoverSong?.views} Views</p>
+            </S.SameLine>
+            <S.SameLine onClick={handleShowComment}>
+              <img src={commentSvg} alt="comment svg" />
+            </S.SameLine>
+            <S.SameLine>
               <p className="likes">{updatedCoverSong?.likes.length} Likes </p>
               <div onClick={updateLikes}>
                 {likedVideo ? (
-                  <LikedCoverButton
+                  <S.LikedCoverButton
                     $likedCover={likedVideo}
                     src={likedSvg}
                     alt="liked svg"
                   />
                 ) : (
-                  <LikedCoverButton
+                  <S.LikedCoverButton
                     $likedCover={likedVideo}
                     src={likeSvg}
                     alt="not liked svg"
                   />
                 )}
               </div>
-            </SameLine>
-          </VideoInfo>
+            </S.SameLine>
+          </S.VideoInfo>
         </div>
-      </BigContainer>
-      <div>comments</div>
+      </S.BigContainer>
+
+      {updatedCoverSongSuccess && (
+        <CommentSection arrayToMap={updatedCoverSong?.comments} />
+      )}
+
+      {isCommenting && (
+        <AddComment
+          avatar={currentUser?.avatar}
+          commentRef={commentRef}
+          handleAddComment={handleAddComment}
+        />
+      )}
     </main>
   );
 }

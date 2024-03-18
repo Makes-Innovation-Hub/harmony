@@ -2,7 +2,7 @@ import React from "react";
 import doveImage from "../../assets/dove.png";
 import googleLogo from "../../assets/Login/Google.svg";
 import facebookLogo from "../../assets/Login/Facebook_icon.svg";
-import appleLogo from "../../assets/Login/apple.png";
+
 import {
   LoginPageWrapper,
   AppIcon,
@@ -26,10 +26,6 @@ const LoginPage = () => {
     window.location.href = `${fullServerUrl}/auth/facebook`;
   };
 
-  const handleAppleSignInClick = () => {
-    window.location.href = `${fullServerUrl}/auth/apple`;
-  };
-
   return (
     <LoginPageWrapper>
       <AppIcon>
@@ -50,10 +46,6 @@ const LoginPage = () => {
       <StyledSignInButton onClick={handleGoogleSignInClick}>
         <SignInLogo src={googleLogo} alt="Google logo" />
         Sign in with Google
-      </StyledSignInButton>
-      <StyledSignInButton onClick={handleAppleSignInClick}>
-        <SignInLogo src={appleLogo} alt="Apple logo" />
-        Sign in with Apple
       </StyledSignInButton>
     </LoginPageWrapper>
   );
