@@ -19,7 +19,6 @@ import ShareButton from "../../components/shareButton/ShareButton";
 import AddComment from "../../components/AddComment/AddComment";
 import CommentSection from "../../components/CommentSection/CommentSection";
 import SongAndSingerContainer from "../../components/SongAndSingerContainer/SongAndSingerContainer";
-import UploadCoverButton from "../../components/UploadButton/UploadCoverButton";
 import GenericModal from "../../components/GenericModal/GenericModal";
 
 export default function CoverPage() {
@@ -43,7 +42,6 @@ export default function CoverPage() {
   const [userHasLiked, setUserHasLiked] = useState(
     updatedCoverSong?.likes.includes(currentUser.id)
   );
-  const [shareFallback, setShareFallback] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -115,10 +113,6 @@ export default function CoverPage() {
     debounceToggleLike();
   }
 
-  const toggleShareOptions = () => {
-    setShareFallback((prev) => !prev);
-  };
-
   function handleShowComment() {
     setIsCommenting((prev) => !prev);
   }
@@ -163,15 +157,16 @@ export default function CoverPage() {
             />
             <S.VideoInfo>
               <S.SameLine onClick={openModal}>
-                <S.Svgs src={shareSvg} alt="share svg" />
-                <p>Share</p>
+                <S.HoverCursor>
+                  <img src={shareSvg} alt="share svg" />
+                  <p>Share</p>
+                </S.HoverCursor>
               </S.SameLine>
-              {shareFallback && <ShareButton coverData={coverData} />}
-              <S.SameLine>
-                <p>{updatedCoverSong?.views} Views</p>
-              </S.SameLine>
+              <p>{updatedCoverSong?.views} Views</p>
               <S.SameLine onClick={handleShowComment}>
-                <S.Svgs src={commentSvg} alt="comment svg" />
+                <S.HoverCursor>
+                  <img src={commentSvg} alt="comment svg" />
+                </S.HoverCursor>
               </S.SameLine>
               <S.SameLine>
                 <p className="likes">{likesCount} Likes</p>
@@ -201,19 +196,9 @@ export default function CoverPage() {
           )}
         </S.CommentSection>
 
-        {/* <UploadCoverButton
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          onRequestOpen={openModal}
-        >
-          <S.ShareMsg>Share this cover song with your friends</S.ShareMsg>
-          <ShareButton coverData={coverData} />
-          <S.XButton onClick={closeModal}>X</S.XButton>
-        </UploadCoverButton> */}
-
         <GenericModal isOpen={isModalOpen} onRequestClose={closeModal}>
-          <S.ShareMsg>Share this cover song with your friends</S.ShareMsg>
-          <ShareButton coverData={coverData} />
+          <S.ShareMsg>Share this cover song with friends</S.ShareMsg>
+          <ShareButton coverData={coverData} closeModal={closeModal} />
         </GenericModal>
       </S.Section>
     </main>
