@@ -3,15 +3,28 @@ import Lyrics from "../components/Lyrics/Lyrics";
 import Header from "../components/Header/Header";
 import { useLocation } from "react-router-dom";
 import Youtube from "../components/Youtube/Youtube";
-import UploadCoverModal from "../components/UploadButton/UploadCoverModal";
 import { useGetSongByIdQuery } from "../api/addCoverToSongApi";
 import CoverSongData from "../components/CoverSongData/CoverSongData";
+import * as S from "./SongPageStyles";
+import { useState } from "react";
+import GenericModal from "../components/GenericModal/GenericModal";
+import UploadCoverForm from "../components/UploadButton/UploadCoverForm";
 
 function SongPage() {
   const songData = useLocation().state;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { data: songByIdData } = useGetSongByIdQuery(songData?._id, {
     skip: !songData?._id,
   });
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -34,13 +47,20 @@ function SongPage() {
         youtubeUrl={songData.youtubeURL}
       />
 
-      <UploadCoverModal
-        originalArtist={songData.artist.name.english}
-        originalLang={songData.originalLang}
-        originalSongCover={songData.coverArt}
-        originalSongName={songData.name.english}
-        originalSongId={songData._id}
-      />
+      <S.UploadCoverButton onClick={openModal}>
+        Upload Cover
+      </S.UploadCoverButton>
+
+      <GenericModal isOpen={isModalOpen} onRequestClose={closeModal}>
+        <UploadCoverForm
+          originalArtist={songData.artist.name.english}
+          originalLang={songData.originalLang}
+          originalSongCover={songData.coverArt}
+          originalSongName={songData.name.english}
+          originalSongId={songData._id}
+          closeModal={closeModal}
+        />
+      </GenericModal>
 
       <CoverSongData songData={songData} songByIdData={songByIdData} />
     </>
