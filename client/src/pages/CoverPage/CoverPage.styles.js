@@ -132,7 +132,7 @@ export const XButton = styled.div`
     color: red;
   }
   top: 10px;
-  right: 15 px;
+  right: 15px;
   font-size: 20px;
 
   @media screen and (min-width: 768px) {

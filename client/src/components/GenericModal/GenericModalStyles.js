@@ -56,3 +56,15 @@ export const ButtonCover = styled.button`
   color: #333333;
   background: #f4e6d1;
 `;
+
+export const XButton = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-family: ABeeZee;
+  font-style: italic;
+  color: black;
+  &:hover {
+    color: red;
+  }
+`;

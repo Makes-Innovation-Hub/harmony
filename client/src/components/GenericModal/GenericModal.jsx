@@ -1,22 +1,16 @@
-import * as S from "./uploadCoverButton.styles";
+import React from "react";
+import * as S from "./GenericModalStyles";
 
-const UploadCoverButton = ({
-  children,
-  isOpen,
-  onRequestClose,
-  onRequestOpen,
-}) => {
+export default function GenericModal({ children, isOpen, onRequestClose }) {
   return (
     <>
       <S.FormContainer>
         <S.ModalPositionContainer>
-          <S.ButtonCover onClick={() => onRequestOpen()}>
-            Upload Cover
-          </S.ButtonCover>
           {isOpen && (
             <S.ModalBackground onClick={() => onRequestClose()}>
               <S.ModalBody onClick={(e) => e.stopPropagation()}>
                 {children}
+                <S.XButton onClick={onRequestClose}>X</S.XButton>
               </S.ModalBody>
             </S.ModalBackground>
           )}
@@ -24,6 +18,4 @@ const UploadCoverButton = ({
       </S.FormContainer>
     </>
   );
-};
-
-export default UploadCoverButton;
+}

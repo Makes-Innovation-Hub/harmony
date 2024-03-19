@@ -85,7 +85,6 @@ const UploadCoverModal = ({
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         onRequestOpen={openModal}
-        btnText={"Upload Cover"}
       >
         <form>
           <S.FormLabel>Artist Name:</S.FormLabel>

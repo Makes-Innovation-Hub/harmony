@@ -20,6 +20,7 @@ import AddComment from "../../components/AddComment/AddComment";
 import CommentSection from "../../components/CommentSection/CommentSection";
 import SongAndSingerContainer from "../../components/SongAndSingerContainer/SongAndSingerContainer";
 import UploadCoverButton from "../../components/UploadButton/UploadCoverButton";
+import GenericModal from "../../components/GenericModal/GenericModal";
 
 export default function CoverPage() {
   const { state: coverData } = useLocation();
@@ -161,7 +162,7 @@ export default function CoverPage() {
               playVideoDiv={playVideoDiv}
             />
             <S.VideoInfo>
-              <S.SameLine onClick={toggleShareOptions}>
+              <S.SameLine onClick={openModal}>
                 <S.Svgs src={shareSvg} alt="share svg" />
                 <p>Share</p>
               </S.SameLine>
@@ -200,8 +201,7 @@ export default function CoverPage() {
           )}
         </S.CommentSection>
 
-        <UploadCoverButton
-          btnText={"Share"}
+        {/* <UploadCoverButton
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           onRequestOpen={openModal}
@@ -209,7 +209,12 @@ export default function CoverPage() {
           <S.ShareMsg>Share this cover song with your friends</S.ShareMsg>
           <ShareButton coverData={coverData} />
           <S.XButton onClick={closeModal}>X</S.XButton>
-        </UploadCoverButton>
+        </UploadCoverButton> */}
+
+        <GenericModal isOpen={isModalOpen} onRequestClose={closeModal}>
+          <S.ShareMsg>Share this cover song with your friends</S.ShareMsg>
+          <ShareButton coverData={coverData} />
+        </GenericModal>
       </S.Section>
     </main>
   );
