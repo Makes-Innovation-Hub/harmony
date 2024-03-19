@@ -12,9 +12,9 @@ import {
 } from "react-share";
 import * as S from "./ShareButtonStyles";
 
-function ShareButton({ coverData, closeModal }) {
-  const url = `https://youtu.be/${coverData?.youtubeUrl}`;
-  const title = `Check out this cover song that has been created on this song: ${coverData?.originalSongName}`;
+function ShareButton({ updatedCoverSong, closeModal }) {
+  const url = `https://youtu.be/${updatedCoverSong?.youtubeUrl}`;
+  const title = `Check out this cover song that has been created on this song: ${updatedCoverSong?.originalSongName}`;
   return (
     <S.ShareLinks>
       <S.ShareLinksChild>

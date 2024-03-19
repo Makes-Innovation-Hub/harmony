@@ -1,15 +1,15 @@
-import * as S from "./uploadCoverModal.styles";
+import * as S from "./UploadCoverForm.styles";
 
 import React, { useEffect, useRef, useState } from "react";
-import Modal from "./UploadCoverButton";
 import { useCreateCoverMutation } from "../../api/addCoverToSongApi";
 
-const UploadCoverModal = ({
+const UploadCoverForm = ({
   originalLang,
   originalArtist,
   originalSongCover,
   originalSongName,
   originalSongId,
+  closeModal,
 }) => {
   const [
     createCover,
@@ -19,7 +19,6 @@ const UploadCoverModal = ({
       isSuccess: createCoverIsSuccess,
     },
   ] = useCreateCoverMutation();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [coverData, setCoverData] = useState({
     artistName: "",
     youtubeUrl: "",
@@ -34,14 +33,6 @@ const UploadCoverModal = ({
       closeModal();
     }
   }, [createCoverIsSuccess]);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -81,51 +72,44 @@ const UploadCoverModal = ({
 
   return (
     <main>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        onRequestOpen={openModal}
-      >
-        <form>
-          <S.FormLabel>Artist Name:</S.FormLabel>
-          <S.FormInput
-            type="text"
-            name="artistName"
-            value={coverData.artistName}
-            onChange={handleInputChange}
-            ref={artistRef}
-            maxLength={25}
-          />
-          <S.FormLabel>Youtube Link:</S.FormLabel>
-          <S.FormInput
-            type="text"
-            name="youtubeUrl"
-            value={coverData.youtubeUrl}
-            onChange={handleInputChange}
-            ref={youtubeLinkRef}
-          />
+      <form>
+        <S.FormLabel>Artist Name:</S.FormLabel>
+        <S.FormInput
+          type="text"
+          name="artistName"
+          value={coverData.artistName}
+          onChange={handleInputChange}
+          ref={artistRef}
+          maxLength={25}
+        />
+        <S.FormLabel>Youtube Link:</S.FormLabel>
+        <S.FormInput
+          type="text"
+          name="youtubeUrl"
+          value={coverData.youtubeUrl}
+          onChange={handleInputChange}
+          ref={youtubeLinkRef}
+        />
 
-          <S.ErrorMsg>{errorMsg}</S.ErrorMsg>
-          {!errorMsg && (
-            <>
-              {createCoverIsError && (
-                <S.ErrorMsg>{createCoverErrorMsg.data.error}</S.ErrorMsg>
-              )}
-            </>
-          )}
-          <S.CreateCoverButtonContainer>
-            <S.FormButton
-              type="button"
-              onClick={() => validateYouTubeUrl(coverData.youtubeUrl)}
-            >
-              Create
-            </S.FormButton>
-          </S.CreateCoverButtonContainer>
-          <S.XButton onClick={closeModal}>X</S.XButton>
-        </form>
-      </Modal>
+        <S.ErrorMsg>{errorMsg}</S.ErrorMsg>
+        {!errorMsg && (
+          <>
+            {createCoverIsError && (
+              <S.ErrorMsg>{createCoverErrorMsg.data.error}</S.ErrorMsg>
+            )}
+          </>
+        )}
+        <S.CreateCoverButtonContainer>
+          <S.FormButton
+            type="button"
+            onClick={() => validateYouTubeUrl(coverData.youtubeUrl)}
+          >
+            Create
+          </S.FormButton>
+        </S.CreateCoverButtonContainer>
+      </form>
     </main>
   );
 };
 
-export default UploadCoverModal;
+export default UploadCoverForm;

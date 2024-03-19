@@ -25,7 +25,6 @@ import GenericModal from "../../components/GenericModal/GenericModal";
 import Animation from "../../components/Animation/Animation.component";
 
 export default function CoverPage() {
-  const { state: coverData } = useLocation();
   const { id } = useParams();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.user);
@@ -89,7 +88,7 @@ export default function CoverPage() {
 
   async function toggleLikeOnServer() {
     try {
-      await toggleLike(coverData?._id);
+      await toggleLike(id);
     } catch (error) {
       console.error("Failed to synchronize like state with server:", error);
     }
@@ -98,15 +97,15 @@ export default function CoverPage() {
   const goBackToOriginalSong = () => {
     navigate("/translating", {
       state: {
-        artist: coverData?.originalArtist,
-        song: coverData?.originalSongName,
-        coverArt: coverData?.originalSongCover,
+        artist: updatedCoverSong?.originalArtist,
+        song: updatedCoverSong?.originalSongName,
+        coverArt: updatedCoverSong?.originalSongCover,
       },
     });
   };
 
   function updateViews() {
-    addView(coverData?._id);
+    addView(updatedCoverSong?._id);
     setPlayVideoDiv(true);
   }
 
@@ -205,7 +204,7 @@ export default function CoverPage() {
             <GenericModal isOpen={isModalOpen} onRequestClose={closeModal}>
               <S.ShareMsg>Share this cover song with friends</S.ShareMsg>
               <ShareButton
-                coverData={updatedCoverSong}
+                updatedCoverSong={updatedCoverSong}
                 closeModal={closeModal}
               />
             </GenericModal>
