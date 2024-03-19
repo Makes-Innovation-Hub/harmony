@@ -16,6 +16,7 @@ export default function CoverSongData({ songData, songByIdData }) {
               state={coverInfo}
               likes={coverInfo?.likes.length}
               views={coverInfo?.views}
+              id={coverInfo._id}
             />
           </div>
         );
