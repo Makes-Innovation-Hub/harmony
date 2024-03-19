@@ -32,7 +32,7 @@ const HomeSearchBar = () => {
       } else {
         dispatch(setResults(results.data));
         setErrorMessage("");
-        navigate("/results");
+        navigate(`/results?searchTerm=${searchTerm}`);
       }
     } catch (error) {
       console.error("Search error:", error);

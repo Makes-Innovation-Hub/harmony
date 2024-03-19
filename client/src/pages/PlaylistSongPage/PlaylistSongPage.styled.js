@@ -104,7 +104,8 @@ export const BigContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 23px;
-  @media (min-width: 768px) {
-    padding-bottom: 160px;
-  }
+  padding-bottom: 15px;
+  /* @media (min-width: 768px) {
+    //padding-bottom: 160px;
+  } */
 `;
