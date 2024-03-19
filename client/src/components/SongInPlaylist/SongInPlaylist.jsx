@@ -6,6 +6,7 @@ import { setCurrentSong } from "../../Redux/playlistSlice.js";
 import { useNavigate } from "react-router-dom";
 function SongInPlaylist({
   songIndex,
+  songId,
   arabicName,
   hebrewName,
   englishName,
@@ -23,7 +24,9 @@ function SongInPlaylist({
         direction: "left",
       })
     );
-    navigate("/playlistSongPage");
+    navigate(
+      `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+    );
   };
   return (
     <ContentWrapper onClick={handleSelectSong}>
