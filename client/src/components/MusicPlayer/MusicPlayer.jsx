@@ -6,9 +6,6 @@ import {
   playSong,
   shufflePlaylist,
 } from "../../Redux/playlistSlice.js";
-
-import previous from "../../assets/musicPlayer/previous.svg";
-
 import { useNavigate } from "react-router-dom";
 import Image from "../Image/Image.jsx";
 
