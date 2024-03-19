@@ -24,10 +24,7 @@ export const CommentInput = styled.textarea`
   padding-right: 20px;
   width: 285px;
   resize: none;
-
   width: 100%;
-  @media screen and (max-width: 400px) and (max-height: 900px) {
-  }
 `;
 
 export const SendButton = styled.button`
@@ -61,7 +58,4 @@ export const CommentAndButtonContainer = styled.div`
   justify-content: center;
   align-items: end;
   width: 100%;
-
-  @media screen and (max-width: 400px) and (max-height: 900px) {
-  }
 `;
