@@ -7,6 +7,7 @@ export const LyricsSection = styled.section`
   height: 100%;
   @media (min-width: 768px) {
     flex-direction: row;
+    gap: 20px;
   }
 `;
 

@@ -19,5 +19,26 @@ export const UploadCoverButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  @media screen and (min-width: 768px) {
+    cursor: pointer;
+    margin-top: 50px;
+  }
+`;
+
+export const SongInfoAndVideoContainer = styled.div`
+  @media screen and (min-width: 768px) {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    gap: 100px;
+  }
+`;
+
+export const SongInfoContainer = styled.div`
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;

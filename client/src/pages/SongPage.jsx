@@ -29,23 +29,26 @@ function SongPage() {
   return (
     <>
       <Header />
-      <SongDetails
-        img={songData.coverArt}
-        artist={songData.artist.name.english}
-        songName={songData.name.english}
-        originalLang={songData.originalLang}
-      />
-      <Lyrics
-        originalLang={songData.originalLang}
-        lyrics={songData.lyrics}
-        name={songData.name}
-      />
-
-      <Youtube
-        songName={songData.name.hebrew}
-        artistName={songData.artist.name.hebrew}
-        youtubeUrl={songData.youtubeURL}
-      />
+      <S.SongInfoAndVideoContainer>
+        <S.SongInfoContainer>
+          <SongDetails
+            img={songData.coverArt}
+            artist={songData.artist.name.english}
+            songName={songData.name.english}
+            originalLang={songData.originalLang}
+          />
+          <Lyrics
+            originalLang={songData.originalLang}
+            lyrics={songData.lyrics}
+            name={songData.name}
+          />
+        </S.SongInfoContainer>
+        <Youtube
+          songName={songData.name.hebrew}
+          artistName={songData.artist.name.hebrew}
+          youtubeUrl={songData.youtubeURL}
+        />
+      </S.SongInfoAndVideoContainer>
 
       <S.UploadCoverButton onClick={openModal}>
         Upload Cover

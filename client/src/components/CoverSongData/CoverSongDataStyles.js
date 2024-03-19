@@ -13,3 +13,12 @@ export const CoversTitle = styled.p`
   padding-bottom: 0px;
   padding-top: 10px;
 `;
+
+export const SongCoverVideoContainer = styled.div`
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+`;
