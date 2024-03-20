@@ -29,43 +29,45 @@ function SongPage() {
   return (
     <>
       <Header />
-      <S.SongInfoAndVideoContainer>
-        <S.SongInfoContainer>
-          <SongDetails
-            img={songData.coverArt}
-            artist={songData.artist.name.english}
-            songName={songData.name.english}
-            originalLang={songData.originalLang}
+      <S.SongPageContainer>
+        <S.SongInfoAndVideoContainer>
+          <S.SongInfoContainer>
+            <SongDetails
+              img={songData.coverArt}
+              artist={songData.artist.name.english}
+              songName={songData.name.english}
+              originalLang={songData.originalLang}
+            />
+            <Lyrics
+              originalLang={songData.originalLang}
+              lyrics={songData.lyrics}
+              name={songData.name}
+            />
+          </S.SongInfoContainer>
+          <Youtube
+            songName={songData.name.hebrew}
+            artistName={songData.artist.name.hebrew}
+            youtubeUrl={songData.youtubeURL}
           />
-          <Lyrics
+        </S.SongInfoAndVideoContainer>
+
+        <S.UploadCoverButton onClick={openModal}>
+          Upload Cover
+        </S.UploadCoverButton>
+
+        <GenericModal isOpen={isModalOpen} onRequestClose={closeModal}>
+          <UploadCoverForm
+            originalArtist={songData.artist.name.english}
             originalLang={songData.originalLang}
-            lyrics={songData.lyrics}
-            name={songData.name}
+            originalSongCover={songData.coverArt}
+            originalSongName={songData.name.english}
+            originalSongId={songData._id}
+            closeModal={closeModal}
           />
-        </S.SongInfoContainer>
-        <Youtube
-          songName={songData.name.hebrew}
-          artistName={songData.artist.name.hebrew}
-          youtubeUrl={songData.youtubeURL}
-        />
-      </S.SongInfoAndVideoContainer>
+        </GenericModal>
 
-      <S.UploadCoverButton onClick={openModal}>
-        Upload Cover
-      </S.UploadCoverButton>
-
-      <GenericModal isOpen={isModalOpen} onRequestClose={closeModal}>
-        <UploadCoverForm
-          originalArtist={songData.artist.name.english}
-          originalLang={songData.originalLang}
-          originalSongCover={songData.coverArt}
-          originalSongName={songData.name.english}
-          originalSongId={songData._id}
-          closeModal={closeModal}
-        />
-      </GenericModal>
-
-      <CoverSongData songData={songData} songByIdData={songByIdData} />
+        <CoverSongData songData={songData} songByIdData={songByIdData} />
+      </S.SongPageContainer>
     </>
   );
 }

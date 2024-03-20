@@ -33,10 +33,6 @@ function ShareButton({ updatedCoverSong, closeModal }) {
         <TelegramShareButton url={url} title={title} onClick={closeModal}>
           <TelegramIcon size={75} round />
         </TelegramShareButton>
-
-        {/* <EmailShareButton url={url} subject={title}>
-          <EmailIcon size={75} round />
-        </EmailShareButton> */}
       </S.ShareLinksChild>
     </S.ShareLinks>
   );

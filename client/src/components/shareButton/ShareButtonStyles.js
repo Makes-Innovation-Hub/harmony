@@ -11,10 +11,7 @@ export const ShareLinks = styled.div`
 export const ShareLinksChild = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
+  gap: 20px;
+  justify-content: space-around;
   align-items: center;
-  @media screen and (min-width: 768px) {
-    gap: 20px;
-  }
 `;
