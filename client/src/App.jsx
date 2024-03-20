@@ -61,7 +61,7 @@ const Router = createBrowserRouter([
     element: conditionalRoute(SearchResultsPage),
   },
   {
-    path: "/cover",
+    path: "/cover/:id",
     element: conditionalRoute(CoverPage),
   },
   {

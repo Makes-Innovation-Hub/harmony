@@ -1,5 +1,17 @@
 import styled from "styled-components";
 
+export const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 20px;
+  }
+`;
+
 export const CoverArtistTitle = styled.h3`
   font-family: ABeeZee;
   font-size: 17px;
@@ -9,7 +21,10 @@ export const CoverArtistTitle = styled.h3`
   letter-spacing: 0em;
   text-align: center;
   color: #828282;
-  margin-top: 20px;
+
+  @media screen and (min-width: 768px) {
+    padding-bottom: 20px;
+  }
 `;
 
 export const BigContainer = styled.div`
@@ -43,6 +58,7 @@ export const SameLine = styled.div`
 export const LikedCoverButton = styled.img`
   width: 20px;
   height: 20px;
+  cursor: pointer;
 
   animation: ${(props) => props.$likedCover && "jump 0.8s ease  alternate"};
 
@@ -61,28 +77,33 @@ export const LikedCoverButton = styled.img`
   }
 `;
 
-export const ShareLinks = styled.div`
-  position: fixed;
-  bottom: -12px;
+export const CommentSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  width: 93%;
+
+  @media screen and (min-width: 768px) {
+    width: 20%;
+  }
+`;
+
+export const HoverCursor = styled.div`
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+`;
+export const ShareMsg = styled.p`
+  font-family: ABeeZee;
+  white-space: nowrap;
+  padding-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
-  padding: 5px;
-  width: 101%;
-  height: 9vh;
-  background-color: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  animation: slideIn 0.5s ease-out;
 
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  @media screen and (min-width: 768px) {
+    margin-top: 20px;
+    justify-content: start;
+    align-items: start;
   }
 `;

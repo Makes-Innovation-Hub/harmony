@@ -20,6 +20,10 @@ export const CoverBox = styled.div`
   justify-content: center;
   align-items: center;
   padding: 1rem 2rem 0 2rem;
+
+  @media screen and (min-width: 768px) {
+    padding: 2rem 0;
+  }
 `;
 
 export const ImgStyles = styled.img`
