@@ -9,18 +9,17 @@ import { useEffect } from "react";
 
 const TranslatingPage = () => {
   const selectedData = useLocation().state;
-  const [songDataMutation] = useSongDataMutation();
+  const [songDataMutation, { isSuccess, data }] = useSongDataMutation();
   const navigate = useNavigate();
   const { t } = useTranslation();
   useEffect(() => {
-    songDataMutation(selectedData)
-      .then((songData) => {
-        navigate("/song", { state: songData.data });
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
+    songDataMutation(selectedData);
   }, []);
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(`/song/${data._id}`);
+    }
+  }, [isSuccess]);
 
   return (
     <div className="column-center full-page" style={{}}>

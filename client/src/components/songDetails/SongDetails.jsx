@@ -20,7 +20,8 @@ function SongDetails({ artist, songName, img, originalLang }) {
 
   useEffect(() => {
     if (!isLoading && data) {
-      navigate("/Artist", { state: { artistData: data } });
+      const encodedArtist = encodeURIComponent(artist);
+      navigate(`/Artist/${encodedArtist}`, { state: { artistData: data } });
     }
   }, [data, isLoading, navigate]);
 
