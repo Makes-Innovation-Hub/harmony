@@ -10,6 +10,7 @@ import { setCurrentSong, setPlaylist } from "../../Redux/playlistSlice";
 import { getSongIndex } from "../../utils/arrayHelpers";
 import Animation from "../../components/Animation/Animation.component";
 import translatingGif from "../../assets/animations/translating-animation.gif";
+import Image from "../../components/Image/Image";
 
 function PlaylistSongPage() {
   const [animationKey, setAnimationKey] = useState(0);
@@ -93,9 +94,10 @@ function PlaylistSongPage() {
             >
               <S.ArtistContainer>
                 <S.ProfileImgContainer>
-                  <S.ProfileImg
-                    src={currentPlaylistData.currentSong.profilePicUrl}
-                    alt="profile picture"
+                  <Image
+                    name={currentPlaylistData.currentSong.profilePicUrl}
+                    alt={"profile picture"}
+                    styles={S.ProfileImg}
                   />
                 </S.ProfileImgContainer>
 

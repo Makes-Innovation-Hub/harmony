@@ -4,6 +4,7 @@ import { ContentWrapper, ContentWrapper2 } from "./SongInPlaylist.styled";
 import ThreeLangSongName from "../ThreeLangSongName/ThreeLangSongName";
 import { setCurrentSong } from "../../Redux/playlistSlice.js";
 import { useNavigate } from "react-router-dom";
+import Image from "../Image/Image.jsx";
 function SongInPlaylist({
   songIndex,
   songId,
@@ -31,7 +32,7 @@ function SongInPlaylist({
   return (
     <ContentWrapper onClick={handleSelectSong}>
       <ContentWrapper2>
-        <ImgCard src={imgURL} />
+        <Image name={imgURL} alt={"profile picture"} styles={ImgCard} />
       </ContentWrapper2>
       <ContentWrapper2>
         <ThreeLangSongName

@@ -6,13 +6,8 @@ import {
   playSong,
   shufflePlaylist,
 } from "../../Redux/playlistSlice.js";
-import play from "../../assets/musicPlayer/play.svg";
-import pause from "../../assets/musicPlayer/pause.svg";
-import next from "../../assets/musicPlayer/next.svg";
-import previous from "../../assets/musicPlayer/previous.svg";
-import shuffle from "../../assets/musicPlayer/shuffle.svg";
-import blueShuffle from "../../assets/musicPlayer/blue-shuffle.svg";
 import { useNavigate } from "react-router-dom";
+import Image from "../Image/Image.jsx";
 
 function MusicPlayer() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
@@ -108,26 +103,35 @@ function MusicPlayer() {
   return (
     <S.MusicPlayerContainer>
       <S.PlayBoxContainer>
-        <S.ButtonImage
-          src={previous}
-          style={{ background: "#f4e6d1", padding: "6px" }}
-          alt="previous"
+        <Image
+          name={"previous"}
+          alt={"previous"}
+          styles={S.PreviousButtonImage}
           onClick={handlePreviousVideo}
         />
-
-        <S.ButtonImage
-          src={isPlaying ? pause : play}
+        <Image
+          name={isPlaying ? "pause" : "play"}
           alt={isPlaying ? "pause" : "play"}
+          styles={S.ButtonImage}
           onClick={handleTogglePlayPause}
         />
-
-        <S.ButtonImage src={next} alt="next" onClick={handleNextVideo} />
+        <Image
+          name={"next"}
+          alt={"next"}
+          styles={S.ButtonImage}
+          onClick={handleNextVideo}
+        />
       </S.PlayBoxContainer>
 
       {isPlaying ? (
-        <img src={blueShuffle} alt="blueShuffle" />
+        <Image name={"blueShuffle"} alt={"blueShuffle"} />
       ) : (
-        <S.ButtonImage src={shuffle} alt="shuffle" onClick={handleShuffle} />
+        <Image
+          name={"shuffle"}
+          alt={"shuffle"}
+          styles={S.ButtonImage}
+          onClick={handleShuffle}
+        />
       )}
     </S.MusicPlayerContainer>
   );

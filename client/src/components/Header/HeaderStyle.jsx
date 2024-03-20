@@ -149,3 +149,20 @@ export const TitleContainer = styled.div`
   display: flex;
   gap: 25px;
 `;
+
+export const DoveImg = styled.img`
+  position: absolute;
+  top: 27px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-left: 1.5rem;
+  z-index: 1;
+`;
+
+export const EllipseImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  margin-left: 1.5rem;
+`;
