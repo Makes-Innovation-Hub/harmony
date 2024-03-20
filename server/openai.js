@@ -1,24 +1,39 @@
-import pkg from "openai";
-import dotenv from "dotenv";
-import { join } from "path";
-const { Configuration, OpenAIApi } = pkg;
-dotenv.config({ path: join(__dirname, "./config/config.env") });
+import OpenAI from "openai";
 
-const init = () => {
-  const config = new Configuration({
-    apiKey: process.env.OPEN_AI_API_KEY,
-  });
-  return new OpenAIApi(config);
-};
+// import pkg from "openai";
+// import dotenv from "dotenv";
+// import { join } from "path";
+// const { Configuration, OpenAIApi } = pkg;
+// dotenv.config({ path: join(__dirname, "./config/config.env") });
 
-const openai = init();
-const openAiInit = async (openai, prompt) => {
-  try {
-    return await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: prompt }],
-    });
-  } catch (error) {
-    throw new Error("OpenAI API request failed: " + error.message);
+// const init = () => {
+//   const config = new Configuration({
+//     apiKey: process.env.OPEN_AI_API_KEY,
+//   });
+//   return new OpenAIApi(config);
+// };
+
+// const openai = init();
+// const openAiInit = async (openai, prompt) => {
+//   try {
+//     return await openai.createChatCompletion({
+//       model: "gpt-3.5-turbo",
+//       messages: [{ role: "user", content: prompt }],
+//     });
+//   } catch (error) {
+//     throw new Error("OpenAI API request failed: " + error.message);
+//   }
+// };
+
+let openaiInstance = null;
+
+const getOpenAiInstance = () => {
+  if (!openaiInstance) {
+    const configuration = {
+      apiKey: process.env.OPEN_AI_API_KEY,
+    };
+    openaiInstance = new OpenAI(configuration);
   }
+  return openaiInstance;
 };
+export default getOpenAiInstance;
