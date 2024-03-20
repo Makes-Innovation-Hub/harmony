@@ -7,10 +7,6 @@ export const AllCommentContainer = styled.div`
 export const CommentContainer = styled.div`
   display: flex;
   gap: 10px;
-  margin: 0 40px;
-  @media screen and (max-width: 400px) and (max-height: 900px) {
-    margin-left: 10px;
-  }
 `;
 
 export const UserAvatar = styled.img`
@@ -28,12 +24,14 @@ export const CommentInput = styled.textarea`
   padding-right: 20px;
   width: 285px;
   resize: none;
+  width: 100%;
 `;
 
 export const SendButton = styled.button`
   font-family: Rubik;
   font-size: 12px;
   font-weight: 500;
+  cursor: pointer;
 
   color: #ffffff;
   background: #4285f4;
@@ -45,14 +43,19 @@ export const SendButton = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  margin-left: 66.5%;
   margin-top: 20px;
 
-  @media screen and (max-height: 900px) {
-    margin-left: 69%;
+  @media screen and (min-width: 768px) {
+    &:hover {
+      opacity: 0.9;
+    }
   }
+`;
 
-  @media screen and (max-width: 400px) and (min-height: 800px) {
-    margin-left: 66%;
-  }
+export const CommentAndButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  width: 100%;
 `;

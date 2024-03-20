@@ -8,22 +8,12 @@ export const YoutubeBox = styled.div`
   width: 350px;
   height: 255px;
   position: relative;
+  cursor: pointer;
+  border-radius: 30px;
 
   @media (max-width: 400px) {
     margin: 1rem 0.7rem;
   }
-`;
-export const OriginalSong = styled.div`
-  font-family: ABeeZee;
-  font-size: 12px;
-  font-style: italic;
-  margin-top: 50px;
-  font-weight: 400;
-  line-height: 16px;
-  text-decoration: underline;
-  letter-spacing: 0em;
-  text-align: center;
-  color: #333333;
 `;
 
 export const PlayVideo = styled.div`

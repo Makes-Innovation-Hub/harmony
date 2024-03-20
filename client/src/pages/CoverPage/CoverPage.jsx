@@ -1,11 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import Header from "../../components/Header/Header";
 import * as S from "./CoverPage.styles";
 import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
 import likedSvg from "../../assets/svgs/thumbs-up-liked.svg";
 import commentSvg from "../../assets/svgs/comment.svg";
-import { useLocation, useNavigate } from "react-router-dom";
+import translatingGif from "../../assets/animations/translating-animation.gif";
+
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   useAddCommentMutation,
   useAddViewMutation,
@@ -19,41 +21,47 @@ import ShareButton from "../../components/shareButton/ShareButton";
 import AddComment from "../../components/AddComment/AddComment";
 import CommentSection from "../../components/CommentSection/CommentSection";
 import SongAndSingerContainer from "../../components/SongAndSingerContainer/SongAndSingerContainer";
+import GenericModal from "../../components/GenericModal/GenericModal";
+import Animation from "../../components/Animation/Animation.component";
 
 export default function CoverPage() {
-  const { state: coverData } = useLocation();
+  const { id } = useParams();
   const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.auth.user);
 
   const [addView] = useAddViewMutation();
   const [toggleLike] = useToggleLikeMutation();
   const [addComment] = useAddCommentMutation();
   const { data: updatedCoverSong, isSuccess: updatedCoverSongSuccess } =
-    useGetCoverSongByIdQuery(coverData?._id);
+    useGetCoverSongByIdQuery(id);
   const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId, {
     skip: !updatedCoverSong?.originalSongId,
   });
 
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
-  const [likedVideo, setLikedVideo] = useState(false);
-  const [shareFallback, setShareFallback] = useState(false);
+  const [likesCount, setLikesCount] = useState(
+    updatedCoverSong?.likes.length || 0
+  );
+  const [userHasLiked, setUserHasLiked] = useState(
+    updatedCoverSong?.likes.includes(currentUser.id)
+  );
   const [isCommenting, setIsCommenting] = useState(false);
-  const commentRef = useRef();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const currentUser = useSelector((state) => state.auth.user);
+  const commentRef = useRef();
+  const debounceTimerRef = useRef(null);
+  const clickCountRef = useRef(0);
 
   useEffect(() => {
     if (updatedCoverSong?.originalSongId) {
       refetch();
     }
-  }, [updatedCoverSong]);
+  }, [updatedCoverSong, refetch]);
 
   useEffect(() => {
-    if (updatedCoverSong?.likes.includes(currentUser.id)) {
-      setLikedVideo(true);
-    } else {
-      setLikedVideo(false);
-    }
-  }, [updatedCoverSong]);
+    setLikesCount(updatedCoverSong?.likes.length || 0);
+    setUserHasLiked(updatedCoverSong?.likes.includes(currentUser.id));
+  }, [updatedCoverSong, currentUser.id]);
 
   useEffect(() => {
     if (isCommenting) {
@@ -61,28 +69,52 @@ export default function CoverPage() {
     }
   }, [isCommenting]);
 
+  const debounceToggleLike = useCallback(() => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+
+    debounceTimerRef.current = setTimeout(() => {
+      // Use clickCountRef.current to check the number of clicks
+      if (clickCountRef.current % 2 !== 0) {
+        toggleLikeOnServer();
+      } else {
+        refetch();
+      }
+      // Reset the counter after processing
+      clickCountRef.current = 0;
+    }, 200); // 200ms debounce time
+  }, []);
+
+  async function toggleLikeOnServer() {
+    try {
+      await toggleLike(id);
+    } catch (error) {
+      console.error("Failed to synchronize like state with server:", error);
+    }
+  }
+
   const goBackToOriginalSong = () => {
     navigate("/translating", {
       state: {
-        artist: coverData?.originalArtist,
-        song: coverData?.originalSongName,
-        coverArt: coverData?.originalSongCover,
+        artist: updatedCoverSong?.originalArtist,
+        song: updatedCoverSong?.originalSongName,
+        coverArt: updatedCoverSong?.originalSongCover,
       },
     });
   };
 
   function updateViews() {
-    addView(coverData?._id);
+    addView(updatedCoverSong?._id);
     setPlayVideoDiv(true);
   }
 
   function updateLikes() {
-    toggleLike(coverData?._id);
+    setUserHasLiked((prev) => !prev); // Optimistically toggle the like state
+    setLikesCount((prev) => prev + (userHasLiked ? -1 : 1));
+    clickCountRef.current += 1; // Update the click counter
+    debounceToggleLike();
   }
-
-  const toggleShareOptions = () => {
-    setShareFallback((prev) => !prev);
-  };
 
   function handleShowComment() {
     setIsCommenting((prev) => !prev);
@@ -96,74 +128,92 @@ export default function CoverPage() {
     commentRef.current.value = "";
   }
 
-  const url = `https://youtu.be/${coverData?.youtubeUrl}`;
-  const title = `Check out this cover song that has been created on this song: ${coverData?.originalSongName}`;
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <main>
       <Header />
-      <S.CoverArtistTitle>
-        Cover by {coverData?.coverArtistName}
-      </S.CoverArtistTitle>
+      {updatedCoverSong ? (
+        <>
+          <S.Section>
+            <S.CoverArtistTitle>
+              Cover by {updatedCoverSong?.coverArtistName}
+            </S.CoverArtistTitle>
 
-      <S.BigContainer>
-        <SongAndSingerContainer
-          goBackToOriginalSong={goBackToOriginalSong}
-          songCoverImg={coverData?.originalSongCover}
-          originalArtistName={coverData?.originalArtist}
-          originalSongName={coverData?.originalSongName}
-        />
+            <S.BigContainer>
+              <SongAndSingerContainer
+                goBackToOriginalSong={goBackToOriginalSong}
+                songCoverImg={updatedCoverSong?.originalSongCover}
+                originalArtistName={updatedCoverSong?.originalArtist}
+                originalSongName={updatedCoverSong?.originalSongName}
+              />
 
-        <div>
-          <CoverPageYoutube
-            youtubeUrl={coverData?.youtubeUrl}
-            handleAddView={updateViews}
-            playVideoDiv={playVideoDiv}
-          />
-          <S.VideoInfo>
-            <S.SameLine onClick={toggleShareOptions}>
-              <img src={shareSvg} alt="share svg" />
-
-              <p>Share</p>
-            </S.SameLine>
-            {shareFallback && <ShareButton title={title} url={url} />}
-            <S.SameLine>
-              <p>{updatedCoverSong?.views} Views</p>
-            </S.SameLine>
-            <S.SameLine onClick={handleShowComment}>
-              <img src={commentSvg} alt="comment svg" />
-            </S.SameLine>
-            <S.SameLine>
-              <p className="likes">{updatedCoverSong?.likes.length} Likes </p>
-              <div onClick={updateLikes}>
-                {likedVideo ? (
-                  <S.LikedCoverButton
-                    $likedCover={likedVideo}
-                    src={likedSvg}
-                    alt="liked svg"
-                  />
-                ) : (
-                  <S.LikedCoverButton
-                    $likedCover={likedVideo}
-                    src={likeSvg}
-                    alt="not liked svg"
-                  />
-                )}
+              <div>
+                <CoverPageYoutube
+                  youtubeUrl={updatedCoverSong?.youtubeUrl}
+                  handleAddView={updateViews}
+                  playVideoDiv={playVideoDiv}
+                />
+                <S.VideoInfo>
+                  <S.SameLine onClick={openModal}>
+                    <S.HoverCursor>
+                      <img src={shareSvg} alt="share svg" />
+                      <p>Share</p>
+                    </S.HoverCursor>
+                  </S.SameLine>
+                  <p>{updatedCoverSong?.views} Views</p>
+                  <S.SameLine onClick={handleShowComment}>
+                    <S.HoverCursor>
+                      <img src={commentSvg} alt="comment svg" />
+                    </S.HoverCursor>
+                  </S.SameLine>
+                  <S.SameLine>
+                    <p className="likes">{likesCount} Likes</p>
+                    <div onClick={updateLikes}>
+                      <S.LikedCoverButton
+                        $likedCover={userHasLiked}
+                        src={userHasLiked ? likedSvg : likeSvg}
+                        alt="like svg"
+                      />
+                    </div>
+                  </S.SameLine>
+                </S.VideoInfo>
               </div>
-            </S.SameLine>
-          </S.VideoInfo>
-        </div>
-      </S.BigContainer>
+            </S.BigContainer>
 
-      {updatedCoverSongSuccess && (
-        <CommentSection arrayToMap={updatedCoverSong?.comments} />
-      )}
+            <S.CommentSection>
+              {updatedCoverSongSuccess && (
+                <CommentSection arrayToMap={updatedCoverSong?.comments} />
+              )}
 
-      {isCommenting && (
-        <AddComment
-          avatar={currentUser?.avatar}
-          commentRef={commentRef}
-          handleAddComment={handleAddComment}
+              {isCommenting && (
+                <AddComment
+                  avatar={currentUser?.avatar}
+                  commentRef={commentRef}
+                  handleAddComment={handleAddComment}
+                />
+              )}
+            </S.CommentSection>
+
+            <GenericModal isOpen={isModalOpen} onRequestClose={closeModal}>
+              <S.ShareMsg>Share this cover song with friends</S.ShareMsg>
+              <ShareButton
+                updatedCoverSong={updatedCoverSong}
+                closeModal={closeModal}
+              />
+            </GenericModal>
+          </S.Section>
+        </>
+      ) : (
+        <Animation
+          animationGif={translatingGif}
+          animationText={["Loading Song Cover ..."]}
         />
       )}
     </main>

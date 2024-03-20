@@ -10,27 +10,31 @@ import {
   WhatsappIcon,
   TwitterIcon,
 } from "react-share";
-import { ShareLinks } from "../../pages/CoverPage/CoverPage.styles";
+import * as S from "./ShareButtonStyles";
 
-function ShareButton({ url, title }) {
+function ShareButton({ updatedCoverSong, closeModal }) {
+  const url = `https://youtu.be/${updatedCoverSong?.youtubeUrl}`;
+  const title = `Check out this cover song that has been created on this song: ${updatedCoverSong?.originalSongName}`;
   return (
-    <ShareLinks>
-      <FacebookShareButton url={url} title={title}>
-        <FacebookIcon size={40} round={true} />
-      </FacebookShareButton>
-      <WhatsappShareButton url={url} title={title}>
-        <WhatsappIcon size={40} round={true} />
-      </WhatsappShareButton>
-      <TwitterShareButton url={url} title={title}>
-        <TwitterIcon size={40} round={true} />
-      </TwitterShareButton>
-      <TelegramShareButton url={url} title={title}>
-        <TelegramIcon size={40} round={true} />
-      </TelegramShareButton>
-      <EmailShareButton url={url} title={title}>
-        <EmailIcon size={40} round={true} />
-      </EmailShareButton>
-    </ShareLinks>
+    <S.ShareLinks>
+      <S.ShareLinksChild>
+        <WhatsappShareButton url={url} title={title} onClick={closeModal}>
+          <WhatsappIcon size={75} round />
+        </WhatsappShareButton>
+
+        <TwitterShareButton url={url} title={title} onClick={closeModal}>
+          <TwitterIcon size={75} round />
+        </TwitterShareButton>
+
+        <FacebookShareButton url={url} title={title} onClick={closeModal}>
+          <FacebookIcon size={75} round />
+        </FacebookShareButton>
+
+        <TelegramShareButton url={url} title={title} onClick={closeModal}>
+          <TelegramIcon size={75} round />
+        </TelegramShareButton>
+      </S.ShareLinksChild>
+    </S.ShareLinks>
   );
 }
 
