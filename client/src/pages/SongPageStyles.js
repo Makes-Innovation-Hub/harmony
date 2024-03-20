@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+export const SongPageContainer = styled.main`
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+`;
+
 export const UploadCoverButton = styled.button`
   font-family: ABeeZee;
 
@@ -28,9 +39,8 @@ export const UploadCoverButton = styled.button`
 export const SongInfoAndVideoContainer = styled.div`
   @media screen and (min-width: 768px) {
     display: flex;
-    /* align-items: center; */
-    justify-content: center;
-    gap: 100px;
+    justify-content: space-between;
+    width: 100%;
   }
 `;
 

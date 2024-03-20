@@ -62,16 +62,16 @@ export const XButton = styled.div`
   font-style: italic;
   color: black;
   cursor: pointer;
-  &:hover {
-    color: red;
-  }
   top: 10px;
   right: 15px;
   font-size: 20px;
 
+  &:hover {
+    color: red;
+  }
   @media screen and (min-width: 768px) {
     font-size: 1.2rem;
-    top: 20px;
-    right: 30px;
+    top: 10px;
+    right: 12px;
   }
 `;
