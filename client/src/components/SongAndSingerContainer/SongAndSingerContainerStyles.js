@@ -10,6 +10,7 @@ export const ArtistContainer = styled.div`
 `;
 
 export const SongCover = styled.img`
+  cursor: pointer;
   width: 149px;
   height: 145px;
   top: 154px;
@@ -18,6 +19,7 @@ export const SongCover = styled.img`
 `;
 
 export const SongAndSingerContainer = styled.div`
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 7px;

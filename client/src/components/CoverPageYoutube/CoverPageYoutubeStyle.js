@@ -8,6 +8,8 @@ export const YoutubeBox = styled.div`
   width: 350px;
   height: 255px;
   position: relative;
+  cursor: pointer;
+  border-radius: 30px;
 
   @media (max-width: 400px) {
     margin: 1rem 0.7rem;
