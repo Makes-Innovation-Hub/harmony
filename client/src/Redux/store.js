@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { hebrewSongsApi } from "../api/hebrewApiSlice";
 import { topSongsApi } from "../api/topSongsSlice";
 import searchsliceapi from "../api/searchsliceApi";
 import languageReducer from "./languageSlice";
@@ -18,7 +17,6 @@ export default configureStore({
     searchResults: searchResultsReducer,
     auth: authReducer,
     currentplaylist: playlistReducer,
-    [hebrewSongsApi.reducerPath]: hebrewSongsApi.reducer,
     [topSongsApi.reducerPath]: topSongsApi.reducer,
     [songDataApi.reducerPath]: songDataApi.reducer,
     [searchsliceapi.reducerPath]: searchsliceapi.reducer,
@@ -29,7 +27,6 @@ export default configureStore({
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
-      hebrewSongsApi.middleware,
       topSongsApi.middleware,
       searchsliceapi.middleware,
       songDataApi.middleware,
