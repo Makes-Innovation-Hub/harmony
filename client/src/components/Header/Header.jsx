@@ -13,9 +13,7 @@ import {
   TaglineSetup,
   TitleContainer,
 } from "./HeaderStyle";
-import USAFlag from "../../assets/USA.png";
-import palestineFlag from "../../assets/palestine.jpg";
-import isrealFlag from "../../assets/isreal.jpg";
+
 import { setLanguage } from "../../Redux/languageSlice.js";
 import "./Header.css";
 import { useTranslation } from "react-i18next";
@@ -34,8 +32,13 @@ const Header = () => {
   const [showFlag, setShowFlag] = useState(true);
   const [showList, setShowList] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(initialLanguage);
+  const [usaFlag, isrealFlag, palestineFlag] = [
+    "USAFlag",
+    "isrealFlag",
+    "palestineFlag",
+  ];
   const flagMapping = {
-    English: USAFlag,
+    English: usaFlag,
     Hebrew: isrealFlag,
     Arabic: palestineFlag,
   };
@@ -90,7 +93,7 @@ const Header = () => {
 
       {showFlag && (
         <div onClick={handleClick}>
-          <Us src={selectedFlag} alt="Flag" />
+          <Image name={selectedFlag} alt={`${selectedFlag}`} styles={Us} />
         </div>
       )}
       {showList && (
@@ -98,15 +101,23 @@ const Header = () => {
           <LanguageList>
             <Option onClick={() => handleLanguageSelect("English")}>
               <LanguageP>English (US)</LanguageP>
-              <CountryFlag src={USAFlag} alt="English Flag" />
+              <Image name={usaFlag} alt={"English Flag"} styles={CountryFlag} />
             </Option>
             <Option onClick={() => handleLanguageSelect("Hebrew")}>
               <LanguageHAP>עִברִית</LanguageHAP>
-              <CountryFlag src={isrealFlag} alt="Hebrew Flag" />
+              <Image
+                name={isrealFlag}
+                alt={"Hebrew Flag"}
+                styles={CountryFlag}
+              />
             </Option>
             <Option onClick={() => handleLanguageSelect("Arabic")}>
               <LanguageHAP>العربية</LanguageHAP>
-              <CountryFlag src={palestineFlag} alt="Arabic Flag" />
+              <Image
+                name={palestineFlag}
+                alt={"Arabic Flag"}
+                styles={CountryFlag}
+              />
             </Option>
           </LanguageList>
         </div>

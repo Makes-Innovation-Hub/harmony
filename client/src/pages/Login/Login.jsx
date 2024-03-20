@@ -1,7 +1,4 @@
 import React from "react";
-import doveImage from "../../assets/dove.png";
-import googleLogo from "../../assets/Login/Google.svg";
-import facebookLogo from "../../assets/Login/Facebook_icon.svg";
 
 import {
   LoginPageWrapper,
@@ -14,6 +11,7 @@ import {
   SignInLogo,
 } from "./LoginPageStyles";
 import { serverApiUrl } from "../../constants/urls";
+import Image from "../../components/Image/Image";
 
 const LoginPage = () => {
   const fullServerUrl = serverApiUrl;
@@ -30,7 +28,7 @@ const LoginPage = () => {
     <LoginPageWrapper>
       <AppIcon>
         <StyledDove>
-          <img src={doveImage} alt="Dove" />
+          <Image name={"dove"} alt={"dove"} />
         </StyledDove>
         <StyledEllipse />
       </AppIcon>
@@ -40,11 +38,15 @@ const LoginPage = () => {
         <p>Hebrew and Arabic</p>
       </DescriptionText>
       <StyledSignInButton onClick={handleFacebookSignInClick}>
-        <SignInLogo src={facebookLogo} alt="Facebook logo" />
+        <Image
+          name={"facebookLogo"}
+          alt={"Facebook logo"}
+          styles={SignInLogo}
+        />
         Sign in with Facebook
       </StyledSignInButton>
       <StyledSignInButton onClick={handleGoogleSignInClick}>
-        <SignInLogo src={googleLogo} alt="Google logo" />
+        <Image name={"googleLogo"} alt={"Google logo"} styles={SignInLogo} />
         Sign in with Google
       </StyledSignInButton>
     </LoginPageWrapper>
