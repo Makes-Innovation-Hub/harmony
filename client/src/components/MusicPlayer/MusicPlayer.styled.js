@@ -28,3 +28,8 @@ export const ButtonImage = styled.img`
     }
   }
 `;
+
+export const PreviousButtonImage = styled(ButtonImage)`
+  background: #f4e6d1;
+  padding: 6px;
+`;
