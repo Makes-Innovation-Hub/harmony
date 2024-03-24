@@ -28,8 +28,6 @@ function SongPage() {
     setIsModalOpen(false);
   };
 
-  console.log(songByIdData);
-
   return (
     <>
       <Header />

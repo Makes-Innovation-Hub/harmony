@@ -1,3 +1,4 @@
+import { ModalBody } from "../GenericModal/GenericModalStyles";
 import styled from "styled-components";
 
 export const LyricsSection = styled.section`
@@ -59,4 +60,25 @@ export const SameLineWithSvg = styled.div`
   img {
     cursor: pointer;
   }
+`;
+
+export const ModalWidth = styled.div`
+  line-height: 1.6;
+  letter-spacing: 1px;
+  max-width: 40ch;
+`;
+
+export const ModalBodyTest = styled(ModalBody)`
+  top: -5%;
+  left: -1%;
+  min-height: fit-content;
+  max-width: 390px;
+`;
+
+export const LyricsController = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
 `;
