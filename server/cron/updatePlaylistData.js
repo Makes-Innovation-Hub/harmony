@@ -49,7 +49,7 @@ async function checkIfNeedsUpdate() {
     const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
     // console.log('oneWeekAgo', oneWeekAgo)
     // console.log('oldestPlaylist.updatedAt < oneWeekAgo', oldestPlaylist.updatedAt < oneWeekAgo)
-    if (oldestPlaylist.updatedAt < oneWeekAgo) {
+    if (oldestPlaylist?.updatedAt < oneWeekAgo) {
       updatePlaylistsInDB();
     }
   } catch (error) {
