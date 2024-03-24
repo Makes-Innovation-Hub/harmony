@@ -2,6 +2,7 @@ import cron from "node-cron";
 import mongoose from "mongoose";
 import Playlist from "../models/Playlist.js";
 import { getPlaylistData } from "../controllers/playlistController.js";
+import axios from "axios";
 
 // Maybe make the schedule time a variable and save last update time somewhere to make sure if the server restarts it doesnt affect the schedule
 
@@ -13,10 +14,14 @@ cron.schedule("0 0 * * 0", async () => {
 
     // Update each playlist's data
     for (const playlist of playlists) {
-      await getPlaylistData(
-        { query: { id: playlist.playlistId, lang: "HE" } },
-        null
+      const response = await axios.get(
+        `http://localhost:5000/api/v1/playlist/playlistData/?id=${playlist.playlistId}&lang=HE&update=true`
       );
+
+      // await getPlaylistData(
+      //   { query: { id: playlist.playlistId, lang: "HE" } },
+      //   null
+      // );
     }
 
     console.log("Playlist data updated successfully");

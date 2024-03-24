@@ -10,7 +10,7 @@ dotenv.config();
 
 // GET Playlist data
 export const getPlaylistData = async (req, res) => {
-  const { id, lang } = req.query;
+  const { id, lang, update } = req.query;
   if (!id) {
     res.status(400).send("ERROR: id is required");
   }
@@ -24,7 +24,8 @@ export const getPlaylistData = async (req, res) => {
     // Check if the playlist data already exists in the database
     const playlist = await Playlist.findOne({ playlistId: id });
 
-    if (playlist) {
+    // If the playlist exists and update is not "true" it returns the playlist
+    if (playlist && update !== "true") {
       // Return the data from the database
       res.status(200).json(playlist.items);
     } else {
@@ -57,12 +58,20 @@ export const getPlaylistData = async (req, res) => {
         })
       );
 
-      // Save the playlist data to the database
-      const newPlaylist = new Playlist({
-        playlistId: id,
-        items: itemsWithProfilePic,
-      });
-      await newPlaylist.save();
+      // Save or update the playlist data in the database
+      if (update && update === "true") {
+        const updatedPlaylist = await Playlist.findOneAndUpdate(
+          { playlistId: id },
+          { $set: { items: itemsWithProfilePic, updatedAt: Date.now() } },
+          { new: true }
+        );
+      } else {
+        const newPlaylist = new Playlist({
+          playlistId: id,
+          items: itemsWithProfilePic,
+        });
+        await newPlaylist.save();
+      }
 
       res.status(200).json(itemsWithProfilePic);
     }
