@@ -1,11 +1,9 @@
 import axios from "axios";
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import { openAiUrl } from "../constants/urls.js";
 import logger from "../logger.js";
 
-const openAI = new OpenAIApi(
-  new Configuration({ apiKey: process.env.OPEN_AI_API_KEY })
-);
+const openAI = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 
 export async function generalTranslation(txt, originalLang, targetLang) {
   logger.info(

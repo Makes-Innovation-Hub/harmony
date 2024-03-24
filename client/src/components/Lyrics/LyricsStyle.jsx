@@ -29,7 +29,7 @@ export const Status = styled.p`
   font-family: "ABeeZee";
   font-style: normal;
   text-decoration: underline;
-  margin-bottom: 1.5rem;
+  font-size: 12px;
 `;
 
 export const Paragraph = styled.p`
@@ -47,4 +47,16 @@ export const Paragraph = styled.p`
 
 export const WrapperDiv = styled.div`
   height: 100%;
+`;
+
+export const SameLineWithSvg = styled.div`
+  display: flex;
+  gap: 7px;
+  padding-bottom: 1.5rem;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    cursor: pointer;
+  }
 `;

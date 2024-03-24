@@ -10,6 +10,7 @@ import addViewsAndLikesApi from "../api/viewsAndLikesApi";
 import authReducer from "./authSlice";
 import { playlistApi } from "../api/playlistApiSlice";
 import playlistReducer from "./playlistSlice";
+import textToSpeechApi from "../api/textToSpeechApi";
 
 export default configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export default configureStore({
     [addCoverToSong.reducerPath]: addCoverToSong.reducer,
     [addViewsAndLikesApi.reducerPath]: addViewsAndLikesApi.reducer,
     [playlistApi.reducerPath]: playlistApi.reducer,
+    [textToSpeechApi.reducerPath]: textToSpeechApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
@@ -34,6 +36,7 @@ export default configureStore({
       addCoverToSong.middleware,
       addViewsAndLikesApi.middleware,
       playlistApi.middleware,
+      textToSpeechApi.middleware,
     ]);
   },
 });
