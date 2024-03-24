@@ -8,9 +8,11 @@ import {
 import "../Header/Header.css";
 import megaPhoneSvg from "../../assets/svgs/megaphone.svg";
 import { useTextToSpeechMutation } from "../../api/textToSpeechApi";
+import { useRef } from "react";
 
 const Lyrics = ({ lyrics, name, originalLang }) => {
   const [playSongLyrics] = useTextToSpeechMutation();
+  const audioRef = useRef(null);
 
   // Function to remove parentheses from a string
   const removeParentheses = (str) => str.replace(/\([^)]+\)/g, "");
@@ -19,42 +21,28 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
     originalLang === "hebrew" ? lyrics.arabic : lyrics.hebrew;
   const translatedName = originalLang === "hebrew" ? name.arabic : name.hebrew;
 
-  function playOriginalSongInMegaphone() {
-    playSongLyrics({
-      lyrics: originalLang === "arabic" ? lyrics.arabic : lyrics.hebrew,
-    })
-      .then((response) => {
-        if (!response.data || !response.data.audio) {
-          console.error("No audio data received.");
-          return;
-        }
+  async function playSongInMegaphone(originalOrTranslatedLyrics) {
+    try {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.pause();
+      }
 
-        const base64Audio = response.data.audio;
-        const audio = new Audio("data:audio/mp3;base64," + base64Audio);
-        audio.play();
-      })
-      .catch((error) => {
-        console.error("Error playing song:", error);
+      const response = await playSongLyrics({
+        lyrics: originalOrTranslatedLyrics,
       });
-  }
 
-  function playTranslatedSongInMegaphone() {
-    playSongLyrics({
-      lyrics: originalLang === "arabic" ? lyrics.hebrew : lyrics.arabic,
-    })
-      .then((response) => {
-        if (!response.data || !response.data.audio) {
-          console.error("No audio data received.");
-          return;
-        }
+      if (!response.data || !response.data.audio) {
+        console.error("No audio data received.");
+        return;
+      }
 
-        const base64Audio = response.data.audio;
-        const audio = new Audio("data:audio/mp3;base64," + base64Audio);
-        audio.play();
-      })
-      .catch((error) => {
-        console.error("Error playing song:", error);
-      });
+      const base64Audio = response.data.audio;
+      audioRef.current = new Audio("data:audio/mp3;base64," + base64Audio);
+      audioRef.current.play();
+    } catch (error) {
+      console.error("Error playing song:", error);
+    }
   }
   const renderLyrics = () => {
     const renderedLyrics = [];
@@ -66,7 +54,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
             <img
               src={megaPhoneSvg}
               alt="megaphone to read lyrics"
-              onClick={playTranslatedSongInMegaphone}
+              onClick={() => playSongInMegaphone(translatedLyrics)}
             />
           </SameLineWithSvg>
           <div>
@@ -91,7 +79,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
             <img
               src={megaPhoneSvg}
               alt="megaphone to read lyrics"
-              onClick={playOriginalSongInMegaphone}
+              onClick={() => playSongInMegaphone(originalLyrics)}
             />
           </SameLineWithSvg>
           <div>
@@ -113,7 +101,11 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
     return renderedLyrics;
   };
 
-  return <LyricsSection>{renderLyrics()}</LyricsSection>;
+  return (
+    <>
+      <LyricsSection>{renderLyrics()}</LyricsSection>
+    </>
+  );
 };
 
 export default Lyrics;

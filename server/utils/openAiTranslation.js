@@ -13,11 +13,11 @@ export async function generalTranslation(txt, originalLang, targetLang) {
   );
   const prompt = `translate this text: ${txt} from original language: ${originalLang} to ${targetLang} language. respond only with the translated text, and nothing else`;
   try {
-    const response = await openAI.createChatCompletion({
+    const response = await openAI.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
     });
-    const translatedText = response.data.choices[0].message.content;
+    const translatedText = response.choices[0].message.content;
     return translatedText;
   } catch (error) {
     console.error("Error:", error);
@@ -51,7 +51,6 @@ export async function translateLyricsByOpenAi(
         },
       }
     );
-
     const translatedText = response.data.choices[0].message.content;
     return translatedText;
   } catch (error) {

@@ -3,7 +3,6 @@ import { serverApiUrl } from "../constants/urls";
 
 const textToSpeechApi = createApi({
   reducerPath: "textToSpeech",
-  tagTypes: ["tts"],
   baseQuery: fetchBaseQuery({ baseUrl: `${serverApiUrl}/textToSpeech` }),
   endpoints: (builder) => ({
     textToSpeech: builder.mutation({
@@ -12,7 +11,6 @@ const textToSpeechApi = createApi({
         method: "POST",
         body: { lyrics },
       }),
-      invalidatesTags: ["tts"],
     }),
   }),
 });
