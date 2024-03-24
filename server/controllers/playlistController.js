@@ -3,14 +3,13 @@ import axios from "axios";
 import { playlistData } from "../constants/playlistData.js";
 import translateText3Lang from "../utils/translateText3Lang.js";
 import getSongNameFromTitle from "../utils/getSongNameFromTitle.js";
-import mongoose from "mongoose";
 import Playlist from "../models/Playlist.js";
 
 dotenv.config();
 
 // GET Playlist data
 export const getPlaylistData = async (req, res) => {
-  const { id, lang, update } = req.query;
+  const { id, update } = req.query;
   if (!id) {
     res.status(400).send("ERROR: id is required");
   }
@@ -38,42 +37,30 @@ export const getPlaylistData = async (req, res) => {
       ) {
         throw new Error("Playlist not found or empty");
       }
-
-      const itemsWithProfilePic = await Promise.all(
-        playlistItemsResponse.data.items.map(async (item) => {
-          const profilePicUrl = await fetchChannelProfilePic(
-            item.snippet.videoOwnerChannelId
-          );
-          const songName = getSongNameFromTitle(item.snippet.title, lang);
-          const translatTo3 = await translateText3Lang(songName);
-          return {
-            videoId: item.snippet.resourceId.videoId,
-            title: item.snippet.title,
-            songName3Lang: translatTo3,
-            thumbnailUrl: item.snippet.thumbnails.standard.url,
-            channelTitle: item.snippet.videoOwnerChannelTitle,
-            channelId: item.snippet.videoOwnerChannelId,
-            profilePicUrl: profilePicUrl,
-          };
-        })
-      );
+      const itemsWithProfilePicAndSongNames =
+        await getProfilePicAndSongNames3Lang(playlistItemsResponse);
 
       // Save or update the playlist data in the database
       if (update && update === "true") {
         const updatedPlaylist = await Playlist.findOneAndUpdate(
           { playlistId: id },
-          { $set: { items: itemsWithProfilePic, updatedAt: Date.now() } },
+          {
+            $set: {
+              items: itemsWithProfilePicAndSongNames,
+              updatedAt: Date.now(),
+            },
+          },
           { new: true }
         );
       } else {
         const newPlaylist = new Playlist({
           playlistId: id,
-          items: itemsWithProfilePic,
+          items: itemsWithProfilePicAndSongNames,
         });
         await newPlaylist.save();
       }
 
-      res.status(200).json(itemsWithProfilePic);
+      res.status(200).json(itemsWithProfilePicAndSongNames);
     }
   } catch (error) {
     console.error("Error fetching playlist data:", error);
@@ -135,4 +122,26 @@ const fetchChannelProfilePic = async (channelId) => {
     console.error("Error fetching channel profile picture:", error);
     throw error;
   }
+};
+
+const getProfilePicAndSongNames3Lang = async (playlistItems) => {
+  const itemsWithNewData = await Promise.all(
+    playlistItems.data.items.map(async (item) => {
+      const profilePicUrl = await fetchChannelProfilePic(
+        item.snippet.videoOwnerChannelId
+      );
+      const songName = getSongNameFromTitle(item.snippet.title);
+      const translatTo3 = await translateText3Lang(songName);
+      return {
+        videoId: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        songName3Lang: translatTo3,
+        thumbnailUrl: item.snippet.thumbnails.standard.url,
+        channelTitle: item.snippet.videoOwnerChannelTitle,
+        channelId: item.snippet.videoOwnerChannelId,
+        profilePicUrl: profilePicUrl,
+      };
+    })
+  );
+  return itemsWithNewData;
 };

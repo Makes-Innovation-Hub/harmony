@@ -1,7 +1,5 @@
 import cron from "node-cron";
-import mongoose from "mongoose";
 import Playlist from "../models/Playlist.js";
-import { getPlaylistData } from "../controllers/playlistController.js";
 import axios from "axios";
 
 // Updates all playlists that are saved in the database
@@ -19,7 +17,7 @@ async function updatePlaylistsInDB() {
     // Update each playlist's data
     for (const playlist of playlists) {
       const response = await axios.get(
-        `${BASE_URL}/api/v1/playlist/playlistData/?id=${playlist.playlistId}&lang=HE&update=true`
+        `${BASE_URL}/api/v1/playlist/playlistData/?id=${playlist.playlistId}&update=true`
       );
     }
 
@@ -30,7 +28,9 @@ async function updatePlaylistsInDB() {
 }
 
 // Schedule the task to run every week
-cron.schedule("0 0 * * 0", async () => {
+cron.schedule(process.env.SCHEDULE_TIME, async () => {
+  console.log("Hiiiii43");
+  console.log("updatePlaylistsInDB");
   updatePlaylistsInDB();
 });
 
