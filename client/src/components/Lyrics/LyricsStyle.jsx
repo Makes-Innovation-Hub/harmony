@@ -69,7 +69,7 @@ export const ModalWidth = styled.div`
 `;
 
 export const ModalBodyTest = styled(ModalBody)`
-  top: -5%;
+  top: -10%;
   left: -1%;
   min-height: fit-content;
   max-width: 390px;

@@ -14,6 +14,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalLyrics, setModalLyrics] = useState(null);
   const audioRef = useRef(null);
+
   const [playSongLyrics, { isLoading: playSongLyricsIsLoading }] =
     useTextToSpeechMutation();
 
@@ -133,7 +134,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
         {playSongLyricsIsLoading ? (
           <Animation
             animationGif={translatingGif}
-            animationText={["Loading Lyrics..."]}
+            animationText={["Loading Audio..."]}
           />
         ) : (
           <>
@@ -151,7 +152,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
               <img
                 onClick={() => {
                   audioRef.current.currentTime = 0;
-                  audioRef.current.play();
+                  audioRef.current.pause();
                 }}
                 src={resetTtsSvg}
                 alt="stop playing lyrics"
