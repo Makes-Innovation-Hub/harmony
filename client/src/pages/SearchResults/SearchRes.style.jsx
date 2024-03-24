@@ -1,11 +1,17 @@
 import { styled } from "styled-components";
 
-const Title = styled.div`
+export const Title = styled.div`
   display: flex;
-  margin: 5% auto;
-  width: 85%;
+  margin: 20px 0;
+  font-size: 23px;
   font-family: ABeeZee;
-  justify-content: flex-start
+  justify-content: flex-start;
 `;
 
-export default { Title };
+export const ResultsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto;
+`;

@@ -24,7 +24,7 @@ const Wrapped = styled.div`
     padding-left: 1%;
     margin-right: 2%;
     height: 1.8rem;
-    width: 72%;
+    width: 90%;
     font-family: ABeeZee;
     font-size: 1rem;
     border: 1px solid #000000;
