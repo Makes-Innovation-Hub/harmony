@@ -1,5 +1,4 @@
 import * as S from "./LyricsStyle";
-import "../Header/Header.css";
 import megaPhoneSvg from "../../assets/svgs/megaphone.svg";
 import { useTextToSpeechMutation } from "../../api/textToSpeechApi";
 import { useRef, useState } from "react";
@@ -73,7 +72,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
             <S.Status>Translation</S.Status>
             <img
               src={megaPhoneSvg}
-              alt="megaphone to read lyrics"
+              alt="megaphone to read translated lyrics"
               onClick={() => playSongInMegaphone(translatedLyrics)}
             />
           </S.SameLineWithSvg>
@@ -100,7 +99,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
             <S.Status>Original</S.Status>
             <img
               src={megaPhoneSvg}
-              alt="megaphone to read lyrics"
+              alt="megaphone to read original lyrics"
               onClick={() => playSongInMegaphone(originalLyrics)}
             />
           </S.SameLineWithSvg>
@@ -129,7 +128,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
       <GenericModal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        ModalBodyStyles={S.ModalBodyTest}
+        ModalBodyStyles={S.PlayAudioModal}
       >
         {playSongLyricsIsLoading ? (
           <Animation

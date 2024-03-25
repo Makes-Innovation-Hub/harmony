@@ -34,8 +34,8 @@ export const Status = styled.p`
 `;
 
 export const Paragraph = styled.p`
-  flex: 1 1 50%; /* Take up 50% of the available width without growing or shrinking */
-  flex-basis: 50%; /* Set initial width to 50% */
+  flex: 1 1 50%;
+  flex-basis: 50%;
   font-weight: 400;
   text-align: right;
   font-family: "Aclonica";
@@ -68,7 +68,7 @@ export const ModalWidth = styled.div`
   max-width: 40ch;
 `;
 
-export const ModalBodyTest = styled(ModalBody)`
+export const PlayAudioModal = styled(ModalBody)`
   top: -10%;
   left: -1%;
   min-height: fit-content;
