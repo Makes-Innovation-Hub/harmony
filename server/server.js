@@ -97,6 +97,16 @@ connectDB().then(() => {
   app.listen(PORT, () => {
     logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
   });
+  // Conditionally import cron job module based on environment
+  if (process.env.NODE_ENV === "production") {
+    import("./cron/updatePlaylistData.js")
+      .then(() => {
+        logger.info("Cron job module imported successfully.");
+      })
+      .catch((error) => {
+        logger.error("Error importing cron job module:", error);
+      });
+  }
 });
 
 process.on("unhandledRejection", (err, promise) => {
