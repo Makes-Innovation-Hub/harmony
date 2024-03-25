@@ -66,6 +66,13 @@ export const ModalWidth = styled.div`
   line-height: 1.6;
   letter-spacing: 1px;
   max-width: 40ch;
+  overflow-y: auto;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const PlayAudioModal = styled(ModalBody)`
@@ -73,6 +80,10 @@ export const PlayAudioModal = styled(ModalBody)`
   left: -1%;
   min-height: fit-content;
   max-width: 390px;
+  flex-wrap: nowrap;
+  direction: rtl;
+  white-space: break-spaces;
+  max-height: 90%;
 `;
 
 export const LyricsController = styled.div`
@@ -80,5 +91,9 @@ export const LyricsController = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
+
+  img {
+    cursor: pointer;
+  }
 `;

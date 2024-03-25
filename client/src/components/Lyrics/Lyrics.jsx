@@ -3,15 +3,17 @@ import megaPhoneSvg from "../../assets/svgs/megaphone.svg";
 import { useTextToSpeechMutation } from "../../api/textToSpeechApi";
 import { useRef, useState } from "react";
 import GenericModal from "../GenericModal/GenericModal";
-import playTtsSvg from "../../assets/svgs/playTts.svg";
-import stopTtsSvg from "../../assets/svgs/stopTts.svg";
-import resetTtsSvg from "../../assets/svgs/resetTts.svg";
+import stopTtsSvg from "../../assets/musicPlayer/stop.svg";
+import playTtsSvg from "../../assets/musicPlayer/play.svg";
+import pauseTtsSvg from "../../assets/musicPlayer/pause.svg";
 import translatingGif from "../../assets/animations/translating-animation.gif";
 import Animation from "../Animation/Animation.component";
 
 const Lyrics = ({ lyrics, name, originalLang }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalLyrics, setModalLyrics] = useState(null);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+
   const audioRef = useRef(null);
 
   const [playSongLyrics, { isLoading: playSongLyricsIsLoading }] =
@@ -24,7 +26,10 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
     originalLang === "hebrew" ? lyrics.arabic : lyrics.hebrew;
   const translatedName = originalLang === "hebrew" ? name.arabic : name.hebrew;
 
-  async function playSongInMegaphone(originalOrTranslatedLyrics) {
+  async function playSongInMegaphone(
+    originalOrTranslatedLyrics,
+    megaphoneSide
+  ) {
     try {
       setIsModalOpen(true);
       setModalLyrics(
@@ -34,8 +39,12 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
       );
 
       if (audioRef.current) {
-        audioRef.current.currentTime = 0;
-        audioRef.current.pause();
+        audioRef.current.audio.currentTime = 0;
+        audioRef.current.audio.pause();
+      }
+
+      if (megaphoneSide === audioRef.current?.megaphoneSide) {
+        return;
       }
 
       const response = await playSongLyrics({
@@ -48,8 +57,12 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
       }
 
       const base64Audio = response.data.audio;
-      audioRef.current = new Audio("data:audio/mp3;base64," + base64Audio);
-      audioRef.current.play();
+      // audioRef.current = new Audio("data:audio/mp3;base64," + base64Audio);
+      audioRef.current = {
+        megaphoneSide,
+        audio: new Audio("data:audio/mp3;base64," + base64Audio),
+      };
+      // audioRef.current.play();
     } catch (error) {
       console.error("Error playing song:", error);
     }
@@ -58,9 +71,10 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
   const closeModal = () => {
     setIsModalOpen(false);
     if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.pause();
+      audioRef.current.audio.currentTime = 0;
+      audioRef.current.audio.pause();
     }
+    setIsAudioPlaying(false);
   };
 
   const renderLyrics = () => {
@@ -73,7 +87,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
             <img
               src={megaPhoneSvg}
               alt="megaphone to read translated lyrics"
-              onClick={() => playSongInMegaphone(translatedLyrics)}
+              onClick={() => playSongInMegaphone(translatedLyrics, "left")}
             />
           </S.SameLineWithSvg>
           <div>
@@ -100,7 +114,7 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
             <img
               src={megaPhoneSvg}
               alt="megaphone to read original lyrics"
-              onClick={() => playSongInMegaphone(originalLyrics)}
+              onClick={() => playSongInMegaphone(originalLyrics, "right")}
             />
           </S.SameLineWithSvg>
           <div>
@@ -133,29 +147,39 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
         {playSongLyricsIsLoading ? (
           <Animation
             animationGif={translatingGif}
-            animationText={["Loading Audio..."]}
+            animationText={["Loading Audio"]}
           />
         ) : (
           <>
             <S.LyricsController>
               <img
-                onClick={() => audioRef.current.play()}
-                src={playTtsSvg}
-                alt="play lyrics"
-              />
-              <img
-                onClick={() => audioRef.current.pause()}
+                onClick={() => {
+                  audioRef.current.audio.currentTime = 0;
+                  audioRef.current.audio.pause();
+                  setIsAudioPlaying(false);
+                }}
                 src={stopTtsSvg}
                 alt="stop playing lyrics"
               />
-              <img
-                onClick={() => {
-                  audioRef.current.currentTime = 0;
-                  audioRef.current.pause();
-                }}
-                src={resetTtsSvg}
-                alt="stop playing lyrics"
-              />
+              {!isAudioPlaying ? (
+                <img
+                  onClick={() => {
+                    audioRef.current.audio.play();
+                    setIsAudioPlaying(true);
+                  }}
+                  src={playTtsSvg}
+                  alt="play lyrics"
+                />
+              ) : (
+                <img
+                  onClick={() => {
+                    audioRef.current.audio.pause();
+                    setIsAudioPlaying(false);
+                  }}
+                  src={pauseTtsSvg}
+                  alt="stop playing lyrics"
+                />
+              )}
             </S.LyricsController>
             <S.ModalWidth>{modalLyrics}</S.ModalWidth>
           </>
