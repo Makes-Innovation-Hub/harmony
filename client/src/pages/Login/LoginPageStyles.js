@@ -21,6 +21,7 @@ export const ImageWrapper = styled.img`
 export const ModalText = styled.p`
   color: #333; // Example text color
   font-size: 18px; // Example font size
+  font-family: ABeeZee;
   text-align: center;
   margin-top: 20px; // Space above the text
 `;
