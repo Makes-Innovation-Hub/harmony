@@ -1,5 +1,6 @@
 import express from "express";
 import getOpenAiInstance from "../openai.js";
+import logger from "../logger.js";
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.post("/generate-speech", async (req, res) => {
 
     // Convert mp3 to base64
     const base64Audio = Buffer.from(await mp3.arrayBuffer()).toString("base64");
-
+    logger.info(`Text To Speech request has been called`);
     res.json({ audio: base64Audio }); // Sending audio data as JSON response
   } catch (error) {
     console.log(error);
