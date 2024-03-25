@@ -57,12 +57,10 @@ const Lyrics = ({ lyrics, name, originalLang }) => {
       }
 
       const base64Audio = response.data.audio;
-      // audioRef.current = new Audio("data:audio/mp3;base64," + base64Audio);
       audioRef.current = {
         megaphoneSide,
         audio: new Audio("data:audio/mp3;base64," + base64Audio),
       };
-      // audioRef.current.play();
     } catch (error) {
       console.error("Error playing song:", error);
     }
