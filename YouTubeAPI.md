@@ -4,7 +4,10 @@ In order to use the YouTube Data API, you'll need to obtain an API key. Follow t
 
 ## Step 1: Go to the Google Developers Console
 
-Navigate to the [Google Developers Console](https://console.developers.google.com/).
+- Navigate to the [Google Developers Console](https://console.developers.google.com/).
+
+- Log into your Google account or create a new one.
+  ![Google Login](client/src/assets/screenshots/YouTube-API-Screenshot-0.png)
 
 ## Step 2: Create a New Project
 
@@ -37,6 +40,6 @@ After you create the API key, it will be displayed on the screen. Copy this key 
 
 ## Step 6: Save API Key as an Environment Variable
 
-Save the API Key as an environment variable for the server with the name "YOUTUBE_API_KEY="
+Save the API Key as an environment variable for the server with the name `YOUTUBE_API_KEY=`
 
-### The API key was used to fetch playlist items and channel profile pics
+_The API key was used to fetch playlist items and channel profile pics_
