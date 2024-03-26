@@ -15,10 +15,6 @@ const HarmonyCovers = ({ handleData }) => {
 
   const isLoading = !arabicTopCoversSuccess || !hebrewTopCoversSuccess;
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <S.SongGallery>
       <S.Cover>{t("Harmony Covers")}</S.Cover>
@@ -26,9 +22,10 @@ const HarmonyCovers = ({ handleData }) => {
       <S.TopHCoversCountainer>
         <S.Title>{t("Top Hebrew Covers in Arabic")}</S.Title>
         <S.ImageBoxContainer>
-          {hebrewTopCoversData.map((coverInfo) => (
+          {hebrewTopCoversData?.map((coverInfo) => (
             <div key={coverInfo._id}>
               <HomeCovers
+                id={coverInfo._id}
                 artist={coverInfo?.coverArtistName}
                 backgroundImg={coverInfo?.backgroundUrl}
                 state={coverInfo}
@@ -43,9 +40,10 @@ const HarmonyCovers = ({ handleData }) => {
       <S.TopACoversCountainer>
         <S.Title>{t("Top Arabic Covers in Hebrew")}</S.Title>
         <S.ImageBoxContainer>
-          {arabicTopCoversData.map((coverInfo) => (
-            <div key={coverInfo._id}>
+          {arabicTopCoversData?.map((coverInfo) => (
+            <div key={coverInfo?._id}>
               <HomeCovers
+                id={coverInfo?._id}
                 artist={coverInfo?.coverArtistName}
                 backgroundImg={coverInfo?.backgroundUrl}
                 state={coverInfo}

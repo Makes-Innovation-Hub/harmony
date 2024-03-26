@@ -6,11 +6,11 @@ import {
   ImgStyles,
 } from "./HomeCoversStyle";
 
-function HomeCovers({ backgroundImg, artist, state }) {
+function HomeCovers({ id, backgroundImg, artist, state }) {
   return (
     <>
       <CoverBox>
-        <Link to={"/cover"} state={state}>
+        <Link to={`/cover/${id}`} state={state}>
           <ImgStyles
             width="560"
             height="255"
