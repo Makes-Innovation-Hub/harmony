@@ -8,10 +8,18 @@ import {
 import ImageBoxWithDetails from "./ImageBoxWithDetails";
 import { useGetTopSongsQuery } from "../../api/topSongsSlice";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
-export default function TopSongGallary() {
-  const { data: topSongsAll = [] } = useGetTopSongsQuery();
+export default function TopSongGallary({ availableData, handleData }) {
+  const { data: topSongsAll = [], isSuccess } = useGetTopSongsQuery();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      handleData({ ...availableData, TopSongGallary: true });
+      console.log(availableData);
+    }
+  }, [isSuccess]);
 
   return (
     <SongGallary>
