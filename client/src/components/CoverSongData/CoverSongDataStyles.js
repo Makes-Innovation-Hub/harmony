@@ -25,4 +25,13 @@ export const SongCoverVideoContainer = styled.div`
     align-items: center;
     flex-wrap: wrap;
   }
+
+  @media screen and (min-width: 1100px) {
+    width: 1100px;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1100px) {
+    justify-content: center;
+    gap: 50px;
+  }
 `;

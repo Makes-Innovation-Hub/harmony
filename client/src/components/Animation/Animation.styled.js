@@ -19,7 +19,7 @@ const Wrapped = styled.div`
     }
   }
   // Mobile phone screen
-  @media only screen and (min-width: 320px) and (max-width: 480px) {
+  @media only screen and (max-width: 480px) {
     .animation {
       margin-top: 20%;
       width: 80vw;

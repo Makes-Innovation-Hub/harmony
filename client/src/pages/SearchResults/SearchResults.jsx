@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import HomeSearchBar from "../../components/HomeSerchBar/HomeSearchBar";
 import ResultsCard from "../../components/ResultsCard/ResultsCard";
 import FE from "../../components/Layout/FlexElments";
-import SC from "./SearchRes.style";
+import * as S from "./SearchRes.style";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
@@ -50,7 +50,7 @@ const SearchResultsPage = ({ songs, artists }) => {
   }, []);
 
   return (
-    <FE.Col style={{ height: "100dvh" }}>
+    <FE.Col>
       <FE.CenterCol>
         <Header />
         <Tagline />
@@ -58,10 +58,10 @@ const SearchResultsPage = ({ songs, artists }) => {
       <FE.CenterCol>
         <HomeSearchBar />
       </FE.CenterCol>
-      <FE.CenterCol style={{ flexGrow: 6 }}>
+      <FE.CenterCol>
         {foundArtists?.length > 0 && (
-          <div>
-            <SC.Title>{t("Artists")}</SC.Title>
+          <S.ResultsContainer>
+            <S.Title>{t("Artists")}</S.Title>
             {foundArtists &&
               foundArtists?.map((artist) => {
                 const titles = [];
@@ -80,11 +80,11 @@ const SearchResultsPage = ({ songs, artists }) => {
                   />
                 );
               })}
-          </div>
+          </S.ResultsContainer>
         )}
         {foundSongs?.length > 0 && (
-          <div style={{ width: "100%" }}>
-            <SC.Title>{t("Songs")}</SC.Title>
+          <S.ResultsContainer>
+            <S.Title>{t("Songs")}</S.Title>
             {foundSongs &&
               foundSongs?.map((song) => {
                 const titles = [];
@@ -108,7 +108,7 @@ const SearchResultsPage = ({ songs, artists }) => {
                   />
                 );
               })}
-          </div>
+          </S.ResultsContainer>
         )}
       </FE.CenterCol>
     </FE.Col>

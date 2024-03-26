@@ -35,7 +35,6 @@ export const FlexGrowthContainer = styled.div`
 
 export const MainContainer = styled.main`
   width: 100%;
-  height: 320px;
 
   @media screen and (min-width: 769px) {
     width: 45%;

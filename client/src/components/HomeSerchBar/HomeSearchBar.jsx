@@ -42,7 +42,7 @@ const HomeSearchBar = () => {
   };
 
   return (
-    <InputContainer className="testing">
+    <InputContainer>
       <Wrapped>
         <div className="search-container">
           <input
