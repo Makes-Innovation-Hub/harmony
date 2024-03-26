@@ -17,6 +17,7 @@ const Row = styled.div`
 const CenterRow = styled(Row)`
   justify-content: center;
   align-items: ${(props) => (props.aligned ? props.aligned : "center")};
+  cursor: ${({ $cursor }) => $cursor && "pointer"};
 `;
 
 export default { Col, CenterCol, Row, CenterRow };

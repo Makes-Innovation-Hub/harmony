@@ -22,7 +22,7 @@ export const CoverBox = styled.div`
   padding: 1rem 2rem 0 2rem;
 
   @media screen and (min-width: 768px) {
-    padding: 2rem 0;
+    padding-top: 1rem;
   }
 `;
 

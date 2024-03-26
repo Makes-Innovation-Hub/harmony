@@ -7,7 +7,7 @@ import arbSign from "../../assets/songDetails/ع.png";
 
 export default function LanguagesSign({ leftIcon, rightIcon }) {
   return (
-    <FE.CenterRow>
+    <FE.CenterRow $cursor>
       <LetterCircle>
         <img src={leftIcon === "AR" ? arbSign : heSign} />
       </LetterCircle>
