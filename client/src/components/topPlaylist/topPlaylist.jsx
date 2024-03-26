@@ -1,20 +1,22 @@
 import {
   SongGallery,
+  Playlist,
   TopHMixCountainer,
   TopAMixCountainer,
   Title,
   ImageBoxContainer,
-  Playlist,
 } from "./PlaylistStyle";
 import { useGetAllPlaylistDataQuery } from "../../api/playlistApiSlice";
-import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageBoxWithDetailsPlaylist from "./ImageBoxWithDetailsPlaylist";
 
 const TopPlaylist = () => {
-  const { data: playlistData, isSuccess } = useGetAllPlaylistDataQuery();
+  const {
+    data: playlistData,
+    isSuccess,
+    isLoading,
+  } = useGetAllPlaylistDataQuery();
 
   const [hebrewMixData, setHebrewMixData] = useState();
   const [arabicMixData, setArabicMixData] = useState();

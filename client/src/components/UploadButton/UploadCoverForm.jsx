@@ -2,6 +2,7 @@ import * as S from "./UploadCoverForm.styles";
 
 import React, { useEffect, useRef, useState } from "react";
 import { useCreateCoverMutation } from "../../api/addCoverToSongApi";
+import { useGetTopCoversQuery } from "../../api/topCoversApi";
 
 const UploadCoverForm = ({
   originalLang,
@@ -19,6 +20,7 @@ const UploadCoverForm = ({
       isSuccess: createCoverIsSuccess,
     },
   ] = useCreateCoverMutation();
+  const { refetch: refetchTopCovers } = useGetTopCoversQuery(originalLang);
   const [coverData, setCoverData] = useState({
     artistName: "",
     youtubeUrl: "",
@@ -31,6 +33,7 @@ const UploadCoverForm = ({
   useEffect(() => {
     if (createCoverIsSuccess) {
       closeModal();
+      refetchTopCovers();
     }
   }, [createCoverIsSuccess]);
 
