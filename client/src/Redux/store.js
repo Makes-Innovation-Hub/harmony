@@ -10,6 +10,7 @@ import addViewsAndLikesApi from "../api/viewsAndLikesApi";
 import authReducer from "./authSlice";
 import { playlistApi } from "../api/playlistApiSlice";
 import playlistReducer from "./playlistSlice";
+import topCoversApi from "../api/topCoversApi";
 import textToSpeechApi from "../api/textToSpeechApi";
 
 export default configureStore({
@@ -25,6 +26,7 @@ export default configureStore({
     [addCoverToSong.reducerPath]: addCoverToSong.reducer,
     [addViewsAndLikesApi.reducerPath]: addViewsAndLikesApi.reducer,
     [playlistApi.reducerPath]: playlistApi.reducer,
+    [topCoversApi.reducerPath]: topCoversApi.reducer,
     [textToSpeechApi.reducerPath]: textToSpeechApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
@@ -36,6 +38,7 @@ export default configureStore({
       addCoverToSong.middleware,
       addViewsAndLikesApi.middleware,
       playlistApi.middleware,
+      topCoversApi.middleware,
       textToSpeechApi.middleware,
     ]);
   },

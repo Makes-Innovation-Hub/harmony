@@ -16,6 +16,7 @@ router.get("/top-covers", getTopCoverSongs);
 
 router.get("/", getAllCoverSongs);
 router.get("/:id", getCoverSongById);
+
 router.post("/add", postCoverData);
 router.delete("/deleteAll", getDeleteAll);
 router.delete("/delete/:id", deleteCoverSongById);
