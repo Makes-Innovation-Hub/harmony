@@ -75,6 +75,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Define a route to prevent server from sleeping
+app.get("/keep-server-awake", (req, res) => {
+  res.send("Server is awake!");
+});
+
 app.use("/api/v1/songs", songsRouter);
 app.use("/api/v1/artists", artistsRouter);
 app.use("/api/v1/topSongs", topSongsRouter);
