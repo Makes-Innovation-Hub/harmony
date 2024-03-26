@@ -1,8 +1,8 @@
-import { OriginalSong, YoutubeBox } from "./YoutubeStyle";
+import { OriginalSong, VideoContainer, YoutubeBox } from "./YoutubeStyle";
 
-function Youtube({ songName, artistName, youtubeUrl }) {
+function Youtube({ youtubeUrl }) {
   return (
-    <div>
+    <VideoContainer>
       <OriginalSong>Original Version </OriginalSong>
       <YoutubeBox>
         <iframe
@@ -14,7 +14,7 @@ function Youtube({ songName, artistName, youtubeUrl }) {
           style={{ borderRadius: "30px" }}
         ></iframe>
       </YoutubeBox>
-    </div>
+    </VideoContainer>
   );
 }
 

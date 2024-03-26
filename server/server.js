@@ -21,6 +21,7 @@ import CoverSongRoute from "./routes/CoverSongRoute.js";
 import playlistRouter from "./routes/playlistRoutes.js";
 import loggingMiddleware from "./reqLogger.js";
 import commentsRouter from "./routes/coverSongCommentsRoute.js";
+import textToSpeechRouter from "./routes/textToSpeechRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -86,6 +87,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/coverSong", CoverSongRoute);
 app.use("/api/v1/playlist", playlistRouter);
 app.use("/api/v1/comments", commentsRouter);
+app.use("/api/v1/textToSpeech", textToSpeechRouter);
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));

@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const VideoContainer = styled.div`
+  @media (min-width: 768px) {
+    margin-top: 150px;
+  }
+`;
 export const YoutubeBox = styled.div`
   display: flex;
   justify-content: center;

@@ -6,14 +6,15 @@ import {
   ImgStyles,
   LikesAndViewsContainer,
 } from "./SongCoverStyles";
-function SongCoverNew({ backgroundImg, artist, state, likes, views }) {
+
+function SongCoverNew({ backgroundImg, artist, state, likes, views, id }) {
   return (
     <>
       <TitleContainer>
         <ByArtist>By {artist}</ByArtist>
       </TitleContainer>
       <CoverBox>
-        <Link to={"/cover"} state={state}>
+        <Link to={`/cover/${id}`} state={state}>
           <ImgStyles
             width="560"
             height="255"

@@ -3,50 +3,48 @@
   src: url("../../assets/fonts/ABeeZee-Italic.ttf") format("truetype");
 }
 
-@media (min-width: 350px) and (max-width: 700px) {
-  .songDetailsContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    min-width: 100%;
-    gap: 1.5rem;
-  }
+.songDetailsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  min-width: 100%;
+  gap: 1.5rem;
+}
 
-  .textDetailsContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-right: 1rem;
-  }
+.textDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
 
-  .textDetailsContainer h2 {
-    font-family: "ABeeZee";
-    font-size: 1rem;
-    width: 8rem;
-    text-align: center;
-  }
+.textDetailsContainer h2 {
+  font-family: "ABeeZee";
+  font-size: 1rem;
+  width: 8rem;
+  text-align: center;
+}
 
-  .artistName {
-    color: gray;
-    font-size: 1rem;
-    font-family: "ABeeZee";
-    text-align: center;
-    line-height: 133%;
-  }
+.artistName {
+  color: gray;
+  font-size: 1rem;
+  font-family: "ABeeZee";
+  text-align: center;
+  line-height: 133%;
+}
 
-  .translation-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.translation-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .btn {
-    background-color: #d9d9d9;
-    border-radius: 100%;
-    padding: 0.5em 0.8em;
-    border: 1px solid rgba(234, 11, 11, 0);
-  }
+.btn {
+  background-color: #d9d9d9;
+  border-radius: 100%;
+  padding: 0.5em 0.8em;
+  border: 1px solid rgba(234, 11, 11, 0);
 }
