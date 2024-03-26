@@ -12,11 +12,7 @@ import { useEffect, useState } from "react";
 import ImageBoxWithDetailsPlaylist from "./ImageBoxWithDetailsPlaylist";
 
 const TopPlaylist = () => {
-  const {
-    data: playlistData,
-    isSuccess,
-    isLoading,
-  } = useGetAllPlaylistDataQuery();
+  const { data: playlistData, isSuccess } = useGetAllPlaylistDataQuery();
 
   const [hebrewMixData, setHebrewMixData] = useState();
   const [arabicMixData, setArabicMixData] = useState();

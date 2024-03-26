@@ -9,7 +9,6 @@ export const SongGallery = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
   }
 `;
 export const TopHMixCountainer = styled.div`

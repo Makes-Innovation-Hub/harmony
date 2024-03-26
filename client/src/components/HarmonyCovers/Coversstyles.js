@@ -4,13 +4,10 @@ export const SongGallery = styled.div`
   @media (min-width: 701px) {
     display: none;
   }
-  @media (min-width: 0px) and (max-width: 700px) {
+  @media (min-width: 0px) and (max-width: 769px) {
     min-height: 50%;
     width: 100%;
-    display: flex;
-    flex-direction: column;
     margin-top: 100px;
-    margin-bottom: -150px;
   }
 `;
 
@@ -20,14 +17,14 @@ export const TopHCoversCountainer = styled.div`
   @media (min-width: 701px) {
     display: none;
   }
-  @media (min-width: 0px) and (max-width: 700px) {
+  @media (min-width: 0px) and (max-width: 769px) {
     width: 100%;
   }
   margin-bottom: -30%;
 `;
 
 export const Title = styled.h2`
-  @media (min-width: 0px) and (max-width: 700px) {
+  @media (min-width: 0px) and (max-width: 769px) {
     font-weight: 400;
     font-size: 1.2rem;
     color: #333333;
@@ -37,8 +34,9 @@ export const Title = styled.h2`
     font-family: "ABeeZee";
   }
 `;
+
 export const CoverBox = styled.div`
-  @media (min-width: 0px) and (max-width: 700px) {
+  @media (min-width: 0px) and (max-width: 769px) {
     width: 100%;
     height: 100%;
     padding: 18px;
@@ -54,11 +52,10 @@ export const ImageBoxContainer = styled.div`
   & > ${CoverBox} {
     margin-right: -0.25rem;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 769px) {
     display: flex;
     flex-direction: row;
-    gap: 30px;
-    // margin-top: 4%;
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -69,7 +66,7 @@ export const ImageBoxContainer = styled.div`
 `;
 
 export const Cover = styled.h1`
-  @media (min-width: 0px) and (max-width: 700px) {
+  @media (min-width: 0px) and (max-width: 769px) {
     font-weight: 400;
     font-size: 1.2rem;
     color: #333333;
@@ -84,17 +81,10 @@ export const Cover = styled.h1`
 export const TopACoversCountainer = styled.div`
   border-radius: 8px;
   margin-top: 4%;
-  @media (min-width: 701px) {
-    display: none;
-  }
-  @media (min-width: 0px) and (max-width: 700px) {
-    // height: 20%;
-    margin-bottom: 30%;
-  }
 `;
 
 export const Box = styled.div`
-  @media (min-width: 0px) and (max-width: 700px) {
+  @media (min-width: 0px) and (max-width: 769px) {
     min-height: 2rem;
     background: rgba(223, 220, 220, 0.28);
     box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
@@ -107,7 +97,7 @@ export const Box = styled.div`
 `;
 
 export const SongP = styled.p`
-  @media (min-width: 0px) and (max-width: 700px) {
+  @media (min-width: 0px) and (max-width: 769px) {
     font-size: 0.65rem;
     font-weight: 300;
     color: #ffff;
@@ -124,7 +114,7 @@ export const SongP = styled.p`
 `;
 
 export const Songartist = styled.p`
-  @media (min-width: 0px) and (max-width: 700px) {
+  @media (min-width: 0px) and (max-width: 769px) {
     font-size: 0.4rem;
     font-weight: 50;
     font-style: italic;
@@ -140,7 +130,7 @@ export const Songartist = styled.p`
 `;
 
 export const Image = styled.img`
-  @media (min-width: 0px) and (max-width: 700px) {
+  @media (min-width: 0px) and (max-width: 769px) {
     max-width: 115%;
     // max-height: 120%;
     object-fit: cover;

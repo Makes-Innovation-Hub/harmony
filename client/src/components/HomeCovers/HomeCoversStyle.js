@@ -36,7 +36,6 @@ export const CoverBox = styled.div`
     width: 210px;
     height: 55%;
     padding: 18px;
-    padding-right: 37px;
     margin-left: -18px;
   }
 `;
