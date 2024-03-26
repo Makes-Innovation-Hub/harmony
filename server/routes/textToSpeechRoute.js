@@ -11,7 +11,7 @@ router.post("/generate-speech", async (req, res) => {
   try {
     const mp3 = await openAI.audio.speech.create({
       model: "tts-1",
-      voice: "onyx",
+      voice: "echo",
       input: lyrics,
     });
 
