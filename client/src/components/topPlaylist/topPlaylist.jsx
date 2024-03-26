@@ -30,10 +30,6 @@ const TopPlaylist = () => {
 
   const { t } = useTranslation();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <>
       {hebrewMixData && arabicMixData && (
