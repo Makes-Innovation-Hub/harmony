@@ -16,7 +16,9 @@ export default function ImageBoxWithDetails({ img, artist, songName }) {
 
   useEffect(() => {
     if (!isLoading && data) {
-      navigate("/Artist", { state: { artistData: data } });
+      const encodedArtist = encodeURIComponent(artist);
+
+      navigate(`/Artist/${encodedArtist}`, { state: { artistData: data } });
     }
   }, [data, isLoading, navigate]);
 

@@ -1,3 +1,4 @@
+import { ModalBody } from "../GenericModal/GenericModalStyles";
 import styled from "styled-components";
 
 export const LyricsSection = styled.section`
@@ -7,6 +8,7 @@ export const LyricsSection = styled.section`
   height: 100%;
   @media (min-width: 768px) {
     flex-direction: row;
+    gap: 20px;
   }
 `;
 
@@ -28,12 +30,12 @@ export const Status = styled.p`
   font-family: "ABeeZee";
   font-style: normal;
   text-decoration: underline;
-  margin-bottom: 1.5rem;
+  font-size: 12px;
 `;
 
 export const Paragraph = styled.p`
-  flex: 1 1 50%; /* Take up 50% of the available width without growing or shrinking */
-  flex-basis: 50%; /* Set initial width to 50% */
+  flex: 1 1 50%;
+  flex-basis: 50%;
   font-weight: 400;
   text-align: right;
   font-family: "Aclonica";
@@ -46,4 +48,52 @@ export const Paragraph = styled.p`
 
 export const WrapperDiv = styled.div`
   height: 100%;
+`;
+
+export const SameLineWithSvg = styled.div`
+  display: flex;
+  gap: 7px;
+  padding-bottom: 1.5rem;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    cursor: pointer;
+  }
+`;
+
+export const ModalWidth = styled.div`
+  line-height: 1.6;
+  letter-spacing: 1px;
+  max-width: 40ch;
+  overflow-y: auto;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const PlayAudioModal = styled(ModalBody)`
+  top: -10%;
+  left: -1%;
+  min-height: fit-content;
+  max-width: 390px;
+  flex-wrap: nowrap;
+  direction: rtl;
+  white-space: break-spaces;
+  max-height: 90%;
+`;
+
+export const LyricsController = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 30px;
+
+  img {
+    cursor: pointer;
+  }
 `;

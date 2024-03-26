@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { rotateLeftArray } from "../utils/arrayHelpers";
 
 const initialState = {
-  playlist: [],
+  playlist: null,
   playlistId: null,
   playlistName: null,
   playlistLanguage: null,

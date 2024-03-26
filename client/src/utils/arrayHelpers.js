@@ -9,3 +9,7 @@ export const rotateLeftArray = (array, rotations) => {
 export const shuffleArray = (array) => {
   array.sort(() => Math.random() - 0.5);
 };
+
+export const getSongIndex = (playlist, songId) => {
+  return playlist.findIndex((song) => song.videoId === songId);
+};

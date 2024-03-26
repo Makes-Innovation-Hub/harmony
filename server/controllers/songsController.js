@@ -149,10 +149,10 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
       logger.info(`no songs found for song name: ${song}.generating data`);
       const songData = await generateSongData(song, artist, coverArt);
       logger.info(`succeeded generating song data for ${song}`);
-      Song.create(songData);
+      const newSong = await Song.create(songData);
       const artistData = await Artist.findById(songData.artist);
-      songData.artist = artistData;
-      res.json(songData);
+      newSong.artist = artistData;
+      res.json(newSong);
     }
   } catch (error) {
     console.log("error", error);

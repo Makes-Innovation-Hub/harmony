@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Image, ImageBox, SongP } from "./PlaylistStyle.jsx";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +22,7 @@ function ImageBoxWithDetailsPlaylist({
     if (data.playlistId !== playlistId || data.playlistId === null) {
       dispatch(
         setPlaylist({
-          playlist: [],
+          playlist: null,
           playlistId: playlistId,
           playlistName: mixName,
           playlistLanguage: playlistLanguage,
@@ -37,7 +37,9 @@ function ImageBoxWithDetailsPlaylist({
       );
       dispatch(playSong(false));
     }
-    navigate("/playlist");
+    navigate(
+      `/playlist?id=${playlistId}&name=${mixName}&language=${playlistLanguage}`
+    );
   };
   return (
     <ImageBox>

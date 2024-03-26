@@ -10,17 +10,17 @@ import {
   LanguageList,
   LanguageP,
   LanguageHAP,
+  TaglineSetup,
+  TitleContainer,
 } from "./HeaderStyle";
-import USAFlag from "../../assets/USA.png";
-import palestineFlag from "../../assets/palestine.jpg";
-import isrealFlag from "../../assets/isreal.jpg";
-import Dove from "../../assets/dove.png";
-import Ellipse3 from "../../assets/Ellipse3.png";
+
 import { setLanguage } from "../../Redux/languageSlice.js";
 import "./Header.css";
 import { useTranslation } from "react-i18next";
 import i18n from "../../i18n.js";
 import { useNavigate } from "react-router-dom";
+import * as S from "./HeaderStyle.jsx";
+import Image from "../Image/Image.jsx";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -32,8 +32,13 @@ const Header = () => {
   const [showFlag, setShowFlag] = useState(true);
   const [showList, setShowList] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(initialLanguage);
+  const [usaFlag, isrealFlag, palestineFlag] = [
+    "USAFlag",
+    "isrealFlag",
+    "palestineFlag",
+  ];
   const flagMapping = {
-    English: USAFlag,
+    English: usaFlag,
     Hebrew: isrealFlag,
     Arabic: palestineFlag,
   };
@@ -73,16 +78,22 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <AppIcon onClick={() => navigate("/")}>
-        <img className="dove" src={Dove} alt="" />
-        <img className="ellipse" src={Ellipse3} alt="" />
-      </AppIcon>
-
-      <Title>{t("title")}</Title>
+      <TitleContainer>
+        <AppIcon onClick={() => navigate("/")}>
+          <Image name={"dove"} alt={"dove"} styles={S.DoveImg} />
+          <Image name={"Ellipse3"} alt={"Ellipse3dove"} styles={S.EllipseImg} />
+        </AppIcon>
+        <Title>{t("title")}</Title>
+      </TitleContainer>
+      <TaglineSetup>
+        <p>
+          {t("tagline_1")} <br /> {t("tagline_2")}
+        </p>
+      </TaglineSetup>
 
       {showFlag && (
         <div onClick={handleClick}>
-          <Us src={selectedFlag} alt="Flag" />
+          <Image name={selectedFlag} alt={`${selectedFlag}`} styles={Us} />
         </div>
       )}
       {showList && (
@@ -90,15 +101,23 @@ const Header = () => {
           <LanguageList>
             <Option onClick={() => handleLanguageSelect("English")}>
               <LanguageP>English (US)</LanguageP>
-              <CountryFlag src={USAFlag} alt="English Flag" />
+              <Image name={usaFlag} alt={"English Flag"} styles={CountryFlag} />
             </Option>
             <Option onClick={() => handleLanguageSelect("Hebrew")}>
               <LanguageHAP>עִברִית</LanguageHAP>
-              <CountryFlag src={isrealFlag} alt="Hebrew Flag" />
+              <Image
+                name={isrealFlag}
+                alt={"Hebrew Flag"}
+                styles={CountryFlag}
+              />
             </Option>
             <Option onClick={() => handleLanguageSelect("Arabic")}>
               <LanguageHAP>العربية</LanguageHAP>
-              <CountryFlag src={palestineFlag} alt="Arabic Flag" />
+              <Image
+                name={palestineFlag}
+                alt={"Arabic Flag"}
+                styles={CountryFlag}
+              />
             </Option>
           </LanguageList>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as S from "./MusicPlayer.styled";
 import {
@@ -6,20 +6,28 @@ import {
   playSong,
   shufflePlaylist,
 } from "../../Redux/playlistSlice.js";
-import play from "../../assets/musicPlayer/play.svg";
-import pause from "../../assets/musicPlayer/pause.svg";
-import next from "../../assets/musicPlayer/next.svg";
-import previous from "../../assets/musicPlayer/previous.svg";
-import shuffle from "../../assets/musicPlayer/shuffle.svg";
-import blueShuffle from "../../assets/musicPlayer/blue-shuffle.svg";
+import { useNavigate } from "react-router-dom";
+import Image from "../Image/Image.jsx";
 
 function MusicPlayer() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isShuffling, setIsShuffling] = useState(false);
 
   const [isPlaying, setIsPlaying] = useState(
     currentPlaylistData.currentSongIsPlaying
   );
+
+  useEffect(() => {
+    if (isShuffling) {
+      setIsShuffling(false);
+      const songId = currentPlaylistData.playlist[0].videoId;
+      navigate(
+        `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+      );
+    }
+  }, [isShuffling]);
 
   const playlist = currentPlaylistData.playlist;
 
@@ -34,6 +42,7 @@ function MusicPlayer() {
 
   const handleNextVideo = () => {
     const nextIndex = currentPlaylistData.currentSongIndex + 1;
+    let songId;
     if (nextIndex < playlist.length) {
       dispatch(
         setCurrentSong({
@@ -42,6 +51,7 @@ function MusicPlayer() {
           direction: "left",
         })
       );
+      songId = playlist[nextIndex].videoId;
     } else {
       dispatch(
         setCurrentSong({
@@ -50,10 +60,15 @@ function MusicPlayer() {
           direction: "left",
         })
       );
+      songId = playlist[0].videoId;
     }
+    navigate(
+      `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+    );
   };
   const handlePreviousVideo = () => {
     const previousIndex = currentPlaylistData.currentSongIndex - 1;
+    let songId;
     if (previousIndex >= 0) {
       dispatch(
         setCurrentSong({
@@ -62,6 +77,7 @@ function MusicPlayer() {
           direction: "right",
         })
       );
+      songId = playlist[previousIndex].videoId;
     } else {
       dispatch(
         setCurrentSong({
@@ -70,38 +86,52 @@ function MusicPlayer() {
           direction: "right",
         })
       );
+      songId = playlist[playlist.length - 1].videoId;
     }
+    navigate(
+      `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+    );
   };
 
   const handleShuffle = () => {
     if (!isPlaying) {
       dispatch(shufflePlaylist());
+      setIsShuffling(true);
     }
   };
 
   return (
     <S.MusicPlayerContainer>
       <S.PlayBoxContainer>
-        <S.ButtonImage
-          src={previous}
-          style={{ background: "#f4e6d1", padding: "6px" }}
-          alt="previous"
+        <Image
+          name={"previous"}
+          alt={"previous"}
+          styles={S.PreviousButtonImage}
           onClick={handlePreviousVideo}
         />
-
-        <S.ButtonImage
-          src={isPlaying ? pause : play}
+        <Image
+          name={isPlaying ? "pause" : "play"}
           alt={isPlaying ? "pause" : "play"}
+          styles={S.ButtonImage}
           onClick={handleTogglePlayPause}
         />
-
-        <S.ButtonImage src={next} alt="next" onClick={handleNextVideo} />
+        <Image
+          name={"next"}
+          alt={"next"}
+          styles={S.ButtonImage}
+          onClick={handleNextVideo}
+        />
       </S.PlayBoxContainer>
 
       {isPlaying ? (
-        <img src={blueShuffle} alt="blueShuffle" />
+        <Image name={"blueShuffle"} alt={"blueShuffle"} />
       ) : (
-        <S.ButtonImage src={shuffle} alt="shuffle" onClick={handleShuffle} />
+        <Image
+          name={"shuffle"}
+          alt={"shuffle"}
+          styles={S.ButtonImage}
+          onClick={handleShuffle}
+        />
       )}
     </S.MusicPlayerContainer>
   );

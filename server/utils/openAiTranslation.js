@@ -1,11 +1,9 @@
 import axios from "axios";
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import { openAiUrl } from "../constants/urls.js";
 import logger from "../logger.js";
 
-const openAI = new OpenAIApi(
-  new Configuration({ apiKey: process.env.OPEN_AI_API_KEY })
-);
+const openAI = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 
 export async function generalTranslation(txt, originalLang, targetLang) {
   logger.info(
@@ -15,11 +13,11 @@ export async function generalTranslation(txt, originalLang, targetLang) {
   );
   const prompt = `translate this text: ${txt} from original language: ${originalLang} to ${targetLang} language. respond only with the translated text, and nothing else`;
   try {
-    const response = await openAI.createChatCompletion({
+    const response = await openAI.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
     });
-    const translatedText = response.data.choices[0].message.content;
+    const translatedText = response.choices[0].message.content;
     return translatedText;
   } catch (error) {
     console.error("Error:", error);
@@ -53,7 +51,6 @@ export async function translateLyricsByOpenAi(
         },
       }
     );
-
     const translatedText = response.data.choices[0].message.content;
     return translatedText;
   } catch (error) {

@@ -41,11 +41,11 @@ const Router = createBrowserRouter([
     element: conditionalRoute(Home),
   },
   {
-    path: "/song",
+    path: "/song/:id",
     element: conditionalRoute(SongPage),
   },
   {
-    path: "/Artist",
+    path: "/Artist/:name",
     element: conditionalRoute(ArtistPage),
   },
   {
@@ -61,7 +61,7 @@ const Router = createBrowserRouter([
     element: conditionalRoute(SearchResultsPage),
   },
   {
-    path: "/cover",
+    path: "/cover/:id",
     element: conditionalRoute(CoverPage),
   },
   {

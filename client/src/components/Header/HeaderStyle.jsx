@@ -2,27 +2,35 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   display: flex;
+  position: relative;
+
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem;
+  margin: 0;
   width: 100%;
+
   @media screen and (min-width: 768px) {
-    padding: 4rem;
+    padding: 5px 34px;
   }
 `;
 
 export const Title = styled.h1`
-  font-family: "ABeeZee", sans-serif;
+  font-family: ABeeZee;
+  font-size: 28px;
   font-style: italic;
   font-weight: 400;
-  width: 35%;
-  font-size: 28px;
-  margin-right: 6rem;
-  margin-left: 1rem;
-  padding-left: 0;
+  line-height: 37px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-bottom: 10px;
+  margin-top: 10px;
+
+  color: #333333;
+
   @media screen and (max-width: 767px) {
+    /* margin-right: 1rem; */
     width: auto;
-    margin-right: 1rem;
     flex-grow: 1;
   }
   @media screen and (max-width: 280px) {
@@ -36,11 +44,10 @@ export const AppIcon = styled.div`
   font-size: 1.5rem;
   margin-right: 2rem;
   width: 2%;
-  @media screen and (max-width: 280px) {
-    width: auto;
-    margin-right: 2.7rem;
+  .dove {
+    top: 27px;
   }
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 768px) {
     width: auto;
     margin-right: 2.7rem;
   }
@@ -90,7 +97,6 @@ export const Option = styled.li`
 `;
 
 export const LanguageList = styled.ul`
-  /* border: 2px solid red; */
   width: 120px;
   margin-top: 1.2rem;
   margin-left: -0.8rem;
@@ -113,4 +119,50 @@ export const LanguageHAP = styled.p`
   font-family: "ABeeZee";
   margin-left: 40%;
   font-weight: bold;
+`;
+
+export const TaglineSetup = styled.div`
+  font-family: ABeeZee;
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #828282;
+  padding-bottom: 20px;
+
+  width: 364px;
+  height: 46px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+export const TitleContainer = styled.div`
+  display: flex;
+  gap: 25px;
+`;
+
+export const DoveImg = styled.img`
+  position: absolute;
+  top: 27px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-left: 1.5rem;
+  z-index: 1;
+`;
+
+export const EllipseImg = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  margin-left: 1.5rem;
 `;
