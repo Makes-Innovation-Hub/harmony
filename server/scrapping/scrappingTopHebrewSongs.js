@@ -20,6 +20,7 @@ const scrapeTopHebrewSongs = async () => {
   });
 
   const page = await browser.newPage();
+  page.setDefaultNavigationTimeout(120000);
 
   await page.goto(hebrewTopSongsUrl, {
     waitUntil: "networkidle2",
