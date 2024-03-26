@@ -25,7 +25,7 @@ Navigate to the [Google Developers Console](https://console.developers.google.co
 
 ## Step 4: Create Credentials
 
-1. In the left sidebar, click on "Credentials".
+1. Click on "Create Credentials" button.
    ![Credentials](client/src/assets/screenshots/YouTube-API-Screenshot-6.png)
 2. Select the "Public Data" radio button, then click next.
    ![Click Create Credentials](client/src/assets/screenshots/YouTube-API-Screenshot-7.png)
