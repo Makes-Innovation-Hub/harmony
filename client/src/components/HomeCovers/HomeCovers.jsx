@@ -4,14 +4,11 @@ import {
   TitleContainer,
   ByArtist,
   ImgStyles,
-  LikesAndViewsContainer,
-} from "./SongCoverStyles";
-function SongCoverNew({ backgroundImg, artist, state, likes, views }) {
+} from "./HomeCoversStyle";
+
+function HomeCovers({ backgroundImg, artist, state }) {
   return (
     <>
-      <TitleContainer>
-        <ByArtist>By {artist}</ByArtist>
-      </TitleContainer>
       <CoverBox>
         <Link to={"/cover"} state={state}>
           <ImgStyles
@@ -21,12 +18,12 @@ function SongCoverNew({ backgroundImg, artist, state, likes, views }) {
             alt="Song cover"
           ></ImgStyles>
         </Link>
+        <TitleContainer>
+          <ByArtist>By {artist}</ByArtist>
+        </TitleContainer>
       </CoverBox>
-      <LikesAndViewsContainer>
-        <p>{views} views</p>
-        <p>{likes} likes</p>
-      </LikesAndViewsContainer>
     </>
   );
 }
-export default SongCoverNew;
+
+export default HomeCovers;

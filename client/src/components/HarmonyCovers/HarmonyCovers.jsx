@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import * as S from "./Coversstyles";
 import { useGetTopCoversQuery } from "../../api/topCoversApi";
-import SongCoverNew from "../SongCoverNew/SongCoverNew";
+import HomeCovers from "../HomeCovers/HomeCovers";
 
 const HarmonyCovers = ({ handleData }) => {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ const HarmonyCovers = ({ handleData }) => {
         <S.ImageBoxContainer>
           {hebrewTopCoversData.map((coverInfo) => (
             <div key={coverInfo._id}>
-              <SongCoverNew
+              <HomeCovers
                 artist={coverInfo?.coverArtistName}
                 backgroundImg={coverInfo?.backgroundUrl}
                 state={coverInfo}
@@ -45,7 +45,7 @@ const HarmonyCovers = ({ handleData }) => {
         <S.ImageBoxContainer>
           {arabicTopCoversData.map((coverInfo) => (
             <div key={coverInfo._id}>
-              <SongCoverNew
+              <HomeCovers
                 artist={coverInfo?.coverArtistName}
                 backgroundImg={coverInfo?.backgroundUrl}
                 state={coverInfo}

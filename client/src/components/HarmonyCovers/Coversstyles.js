@@ -22,8 +22,8 @@ export const TopHCoversCountainer = styled.div`
   }
   @media (min-width: 0px) and (max-width: 700px) {
     width: 100%;
-    margin-bottom: -25%;
   }
+  margin-bottom: -30%;
 `;
 
 export const Title = styled.h2`
@@ -89,6 +89,7 @@ export const TopACoversCountainer = styled.div`
   }
   @media (min-width: 0px) and (max-width: 700px) {
     // height: 20%;
+    margin-bottom: 30%;
   }
 `;
 
