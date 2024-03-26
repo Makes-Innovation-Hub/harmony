@@ -7,7 +7,15 @@ const scrapeTopHebrewSongs = async () => {
   logger.info("start scrap top Hebrew songs");
   const browser = await puppeteer.launch({
     headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage", // Addresses issues with shared memory in Docker
+      "--disable-accelerated-2d-canvas", // Performance improvement
+      "--no-first-run",
+      "--no-zygote",
+      "--disable-gpu", // May help performance in headless environments, though often not necessary
+    ],
     defaultViewport: null,
   });
 
