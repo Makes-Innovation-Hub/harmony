@@ -1,8 +1,6 @@
 import cron from "node-cron";
 import Playlist from "../models/Playlist.js";
-import axios from "axios";
 import logger from "../logger.js";
-import { serverApiUrl } from "../utils/urls.js";
 import { getPlaylistData } from "../controllers/playlistController.js";
 
 // 0 minutes,(4 AM),any day of month,any month,Sunday
