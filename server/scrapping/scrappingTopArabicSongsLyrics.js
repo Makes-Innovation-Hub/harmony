@@ -30,7 +30,7 @@ async function scrapeTopArabicSongsLyrics(req, res) {
     res.json(scrapedLyrics);
   } catch (error) {
     if (error.response.status === 404) {
-      console.log("URL not found. Error 404.");
+      logger.error(`URL not found. Error 404.`);
     }
     return false;
   }

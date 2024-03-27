@@ -17,7 +17,6 @@ export default function TopSongGallary({ availableData, handleData }) {
   useEffect(() => {
     if (isSuccess) {
       handleData({ ...availableData, TopSongGallary: true });
-      console.log(availableData);
     }
   }, [isSuccess]);
 

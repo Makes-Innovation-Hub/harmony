@@ -18,7 +18,6 @@ async function handleUser({ id, displayName, emails, provider, photos }, done) {
   if (provider === "google" || provider === "facebook") {
     avatarUrl = photos && photos.length > 0 ? photos[0].value : "";
   }
-  console.log(`Avatar URL for ${provider}:`, avatarUrl);
 
   try {
     const query = { [`${provider}Id`]: id };
@@ -41,7 +40,6 @@ async function handleUser({ id, displayName, emails, provider, photos }, done) {
       } catch (error) {
         if (error.code === 11000) {
           // Handle duplicate key error for email
-          console.log(`A user with the email ${email} already exists.`);
           user = await User.findOne({ email: email });
           if (!user) {
             return done(error);

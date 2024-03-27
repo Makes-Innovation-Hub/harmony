@@ -155,7 +155,7 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
       res.json(newSong);
     }
   } catch (error) {
-    console.log("error", error);
+    logger.error("Error in getFullSongData:", error.message);
   }
 });
 
@@ -176,8 +176,8 @@ const generateSongData = async function (song, artist, coverArt) {
       ...{ name: names3langs },
     };
   } catch (error) {
-    console.log(
-      "error in translateText3Lang function",
+    logger.error(
+      "error in translateText3Lang function:",
       error.response.data.error
     );
   }
@@ -186,7 +186,7 @@ const generateSongData = async function (song, artist, coverArt) {
     const artistId = await prepareArtist(artist);
     finalSongData.artist = artistId;
   } catch (error) {
-    console.log("prapare artist", error.response.data.error);
+    logger.error("error in prapare artist:", error.response.data.error);
   }
 
   const songYoutubeId = generateYoutubeId(song, artist)
@@ -194,7 +194,7 @@ const generateSongData = async function (song, artist, coverArt) {
       finalSongData.youtubeURL = data;
     })
     .catch((err) => {
-      console.log("error in generate youtube ID function", err);
+      logger.error("error in generate youtube ID function", err);
     });
 
   try {
@@ -206,7 +206,7 @@ const generateSongData = async function (song, artist, coverArt) {
       ...{ originalLang },
     };
   } catch (error) {
-    console.log("prepare", error);
+    logger.error("prepare", error);
   }
   const names3langs = await translateText3Lang(song);
   finalSongData = {
@@ -237,7 +237,7 @@ const prepareArtist = async (artist) => {
     logger.info(`checking if artist ${artist} is in db`);
     return findOrCreateArtist(artist, lang, names3langs, coverArt);
   } catch (error) {
-    console.log("error prepareArtist", error);
+    logger.error("error prepareArtist", error);
   }
 };
 
@@ -254,7 +254,7 @@ const prepareLyrics = async (song, artist) => {
     const lyricsObj = await translateText3Lang(lyrics[0]);
     return { lyricsObj, originalLang };
   } catch (error) {
-    console.log("error", error);
+    logger.error("error", error);
   }
 };
 const translateText3Lang = async (txt) => {
@@ -283,7 +283,7 @@ const translateText3Lang = async (txt) => {
     tanslatedObj[langsToTranslate[1]] = transltatedArr[1];
     return tanslatedObj;
   } catch (err) {
-    console.log(
+    logger.error(
       `error in generating translations for ${
         txt.length < 15 ? txt : txt.slice(15)
       } + '...'`,

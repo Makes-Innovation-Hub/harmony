@@ -93,7 +93,7 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
       }
     }
   } catch (error) {
-    console.log("error", error);
+    logger.error(`error in getTopSongs ${error}`);
   }
 });
 
@@ -147,7 +147,6 @@ const generateTopSongsData = async (res) => {
     }
     logger.info("hebrew Top Song Created successfully");
   } catch (error) {
-    console.log("error", error);
     logger.error(`error in creating Top Song ${error}`);
   }
 };

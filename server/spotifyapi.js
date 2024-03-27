@@ -6,14 +6,13 @@ const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
 });
-logger.info('getting spotify api creds');
+logger.info("getting spotify api creds");
 try {
   const data = await spotifyApi.clientCredentialsGrant();
   const accessToken = data.body.access_token;
   spotifyApi.setAccessToken(accessToken);
-  logger.info('loaded spotify creds');
+  logger.info("loaded spotify creds");
 } catch (error) {
-  console.log('error', error);
   logger.error(`error in getting spotify creds: ${JSON.stringify(error)}`);
 }
 
@@ -76,7 +75,6 @@ async function getCoverArtForSong(songName, artistName) {
   }
 }
 
-
 async function getCoverArtForArtist(artist) {
   logger.info(`getting cover art for artist ${artist}`);
   try {
@@ -85,7 +83,7 @@ async function getCoverArtForArtist(artist) {
     logger.info(`found imag url ${art} for artist ${artist}`);
     return art;
   } catch (error) {
-    console.log('error', error);
+    logger.error("Error in getCoverArtForArtist:", error.message);
   }
 }
 

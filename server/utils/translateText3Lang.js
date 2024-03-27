@@ -28,11 +28,10 @@ const translateText3Lang = async (txt) => {
       return tanslatedObj;
     })
     .catch((err) => {
-      console.log(
+      logger.error(
         `error in generating translations for ${
           txt.length < 15 ? txt : txt.slice(15)
-        } + '...'`,
-        err
+        } + '...' ${err}`
       );
     });
 };
