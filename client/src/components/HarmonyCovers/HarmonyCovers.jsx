@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import * as S from "./Coversstyles";
 import { useGetTopCoversQuery } from "../../api/topCoversApi";
 import HomeCovers from "../HomeCovers/HomeCovers";
+import * as S from "../topPlaylist/PlaylistStyle";
 
 const HarmonyCovers = () => {
   const { t } = useTranslation();
@@ -13,12 +13,11 @@ const HarmonyCovers = () => {
 
   return (
     <S.SongGallery>
-      <S.Cover>{t("Harmony Covers")}</S.Cover>
-      <S.TopHCoversCountainer>
+      <S.Playlist>{t("Harmony Covers")}</S.Playlist>
+      <S.TopHMixCountainer>
         <S.Title>{t("Top Hebrew Covers in Arabic")}</S.Title>
         <S.ImageBoxContainer>
           {hebrewTopCoversData?.map((coverInfo) => (
-            // <div key={coverInfo._id}>
             <HomeCovers
               key={coverInfo?._id}
               id={coverInfo?._id}
@@ -28,12 +27,11 @@ const HarmonyCovers = () => {
               likes={coverInfo?.likes.length}
               views={coverInfo?.views}
             />
-            //  </div>
           ))}
         </S.ImageBoxContainer>
-      </S.TopHCoversCountainer>
+      </S.TopHMixCountainer>
 
-      <S.TopACoversCountainer>
+      <S.TopAMixCountainer>
         <S.Title>{t("Top Arabic Covers in Hebrew")}</S.Title>
         <S.ImageBoxContainer>
           {arabicTopCoversData?.map((coverInfo) => (
@@ -49,7 +47,7 @@ const HarmonyCovers = () => {
             </div>
           ))}
         </S.ImageBoxContainer>
-      </S.TopACoversCountainer>
+      </S.TopAMixCountainer>
     </S.SongGallery>
   );
 };

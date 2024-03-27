@@ -1,27 +1,20 @@
 import { Link } from "react-router-dom";
-import {
-  CoverBox,
-  TitleContainer,
-  ByArtist,
-  ImgStyles,
-} from "./HomeCoversStyle";
+import * as S from "../topPlaylist/PlaylistStyle";
 
 function HomeCovers({ id, backgroundImg, artist, state }) {
   return (
     <>
-      <CoverBox>
+      <S.ImageBox>
         <Link to={`/cover/${id}`} state={state}>
-          <ImgStyles
-            width="560"
-            height="255"
+          <S.Image
             src={`https://img.youtube.com/vi/${backgroundImg}/maxresdefault.jpg`}
             alt="Song cover"
-          ></ImgStyles>
+          ></S.Image>
         </Link>
-        <TitleContainer>
-          <ByArtist>By {artist}</ByArtist>
-        </TitleContainer>
-      </CoverBox>
+        <S.Box>
+          <S.SongP>By {artist}</S.SongP>
+        </S.Box>
+      </S.ImageBox>
     </>
   );
 }
