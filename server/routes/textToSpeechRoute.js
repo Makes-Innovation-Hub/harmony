@@ -20,7 +20,6 @@ router.post("/generate-speech", async (req, res) => {
     logger.info(`Text To Speech request has been called`);
     res.json({ audio: base64Audio }); // Sending audio data as JSON response
   } catch (error) {
-    console.log(error);
     res.status(500).send("Error in generating speech.");
   }
 });
