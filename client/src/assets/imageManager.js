@@ -11,6 +11,10 @@ import palestineFlag from "./palestine.jpg";
 import isrealFlag from "./isreal.jpg";
 import googleLogo from "./Login/Google.svg";
 import facebookLogo from "./Login/Facebook_icon.svg";
+import shareSvg from "./svgs/share.svg";
+import likeSvg from "./svgs/thumps-up.svg";
+import likedSvg from "./svgs/thumbs-up-liked.svg";
+import commentSvg from "./svgs/comment.svg";
 
 export const images = {
   blueShuffle: blueShuffle,
@@ -26,4 +30,8 @@ export const images = {
   isrealFlag: isrealFlag,
   googleLogo: googleLogo,
   facebookLogo: facebookLogo,
+  shareCover: shareSvg,
+  likeCover: likeSvg,
+  likedCover: likedSvg,
+  commentCover: commentSvg,
 };
