@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useGetTopCoversQuery } from "../../api/topCoversApi";
 import HomeCovers from "../HomeCovers/HomeCovers";
 import * as S from "../topPlaylist/PlaylistStyle";
+import NoCoversSvg from "../../assets/svgs/no-covers.svg";
 
 const HarmonyCovers = () => {
   const { t } = useTranslation();
@@ -17,6 +18,11 @@ const HarmonyCovers = () => {
       <S.TopHMixCountainer>
         <S.Title>{t("Top Hebrew Covers in Arabic")}</S.Title>
         <S.ImageBoxContainer>
+          {hebrewTopCoversData?.length === 0 && (
+            <S.NoCoversContainer>
+              <S.NoCoverSvg src={NoCoversSvg} alt="No Covers Svg" />
+            </S.NoCoversContainer>
+          )}
           {hebrewTopCoversData?.map((coverInfo) => (
             <HomeCovers
               key={coverInfo?._id}
@@ -34,6 +40,11 @@ const HarmonyCovers = () => {
       <S.TopAMixCountainer>
         <S.Title>{t("Top Arabic Covers in Hebrew")}</S.Title>
         <S.ImageBoxContainer>
+          {arabicTopCoversData?.length === 0 && (
+            <S.NoCoversContainer>
+              <S.NoCoverSvg src={NoCoversSvg} alt="No Covers Svg" />
+            </S.NoCoversContainer>
+          )}
           {arabicTopCoversData?.map((coverInfo) => (
             <div key={coverInfo?._id}>
               <HomeCovers

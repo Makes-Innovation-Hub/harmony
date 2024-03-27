@@ -135,3 +135,20 @@ export const GenreType = styled.p`
     text-overflow: ellipsis;
   }
 `;
+
+export const NoCoversContainer = styled.div`
+  width: 92%;
+  display: flex;
+  margin-top: 20px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #00000075;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00000045;
+`;
+
+export const NoCoverSvg = styled.img`
+  width: 330px;
+`;
