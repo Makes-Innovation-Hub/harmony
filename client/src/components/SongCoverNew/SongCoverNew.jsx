@@ -30,5 +30,4 @@ function SongCoverNew({ backgroundImg, artist, state, likes, views, id }) {
     </>
   );
 }
-
 export default SongCoverNew;

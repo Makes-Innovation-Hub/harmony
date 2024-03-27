@@ -23,20 +23,25 @@ import CommentSection from "../../components/CommentSection/CommentSection";
 import SongAndSingerContainer from "../../components/SongAndSingerContainer/SongAndSingerContainer";
 import GenericModal from "../../components/GenericModal/GenericModal";
 import Animation from "../../components/Animation/Animation.component";
+import { useGetTopCoversQuery } from "../../api/topCoversApi";
 
 export default function CoverPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.user);
 
-  const [addView] = useAddViewMutation();
-  const [toggleLike] = useToggleLikeMutation();
-  const [addComment] = useAddCommentMutation();
   const { data: updatedCoverSong, isSuccess: updatedCoverSongSuccess } =
     useGetCoverSongByIdQuery(id);
   const { refetch } = useGetSongByIdQuery(updatedCoverSong?.originalSongId, {
     skip: !updatedCoverSong?.originalSongId,
   });
+  const [addView] = useAddViewMutation();
+  const [toggleLike, { isSuccess: toggleLikeIsSuccess }] =
+    useToggleLikeMutation();
+  const [addComment] = useAddCommentMutation();
+  const { refetch: refetchTopCovers } = useGetTopCoversQuery(
+    updatedCoverSong?.originalLanguage
+  );
 
   const [playVideoDiv, setPlayVideoDiv] = useState(false);
   const [likesCount, setLikesCount] = useState(
@@ -57,6 +62,12 @@ export default function CoverPage() {
       refetch();
     }
   }, [updatedCoverSong, refetch]);
+
+  useEffect(() => {
+    if (toggleLikeIsSuccess) {
+      refetchTopCovers();
+    }
+  }, [toggleLikeIsSuccess]);
 
   useEffect(() => {
     setLikesCount(updatedCoverSong?.likes.length || 0);
