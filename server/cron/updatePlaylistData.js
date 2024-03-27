@@ -3,6 +3,7 @@ import Playlist from "../models/Playlist.js";
 import axios from "axios";
 import logger from "../logger.js";
 import { serverApiUrl } from "../utils/urls.js";
+import { getPlaylistData } from "../controllers/playlistController.js";
 
 // 0 minutes,(4 AM),any day of month,any month,Sunday
 const SCHEDULE_TIME = "0 4 * * 0";
@@ -16,8 +17,16 @@ async function updatePlaylistsInDB() {
 
     // Update each playlist's data
     for (const playlist of playlists) {
-      const response = await axios.get(
-        `${serverApiUrl}/api/v1/playlist/playlistData/?id=${playlist.playlistId}&update=true`
+      // Define a mock 'res' object with chainable functions
+      const mockRes = {
+        status: () => mockRes, // Chainable status function (so you can do status().json()...)
+        json: () => mockRes, // Chainable json function
+        send: () => mockRes, // Chainable send function
+      };
+      // Call the getPlaylistData function directly
+      await getPlaylistData(
+        { query: { id: playlist.playlistId, update: "true" } },
+        mockRes
       );
     }
   } catch (error) {
