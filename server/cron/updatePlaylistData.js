@@ -6,6 +6,7 @@ import { serverApiUrl } from "../utils/urls.js";
 
 // 0 minutes,(4 AM),any day of month,any month,Sunday
 const SCHEDULE_TIME = "0 4 * * 0";
+const MILLISECONDS_IN_WEEK = 7 * 24 * 60 * 60 * 1000;
 
 // Updates all playlists that are saved in the database
 async function updatePlaylistsInDB() {
@@ -42,7 +43,7 @@ async function checkIfNeedsUpdate() {
 
     // Check if the time since the oldest playlist was updated is more than or equal to a week
     const now = new Date();
-    const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
+    const oneWeekAgo = new Date(now.getTime() - MILLISECONDS_IN_WEEK); // 7 days ago
     if (oldestPlaylist?.updatedAt < oneWeekAgo) {
       updatePlaylistsInDB();
     }
