@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import Header from "../../components/Header/Header";
 import * as S from "./CoverPage.styles";
-import shareSvg from "../../assets/svgs/share.svg";
 import likeSvg from "../../assets/svgs/thumps-up.svg";
 import likedSvg from "../../assets/svgs/thumbs-up-liked.svg";
-import commentSvg from "../../assets/svgs/comment.svg";
+import Image from "../../components/Image/Image";
 import translatingGif from "../../assets/animations/translating-animation.gif";
-
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useAddCommentMutation,
   useAddViewMutation,
@@ -174,14 +172,15 @@ export default function CoverPage() {
                 <S.VideoInfo>
                   <S.SameLine onClick={openModal}>
                     <S.HoverCursor>
-                      <img src={shareSvg} alt="share svg" />
+                      <Image name={"shareCover"} alt={"share  svg"} />
+
                       <p>Share</p>
                     </S.HoverCursor>
                   </S.SameLine>
                   <p>{updatedCoverSong?.views} Views</p>
                   <S.SameLine onClick={handleShowComment}>
                     <S.HoverCursor>
-                      <img src={commentSvg} alt="comment svg" />
+                      <Image name={"commentCover"} alt={"comment svg"} />
                     </S.HoverCursor>
                   </S.SameLine>
                   <S.SameLine>
