@@ -42,7 +42,7 @@ export async function translateLyricsByOpenAi(
       {
         messages: messages,
         model: "gpt-3.5-turbo",
-        max_tokens: 200,
+        max_tokens: 250,
       },
       {
         headers: {
