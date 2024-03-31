@@ -37,7 +37,8 @@ const CLIENT_PORT = process.env.CLIENT_PORT;
 
 const allowedOrigins = [
   `${BASE_SERVER_URL}:${CLIENT_PORT}`,
-  "https://harmony-dev-new.netlify.app",
+  process.env.PRODUCTION_FRONT_URL,
+  "https://makes-harmony.netlify.app",
 ];
 
 app.set("trust proxy", 1);
