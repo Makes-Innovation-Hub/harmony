@@ -30,7 +30,7 @@ export default function ResultsCard({
       style={{
         margin: "5% auto",
         justifyContent: "space-around",
-        width: "80vw",
+        width: "100%",
         flexGrow: 1,
         overflowY: "auto",
       }}
@@ -50,33 +50,45 @@ export default function ResultsCard({
     >
       <FE.CenterRow
         style={{
-          flexGrow: languages ? 1 : 0.1,
+          flexGrow: 1,
           justifyContent: "flex-start",
           alignItems: "center",
+          maxWidth: "33%",
         }}
       >
         <ImgCard src={imgURL} />
       </FE.CenterRow>
+
       <FE.CenterCol
         style={{
-          flexGrow: 1,
+          flexGrow: 2,
           fontFamily: "ABeeZee",
-          fontSize: "0.8rem",
+          fontSize: "13px",
+          maxWidth: "34%",
         }}
       >
-        {titles &&
-          titles.map((title, index) => {
-            return <div key={title + index}>{title}</div>;
-          })}
+        {titles.map((title, index) => (
+          <div
+            key={title + index}
+            style={{ textAlign: "center", cursor: "pointer" }}
+          >
+            {title}
+          </div>
+        ))}
       </FE.CenterCol>
-      <FE.CenterRow style={{ flexGrow: "1" }}>
-        {languages && (
+
+      {languages ? (
+        <FE.CenterRow
+          style={{ flexGrow: 1, justifyContent: "flex-end", maxWidth: "33%" }}
+        >
           <LanguagesSign
             leftIcon={languages.target}
             rightIcon={languages.origin}
           />
-        )}
-      </FE.CenterRow>
+        </FE.CenterRow>
+      ) : (
+        <div style={{ flexGrow: 1, maxWidth: "33%" }}></div>
+      )}
     </FE.CenterRow>
   );
 }

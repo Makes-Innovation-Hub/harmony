@@ -22,6 +22,7 @@ import playlistRouter from "./routes/playlistRoutes.js";
 import loggingMiddleware from "./reqLogger.js";
 import commentsRouter from "./routes/coverSongCommentsRoute.js";
 import "./cron/updatePlaylistData.js";
+import textToSpeechRouter from "./routes/textToSpeechRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -75,6 +76,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Define a route to prevent server from sleeping
+app.get("/keep-server-awake", (req, res) => {
+  res.send("Server is awake!");
+});
+
 app.use("/api/v1/songs", songsRouter);
 app.use("/api/v1/artists", artistsRouter);
 app.use("/api/v1/topSongs", topSongsRouter);
@@ -87,6 +93,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/coverSong", CoverSongRoute);
 app.use("/api/v1/playlist", playlistRouter);
 app.use("/api/v1/comments", commentsRouter);
+app.use("/api/v1/textToSpeech", textToSpeechRouter);
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "../client/dist", "index.html"));

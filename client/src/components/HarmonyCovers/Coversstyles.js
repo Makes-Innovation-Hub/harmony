@@ -10,9 +10,11 @@ export const SongGallery = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 100px;
+    margin-bottom: -150px;
   }
 `;
-export const TopHMixCountainer = styled.div`
+
+export const TopHCoversCountainer = styled.div`
   border-radius: 8px;
   margin-top: 4%;
   @media (min-width: 701px) {
@@ -21,23 +23,9 @@ export const TopHMixCountainer = styled.div`
   @media (min-width: 0px) and (max-width: 700px) {
     width: 100%;
   }
+  margin-bottom: -30%;
 `;
-export const ImageBox = styled.div`
-  @media (min-width: 0px) and (max-width: 700px) {
-    width: 100%;
-    height: 100%;
-    padding: 18px;
-    margin-left: -18px;
-  }
-`;
-export const Image = styled.img`
-  @media (min-width: 0px) and (max-width: 700px) {
-    max-width: 115%;
-    max-height: 120%;
-    object-fit: cover;
-    border-radius: 30px;
-  }
-`;
+
 export const Title = styled.h2`
   @media (min-width: 0px) and (max-width: 700px) {
     font-weight: 400;
@@ -49,7 +37,38 @@ export const Title = styled.h2`
     font-family: "ABeeZee";
   }
 `;
-export const Playlist = styled.h1`
+export const CoverBox = styled.div`
+  @media (min-width: 0px) and (max-width: 700px) {
+    width: 100%;
+    height: 100%;
+    padding: 18px;
+    margin-left: -18px;
+  }
+`;
+
+export const ImageBoxContainer = styled.div`
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-left: 5%;
+  overflow-y: hidden;
+  & > ${CoverBox} {
+    margin-right: -0.25rem;
+  }
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    // margin-top: 4%;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & > ${CoverBox} {
+      flex: 0 0 calc(100% / 2 - 0.2rem);
+    }
+  }
+`;
+
+export const Cover = styled.h1`
   @media (min-width: 0px) and (max-width: 700px) {
     font-weight: 400;
     font-size: 1.2rem;
@@ -61,36 +80,19 @@ export const Playlist = styled.h1`
     text-decoration: underline;
   }
 `;
-export const ImageBoxContainer = styled.div`
-  overflow-x: auto;
-  white-space: nowrap;
-  margin-left: 5%;
-  overflow-y: hidden;
-  & > ${ImageBox} {
-    margin-right: -0.25rem;
-  }
-  @media (max-width: 700px) {
-    display: flex;
-    flex-direction: row;
-    gap: 25px;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    & > ${ImageBox} {
-      flex: 0 0 calc(100% / 2 - 0.2rem);
-    }
-  }
-`;
-export const TopAMixCountainer = styled.div`
+
+export const TopACoversCountainer = styled.div`
   border-radius: 8px;
   margin-top: 4%;
   @media (min-width: 701px) {
     display: none;
   }
   @media (min-width: 0px) and (max-width: 700px) {
-    height: 20%;
+    // height: 20%;
+    margin-bottom: 30%;
   }
 `;
+
 export const Box = styled.div`
   @media (min-width: 0px) and (max-width: 700px) {
     min-height: 2rem;
@@ -101,9 +103,9 @@ export const Box = styled.div`
     margin-top: -3.18rem;
     width: 6rem;
     margin-left: 0.6rem;
-    padding-bottom: 0.8rem;
   }
 `;
+
 export const SongP = styled.p`
   @media (min-width: 0px) and (max-width: 700px) {
     font-size: 0.65rem;
@@ -121,7 +123,7 @@ export const SongP = styled.p`
   }
 `;
 
-export const GenreType = styled.p`
+export const Songartist = styled.p`
   @media (min-width: 0px) and (max-width: 700px) {
     font-size: 0.4rem;
     font-weight: 50;
@@ -134,5 +136,14 @@ export const GenreType = styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+`;
+
+export const Image = styled.img`
+  @media (min-width: 0px) and (max-width: 700px) {
+    max-width: 115%;
+    // max-height: 120%;
+    object-fit: cover;
+    border-radius: 30px;
   }
 `;
