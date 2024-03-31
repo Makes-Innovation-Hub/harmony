@@ -151,4 +151,8 @@ export const NoCoversContainer = styled.div`
 
 export const NoCoverSvg = styled.img`
   width: 330px;
+
+  @media (max-width: 400px) {
+    transform: scale(0.9);
+  }
 `;
