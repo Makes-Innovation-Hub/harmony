@@ -3,11 +3,12 @@ const CommentSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
     },
     content: {
       type: String,
-      required: true,
+    },
+    avatar: {
+      type: String,
     },
   },
   {

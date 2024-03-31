@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { hebrewSongsApi } from "../api/hebrewApiSlice";
 import { topSongsApi } from "../api/topSongsSlice";
 import searchsliceapi from "../api/searchsliceApi";
 import languageReducer from "./languageSlice";
@@ -11,6 +10,8 @@ import addViewsAndLikesApi from "../api/viewsAndLikesApi";
 import authReducer from "./authSlice";
 import { playlistApi } from "../api/playlistApiSlice";
 import playlistReducer from "./playlistSlice";
+import topCoversApi from "../api/topCoversApi";
+import textToSpeechApi from "../api/textToSpeechApi";
 
 export default configureStore({
   reducer: {
@@ -18,7 +19,6 @@ export default configureStore({
     searchResults: searchResultsReducer,
     auth: authReducer,
     currentplaylist: playlistReducer,
-    [hebrewSongsApi.reducerPath]: hebrewSongsApi.reducer,
     [topSongsApi.reducerPath]: topSongsApi.reducer,
     [songDataApi.reducerPath]: songDataApi.reducer,
     [searchsliceapi.reducerPath]: searchsliceapi.reducer,
@@ -26,10 +26,11 @@ export default configureStore({
     [addCoverToSong.reducerPath]: addCoverToSong.reducer,
     [addViewsAndLikesApi.reducerPath]: addViewsAndLikesApi.reducer,
     [playlistApi.reducerPath]: playlistApi.reducer,
+    [topCoversApi.reducerPath]: topCoversApi.reducer,
+    [textToSpeechApi.reducerPath]: textToSpeechApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat([
-      hebrewSongsApi.middleware,
       topSongsApi.middleware,
       searchsliceapi.middleware,
       songDataApi.middleware,
@@ -37,6 +38,8 @@ export default configureStore({
       addCoverToSong.middleware,
       addViewsAndLikesApi.middleware,
       playlistApi.middleware,
+      topCoversApi.middleware,
+      textToSpeechApi.middleware,
     ]);
   },
 });

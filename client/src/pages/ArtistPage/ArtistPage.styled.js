@@ -27,11 +27,14 @@ export const FlexGrowthContainer = styled.div`
   position: relative;
   flex-grow: ${(props) => props.$grow};
   padding: ${({ $padding }) => $padding};
+
+  @media screen and (max-width: 768px) and (max-height: 780px) {
+    margin-top: ${({ $marginTop }) => $marginTop};
+  }
 `;
 
 export const MainContainer = styled.main`
   width: 100%;
-  height: 320px;
 
   @media screen and (min-width: 769px) {
     width: 45%;

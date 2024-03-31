@@ -14,35 +14,37 @@ export default function TopSongGallary() {
   const { t } = useTranslation();
 
   return (
-    <SongGallary>
-      <TopHSongCountainer>
-        <Title>{t("top_hebrew")}</Title>
-        <ImageBoxContainer>
-          {topSongsAll.data &&
-            topSongsAll.data.hebrewSongs.map((song, index) => (
-              <ImageBoxWithDetails
-                key={index}
-                img={song.coverArt}
-                artist={song.artist}
-                songName={song.song}
-              />
-            ))}
-        </ImageBoxContainer>
-      </TopHSongCountainer>
-      <TopASongCountainer>
-        <Title>{t("top_arabic")}</Title>
-        <ImageBoxContainer>
-          {topSongsAll.data &&
-            topSongsAll.data.arabicSongs.map((song, index) => (
-              <ImageBoxWithDetails
-                key={index}
-                img={song.coverArt}
-                artist={song.artist}
-                songName={song.song}
-              />
-            ))}
-        </ImageBoxContainer>
-      </TopASongCountainer>
-    </SongGallary>
+    <>
+      <SongGallary>
+        <TopHSongCountainer>
+          <Title>{t("top_hebrew")}</Title>
+          <ImageBoxContainer>
+            {topSongsAll.data &&
+              topSongsAll.data.hebrewSongs.map((song, index) => (
+                <ImageBoxWithDetails
+                  key={index}
+                  img={song.coverArt}
+                  artist={song.artist}
+                  songName={song.song}
+                />
+              ))}
+          </ImageBoxContainer>
+        </TopHSongCountainer>
+        <TopASongCountainer>
+          <Title>{t("top_arabic")}</Title>
+          <ImageBoxContainer>
+            {topSongsAll.data &&
+              topSongsAll.data.arabicSongs.map((song, index) => (
+                <ImageBoxWithDetails
+                  key={index}
+                  img={song.coverArt}
+                  artist={song.artist}
+                  songName={song.song}
+                />
+              ))}
+          </ImageBoxContainer>
+        </TopASongCountainer>
+      </SongGallary>
+    </>
   );
 }

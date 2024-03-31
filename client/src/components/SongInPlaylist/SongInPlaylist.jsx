@@ -4,8 +4,10 @@ import { ContentWrapper, ContentWrapper2 } from "./SongInPlaylist.styled";
 import ThreeLangSongName from "../ThreeLangSongName/ThreeLangSongName";
 import { setCurrentSong } from "../../Redux/playlistSlice.js";
 import { useNavigate } from "react-router-dom";
+import Image from "../Image/Image.jsx";
 function SongInPlaylist({
   songIndex,
+  songId,
   arabicName,
   hebrewName,
   englishName,
@@ -23,12 +25,14 @@ function SongInPlaylist({
         direction: "left",
       })
     );
-    navigate("/playlistSongPage");
+    navigate(
+      `/playlistSongPage?songId=${songId}&playlistId=${currentPlaylistData.playlistId}&name=${currentPlaylistData.playlistName}&language=${currentPlaylistData.playlistLanguage}`
+    );
   };
   return (
     <ContentWrapper onClick={handleSelectSong}>
       <ContentWrapper2>
-        <ImgCard src={imgURL} />
+        <Image name={imgURL} alt={"profile picture"} styles={ImgCard} />
       </ContentWrapper2>
       <ContentWrapper2>
         <ThreeLangSongName
