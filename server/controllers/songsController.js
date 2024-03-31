@@ -126,7 +126,6 @@ const createSong = asyncHandler(async (req, res, next) => {
 const getFullSongData = asyncHandler(async (req, res, next) => {
   const { song, artist, coverArt } = req.body;
   logger.info(`getting song full data for song: ${song}, artist: ${artist}`);
-  logger.info(song);
   try {
     // look for song data in song collection
     const songs = await Song.find({
@@ -148,7 +147,6 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
     } else {
       // if not - generate song data - > save song in db
       logger.info(`no songs found for song name: ${song}.generating data`);
-      logger.info(song);
 
       const songData = await generateSongData(song, artist, coverArt);
       logger.info(`succeeded generating song data for ${song}`);
