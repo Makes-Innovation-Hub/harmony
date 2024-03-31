@@ -21,6 +21,7 @@ import CoverSongRoute from "./routes/CoverSongRoute.js";
 import playlistRouter from "./routes/playlistRoutes.js";
 import loggingMiddleware from "./reqLogger.js";
 import commentsRouter from "./routes/coverSongCommentsRoute.js";
+import "./cron/updatePlaylistData.js";
 import textToSpeechRouter from "./routes/textToSpeechRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -103,6 +104,16 @@ connectDB().then(() => {
   app.listen(PORT, () => {
     logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
   });
+  // Conditionally import cron job module based on environment
+  if (process.env.NODE_ENV === "production") {
+    import("./cron/updatePlaylistData.js")
+      .then(() => {
+        logger.info("Cron job module imported successfully.");
+      })
+      .catch((error) => {
+        logger.error("Error importing cron job module:", error);
+      });
+  }
 });
 
 process.on("unhandledRejection", (err, promise) => {

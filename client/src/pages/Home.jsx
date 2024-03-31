@@ -21,7 +21,7 @@ export default function Home() {
       <Header />
       <S.SeatchContainer>
         <Tagline />
-      <HomeSearchBar />
+        <HomeSearchBar />
       </S.SeatchContainer>
 
       {loading && (
