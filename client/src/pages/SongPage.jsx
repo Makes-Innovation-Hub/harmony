@@ -6,27 +6,20 @@ import Youtube from "../components/Youtube/Youtube";
 import { useGetSongByIdQuery } from "../api/addCoverToSongApi";
 import CoverSongData from "../components/CoverSongData/CoverSongData";
 import * as S from "./SongPageStyles";
-import { useState } from "react";
 import GenericModal from "../components/GenericModal/GenericModal";
 import UploadCoverForm from "../components/UploadButton/UploadCoverForm";
 import Animation from "../components/Animation/Animation.component";
 import translatingGif from "../assets/animations/translating-animation.gif";
+import useModal from "../hooks/useModal";
 
 function SongPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, openModal, closeModal] = useModal();
+
   const { id } = useParams();
   const { data: songByIdData, isSuccess: fetchedSongData } =
     useGetSongByIdQuery(id, {
       skip: !id,
     });
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <>

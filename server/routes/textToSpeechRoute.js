@@ -5,13 +5,13 @@ import logger from "../logger.js";
 const router = express.Router();
 
 router.post("/generate-speech", async (req, res) => {
-  const openai = getOpenAiInstance();
+  const openAI = getOpenAiInstance();
   const lyrics = req.body.lyrics;
 
   try {
-    const mp3 = await openai.audio.speech.create({
+    const mp3 = await openAI.audio.speech.create({
       model: "tts-1",
-      voice: "onyx",
+      voice: "echo",
       input: lyrics,
     });
 

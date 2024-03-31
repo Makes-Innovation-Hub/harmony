@@ -9,7 +9,7 @@ export const SongGallery = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 50px;
   }
 `;
 export const TopHMixCountainer = styled.div`
@@ -32,8 +32,8 @@ export const ImageBox = styled.div`
 `;
 export const Image = styled.img`
   @media (min-width: 0px) and (max-width: 700px) {
-    max-width: 115%;
-    max-height: 120%;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
     border-radius: 30px;
   }
@@ -72,7 +72,6 @@ export const ImageBoxContainer = styled.div`
   @media (max-width: 700px) {
     display: flex;
     flex-direction: row;
-    gap: 25px;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -135,4 +134,21 @@ export const GenreType = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
   }
+`;
+
+export const NoCoversContainer = styled.div`
+  width: 92%;
+  display: flex;
+  margin-top: 20px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #00000075;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00000045;
+`;
+
+export const NoCoverSvg = styled.img`
+  width: 330px;
 `;

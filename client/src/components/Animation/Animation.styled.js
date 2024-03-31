@@ -49,8 +49,8 @@ const Wrapped = styled.div`
   @media screen and (min-width: 768px) {
     padding-top: 50px;
     .animation {
-      width: 250px;
-      height: 259px;
+      width: 350px;
+      height: 359px;
       margin-bottom: 50px;
     }
   }
