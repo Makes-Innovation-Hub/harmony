@@ -2,7 +2,7 @@ import axios from "axios";
 import logger from "../logger.js";
 import * as cheerio from "cheerio";
 import { arabTopSongsUrl } from "../constants/urls.js";
-// import { getCoverArtForSong } from "../spotifyapi.js";
+import { fixString } from "../utils/paramEncoder.js";
 
 async function scrapeTopArabicSongs() {
   logger.info("starting to scrap top arabic songs");
@@ -19,19 +19,18 @@ async function scrapeTopArabicSongs() {
       const [artist, song] = text.split(" – ");
       if (song) {
         const songData = {};
-        const formattedArtist = artist.replace(/^\d+\.\s*/, "");
+        const formattedArtist = fixString(artist.replace(/^\d+\.\s*/, ""));
         songData.artist = formattedArtist;
-        songData.song = song;
-        
+        songData.song = fixString(song);
+
         results.push(songData);
         count++;
         if (count === 10) {
           logger.info("scraped successfully top Arabic songs");
-          
         }
       }
     });
-    return results
+    return results;
   } catch (error) {
     logger.error("error in scrap top arabic songs:", error);
   }
