@@ -14,36 +14,38 @@ npm install passport passport-google-oauth20
 
 #### 2. Create a new project.
 
-![Description of Image](2.png)
-![Description of Image](3.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/1.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/2.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/3.png)
 
 #### 3. Configure the consent screen, and set the application type to Web application.
 
-![Description of Image](8.png)
-![Description of Image](9.png)
-![Description of Image](7.png)
-![Description of Image](publish.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/7.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/4.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/5.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/6.png)
 
 #### 4. Navigate to Credentials, then click on Create credentials, and select OAuth client ID.
 
-![Description of Image](id.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/9.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/8.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/10.png)
 
-#### 5. Add your application's redirect URI, which will be used for the OAuth callback. It usually looks like http://localhost:3000/auth/google/callback.
+#### 5. Add your application's redirect URI, which will be used for the OAuth callback. It usually looks like http://localhost:5000/auth/google/callback.
 
-![Description of Image](setPNG.png)
-![Description of Image](Last.png)
-![Description of Image](Client.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/11.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/12.png)
 
 ### Step 3: Configure Passport.js
 
 #### 1.Go to the[Passport.js](https://www.passportjs.org/)
 
-![Description of Image](13.png)
-![Description of Image](15.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/13.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/15.png)
 
 #### use the CLIENT_ID and the CLIENT_SECRET, from this screen
 
-![Description of Image](Client.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/12.png)
 
 ```bash
 const passport = require('passport');
@@ -52,7 +54,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 passport.use(new GoogleStrategy({
     clientID: YOUR_CLIENT_ID,
     clientSecret: YOUR_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/callback"
+    callbackURL: "http://localhost:5000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
     // In this function, find or create a user in your database and call cb
