@@ -24,11 +24,11 @@ export const TopHMixCountainer = styled.div`
 `;
 export const ImageBox = styled.div`
   @media (min-width: 0px) and (max-width: 700px) {
-    width: 100%;
+    /* width: 100%; */
     height: 100%;
-    padding: 18px;
+    /* padding: 18px;
     margin-left: -18px;
-    padding-top: 0px;
+    padding-top: 0px; */
   }
 `;
 export const Image = styled.img`

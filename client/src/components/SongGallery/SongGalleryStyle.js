@@ -28,10 +28,10 @@ export const ImageBox = styled.div`
 `;
 export const Image = styled.img`
   @media (min-width: 0px) and (max-width: 700px) {
-    max-width: 90%;
-    max-height: 95%;
     object-fit: cover;
     border-radius: 35px;
+    width: 180px;
+    height: 180px;
   }
 `;
 export const Title = styled.h2`
@@ -55,15 +55,15 @@ export const ImageBoxContainer = styled.div`
   }
   @media (max-width: 700px) {
     display: flex;
-    gap: 0.2rem;
+    gap: 1.2rem;
     flex-direction: row;
     margin-top: 4%;
     &::-webkit-scrollbar {
       display: none;
     }
-    & > ${ImageBox} {
+    /* & > ${ImageBox} {
       flex: 0 0 calc(100% / 2 - 0.2rem);
-    }
+    } */
   }
 `;
 export const TopASongCountainer = styled.div`
