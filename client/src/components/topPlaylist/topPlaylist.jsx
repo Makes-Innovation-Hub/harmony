@@ -4,14 +4,15 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {
   SongGallery,
+  Playlist,
   TopHMixCountainer,
   TopAMixCountainer,
   Title,
   ImageBoxContainer,
-  Playlist,
 } from "./PlaylistStyle";
 import { useGetAllPlaylistDataQuery } from "../../api/playlistApiSlice";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 import ImageBoxWithDetailsPlaylist from "./ImageBoxWithDetailsPlaylist";
 
 const TopPlaylist = () => {

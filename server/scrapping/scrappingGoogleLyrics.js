@@ -9,11 +9,11 @@ export async function scrapGoogleFn(songName, singerName) {
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage", // Addresses issues with shared memory in Docker
-        "--disable-accelerated-2d-canvas", // Performance improvement
+        "--disable-dev-shm-usage",
+        "--disable-accelerated-2d-canvas",
         "--no-first-run",
         "--no-zygote",
-        "--disable-gpu", // May help performance in headless environments, though often not necessary
+        "--disable-gpu",
       ],
       defaultViewport: null,
     });
@@ -39,7 +39,6 @@ export async function scrapGoogleFn(songName, singerName) {
         "https://www.tab4u.com/",
         "https://www.lyrics-arabic.com/",
         "https://lyricstranslate.com/",
-        // "https://www.boomplay.com/",
         "https://www.musixmatch.com/",
         "https://kalimat.anghami.com",
       ];
@@ -57,22 +56,42 @@ export async function scrapGoogleFn(songName, singerName) {
     });
 
     const filteredLinks = links.filter(Boolean).slice(0, 1);
+    if (filteredLinks.length === 0) {
+      browser.close();
+      return false;
+    }
     logger.info(`the link to scrap lyrics google is: ${filteredLinks}`);
+
+    // Enable request interception
+    await page.setRequestInterception(true);
+
+    // Intercept requests to ignore loading videos and images
+    page.on("request", (request) => {
+      if (
+        request.resourceType() === "image" ||
+        request.resourceType() === "video"
+      ) {
+        request.abort();
+      } else {
+        request.continue();
+      }
+    });
 
     for (const link of filteredLinks) {
       await page.goto(link);
 
+      // Wait for the lyrics container to be loaded
       await page.waitForSelector(
-        'div.css-175oi2r.r-13awgt0.r-eqz5dr.r-1v1z2uz div.r-zd98yo , .artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics, div.lyrics-page_lyrics__QEN3R > pre'
+        'div.css-175oi2r.r-13awgt0.r-eqz5dr.r-1v1z2uz div.r-zd98yo , .artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics,div.mxm-lyrics > span ,  div.lyrics-page_lyrics__QEN3R > pre '
       );
 
       const lyricsText = await page.evaluate(() => {
-        const spanElement = Array.from(
+        const elements = Array.from(
           document.querySelectorAll(
-            'div.css-175oi2r.r-13awgt0.r-eqz5dr.r-1v1z2uz div.r-zd98yo , .artist_lyrics_text,[data-lyrics-container="true"], #songContentTPL, #lyrics-text > span, #song-body, .lyrics , div.mxm-lyrics > span'
+            'div.css-175oi2r.r-13awgt0.r-eqz5dr.r-1v1z2uz div.r-zd98yo , .artist_lyrics_text, [data-lyrics-container="true"], #songContentTPL, #lyric span, #song-body, .lyrics,div.mxm-lyrics > span ,  div.lyrics-page_lyrics__QEN3R > pre '
           )
         );
-        return spanElement.map((element) => element.innerText.trim());
+        return elements.map((element) => element.innerText.trim());
       });
 
       logger.info("lyrics from google scrap successfully");

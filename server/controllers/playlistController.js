@@ -3,12 +3,13 @@ import axios from "axios";
 import { playlistData } from "../constants/playlistData.js";
 import translateText3Lang from "../utils/translateText3Lang.js";
 import getSongNameFromTitle from "../utils/getSongNameFromTitle.js";
+import Playlist from "../models/Playlist.js";
 
 dotenv.config();
 
 // GET Playlist data
 export const getPlaylistData = async (req, res) => {
-  const { id, lang } = req.query;
+  const { id, update } = req.query;
   if (!id) {
     res.status(400).send("ERROR: id is required");
   }
@@ -19,36 +20,48 @@ export const getPlaylistData = async (req, res) => {
   }
 
   try {
-    const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${id}&maxResults=10&key=${YOUTUBE_API_KEY}`;
-    const playlistItemsResponse = await axios.get(url);
+    // Check if the playlist data already exists in the database
+    const playlist = await Playlist.findOne({ playlistId: id });
 
-    if (
-      !playlistItemsResponse.data ||
-      playlistItemsResponse.data.items.length === 0
-    ) {
-      throw new Error("Playlist not found or empty");
-    }
+    // If the playlist exists and update is not "true" it returns the playlist
+    if (playlist && update !== "true") {
+      // Return the data from the database
+      res.status(200).json(playlist.items);
+    } else {
+      const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${id}&maxResults=10&key=${YOUTUBE_API_KEY}`;
+      const playlistItemsResponse = await axios.get(url);
 
-    const itemsWithProfilePic = await Promise.all(
-      playlistItemsResponse.data.items.map(async (item) => {
-        const profilePicUrl = await fetchChannelProfilePic(
-          item.snippet.videoOwnerChannelId
+      if (
+        !playlistItemsResponse.data ||
+        playlistItemsResponse.data.items.length === 0
+      ) {
+        throw new Error("Playlist not found or empty");
+      }
+      const itemsWithProfilePicAndSongNames =
+        await getProfilePicAndSongNames3Lang(playlistItemsResponse);
+
+      // Save or update the playlist data in the database
+      if (update && update === "true") {
+        const updatedPlaylist = await Playlist.findOneAndUpdate(
+          { playlistId: id },
+          {
+            $set: {
+              items: itemsWithProfilePicAndSongNames,
+              updatedAt: Date.now(),
+            },
+          },
+          { new: true }
         );
-        const songName = getSongNameFromTitle(item.snippet.title, lang);
-        const translatTo3 = await translateText3Lang(songName);
-        return {
-          videoId: item.snippet.resourceId.videoId,
-          title: item.snippet.title,
-          songName3Lang: translatTo3,
-          thumbnailUrl: item.snippet.thumbnails.standard.url,
-          channelTitle: item.snippet.videoOwnerChannelTitle,
-          channelId: item.snippet.videoOwnerChannelId,
-          profilePicUrl: profilePicUrl,
-        };
-      })
-    );
+      } else {
+        const newPlaylist = new Playlist({
+          playlistId: id,
+          items: itemsWithProfilePicAndSongNames,
+        });
+        await newPlaylist.save();
+      }
 
-    res.status(200).json(itemsWithProfilePic);
+      res.status(200).json(itemsWithProfilePicAndSongNames);
+    }
   } catch (error) {
     console.error("Error fetching playlist data:", error);
     res.status(500).send("Internal Server Error");
@@ -109,4 +122,26 @@ const fetchChannelProfilePic = async (channelId) => {
     console.error("Error fetching channel profile picture:", error);
     throw error;
   }
+};
+
+const getProfilePicAndSongNames3Lang = async (playlistItems) => {
+  const itemsWithNewData = await Promise.all(
+    playlistItems.data.items.map(async (item) => {
+      const profilePicUrl = await fetchChannelProfilePic(
+        item.snippet.videoOwnerChannelId
+      );
+      const songName = getSongNameFromTitle(item.snippet.title);
+      const translatTo3 = await translateText3Lang(songName);
+      return {
+        videoId: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        songName3Lang: translatTo3,
+        thumbnailUrl: item.snippet.thumbnails.standard.url,
+        channelTitle: item.snippet.videoOwnerChannelTitle,
+        channelId: item.snippet.videoOwnerChannelId,
+        profilePicUrl: profilePicUrl,
+      };
+    })
+  );
+  return itemsWithNewData;
 };

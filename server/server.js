@@ -21,6 +21,7 @@ import CoverSongRoute from "./routes/CoverSongRoute.js";
 import playlistRouter from "./routes/playlistRoutes.js";
 import loggingMiddleware from "./reqLogger.js";
 import commentsRouter from "./routes/coverSongCommentsRoute.js";
+import "./cron/updatePlaylistData.js";
 import textToSpeechRouter from "./routes/textToSpeechRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,7 +37,7 @@ const CLIENT_PORT = process.env.CLIENT_PORT;
 
 const allowedOrigins = [
   `${BASE_SERVER_URL}:${CLIENT_PORT}`,
-  "https://harmony-dev-new.netlify.app",
+  process.env.PRODUCTION_FRONT_URL,
 ];
 
 app.set("trust proxy", 1);
@@ -75,6 +76,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Define a route to prevent server from sleeping
+app.get("/keep-server-awake", (req, res) => {
+  res.send("Server is awake!");
+});
+
 app.use("/api/v1/songs", songsRouter);
 app.use("/api/v1/artists", artistsRouter);
 app.use("/api/v1/topSongs", topSongsRouter);
@@ -98,6 +104,16 @@ connectDB().then(() => {
   app.listen(PORT, () => {
     logger.info(`Server running in ${NODE_ENV} mode on port ${PORT}`);
   });
+  // Conditionally import cron job module based on environment
+  if (process.env.NODE_ENV === "production") {
+    import("./cron/updatePlaylistData.js")
+      .then(() => {
+        logger.info("Cron job module imported successfully.");
+      })
+      .catch((error) => {
+        logger.error("Error importing cron job module:", error);
+      });
+  }
 });
 
 process.on("unhandledRejection", (err, promise) => {

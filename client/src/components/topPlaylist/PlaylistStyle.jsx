@@ -14,7 +14,7 @@ export const SongGallery = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 50px;
   }
 `;
 export const TopHMixCountainer = styled.div`
@@ -29,44 +29,32 @@ export const TopHMixCountainer = styled.div`
     width: 100%;
   }
 `;
-
-export const TopAMixCountainer = styled.div`
-  @media (min-width: 701px) {
-    height: 20%;
-    border-radius: 8px;
-    /* margin-top: 4%; */
-  }
-  @media (min-width: 0px) and (max-width: 700px) {
-    height: 20%;
-    border-radius: 8px;
-    margin-top: 4%;
-  }
-`;
-
 export const ImageBox = styled.div`
-  @media (min-width: 701px) {
-    width: 100%;
+  @media (min-width: 0px) and (max-width: 700px) {
+    /* width: 100%; */
     height: 100%;
-    padding: 18px;
+    /* padding: 18px;
     margin-left: -18px;
+    padding-top: 0px; */
   }
   @media (min-width: 0px) and (max-width: 700px) {
-    width: 100%;
+    /* width: 100%; */
     height: 100%;
-    padding: 18px;
+    /* padding: 18px;
     margin-left: -18px;
+    padding-top: 0px; */
   }
 `;
 export const Image = styled.img`
-  @media (min-width: 701px) {
-    max-width: 115%;
-    max-height: 120%;
+  @media (min-width: 0px) and (max-width: 700px) {
+    width: 180px;
+    height: 180px;
     object-fit: cover;
     border-radius: 30px;
   }
   @media (min-width: 0px) and (max-width: 700px) {
-    max-width: 115%;
-    max-height: 120%;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
     border-radius: 30px;
   }
@@ -87,7 +75,6 @@ export const Title = styled.h2`
     font-size: 1.2rem;
     color: #333333;
     font-style: italic;
-    margin-top: 2.5%;
     margin-left: 8%;
     line-height: 1.912;
     font-family: "ABeeZee";
@@ -144,8 +131,6 @@ export const ImageBoxContainer = styled.div`
     }
     display: flex;
     flex-direction: row;
-    gap: 25px;
-    // margin-top: 4%;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -236,5 +221,26 @@ export const GenreType = styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+`;
+
+export const NoCoversContainer = styled.div`
+  width: 92%;
+  display: flex;
+  margin-top: 20px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #00000075;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00000045;
+`;
+
+export const NoCoverSvg = styled.img`
+  width: 330px;
+
+  @media (max-width: 400px) {
+    transform: scale(0.9);
   }
 `;
