@@ -22,19 +22,19 @@ const Wrapped = styled.div`
   }
 
   .animation {
-    margin-top: 20%;
+    /* margin-top: 20%; */
     width: 80vw;
     height: 80vw;
-    margin-bottom: 20%;
+    /* margin-bottom: 20%; */
   }
 
   // Mobile phone screen
   @media only screen and (max-width: 480px) {
     .animation {
-      margin-top: 20%;
+      /* margin-top: 20%; */
       width: 80vw;
       height: 80vw;
-      margin-bottom: 20%;
+      /* margin-bottom: 20%; */
     }
 
     .animation-text {
@@ -49,9 +49,9 @@ const Wrapped = styled.div`
   @media screen and (min-width: 768px) {
     padding-top: 50px;
     .animation {
-      width: 350px;
-      height: 359px;
-      margin-bottom: 50px;
+      width: 400px;
+      height: 400px;
+      margin-top: 50px;
     }
   }
 `;
