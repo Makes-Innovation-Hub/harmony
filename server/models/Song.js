@@ -62,6 +62,11 @@ const SongSchema = new mongoose.Schema(
         ref: "CoverSong",
       },
     ],
+    songId: {
+      type: String,
+      required: [true, `SongId must be provided`],
+      unique: true,
+    },
   },
   {
     toJSON: {

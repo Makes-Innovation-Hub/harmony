@@ -173,9 +173,9 @@ const createTopSongsInDB = async (language, topSongsIdArray) => {
   logger.info(
     `createTopSongsInDB with language ${language} and ID: ${topSongsIdArray}`
   );
-  const topSongs = (
-    await TopSongs.create({ language, songs: topSongsIdArray })
-  ).populate("songs");
+  let topSongs = await TopSongs.create({ language, songs: topSongsIdArray });
+  topSongs = await TopSongs.findById(topSongs._id);
+
   logger.info("Top Song Created successfully In MongoDB");
   return topSongs;
 };

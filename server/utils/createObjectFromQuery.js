@@ -10,6 +10,7 @@ const createObjectFromQuery = (data) => {
     imgURL,
     date,
     language,
+    songId,
   } = data;
   const filteredValues = {};
 
@@ -51,6 +52,9 @@ const createObjectFromQuery = (data) => {
   }
   if (language !== undefined) {
     filteredValues.language = language;
+  }
+  if (songId !== undefined) {
+    filteredValues.songId = songId;
   }
   return filteredValues;
 };
