@@ -77,13 +77,17 @@ export const ModalWidth = styled.div`
 
 export const PlayAudioModal = styled(ModalBody)`
   top: -10%;
-  left: -1%;
   min-height: fit-content;
   max-width: 390px;
   flex-wrap: nowrap;
   direction: rtl;
   white-space: break-spaces;
   max-height: 90%;
+
+  overflow-x: hidden;
+  .animation {
+    width: 100%;
+  }
 `;
 
 export const LyricsController = styled.div`

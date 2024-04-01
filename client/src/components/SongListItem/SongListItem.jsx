@@ -3,27 +3,28 @@ import ThreeLangNames from "../ThreeLnagNames/ThreeLangNames";
 import ClipArtImage from "../ClipArtImage/ClipArtImage";
 import ContentWrapper from "./SongListItem.styled";
 import { useNavigate } from "react-router-dom";
-import { useSongDataMutation } from "../../api/songDataApiSlice";
-import { useEffect } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { serverApiUrl } from "../../constants/urls";
 
-function SongListItem({ artist, arabicName, hebrewName, englishName, imgURL }) {
+function SongListItem({ arabicName, hebrewName, englishName, songId }) {
   const navigate = useNavigate();
-  const [songDataMutation, { data: songData }] = useSongDataMutation();
+  const [songData, setSongData] = useState(null);
+
+  const getSongById = async () => {
+    const response = await axios.get(`${serverApiUrl}/songs/find/${songId}`);
+    const result = response.data;
+    setSongData(result);
+  };
 
   useEffect(() => {
-    songDataMutation({ song: englishName, artist });
+    getSongById();
   }, []);
 
   return (
     <ContentWrapper
       onClick={() => {
-        navigate("/translating", {
-          state: {
-            artist,
-            song: hebrewName,
-            coverArt: imgURL,
-          },
-        });
+        navigate(`/song/${songId}`);
       }}
     >
       <ClipArtImage

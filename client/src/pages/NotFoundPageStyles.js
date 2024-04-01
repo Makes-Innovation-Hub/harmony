@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SeatchContainer = styled.div`
+export const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

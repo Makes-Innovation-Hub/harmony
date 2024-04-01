@@ -30,7 +30,11 @@ const TopSongsSchema = new mongoose.Schema(
           type: String,
           trim: true,
         },
-
+        songId: {
+          type: String,
+          required: [true, "songId is required!"],
+          unique: [true, "This song id is already in use"],
+        },
       },
     ],
   },
@@ -47,5 +51,16 @@ const TopSongsSchema = new mongoose.Schema(
     },
   }
 );
+
+TopSongsSchema.pre("save", function (next) {
+  this.songs.forEach((song, index) => {
+    if (!song.songId) {
+      // Generate a unique songId for each song. This example uses MongoDB's ObjectId
+      // but you can replace this with any other unique ID generation strategy that suits your needs
+      song.songId = new mongoose.Types.ObjectId().toString();
+    }
+  });
+  next();
+});
 
 export default mongoose.model("TopSongs", TopSongsSchema);

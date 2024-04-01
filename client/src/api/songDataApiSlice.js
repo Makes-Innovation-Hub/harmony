@@ -7,10 +7,10 @@ export const songDataApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: serverApiUrl }),
   endpoints: (builder) => ({
     songData: builder.mutation({
-      query: ({ artist, song, coverArt }) => ({
+      query: ({ artist, song, coverArt, songId }) => ({
         url: "/songs/",
         method: "PUT",
-        body: { artist, song, coverArt },
+        body: { artist, song, coverArt, songId },
       }),
       invalidatesTags: ["songData"],
     }),
