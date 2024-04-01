@@ -38,13 +38,7 @@ export default function ResultsCard({
         if (type === "artist") {
           artistTrigger(titles[0]);
         } else if (type === "song" && artistData) {
-          navigate("/translating", {
-            state: {
-              artist: artistData.name[0],
-              song: titles[0],
-              coverArt: imgURL,
-            },
-          });
+          navigate(`/song/${artistData.id}`);
         }
       }}
     >

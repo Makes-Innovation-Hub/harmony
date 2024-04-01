@@ -22,6 +22,7 @@ const HomeSongGallery = () => {
         img={song.coverArt}
         artist={song.artist}
         songName={song.song}
+        songId={song.songId}
       />
     ));
 
@@ -33,6 +34,7 @@ const HomeSongGallery = () => {
         img={song.coverArt}
         artist={song.artist}
         songName={song.song}
+        songId={song.songId}
       />
     ));
 

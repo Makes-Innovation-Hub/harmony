@@ -12,6 +12,7 @@ const TranslatingPage = () => {
   const [songDataMutation, { isSuccess, data }] = useSongDataMutation();
   const navigate = useNavigate();
   const { t } = useTranslation();
+
   useEffect(() => {
     songDataMutation(selectedData);
   }, []);
