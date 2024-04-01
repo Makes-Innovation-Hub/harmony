@@ -1,8 +1,8 @@
 import styled from "styled-components";
+
 export const SongGallary = styled.div`
-  @media (min-width: 701px) {
-    display: none;
-  }
+  font-family: ABeeZee;
+
   @media (min-width: 0px) and (max-width: 700px) {
     min-height: 50%;
     width: 100%;
@@ -13,11 +13,13 @@ export const SongGallary = styled.div`
 `;
 export const TopHSongCountainer = styled.div`
   border-radius: 8px;
-  @media (min-width: 701px) {
-    display: none;
-  }
   @media (min-width: 0px) and (max-width: 700px) {
     width: 100%;
+  }
+  @media (min-width: 701px) {
+    width: 70%;
+    max-width: 1050px;
+    margin: 0 auto;
   }
 `;
 export const ImageBox = styled.div`
@@ -27,11 +29,16 @@ export const ImageBox = styled.div`
   }
 `;
 export const Image = styled.img`
+  object-fit: cover;
+  border-radius: 35px;
   @media (min-width: 0px) and (max-width: 700px) {
-    object-fit: cover;
-    border-radius: 35px;
     width: 180px;
     height: 180px;
+  }
+
+  @media (min-width: 701px) {
+    width: 180px;
+    overflow: hidden;
   }
 `;
 export const Title = styled.h2`
@@ -50,6 +57,11 @@ export const ImageBoxContainer = styled.div`
   white-space: nowrap;
   margin-left: 5%;
   overflow-y: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   & > ${ImageBox} {
     margin-right: -0.25rem;
   }
@@ -61,34 +73,57 @@ export const ImageBoxContainer = styled.div`
     &::-webkit-scrollbar {
       display: none;
     }
-    /* & > ${ImageBox} {
-      flex: 0 0 calc(100% / 2 - 0.2rem);
-    } */
+  }
+
+  @media (min-width: 701px) {
+    display: flex;
+    gap: 2.7%;
+    padding-bottom: 20px;
+    overflow: auto;
+    white-space: nowrap;
+    cursor: grab;
   }
 `;
+
 export const TopASongCountainer = styled.div`
   border-radius: 8px;
   margin-top: 4%;
-  @media (min-width: 701px) {
-    display: none;
-  }
+
   @media (min-width: 0px) and (max-width: 700px) {
     height: 20%;
   }
 `;
 export const Box = styled.div`
-  @media (min-width: 0px) and (max-width: 700px) {
-    min-height: 2rem;
-    background: rgba(223, 220, 220, 0.28);
-    box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
-    backdrop-filter: blur(8px);
-    border-radius: 8px 8px 12px 12px;
-    margin-top: -3.18rem;
-    width: 6rem;
-    margin-left: 0.6rem;
+  font-family: ABeeZee;
+
+  min-height: 2rem;
+  background: rgba(223, 220, 220, 0.28);
+  box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
+  backdrop-filter: blur(8px);
+  border-radius: 8px 8px 12px 12px;
+  margin-top: -3.18rem;
+  width: 6rem;
+  margin-left: 0.6rem;
+
+  @media (min-width: 701px) {
+    color: white;
+    font-size: 0.8rem;
+    width: 90%;
+    margin-top: -30%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 `;
 export const SongP = styled.p`
+  font-family: "ABeeZee";
+
   @media (min-width: 0px) and (max-width: 700px) {
     font-size: 0.65rem;
     font-weight: 300;
@@ -98,14 +133,20 @@ export const SongP = styled.p`
     margin-top: 4%;
     padding: 0.43rem;
     line-height: 1.081rem;
-    font-family: "ABeeZee";
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    @media (min-width: 701px) {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 `;
 
-export const Songartist = styled.p`
+export const SongArtist = styled.p`
+  font-family: "ABeeZee";
   @media (min-width: 0px) and (max-width: 700px) {
     font-size: 0.4rem;
     font-weight: 50;
@@ -113,11 +154,16 @@ export const Songartist = styled.p`
     margin-left: 0.6rem;
     line-height: 0.831rem;
     color: #ffff;
-    font-family: "ABeeZee";
     margin-top: -0.3rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    @media (min-width: 701px) {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 `;
 
@@ -137,7 +183,6 @@ export const SectionTitle = styled.h1`
 
 export const NoCoversContainer = styled.div`
   width: 90%;
-  display: flex;
   margin-top: 20px;
   height: 90px;
   display: flex;
