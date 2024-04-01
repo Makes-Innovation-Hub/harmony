@@ -58,13 +58,7 @@ export default function CoverPage() {
   }, []);
 
   const goBackToOriginalSong = () => {
-    navigate("/translating", {
-      state: {
-        artist: coverSong?.originalArtist,
-        song: coverSong?.originalSongName,
-        coverArt: coverSong?.originalSongCover,
-      },
-    });
+    navigate(`/song/${coverSong?.originalSongId}`);
   };
 
   function updateLikes() {
