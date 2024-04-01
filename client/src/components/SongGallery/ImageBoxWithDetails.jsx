@@ -3,7 +3,7 @@ import { Box, Image, ImageBox, SongP, Songartist } from "./SongGalleryStyle";
 import { useNavigate } from "react-router-dom";
 import { useGetArtistDataQuery } from "../../api/artistApiSlice";
 
-export default function ImageBoxWithDetails({ img, artist, songName }) {
+export default function ImageBoxWithDetails({ img, artist, songName, songId }) {
   const [isQueryExecuted, setIsQueryExecuted] = useState(false);
   const { data, isLoading } = useGetArtistDataQuery(artist, {
     skip: !isQueryExecuted,
@@ -24,7 +24,7 @@ export default function ImageBoxWithDetails({ img, artist, songName }) {
 
   const handleImageClick = () => {
     navigate("/translating", {
-      state: { artist, song: songName, coverArt: img },
+      state: { artist, song: songName, coverArt: img, songId },
     });
   };
 
