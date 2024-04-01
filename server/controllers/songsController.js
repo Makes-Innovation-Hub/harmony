@@ -130,11 +130,6 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
     // look for song data in song collection
     const songs = await Song.find({
       songId: songId,
-      // $or: [
-      //   { "name.hebrew": { $regex: song, $options: "i" } },
-      //   { "name.arabic": { $regex: song, $options: "i" } },
-      //   { "name.english": { $regex: song, $options: "i" } },
-      // ],
     }).populate("coverSong");
     if (songs.length > 0) {
       // if there is - send back
