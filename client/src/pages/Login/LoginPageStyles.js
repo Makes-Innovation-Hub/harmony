@@ -2,6 +2,30 @@ import styled from "styled-components";
 import doveImage from "../../assets/dove.png";
 import ellipseImage from "../../assets/Ellipse3.png";
 
+export const ModalContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; // Take full width of the modal
+  height: 100%; // Take full height of the modal
+`;
+
+export const ImageWrapper = styled.img`
+  width: 100%; // Take full width of the container
+  height: auto; // Adjust height automatically
+  object-fit: contain; // Ensure the image fits within the container without stretching
+  max-height: 80%; // Adjust based on your preference to leave space for text
+`;
+
+export const ModalText = styled.p`
+  color: #333; // Example text color
+  font-size: 18px; // Example font size
+  font-family: ABeeZee;
+  text-align: center;
+  margin-top: 20px; // Space above the text
+`;
+
 export const LoginPageWrapper = styled.div`
   background-color: white;
   display: flex;

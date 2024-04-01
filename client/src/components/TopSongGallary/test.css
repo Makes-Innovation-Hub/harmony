@@ -1,0 +1,12 @@
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+}
+
+.slick-prev {
+  left: -40px; /* Adjust to move the arrow further to the left if needed */
+}
+
+.slick-next {
+  right: -25px; /* Adjust to move the arrow further to the right if needed */
+}

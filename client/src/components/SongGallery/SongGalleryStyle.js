@@ -136,7 +136,7 @@ export const SectionTitle = styled.h1`
 `;
 
 export const NoCoversContainer = styled.div`
-  width: 92%;
+  width: 90%;
   display: flex;
   margin-top: 20px;
   height: 90px;

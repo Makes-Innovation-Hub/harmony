@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState } from "react";
 import {
   LoginPageWrapper,
   AppIcon,
@@ -9,11 +8,17 @@ import {
   StyledEllipse,
   StyledSignInButton,
   SignInLogo,
+  ImageWrapper,
+  ModalContentContainer,
+  ModalText,
 } from "./LoginPageStyles";
+
 import { serverApiUrl } from "../../constants/urls";
 import Image from "../../components/Image/Image";
+import GenericModal from "../../components/GenericModal/GenericModal";
 
 const LoginPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const fullServerUrl = serverApiUrl;
 
   const handleGoogleSignInClick = () => {
@@ -21,14 +26,18 @@ const LoginPage = () => {
   };
 
   const handleFacebookSignInClick = () => {
-    window.location.href = `${fullServerUrl}/auth/facebook`;
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
     <LoginPageWrapper>
       <AppIcon>
         <StyledDove>
-          <Image name={"dove"} alt={"dove"} />
+          <Image name={"dove"} alt={"Dove"} />
         </StyledDove>
         <StyledEllipse />
       </AppIcon>
@@ -49,6 +58,19 @@ const LoginPage = () => {
         <Image name={"googleLogo"} alt={"Google logo"} styles={SignInLogo} />
         Sign in with Google
       </StyledSignInButton>
+      <GenericModal isOpen={isModalOpen} onRequestClose={closeModal}>
+        <ModalContentContainer>
+          <Image
+            name="underconst" // Use the key from the images object
+            alt="Under Construction"
+            styles={ImageWrapper}
+          />
+          <ModalText>
+            Hi Beethoven, the Facebook button is under construction <br />
+            use Google for now.
+          </ModalText>
+        </ModalContentContainer>
+      </GenericModal>
     </LoginPageWrapper>
   );
 };

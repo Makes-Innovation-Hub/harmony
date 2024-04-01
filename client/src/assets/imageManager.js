@@ -15,6 +15,7 @@ import shareSvg from "./svgs/share.svg";
 import likeSvg from "./svgs/thumps-up.svg";
 import likedSvg from "./svgs/thumbs-up-liked.svg";
 import commentSvg from "./svgs/comment.svg";
+import underconst from "../assets/under_const.png";
 
 export const images = {
   blueShuffle: blueShuffle,
@@ -34,4 +35,5 @@ export const images = {
   likeCover: likeSvg,
   likedCover: likedSvg,
   commentCover: commentSvg,
+  underconst: underconst,
 };
