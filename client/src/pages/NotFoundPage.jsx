@@ -12,10 +12,10 @@ const NotFoundPage = () => {
   return (
     <>
       <Header />
-      <S.SeatchContainer>
+      <S.SearchContainer>
         <Tagline />
         <HomeSearchBar />
-      </S.SeatchContainer>
+      </S.SearchContainer>
       <Animation
         animationGif={notFoundGif}
         animationText={[t("not_found_1"), t("not_found_2")]}
