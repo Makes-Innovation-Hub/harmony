@@ -8,5 +8,11 @@
   "top_hebrew": "Top Hebrew Songs",
   "top_arabic": "Top Arabic Songs",
   "Artists": "Artists",
-  "Songs": "Songs"
+  "Songs": "Songs",
+  "covers": "Harmony Covers",
+  "top_hebrew_covers": "Top Hebrew Covers in Arabic",
+  "top_arabic_covers": "Top Arabic Covers in Hebrew",
+  "playlists": "Harmony Playlists",
+  "top_hebrew_mixes": "Your Top Hebrew mixes",
+  "top_arabic_mixes": "Your Top Arabic mixes"
 }

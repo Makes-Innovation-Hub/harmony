@@ -78,27 +78,38 @@ const TopPlaylist = () => {
     <>
       {hebrewMixData.length > 0 && arabicMixData.length > 0 && (
         <SongGallery>
-          <Playlist>{t("Harmony Playlists")}</Playlist>
+          <Playlist>{t("playlists")}</Playlist>
           <TopHMixCountainer>
-            <Title>{t("Your Top Hebrew mixes")}</Title>
-            {isLargeScreen ? (
-              <Slider {...settings}>{renderPlaylists(hebrewMixData)}</Slider>
-            ) : (
-              <ImageBoxContainer>
-                {renderPlaylists(hebrewMixData)}
-              </ImageBoxContainer>
-            )}
+
+            <Title>{t("top_hebrew_mixes")}</Title>
+            <ImageBoxContainer>
+              {hebrewMixData.map((mix, index) => (
+                <ImageBoxWithDetailsPlaylist
+                  img={mix.coverArt}
+                  mixName={mix.name}
+                  genre={mix.genre}
+                  playlistId={mix.id}
+                  playlistLanguage={mix.language}
+                  key={index}
+                />
+              ))}
+            </ImageBoxContainer>
           </TopHMixCountainer>
 
           <TopAMixCountainer>
-            <Title>{t("Your Top Arabic mixes")}</Title>
-            {isLargeScreen ? (
-              <Slider {...settings}>{renderPlaylists(arabicMixData)}</Slider>
-            ) : (
-              <ImageBoxContainer>
-                {renderPlaylists(arabicMixData)}
-              </ImageBoxContainer>
-            )}
+            <Title>{t("top_arabic_mixes")}</Title>
+            <ImageBoxContainer>
+              {arabicMixData.map((mix, index) => (
+                <ImageBoxWithDetailsPlaylist
+                  img={mix.coverArt}
+                  mixName={mix.name}
+                  genre={mix.genre}
+                  playlistId={mix.id}
+                  playlistLanguage={mix.language}
+                  key={index}
+                />
+              ))}
+            </ImageBoxContainer>
           </TopAMixCountainer>
         </SongGallery>
       )}

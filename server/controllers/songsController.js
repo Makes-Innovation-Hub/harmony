@@ -124,16 +124,12 @@ const createSong = asyncHandler(async (req, res, next) => {
 });
 
 const getFullSongData = asyncHandler(async (req, res, next) => {
-  const { song, artist, coverArt } = req.body;
+  const { song, artist, coverArt, songId } = req.body;
   logger.info(`getting song full data for song: ${song}, artist: ${artist}`);
   try {
     // look for song data in song collection
     const songs = await Song.find({
-      $or: [
-        { "name.hebrew": { $regex: song, $options: "i" } },
-        { "name.arabic": { $regex: song, $options: "i" } },
-        { "name.english": { $regex: song, $options: "i" } },
-      ],
+      songId: songId,
     }).populate("coverSong");
     if (songs.length > 0) {
       // if there is - send back
@@ -148,7 +144,7 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
       // if not - generate song data - > save song in db
       logger.info(`no songs found for song name: ${song}.generating data`);
 
-      const songData = await generateSongData(song, artist, coverArt);
+      const songData = await generateSongData(song, artist, coverArt, songId);
       logger.info(`succeeded generating song data for ${song}`);
       const newSong = await Song.create(songData);
       const artistData = await Artist.findById(songData.artist);
@@ -161,11 +157,12 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
   }
 });
 
-const generateSongData = async function (song, artist, coverArt) {
+const generateSongData = async function (song, artist, coverArt, songId) {
   let finalSongData = generateBasicDataObj("song");
   let threeNames = null;
   // add cover art
   finalSongData.coverArt = coverArt;
+  finalSongData.songId = songId;
 
   // translate song name - 3 langs
   const nameLang = detectLanguage(song);

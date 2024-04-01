@@ -14,9 +14,9 @@ const HarmonyCovers = () => {
 
   return (
     <S.SongGallery>
-      <S.Playlist>{t("Harmony Covers")}</S.Playlist>
+      <S.Playlist>{t("covers")}</S.Playlist>
       <S.TopHMixCountainer>
-        <S.Title>{t("Top Hebrew Covers in Arabic")}</S.Title>
+        <S.Title>{t("top_hebrew_covers")}</S.Title>
         <S.ImageBoxContainer>
           {hebrewTopCoversData?.length === 0 && (
             <S.NoCoversContainer>
@@ -38,7 +38,7 @@ const HarmonyCovers = () => {
       </S.TopHMixCountainer>
 
       <S.TopAMixCountainer>
-        <S.Title>{t("Top Arabic Covers in Hebrew")}</S.Title>
+        <S.Title>{t("top_arabic_covers")}</S.Title>
         <S.ImageBoxContainer>
           {arabicTopCoversData?.length === 0 && (
             <S.NoCoversContainer>

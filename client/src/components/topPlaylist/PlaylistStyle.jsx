@@ -72,7 +72,7 @@ export const Title = styled.h2`
   }
   @media (min-width: 0px) and (max-width: 700px) {
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 23px;
     color: #333333;
     font-style: italic;
     margin-left: 8%;
@@ -93,7 +93,7 @@ export const Playlist = styled.h1`
   }
   @media (min-width: 0px) and (max-width: 700px) {
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 23px;
     color: #333333;
     font-style: italic;
     margin-left: 8%;
