@@ -12,7 +12,7 @@ import NoCoversSvg from "../../assets/svgs/no-covers.svg";
 
 import { useTranslation } from "react-i18next";
 
-export default function TopSongGallery({
+export default function SongGallery({
   smallTitle,
   dataToMap1,
   dataToMap2,

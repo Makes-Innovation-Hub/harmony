@@ -3,7 +3,7 @@ import { Box, Image, ImageBox, SongP, Songartist } from "./SongGalleryStyle";
 import { useNavigate } from "react-router-dom";
 import { useGetArtistDataQuery } from "../../api/artistApiSlice";
 
-export default function ImageBoxWithDetailsTest({ img, artist, songName }) {
+export default function ImageBoxWithDetails({ img, artist, songName }) {
   const [isQueryExecuted, setIsQueryExecuted] = useState(false);
   const { data, isLoading } = useGetArtistDataQuery(artist, {
     skip: !isQueryExecuted,
