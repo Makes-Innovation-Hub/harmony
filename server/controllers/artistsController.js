@@ -4,7 +4,7 @@ import logger from "../logger.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import { createDummyArtist } from "../utils/createDummyData.js";
-import generateBasicDataObj from '../utils/songOrArtistObj.js';
+import generateBasicDataObj from "../utils/songOrArtistObj.js";
 
 const findArtist = async (req) => {
   logger.info(`start findArtist function`);
@@ -17,20 +17,25 @@ const findArtist = async (req) => {
   }
 };
 
-const findOrCreateArtist = async (artistName, nameLang = 'english', namesObj, img) => {
+const findOrCreateArtist = async (
+  artistName,
+  nameLang = "english",
+  namesObj,
+  img
+) => {
   logger.info(`findOrCreateArtist with singer name: ${artistName}`);
   const filterObj = {
     body: {
-      name: {}
-    }
+      name: {},
+    },
   };
   filterObj.body.name[nameLang] = artistName;
   const artistsArray = await findArtist(filterObj);
   if (artistsArray) {
-    logger.info(`artist: ${artistName} found in db`)
+    logger.info(`artist: ${artistName} found in db`);
     return artistsArray[0]._id;
   }
-  const artistObj = generateBasicDataObj('artist');
+  const artistObj = generateBasicDataObj("artist");
   artistObj.name = namesObj;
   artistObj.imgURL = img;
   const newArtist = await Artist.create(artistObj);

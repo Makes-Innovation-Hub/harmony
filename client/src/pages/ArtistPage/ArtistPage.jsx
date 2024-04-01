@@ -1,23 +1,17 @@
 import { ContentWrapper, PageWrapper } from "./ArtistPage.styled";
-import FlexGrowContainer from "../../components/FlexGrowContainer/FlexGrowContainer";
 import Header from "../../components/Header/Header";
 import ThreeLangNames from "../../components/ThreeLnagNames/ThreeLangNames";
 import SongListItem from "../../components/SongListItem/SongListItem";
-import ClipArtImage from "../../components/ClipArtImage/ClipArtImage";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as S from "./ArtistPage.styled";
 import { useGetArtistDataQuery } from "../../api/artistApiSlice";
-import { useEffect, useState } from "react";
 import Animation from "../../components/Animation/Animation.component";
 import translatingGif from "../../assets/animations/translating-animation.gif";
 function ArtistPage() {
   const { name } = useParams();
-  const {
-    data: artistData,
-    isLoading,
-    isSuccess,
-  } = useGetArtistDataQuery(decodeURIComponent(name));
-
+  const { data: artistData, isSuccess } = useGetArtistDataQuery(
+    decodeURIComponent(name)
+  );
   return (
     <PageWrapper>
       <Header />
@@ -51,6 +45,7 @@ function ArtistPage() {
                   hebrewName={song.name.hebrew}
                   englishName={song.name.english}
                   imgURL={artistData.imgURL}
+                  songId={song._id}
                 />
               ))}
             </ContentWrapper>
