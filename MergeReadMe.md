@@ -261,23 +261,23 @@ npm install passport passport-google-oauth20
 
 ![Description of Image](./client/src/assets/screenshots/LironDoc/9.png)
 ![Description of Image](./client/src/assets/screenshots/LironDoc/8.png)
-![Description of Image](./client/src/assets/screenshots/LironDoc/10.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/10.PNG)
 
 #### 5. Add your application's redirect URI, which will be used for the OAuth callback. It usually looks like http://localhost:5000/auth/google/callback.
 
-![Description of Image](./client/src/assets/screenshots/LironDoc/11.png)
-![Description of Image](./client/src/assets/screenshots/LironDoc/12.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/11.PNG)
+![Description of Image](./client/src/assets/screenshots/LironDoc/12.PNG)
 
 ### Step 3: Configure Passport.js
 
 #### 1.Go to the[Passport.js](https://www.passportjs.org/)
 
-![Description of Image](./client/src/assets/screenshots/LironDoc/13.png)
-![Description of Image](./client/src/assets/screenshots/LironDoc/15.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/13.PNG)
+![Description of Image](./client/src/assets/screenshots/LironDoc/15.PNG)
 
 #### use the CLIENT_ID and the CLIENT_SECRET, from this screen
 
-![Description of Image](./client/src/assets/screenshots/LironDoc/12.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/12.PNG)
 
 ```bash
 const passport = require('passport');
