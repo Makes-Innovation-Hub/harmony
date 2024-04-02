@@ -72,6 +72,7 @@ export const ImageBoxContainer = styled.div`
   white-space: nowrap;
   margin-left: 5%;
   overflow-y: hidden;
+  padding-right: 20px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -94,10 +95,13 @@ export const ImageBoxContainer = styled.div`
   @media (min-width: 701px) {
     display: flex;
     gap: 2.7%;
+    gap: 24px;
     padding-bottom: 20px;
     overflow: auto;
     white-space: nowrap;
     cursor: grab;
+    max-width: 1000px;
+    width: fit-content;
   }
 `;
 
