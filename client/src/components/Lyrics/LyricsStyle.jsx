@@ -65,7 +65,6 @@ export const SameLineWithSvg = styled.div`
 export const ModalWidth = styled.div`
   line-height: 1.6;
   letter-spacing: 1px;
-  max-width: 40ch;
   overflow-y: auto;
 
   -ms-overflow-style: none;
@@ -78,7 +77,8 @@ export const ModalWidth = styled.div`
 export const PlayAudioModal = styled(ModalBody)`
   top: -10%;
   min-height: fit-content;
-  max-width: 390px;
+  max-width: 350px;
+  width: 85%;
   flex-wrap: nowrap;
   direction: rtl;
   white-space: break-spaces;
