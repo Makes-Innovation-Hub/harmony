@@ -1,24 +1,22 @@
 import styled, { keyframes } from "styled-components";
 const shrinkAndMoveAnimation = keyframes`
   from {
-    transform: scale(1) translateX(0);/* Start at normal size and original position */
+    transform: scale(1) translateX(0);
     transform-origin: left center;
  
   }
   to {
-    transform: scale(0) translateX(160px);  /* Scale down and move to bottom left */
+    transform: scale(0) translateX(160px);  
     transform-origin: left center;
   }
 `;
 
 const MoveUpAnimation = keyframes`
   from {
-    transform: translateY(100%);/* Start at normal size and original position */
-    /* transform-origin: center center;  */
+    transform: translateY(100%);
   }
   to {
-    transform: translateY(0);  /* Scale down and move to bottom left */
-    /* transform-origin: center center;  */
+    transform: translateY(0); 
   }
 `;
 export const MusicPlayerContainer = styled.div`
