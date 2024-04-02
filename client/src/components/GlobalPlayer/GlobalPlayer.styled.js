@@ -1,12 +1,13 @@
 import styled, { keyframes } from "styled-components";
 const shrinkAndMoveAnimation = keyframes`
   from {
-    transform: scale(1);/* Start at normal size and original position */
-    transform-origin: left center; 
+    transform: scale(1) translateX(0);/* Start at normal size and original position */
+    transform-origin: left center;
+ 
   }
   to {
-    transform: scale(0);  /* Scale down and move to bottom left */
-    transform-origin: left center; 
+    transform: scale(0) translateX(160px);  /* Scale down and move to bottom left */
+    transform-origin: left center;
   }
 `;
 
@@ -37,7 +38,7 @@ export const MusicPlayerContainer = styled.div`
   overflow: hidden;
   animation: ${(props) =>
       props.animate === "true" ? shrinkAndMoveAnimation : MoveUpAnimation}
-    0.5s ease-out;
+    0.5s ease-out forwards;
   @media (min-width: 768px) {
     bottom: 0;
   }
