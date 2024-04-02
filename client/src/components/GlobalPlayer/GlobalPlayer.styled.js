@@ -36,7 +36,7 @@ export const MusicPlayerContainer = styled.div`
   bottom: 0;
   overflow: hidden;
   animation: ${(props) =>
-      props.animate ? shrinkAndMoveAnimation : MoveUpAnimation}
+      props.animate === "true" ? shrinkAndMoveAnimation : MoveUpAnimation}
     0.5s ease-out;
 `;
 

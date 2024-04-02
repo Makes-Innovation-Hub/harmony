@@ -85,7 +85,7 @@ function GlobalPlayer() {
     currentPlaylistData?.currentSong ? (
     <>
       <S.MusicPlayerContainer
-        animate={minus}
+        animate={minus.toString()}
         onAnimationEnd={handleAnimationEnd}
       >
         <S.PlayBoxContainer>
