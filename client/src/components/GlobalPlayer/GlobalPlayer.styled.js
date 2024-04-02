@@ -89,7 +89,7 @@ export const CyclicScroll = styled.div`
   height: 30px;
   padding: 2px;
   animation: ${scrollText} 10s linear infinite;
-  @media screen and (min-width: 768px) {
+  @media (min-width: 768px) {
     animation: ${scrollText} 30s linear infinite;
   }
 `;
@@ -140,7 +140,7 @@ export const PlayingSongContainer = styled.div`
 
 export const MinusXButton = styled.div`
   position: absolute;
-  font-family: ABeeZee;
+  font-family: "ABeeZee";
   font-style: italic;
   color: black;
   cursor: pointer;
@@ -151,16 +151,11 @@ export const MinusXButton = styled.div`
   &:hover {
     color: blue;
   }
-  /* @media screen and (min-width: 768px) {
-    font-size: 1.2rem;
-    top: 10px;
-    right: 12px;
-  } */
 `;
 
 export const XButton = styled.div`
   position: absolute;
-  font-family: ABeeZee;
+  font-family: "ABeeZee";
   font-style: italic;
   color: black;
   cursor: pointer;
@@ -171,9 +166,4 @@ export const XButton = styled.div`
   &:hover {
     color: red;
   }
-  /* @media screen and (min-width: 768px) {
-    font-size: 1.2rem;
-    top: 10px;
-    right: 12px;
-  } */
 `;

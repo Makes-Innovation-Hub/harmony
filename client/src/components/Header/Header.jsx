@@ -23,9 +23,6 @@ import * as S from "./HeaderStyle.jsx";
 import Image from "../Image/Image.jsx";
 
 const Header = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0); // Scrolls to the top-left corner of the page
-  }, []);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
