@@ -33,11 +33,14 @@ export const MusicPlayerContainer = styled.div`
   padding: 10px;
   border-top: solid 2px gray;
   position: sticky;
-  bottom: 0;
+  bottom: -2px;
   overflow: hidden;
   animation: ${(props) =>
       props.animate === "true" ? shrinkAndMoveAnimation : MoveUpAnimation}
     0.5s ease-out;
+  @media (min-width: 768px) {
+    bottom: 0;
+  }
 `;
 
 export const PlayBoxContainer = styled.div`
