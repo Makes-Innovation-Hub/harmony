@@ -64,6 +64,7 @@ function YouTubePlayer() {
         onReady={handlePlayerReady}
         ref={playerRef}
         onEnd={handleNextVideo}
+        style={{ width: 0, height: 0 }}
       />
     </div>
   );

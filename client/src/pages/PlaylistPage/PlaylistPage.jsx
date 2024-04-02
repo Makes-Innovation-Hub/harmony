@@ -55,42 +55,43 @@ function PlaylistPage() {
       dispatch(rearrangePlaylistArray());
     }
   }, [currentPlaylistData.currentSong]);
-
   return (
-    <S.PageWrapper>
+    <>
       <Header />
-      {!isSuccess && shouldFetchPlaylist && (
-        <Animation
-          animationGif={translatingGif}
-          animationText={["Loading playlist..."]}
-        />
-      )}
-
-      <S.PlaylistTitle>{currentPlaylistData.playlistName}</S.PlaylistTitle>
-      {(isSuccess || !shouldFetchPlaylist) &&
-        currentPlaylistData.playlist !== null && (
-          <>
-            <FlexGrowContainer flexGrow="6" padding="0 0.8rem">
-              <S.ContentWrapper>
-                {currentPlaylistData.playlist.map((song, index) => {
-                  return (
-                    <SongInPlaylist
-                      key={index}
-                      songIndex={index}
-                      songId={song.videoId}
-                      artist={"artistData.name.hebrew"}
-                      arabicName={song.songName3Lang.arabic}
-                      hebrewName={song.songName3Lang.hebrew}
-                      englishName={song.songName3Lang.english}
-                      imgURL={song.profilePicUrl}
-                    />
-                  );
-                })}
-              </S.ContentWrapper>
-            </FlexGrowContainer>
-          </>
+      <S.PageWrapper>
+        {!isSuccess && shouldFetchPlaylist && (
+          <Animation
+            animationGif={translatingGif}
+            animationText={["Loading playlist..."]}
+          />
         )}
-    </S.PageWrapper>
+
+        <S.PlaylistTitle>{currentPlaylistData.playlistName}</S.PlaylistTitle>
+        {(isSuccess || !shouldFetchPlaylist) &&
+          currentPlaylistData.playlist !== null && (
+            <>
+              <FlexGrowContainer flexGrow="6" padding="0 0.8rem">
+                <S.ContentWrapper>
+                  {currentPlaylistData.playlist.map((song, index) => {
+                    return (
+                      <SongInPlaylist
+                        key={index}
+                        songIndex={index}
+                        songId={song.videoId}
+                        artist={"artistData.name.hebrew"}
+                        arabicName={song.songName3Lang.arabic}
+                        hebrewName={song.songName3Lang.hebrew}
+                        englishName={song.songName3Lang.english}
+                        imgURL={song.profilePicUrl}
+                      />
+                    );
+                  })}
+                </S.ContentWrapper>
+              </FlexGrowContainer>
+            </>
+          )}
+      </S.PageWrapper>
+    </>
   );
 }
 

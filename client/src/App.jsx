@@ -14,6 +14,7 @@ import SecureRoute from "./components/SecureRoute.jsx";
 import PlaylistPage from "./pages/PlaylistPage/PlaylistPage";
 import PlaylistSongPage from "./pages/PlaylistSongPage/PlaylistSongPage.jsx";
 import YouTubePlayer from "./components/YouTubePlayer/YouTubePlayer.jsx";
+import GlobalPlayer from "./components/GlobalPlayer/GlobalPlayer.jsx";
 
 // Check environment variable and apply secureRoute conditionally
 const conditionalRoute = (Component) => {

@@ -23,7 +23,6 @@ const PageWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 1rem;
-  height: 100vh;
   padding: 0.5rem;
   min-height: 100vh;
 `;

@@ -90,24 +90,21 @@ const HomeSongGallery = () => {
           smallTitle={["top_hebrew", "top_arabic"]}
           dataToMap1={hebrewSongs}
           dataToMap2={arabicSongs}
-          sectionTitle={"Harmony Top Songs"}
+          sectionTitle={"harmony_top_songs"}
         />
 
         <SongGallery
-          smallTitle={[
-            "Top Hebrew Covers in Arabic",
-            "Top Arabic Covers in Hebrew",
-          ]}
+          smallTitle={["top_hebrew_covers", "top_arabic_covers"]}
           dataToMap1={hebrewCovers}
           dataToMap2={arabicCovers}
-          sectionTitle={"Harmony Covers"}
+          sectionTitle={"covers"}
         />
 
         <SongGallery
-          smallTitle={["Your Top Hebrew mixes", "Your Top Arabic mixes"]}
+          smallTitle={["top_hebrew_mixes", "top_arabic_mixes"]}
           dataToMap1={hebrewPlayList}
           dataToMap2={arabicPlayList}
-          sectionTitle={"Harmony Playlists"}
+          sectionTitle={"playlists"}
         />
       </HomePageContainer>
     </>
