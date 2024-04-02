@@ -17,11 +17,13 @@ function useVideoComment(updatedCoverSong) {
   };
 
   function handleAddComment() {
-    addComment({
-      id: updatedCoverSong?._id,
-      content: commentRef?.current.value,
-    });
-    commentRef.current.value = "";
+    if (commentRef?.current.value.trim().length) {
+      addComment({
+        id: updatedCoverSong?._id,
+        content: commentRef.current.value,
+      });
+      commentRef.current.value = "";
+    }
   }
 
   return [isCommenting, commentRef, handleShowComment, handleAddComment];

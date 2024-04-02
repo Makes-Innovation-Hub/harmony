@@ -124,11 +124,12 @@ const createSong = asyncHandler(async (req, res, next) => {
 });
 
 const getFullSongData = asyncHandler(async (req, res, next) => {
-  const { song, artist, coverArt } = req.body;
+  const { song, artist, coverArt, songId } = req.body;
   logger.info(`getting song full data for song: ${song}, artist: ${artist}`);
   try {
     // look for song data in song collection
     const songs = await Song.find({
+      // songId: songId,
       $or: [
         { "name.hebrew": { $regex: song, $options: "i" } },
         { "name.arabic": { $regex: song, $options: "i" } },
@@ -147,11 +148,13 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
     } else {
       // if not - generate song data - > save song in db
       logger.info(`no songs found for song name: ${song}.generating data`);
-      const songData = await generateSongData(song, artist, coverArt);
+
+      const songData = await generateSongData(song, artist, coverArt, songId);
       logger.info(`succeeded generating song data for ${song}`);
       const newSong = await Song.create(songData);
       const artistData = await Artist.findById(songData.artist);
       newSong.artist = artistData;
+
       res.json(newSong);
     }
   } catch (error) {
@@ -159,10 +162,12 @@ const getFullSongData = asyncHandler(async (req, res, next) => {
   }
 });
 
-const generateSongData = async function (song, artist, coverArt) {
+const generateSongData = async function (song, artist, coverArt, songId) {
   let finalSongData = generateBasicDataObj("song");
+  let threeNames = null;
   // add cover art
   finalSongData.coverArt = coverArt;
+  finalSongData.songId = songId;
 
   // translate song name - 3 langs
   const nameLang = detectLanguage(song);
@@ -175,6 +180,7 @@ const generateSongData = async function (song, artist, coverArt) {
       ...finalSongData,
       ...{ name: names3langs },
     };
+    threeNames = names3langs;
   } catch (error) {
     console.log(
       "error in translateText3Lang function",
@@ -199,7 +205,11 @@ const generateSongData = async function (song, artist, coverArt) {
 
   try {
     // get lyrics
-    const { lyricsObj, originalLang } = await prepareLyrics(song, artist);
+    const { lyricsObj, originalLang } = await prepareLyrics(
+      song,
+      artist,
+      threeNames.arabic
+    );
     finalSongData = {
       ...finalSongData,
       ...{ lyrics: lyricsObj },
@@ -208,20 +218,6 @@ const generateSongData = async function (song, artist, coverArt) {
   } catch (error) {
     console.log("prepare", error);
   }
-  const names3langs = await translateText3Lang(song);
-  finalSongData = {
-    ...finalSongData,
-    ...{ name: names3langs },
-  };
-  const artistId = await prepareArtist(artist);
-  finalSongData.artist = artistId;
-  // get lyrics
-  const { lyricsObj, originalLang } = await prepareLyrics(song, artist);
-  finalSongData = {
-    ...finalSongData,
-    ...{ lyrics: lyricsObj },
-    ...{ originalLang },
-  };
 
   // return song obj
   return finalSongData;
@@ -241,18 +237,24 @@ const prepareArtist = async (artist) => {
   }
 };
 
-const prepareLyrics = async (song, artist) => {
+const prepareLyrics = async (song, artist, arabicName) => {
   try {
     logger.info(
       `starting to generate lyrics for song: ${song} artist: ${artist}`
     );
-    const lyrics = await scrapGoogleFn(song, artist);
-    logger.info(
-      `detecting original lang for song: ${song} text: ${lyrics.slice(20)}`
-    );
-    const originalLang = detectLanguage(lyrics);
-    const lyricsObj = await translateText3Lang(lyrics[0]);
-    return { lyricsObj, originalLang };
+    let lyrics = await scrapGoogleFn(song, artist);
+    if (!lyrics) {
+      lyrics = await scrapGoogleFn(arabicName, artist);
+    }
+
+    if (lyrics) {
+      logger.info(
+        `detecting original lang for song: ${song} text: ${lyrics[0].slice(20)}`
+      );
+      const originalLang = detectLanguage(lyrics);
+      const lyricsObj = await translateText3Lang(lyrics[0]);
+      return { lyricsObj, originalLang };
+    }
   } catch (error) {
     console.log("error", error);
   }

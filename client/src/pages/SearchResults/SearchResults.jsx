@@ -104,7 +104,7 @@ const SearchResultsPage = ({ songs, artists }) => {
                       target: song.originalLang === "arabic" ? "HE" : "AR",
                     }}
                     titles={titles}
-                    artistData={song.artist}
+                    artistData={song}
                   />
                 );
               })}

@@ -5,13 +5,9 @@ import ErrorResponse from "../utils/ErrorResponse.js";
 import scrapeTopArabicSongs from "../scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "../scrapping/scrappingTopHebrewSongs.js";
 import { findOrCreateSong } from "./songsController.js";
-import { dummySongsArray } from "../utils/createDummyData.js";
-import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import checkIfInSameWeek from "../utils/checkIfAWeekPassed.js";
 import { getCoverArtForSong } from "../spotifyapi.js";
-import { all } from "axios";
-import detectLanguage from "../utils/detectLang.js";
-import { findOrCreateArtist } from "./artistsController.js";
+
 // .........................getOrCreateEachSong..............................................
 const getOrCreateEachSong = async (language, topSongsArray) => {
   let massagedResults;
@@ -101,7 +97,7 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
 
 // ...........................findTopSongs.....................................................
 const findTopSongs = async () => {
-  const topSongsArray = await TopSongs.find().populate("songs");
+  const topSongsArray = await TopSongs.find();
   logger.info(`findTopSongs found`);
   if (topSongsArray.length > 0) return topSongsArray;
 };
@@ -173,9 +169,9 @@ const createTopSongsInDB = async (language, topSongsIdArray) => {
   logger.info(
     `createTopSongsInDB with language ${language} and ID: ${topSongsIdArray}`
   );
-  const topSongs = (
-    await TopSongs.create({ language, songs: topSongsIdArray })
-  ).populate("songs");
+  let topSongs = await TopSongs.create({ language, songs: topSongsIdArray });
+  topSongs = await TopSongs.findById(topSongs._id);
+
   logger.info("Top Song Created successfully In MongoDB");
   return topSongs;
 };
