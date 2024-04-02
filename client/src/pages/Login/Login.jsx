@@ -66,8 +66,7 @@ const LoginPage = () => {
             styles={ImageWrapper}
           />
           <ModalText>
-            Hi Beethoven, the Facebook button is under construction <br />
-            use Google for now.
+            Facebook login is under construction, use Google for now.
           </ModalText>
         </ModalContentContainer>
       </GenericModal>
