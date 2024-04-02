@@ -270,9 +270,15 @@ npm install passport passport-google-oauth20
 
 ### Step 3: Configure Passport.js
 
-#### 1.Go to the[Passport.js](https://www.passportjs.org/)
+#### 1. Go to the [Passport.js](https://www.passportjs.org/) and click on Strategies
 
 ![Description of Image](./client/src/assets/screenshots/LironDoc/13.PNG)
+
+#### 2. Search for google and choose passport-google-oauth20
+
+![Description of Image](./client/src/assets/screenshots/LironDoc/14.PNG)
+
+
 ![Description of Image](./client/src/assets/screenshots/LironDoc/15.PNG)
 
 #### use the CLIENT_ID and the CLIENT_SECRET, from this screen
