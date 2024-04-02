@@ -6,7 +6,7 @@ import ImageBoxWithDetails from "../SongGallery/ImageBoxWithDetails";
 import HomeCovers from "../HomeCovers/HomeCovers";
 import ImageBoxWithDetailsPlaylist from "../topPlaylist/ImageBoxWithDetailsPlaylist";
 import SongGallery from "../SongGallery/SongGallery";
-import { HomePageContainer } from "../../pages/HomeStyles";
+import { HomePageContainer } from "./HomeSongGalleryStyle";
 
 const HomeSongGallery = () => {
   const { data: topSongsAll = [] } = useGetTopSongsQuery();
