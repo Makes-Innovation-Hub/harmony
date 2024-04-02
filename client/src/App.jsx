@@ -18,24 +18,11 @@ import GlobalPlayer from "./components/GlobalPlayer/GlobalPlayer.jsx";
 
 // Check environment variable and apply secureRoute conditionally
 const conditionalRoute = (Component) => {
-  // Check if the environment variable is set to "Phone"
-  if (import.meta.env.VITE_APP_DEVICE_TYPE === "Phone") {
-    // Return the component directly without the secureRoute
-    return (
-      <>
-        <Component />
-        {Component !== PlaylistSongPage ? <GlobalPlayer /> : <></>}
-      </>
-    );
-  } else {
-    // Use the secureRoute
-    return (
-      <SecureRoute>
-        <Component />
-        {Component !== PlaylistSongPage ? <GlobalPlayer /> : <></>}
-      </SecureRoute>
-    );
-  }
+  return (
+    <SecureRoute>
+      <Component />
+    </SecureRoute>
+  );
 };
 
 const Router = createBrowserRouter([
