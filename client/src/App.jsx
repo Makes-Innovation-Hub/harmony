@@ -17,18 +17,11 @@ import YouTubePlayer from "./components/YouTubePlayer/YouTubePlayer.jsx";
 
 // Check environment variable and apply secureRoute conditionally
 const conditionalRoute = (Component) => {
-  // Check if the environment variable is set to "Phone"
-  if (import.meta.env.VITE_APP_DEVICE_TYPE === "Phone") {
-    // Return the component directly without the secureRoute
-    return <Component />;
-  } else {
-    // Use the secureRoute
-    return (
-      <SecureRoute>
-        <Component />
-      </SecureRoute>
-    );
-  }
+  return (
+    <SecureRoute>
+      <Component />
+    </SecureRoute>
+  );
 };
 
 const Router = createBrowserRouter([

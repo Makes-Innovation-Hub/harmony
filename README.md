@@ -8,25 +8,49 @@ By clicking on a song's title, users can access its lyrics/artist as well as its
 
 - React<br>
 - Redux Toolkit & Rtk query<br>
+- Axios<br>
 - React Router<br>
+- i18next<br>
+- Styled Components<br>
+- React Youtube<br>
+- React Share<br>
+
 
 ### Project Backend Technologies:
 
 - Node.js<br>
 - Mongodb<br>
 - Express.js<br>
+- Axios<br>
 - Pino<br>
 - Mocha<br>
 - Cheerio<br>
 - Puppeteer<br>
 - Openai Api<br>
 - Spotify Api<br>
+- Youtube Api<br>
+- Google Api<br>
+- PassportJS<br>
+- NodeCron<br>
+- Json Web Token<br>
+
 
 ### Screenshots
 
 ![Alt text](/client/src/assets/harmonySH.png)
 
-### Local installation
+--------------------------------
+# [Table Of Content]()
+* [Installation](#installation)
+* [Mongo DB setup](#mongo-db-setup)
+* [Open AI setup](#open-ai-setup)
+* [YouTube Api setup](#setting-up-a-youtube-api-key)
+* [Google and PassportJS Api Setup](#setting-up-passportjs-auth)
+* [Run App](#run-the-application-by-the-following-command
+)
+--------------------------------
+
+### Installation
 
 ```
 git clone https://github.com/Makes-Innovation-Hub/harmony.git
@@ -42,16 +66,17 @@ npm run installAll
 
 In order to config all env files in the client please enter the following command:<br>
 
-```
-npm run generate-env-client
-```
 
 ```
-VITE_SERVER_PORT = 5000 || 3000 or the port you prefer.
-```
+# Client .env example
 
-```
-VITE_SERVER_BASE_URL = http://localhost || any base url you prefer.
+VITE_SERVER_PORT=5000
+VITE_SERVER_BASE_URL=http://localhost
+VITE_RENDER_URL= Put your production server url
+
+# This can be either local or production
+# If its production then it works on Render
+VITE_ENVIRONMENT = local | production
 ```
 
 In order to config all env files in the server please enter the following command:<br>
@@ -73,11 +98,35 @@ NODE_ENV = development || production
 ```
 
 ```
+PORT=5000
+NODE_ENV="development"
 MONGO_URI_DEV = explanation below
 MONGO_URI_PROD = explanation below
 OPEN_AI_API_KEY = explanation below
 SPOTIFY_CLIENT_ID = explanation below
 SPOTIFY_CLIENT_SECRET = explanation below
+YOUTUBE_API_KEY= explanation below
+BASE_SERVER_URL= http://localhost
+SERVER_PORT=5000
+CLIENT_PORT=5173
+RENDER_URL = Put your production server url
+PRODUCTION_FRONT_URL = Put your production client url
+SERAP_API_KEY = [Create your own account here](https://serpapi.com/)
+
+
+### All are necessary to run Auth but only google is in use
+GOOGLE_CLIENT_ID= explanation below
+GOOGLE_CLIENT_SECRET= explanation below
+FACEBOOK_APP_ID= explanation below
+FACEBOOK_APP_SECRET= explanation below
+APPLE_CLIENT_ID= explanation below
+APPLE_TEAM_ID= explanation below
+APPLE_KEY_ID= explanation below
+APPLE_PRIVATE_KEY_PATH= explanation below
+SESSION_SECERT= explanation below
+VITE_CLIENT_ID= explanation below
+
+
 ```
 
 ## Mongo DB setup
@@ -165,6 +214,203 @@ SPOTIFY_CLIENT_SECRET = explanation below
 
 - There you can find your Spotify client ID & Spotify client secret
   ![צילום מסך 2023-06-26 ב-13 13 44](./client/src/assets/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202023-06-29%20134823.png)
+
+
+
+--------------------------------------------------
+
+# Setting Up a YouTube API Key
+
+In order to use the YouTube Data API, you'll need to obtain an API key. Follow the steps below to generate your API key.
+
+## Step 1: Go to the Google Developers Console
+
+Navigate to the [Google Developers Console](https://console.developers.google.com/).
+
+## Step 2: Create a New Project
+
+1. Click on the "Create Project" button.
+   ![Create New Project Button](client/src/assets/screenshots/YouTube-API-Screenshot-1.png)
+
+2. Give your project a name and click "Create".
+   ![Give Name and Create](client/src/assets/screenshots/YouTube-API-Screenshot-2.png)
+
+## Step 3: Enable the YouTube Data API
+
+1. In the left sidebar, click on "Library".
+   ![Library](client/src/assets/screenshots/YouTube-API-Screenshot-3.png)
+2. Search for "YouTube Data API" and click on it.
+   ![Find YouTube Data API](client/src/assets/screenshots/YouTube-API-Screenshot-4.png)
+3. Click the "Enable" button.
+   ![Enable YouTube Data API](client/src/assets/screenshots/YouTube-API-Screenshot-5.png)
+
+## Step 4: Create Credentials
+
+1. Click on "Create Credentials" button.
+   ![Credentials](client/src/assets/screenshots/YouTube-API-Screenshot-6.png)
+2. Select the "Public Data" radio button, then click next.
+   ![Click Create Credentials](client/src/assets/screenshots/YouTube-API-Screenshot-7.png)
+
+## Step 5: Copy Your API Key
+
+After you create the API key, it will be displayed on the screen. Copy this key to use it in the project.
+![Copy API Key](client/src/assets/screenshots/YouTube-API-Screenshot-8.png)
+
+## Step 6: Save API Key as an Environment Variable
+
+Save the API Key as an environment variable for the server with the name "YOUTUBE_API_KEY="
+
+### The API key was used to fetch playlist items and channel profile pics
+
+
+------------------------------------------
+
+# Setting Up PassportJS Auth
+
+This section guides you through setting up Google authentication in your application using Passport.js. Follow these steps to enable users to sign in with their Google accounts.
+
+### Step 1: Install Passport.js and Google OAuth Strategy
+
+Before you start, ensure you have Passport.js and the Google OAuth strategy installed. If not, run the following command:
+
+```bash
+npm install passport passport-google-oauth20
+```
+
+### Step 2: Obtain Google API Credentials
+
+#### 1. Go to the [Google Developers Console](https://console.cloud.google.com/apis/dashboard)
+
+#### 2. Create a new project.
+
+![Description of Image](./client/src/assets/screenshots/LironDoc/1.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/2.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/3.png)
+
+#### 3. Configure the consent screen, and set the application type to Web application.
+
+![Description of Image](./client/src/assets/screenshots/LironDoc/7.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/4.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/5.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/6.png)
+
+#### 4. Navigate to Credentials, then click on Create credentials, and select OAuth client ID.
+
+![Description of Image](./client/src/assets/screenshots/LironDoc/9.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/8.png)
+![Description of Image](./client/src/assets/screenshots/LironDoc/10.PNG)
+
+#### 5. Add your application's redirect URI, which will be used for the OAuth callback. It usually looks like http://localhost:5000/auth/google/callback.
+
+![Description of Image](./client/src/assets/screenshots/LironDoc/11.PNG)
+![Description of Image](./client/src/assets/screenshots/LironDoc/12.PNG)
+
+# PassportJS
+### Step 3: Configure Passport.js
+
+#### 1. Go to the [Passport.js](https://www.passportjs.org/) and click on Strategies
+
+![Description of Image](./client/src/assets/screenshots/LironDoc/13.PNG)
+
+#### 2. Search for google and choose passport-google-oauth20
+
+![Description of Image](./client/src/assets/screenshots/LironDoc/14.PNG)
+
+
+![Description of Image](./client/src/assets/screenshots/LironDoc/15.PNG)
+
+#### 3. use the CLIENT_ID and the CLIENT_SECRET, from this screen
+
+![Description of Image](./client/src/assets/screenshots/LironDoc/12.PNG)
+
+```bash
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+passport.use(new GoogleStrategy({
+    clientID: YOUR_CLIENT_ID,
+    clientSecret: YOUR_CLIENT_SECRET,
+    callbackURL: "http://localhost:5000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    // In this function, find or create a user in your database and call cb
+    cb(null, user);
+  }
+));
+
+```
+
+### Step 4: Implement Routes
+
+```bash
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+```
+
+### Step 5: Testing the Integration
+
+After configuring Passport.js with Google OAuth and setting up your routes, it's crucial to test the integration to ensure that users can authenticate successfully using their Google accounts. Follow these steps to test the Google authentication flow:
+
+#### 1. Start Your Application
+
+Ensure your application is running. If you're using Node.js, you can typically start your application with:
+
+```bash
+node app.js
+```
+
+#### 2. Access the Authentication Route
+
+Open a web browser and navigate to the route that initiates the authentication process with Google. Based on the previous setup, this URL will be:
+
+```bash
+http://localhost:5000/auth/google
+```
+
+#### 3. Authenticate with Google
+
+You should be redirected to the Google sign-in page. Choose an account or log in with your Google credentials. After successful authentication, Google will ask for your consent to share your profile and email address with your application.
+
+#### 4. Check the Redirect
+
+After giving consent, you should be redirected back to your application, as specified in your OAuth callback URL. If you set up everything correctly, you should reach the success redirect URL ('/' in the example) after successful authentication.
+
+#### 5. Verify User Information
+
+Ensure that your application correctly receives and processes the user information from Google. This typically involves checking whether the user's data is correctly retrieved in the callback function provided to the GoogleStrategy and whether any user session or database records are correctly updated.
+
+#### 6. Handling Errors
+
+If the authentication process does not work as expected:
+
+Check the console for any errors.
+Verify that the CLIENT_ID and CLIENT_SECRET are correctly set.
+Ensure the callback URL in your Google project matches the one in your Passport configuration exactly.
+Make sure you're handling the failureRedirect properly in your routes to catch any failed authentication attempts.
+
+#### 7. Logging Out
+
+Implement a logout route to allow users to end their session. Here's a simple example:
+
+```bash
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+```
+
+This ensures that users can log out of their session in your application, providing a complete authentication flow.
+
+
+----------------------------------------
+
 
 ## Run the application by the following command
 
