@@ -230,6 +230,8 @@ Save the API Key as an environment variable for the server with the name "YOUTUB
 
 ------------------------------------------
 
+# Setting Up PassportJS Auth
+
 This section guides you through setting up Google authentication in your application using Passport.js. Follow these steps to enable users to sign in with their Google accounts.
 
 ### Step 1: Install Passport.js and Google OAuth Strategy
