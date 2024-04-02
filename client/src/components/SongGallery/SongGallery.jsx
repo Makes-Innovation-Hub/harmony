@@ -21,35 +21,36 @@ export default function SongGallery({
 }) {
   const { t } = useTranslation();
   const [title1, title2] = smallTitle;
-  //
 
-  const containerRef = useRef(null);
+  const containerRef1 = useRef(null);
+  const containerRef2 = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  const startDragging = (e) => {
+  const startDragging = (e, ref) => {
     setIsDragging(true);
-    setStartX(e.pageX - containerRef.current.offsetLeft);
-    setScrollLeft(containerRef.current.scrollLeft);
+    setStartX(e.pageX - ref.current.offsetLeft);
+    setScrollLeft(ref.current.scrollLeft);
   };
 
   const stopDragging = () => {
     setIsDragging(false);
   };
 
-  const onDrag = (e) => {
+  const onDrag = (e, ref) => {
     if (!isDragging) return;
     e.preventDefault();
-    const x = e.pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // The number 2 here determines the speed of the scroll
-    containerRef.current.scrollLeft = scrollLeft - walk;
+    const x = e.pageX - ref.current.offsetLeft;
+    const walk = (x - startX) * 2; // The number here determines the speed of the scroll
+    ref.current.scrollLeft = scrollLeft - walk;
   };
-  //
+
   return (
     <>
       <SongGallary>
         <SectionTitle>{t(sectionTitle)}</SectionTitle>
+
         <TopHSongCountainer>
           <Title>{t(title1)}</Title>
 
@@ -60,11 +61,11 @@ export default function SongGallery({
           )}
 
           <ImageBoxContainer
-            ref={containerRef}
-            onMouseDown={startDragging}
+            ref={containerRef1}
+            onMouseDown={(e) => startDragging(e, containerRef1)}
             onMouseLeave={stopDragging}
             onMouseUp={stopDragging}
-            onMouseMove={onDrag}
+            onMouseMove={(e) => onDrag(e, containerRef1)}
           >
             {dataToMap1}
           </ImageBoxContainer>
@@ -77,7 +78,16 @@ export default function SongGallery({
               <NoCoverSvg src={NoCoversSvg} alt="No Covers Svg" />
             </NoCoversContainer>
           )}
-          <ImageBoxContainer>{dataToMap2}</ImageBoxContainer>
+
+          <ImageBoxContainer
+            ref={containerRef2}
+            onMouseDown={(e) => startDragging(e, containerRef2)}
+            onMouseLeave={stopDragging}
+            onMouseUp={stopDragging}
+            onMouseMove={(e) => onDrag(e, containerRef2)}
+          >
+            {dataToMap2}
+          </ImageBoxContainer>
         </TopASongCountainer>
       </SongGallary>
     </>
