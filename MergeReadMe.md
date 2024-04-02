@@ -281,7 +281,7 @@ npm install passport passport-google-oauth20
 
 ![Description of Image](./client/src/assets/screenshots/LironDoc/15.PNG)
 
-#### use the CLIENT_ID and the CLIENT_SECRET, from this screen
+#### 3. use the CLIENT_ID and the CLIENT_SECRET, from this screen
 
 ![Description of Image](./client/src/assets/screenshots/LironDoc/12.PNG)
 
