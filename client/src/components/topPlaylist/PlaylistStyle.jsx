@@ -20,6 +20,7 @@ export const SongGallery = styled.div`
 export const TopHMixCountainer = styled.div`
   @media (min-width: 701px) {
     border-radius: 8px;
+    border: 1px solid black;
     /* margin: 0 15%; */
     width: 100%;
   }
@@ -46,7 +47,7 @@ export const ImageBox = styled.div`
   }
 `;
 export const Image = styled.img`
-  @media (min-width: 0px) and (max-width: 700px) {
+  @media (min-width: 701px) {
     width: 180px;
     height: 180px;
     object-fit: cover;
