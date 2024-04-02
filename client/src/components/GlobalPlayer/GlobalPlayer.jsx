@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as S from "./GlobalPlayer.styled";
 import { setCurrentSong, playSong } from "../../Redux/playlistSlice.js";
