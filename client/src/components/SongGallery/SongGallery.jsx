@@ -49,9 +49,8 @@ export default function SongGallery({
   return (
     <>
       <SongGallary>
-        <SectionTitle>{t(sectionTitle)}</SectionTitle>
-
         <TopHSongCountainer>
+          <SectionTitle>{t(sectionTitle)}</SectionTitle>
           <Title>{t(title1)}</Title>
 
           {dataToMap1?.length === 0 && (

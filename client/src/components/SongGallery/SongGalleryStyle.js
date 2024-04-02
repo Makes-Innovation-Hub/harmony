@@ -55,14 +55,18 @@ export const Image = styled.img`
   }
 `;
 export const Title = styled.h2`
-  @media (min-width: 0px) and (max-width: 700px) {
-    font-weight: 400;
-    font-size: 1.2rem;
-    color: #333333;
-    font-style: italic;
-    margin-left: 8%;
-    line-height: 1.912;
-    font-family: "ABeeZee";
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: #333333;
+  font-style: italic;
+  margin-left: 8%;
+  line-height: 1.912;
+  font-family: "ABeeZee";
+  margin-top: 20px;
+
+  @media (min-width: 701px) {
+    margin-left: 0%;
+    padding-bottom: 20px;
   }
 `;
 export const ImageBoxContainer = styled.div`
@@ -186,16 +190,19 @@ export const SongArtist = styled.p`
 `;
 
 export const SectionTitle = styled.h1`
-  @media (min-width: 0px) and (max-width: 700px) {
-    font-weight: 400;
-    font-size: 23px;
-    color: #333333;
-    font-style: italic;
-    margin-left: 8%;
-    line-height: 1.912;
-    font-family: "ABeeZee";
-    text-decoration: underline;
-    padding-bottom: 15px;
+  font-weight: 400;
+  font-size: 23px;
+  color: #333333;
+  font-style: italic;
+  margin-left: 8%;
+  line-height: 1.912;
+  font-family: "ABeeZee";
+  text-decoration: underline;
+  padding-bottom: 15px;
+
+  @media (min-width: 701px) {
+    margin-left: 0%;
+    margin-top: 70px;
   }
 `;
 
