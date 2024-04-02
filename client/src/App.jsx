@@ -21,6 +21,7 @@ const conditionalRoute = (Component) => {
   return (
     <SecureRoute>
       <Component />
+      {Component !== PlaylistSongPage ? <GlobalPlayer /> : <></>}
     </SecureRoute>
   );
 };
