@@ -64,7 +64,6 @@ const SongSchema = new mongoose.Schema(
     ],
     songId: {
       type: String,
-      required: [true, `SongId must be provided`],
       unique: true,
     },
   },
