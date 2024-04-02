@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import {
   Title,
@@ -21,6 +21,7 @@ import i18n from "../../i18n.js";
 import { useNavigate } from "react-router-dom";
 import * as S from "./HeaderStyle.jsx";
 import Image from "../Image/Image.jsx";
+import ScrollToTop from "../ScrollToTop/ScrollToTop.jsx";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const Header = () => {
     "isrealFlag",
     "palestineFlag",
   ];
+  const topScroller = useRef();
   const flagMapping = {
     English: usaFlag,
     Hebrew: isrealFlag,
@@ -77,7 +79,8 @@ const Header = () => {
   };
 
   return (
-    <HeaderContainer>
+    <HeaderContainer ref={topScroller}>
+      <ScrollToTop refToScroller={topScroller} />
       <TitleContainer>
         <AppIcon onClick={() => navigate("/")}>
           <Image name={"dove"} alt={"dove"} styles={S.DoveImg} />
