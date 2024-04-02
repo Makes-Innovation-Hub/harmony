@@ -22,6 +22,19 @@ export const TopHSongCountainer = styled.div`
     margin: 0 auto;
   }
 `;
+
+export const TopASongCountainer = styled.div`
+  border-radius: 8px;
+  @media (min-width: 0px) and (max-width: 700px) {
+    width: 100%;
+  }
+  @media (min-width: 701px) {
+    width: 70%;
+    max-width: 1050px;
+    margin: 0 auto;
+  }
+`;
+
 export const ImageBox = styled.div`
   @media (min-width: 0px) and (max-width: 700px) {
     width: 100%;
@@ -65,6 +78,7 @@ export const ImageBoxContainer = styled.div`
   & > ${ImageBox} {
     margin-right: -0.25rem;
   }
+
   @media (max-width: 700px) {
     display: flex;
     gap: 1.2rem;
@@ -85,17 +99,8 @@ export const ImageBoxContainer = styled.div`
   }
 `;
 
-export const TopASongCountainer = styled.div`
-  border-radius: 8px;
-  margin-top: 4%;
-
-  @media (min-width: 0px) and (max-width: 700px) {
-    height: 20%;
-  }
-`;
 export const Box = styled.div`
   font-family: ABeeZee;
-
   min-height: 2rem;
   background: rgba(223, 220, 220, 0.28);
   box-shadow: 0px -18px 49px rgba(0, 0, 0, 0.09);
@@ -108,14 +113,13 @@ export const Box = styled.div`
   @media (min-width: 701px) {
     color: white;
     font-size: 0.8rem;
-    width: 90%;
+    width: 160px;
     margin-top: -30%;
     height: 30%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -136,19 +140,27 @@ export const SongP = styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
 
-    @media (min-width: 701px) {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
+  @media (min-width: 701px) {
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: #ffff;
+    font-style: italic;
+    margin-left: 2%;
+    margin-top: 4%;
+    padding: 0.43rem;
+    line-height: 1.081rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
 export const SongArtist = styled.p`
   font-family: "ABeeZee";
   @media (min-width: 0px) and (max-width: 700px) {
-    font-size: 0.4rem;
+    font-size: 0.65rem;
     font-weight: 50;
     font-style: italic;
     margin-left: 0.6rem;
@@ -158,12 +170,18 @@ export const SongArtist = styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
-    @media (min-width: 701px) {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
+  }
+  @media (min-width: 701px) {
+    font-size: 0.65rem;
+    font-weight: 50;
+    font-style: italic;
+    margin-left: 0.6rem;
+    line-height: 0.831rem;
+    color: #ffff;
+    margin-top: -0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
