@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as S from "./GlobalPlayer.styled";
 import { setCurrentSong, playSong } from "../../Redux/playlistSlice.js";
@@ -10,6 +10,7 @@ function GlobalPlayer() {
   const [minus, setMinus] = useState(false);
   const [animationEnd, setAnimationEnd] = useState(false);
   const [displayImg, setDisplayImg] = useState(true);
+  const [displayGlobalPlayer, setDisplayGlobalPlayer] = useState(true);
   const dispatch = useDispatch();
 
   const playlist = currentPlaylistData.playlist;
@@ -68,21 +69,34 @@ function GlobalPlayer() {
       setMinus(false);
     }
   };
-  return !animationEnd && currentPlaylistData?.currentSong ? (
+  const handleClose = () => {
+    setDisplayGlobalPlayer(false);
+    dispatch(
+      setCurrentSong({
+        currentSong: null,
+        songIndex: 0,
+        direction: "left",
+      })
+    );
+    dispatch(playSong(false));
+  };
+  return displayGlobalPlayer &&
+    !animationEnd &&
+    currentPlaylistData?.currentSong ? (
     <>
       <S.MusicPlayerContainer
         animate={minus}
         onAnimationEnd={handleAnimationEnd}
       >
         <S.PlayBoxContainer>
-          <S.MinusButton
+          <S.MinusXButton
             onClick={() => {
               setMinus(true);
               setDisplayImg(true);
             }}
           >
             -
-          </S.MinusButton>
+          </S.MinusXButton>
           <Image
             name={"previous"}
             alt={"previous"}
@@ -101,58 +115,50 @@ function GlobalPlayer() {
             styles={S.ButtonImage}
             onClick={handleNextVideo}
           />
-          <S.MinusButton onClick={() => setMinus(false)}>X</S.MinusButton>
+          <S.XButton onClick={handleClose}>X</S.XButton>
         </S.PlayBoxContainer>
 
-        {currentPlaylistData.currentSongIsPlaying && (
-          <S.CyclicScroll>
-            <img
-              src={music}
-              alt="Icon"
-              style={{ width: "24px", height: "24px" }}
-            />
-            {`${
-              currentPlaylistData?.playlist[
-                currentPlaylistData.currentSongIndex
-              ].songName3Lang.english
-            } - ${
-              currentPlaylistData?.playlist[
-                currentPlaylistData.currentSongIndex
-              ].songName3Lang.arabic
-            } - ${
-              currentPlaylistData?.playlist[
-                currentPlaylistData.currentSongIndex
-              ].songName3Lang.hebrew
-            } `}
-          </S.CyclicScroll>
-        )}
+        <S.CyclicScroll>
+          {currentPlaylistData.currentSongIsPlaying && (
+            <>
+              <img
+                src={music}
+                alt="Icon"
+                style={{ width: "24px", height: "24px" }}
+              />
+              {`${
+                currentPlaylistData?.playlist[
+                  currentPlaylistData.currentSongIndex
+                ].songName3Lang.english
+              } - ${
+                currentPlaylistData?.playlist[
+                  currentPlaylistData.currentSongIndex
+                ].songName3Lang.arabic
+              } - ${
+                currentPlaylistData?.playlist[
+                  currentPlaylistData.currentSongIndex
+                ].songName3Lang.hebrew
+              } `}
+            </>
+          )}
+        </S.CyclicScroll>
       </S.MusicPlayerContainer>
     </>
   ) : (
     <>
-      {displayImg && currentPlaylistData?.currentSong ? (
+      {displayGlobalPlayer && displayImg && currentPlaylistData?.currentSong ? (
         <>
           <S.PlayingSongContainer>
             <S.PlayingSongImg
               src={currentPlaylistData?.currentSong.profilePicUrl}
-              alt=""
+              alt="song"
               onClick={() => {
                 setDisplayImg(false);
                 setAnimationEnd(false);
                 setMinus(false);
               }}
             />
-            <img
-              src={music}
-              alt="Icon"
-              style={{
-                position: "absolute",
-                top: "0",
-                left: "70px",
-                width: "24px", // Adjust as needed
-                height: "24px", // Adjust as needed
-              }}
-            />
+            <S.MusicIicon src={music} alt="Icon" />
           </S.PlayingSongContainer>
         </>
       ) : (

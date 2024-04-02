@@ -24,7 +24,6 @@ const conditionalRoute = (Component) => {
     return (
       <>
         <Component />
-        {/* <GlobalPlayer /> */}
         {Component !== PlaylistSongPage ? <GlobalPlayer /> : <></>}
       </>
     );
@@ -33,7 +32,6 @@ const conditionalRoute = (Component) => {
     return (
       <SecureRoute>
         <Component />
-        {/* <GlobalPlayer /> */}
         {Component !== PlaylistSongPage ? <GlobalPlayer /> : <></>}
       </SecureRoute>
     );

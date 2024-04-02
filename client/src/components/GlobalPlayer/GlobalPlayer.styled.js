@@ -21,12 +21,13 @@ const MoveUpAnimation = keyframes`
   }
 `;
 export const MusicPlayerContainer = styled.div`
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1px;
-  height: 100px;
+  height: 90px;
   width: 100%;
   background-color: rgb(254, 254, 254, 1);
   padding: 10px;
@@ -36,17 +37,9 @@ export const MusicPlayerContainer = styled.div`
   overflow: hidden;
   animation: ${(props) =>
       props.animate ? shrinkAndMoveAnimation : MoveUpAnimation}
-    ${(props) => (props.animate ? "0.5s" : "1.5s")} ease-out;
+    0.5s ease-out;
 `;
-export const MusicPlayerContainerAll = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  width: 200px;
-  background-color: rebeccapurple;
-`;
+
 export const PlayBoxContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -59,7 +52,9 @@ export const PlayBoxContainer = styled.div`
 export const ButtonImage = styled.img`
   /* Add your image styles here */
   outline: 0; /* Initially no outline */
-
+  &:active {
+    outline: 2px solid blue; /* Add outline when button is active */
+  }
   @media (min-width: 768px) {
     &:hover {
       cursor: pointer;
@@ -91,8 +86,12 @@ export const CyclicScroll = styled.div`
   overflow: hidden; /* Hide overflow text */
   box-sizing: border-box;
   min-width: 100%;
-  padding: 10px;
+  height: 30px;
+  padding: 2px;
   animation: ${scrollText} 10s linear infinite;
+  @media screen and (min-width: 768px) {
+    animation: ${scrollText} 30s linear infinite;
+  }
 `;
 
 export const MinusButton = styled.button`
@@ -111,7 +110,7 @@ const imageAnimation = keyframes`
 `;
 
 export const PlayingSongImg = styled.img`
-  position: sticky;
+  position: absolute;
   bottom: 0;
   overflow: hidden;
   border-radius: 50%;
@@ -121,14 +120,60 @@ export const PlayingSongImg = styled.img`
   /* animation: ${imageAnimation} 0.5s linear; */
 `;
 
+export const MusicIicon = styled.img`
+  position: absolute;
+  top: 0;
+  left: 70px;
+  width: 24px;
+  height: 24px;
+`;
+
 export const PlayingSongContainer = styled.div`
-  position: sticky;
-  bottom: 0;
+  position: fixed;
+  bottom: 5px;
   width: 80px;
   height: 80px;
   padding: 5px;
-  /* overflow: hidden; */
-
   z-index: 1000;
   animation: ${imageAnimation} 0.5s linear;
+`;
+
+export const MinusXButton = styled.div`
+  position: absolute;
+  font-family: ABeeZee;
+  font-style: italic;
+  color: black;
+  cursor: pointer;
+  top: 10px;
+  left: 15px;
+  font-size: 30px;
+
+  &:hover {
+    color: blue;
+  }
+  /* @media screen and (min-width: 768px) {
+    font-size: 1.2rem;
+    top: 10px;
+    right: 12px;
+  } */
+`;
+
+export const XButton = styled.div`
+  position: absolute;
+  font-family: ABeeZee;
+  font-style: italic;
+  color: black;
+  cursor: pointer;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+
+  &:hover {
+    color: red;
+  }
+  /* @media screen and (min-width: 768px) {
+    font-size: 1.2rem;
+    top: 10px;
+    right: 12px;
+  } */
 `;
