@@ -12,9 +12,9 @@ export const SongGallary = styled.div`
   }
 `;
 export const TopHSongCountainer = styled.div`
-  border-radius: 8px;
   @media (min-width: 0px) and (max-width: 700px) {
     width: 100%;
+    padding-bottom: 30px;
   }
   @media (min-width: 701px) {
     width: 70%;
@@ -24,7 +24,6 @@ export const TopHSongCountainer = styled.div`
 `;
 
 export const TopASongCountainer = styled.div`
-  border-radius: 8px;
   @media (min-width: 0px) and (max-width: 700px) {
     width: 100%;
   }
@@ -56,16 +55,15 @@ export const Image = styled.img`
 `;
 export const Title = styled.h2`
   font-weight: 400;
-  font-size: 1.2rem;
+  font-size: 20px;
   color: #333333;
   font-style: italic;
   margin-left: 8%;
   line-height: 1.912;
   font-family: "ABeeZee";
-  margin-top: 20px;
 
   @media (min-width: 701px) {
-    margin-left: 0%;
+    margin-left: 5%;
     padding-bottom: 20px;
   }
 `;
@@ -74,6 +72,7 @@ export const ImageBoxContainer = styled.div`
   white-space: nowrap;
   margin-left: 5%;
   overflow-y: hidden;
+  padding-right: 20px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -96,10 +95,13 @@ export const ImageBoxContainer = styled.div`
   @media (min-width: 701px) {
     display: flex;
     gap: 2.7%;
+    gap: 24px;
     padding-bottom: 20px;
     overflow: auto;
     white-space: nowrap;
     cursor: grab;
+    max-width: 1000px;
+    width: fit-content;
   }
 `;
 
@@ -198,10 +200,10 @@ export const SectionTitle = styled.h1`
   line-height: 1.912;
   font-family: "ABeeZee";
   text-decoration: underline;
-  padding-bottom: 15px;
+  padding-bottom: 20px;
 
   @media (min-width: 701px) {
-    margin-left: 0%;
+    margin-left: 5%;
     margin-top: 70px;
   }
 `;
