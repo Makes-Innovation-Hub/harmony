@@ -7,7 +7,7 @@ import music from "../../assets/music.svg";
 
 function GlobalPlayer() {
   const currentPlaylistData = useSelector((state) => state.currentplaylist);
-  const [minus, setMinus] = useState(false);
+  const [minusPressed, setMinusPressed] = useState(false);
   const [animationEnd, setAnimationEnd] = useState(false);
   const [displayImg, setDisplayImg] = useState(true);
   const [displayGlobalPlayer, setDisplayGlobalPlayer] = useState(true);
@@ -64,9 +64,8 @@ function GlobalPlayer() {
     }
   };
   const handleAnimationEnd = () => {
-    if (minus) {
+    if (minusPressed) {
       setAnimationEnd(true);
-      setMinus(false);
     }
   };
   const handleClose = () => {
@@ -80,18 +79,19 @@ function GlobalPlayer() {
     );
     dispatch(playSong(false));
   };
+
   return displayGlobalPlayer &&
     !animationEnd &&
     currentPlaylistData?.currentSong ? (
     <>
       <S.MusicPlayerContainer
-        animate={minus.toString()}
+        animate={minusPressed.toString()}
         onAnimationEnd={handleAnimationEnd}
       >
         <S.PlayBoxContainer>
           <S.MinusXButton
             onClick={() => {
-              setMinus(true);
+              setMinusPressed(true);
               setDisplayImg(true);
             }}
           >
@@ -155,7 +155,7 @@ function GlobalPlayer() {
               onClick={() => {
                 setDisplayImg(false);
                 setAnimationEnd(false);
-                setMinus(false);
+                setMinusPressed(false);
               }}
             />
             <S.MusicIicon src={music} alt="Icon" />
