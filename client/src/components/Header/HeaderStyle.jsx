@@ -44,6 +44,7 @@ export const AppIcon = styled.div`
   font-size: 1.5rem;
   margin-right: 2rem;
   width: 2%;
+  cursor: pointer;
   .dove {
     top: 27px;
   }

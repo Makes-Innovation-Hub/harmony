@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Image, ImageBox, SongP, Songartist } from "./SongGalleryStyle";
+import { Box, Image, ImageBox, SongArtist, SongP } from "./SongGalleryStyle";
 import { useNavigate } from "react-router-dom";
 import { useGetArtistDataQuery } from "../../api/artistApiSlice";
 
@@ -33,7 +33,7 @@ export default function ImageBoxWithDetails({ img, artist, songName, songId }) {
       <Image src={img} onClick={handleImageClick} />
       <Box>
         <SongP onClick={handleImageClick}>{songName}</SongP>
-        <Songartist onClick={handleArtistClick}>{artist}</Songartist>
+        <SongArtist onClick={handleArtistClick}>{artist}</SongArtist>
       </Box>
     </ImageBox>
   );

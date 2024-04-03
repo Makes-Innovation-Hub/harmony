@@ -5,13 +5,9 @@ import ErrorResponse from "../utils/ErrorResponse.js";
 import scrapeTopArabicSongs from "../scrapping/scrappingTopArabicSongs.js";
 import scrapeTopHebrewSongs from "../scrapping/scrappingTopHebrewSongs.js";
 import { findOrCreateSong } from "./songsController.js";
-import { dummySongsArray } from "../utils/createDummyData.js";
-import createObjectFromQuery from "../utils/createObjectFromQuery.js";
 import checkIfInSameWeek from "../utils/checkIfAWeekPassed.js";
 import { getCoverArtForSong } from "../spotifyapi.js";
-import { all } from "axios";
-import detectLanguage from "../utils/detectLang.js";
-import { findOrCreateArtist } from "./artistsController.js";
+
 // .........................getOrCreateEachSong..............................................
 const getOrCreateEachSong = async (language, topSongsArray) => {
   let massagedResults;
@@ -101,7 +97,7 @@ const getTopSongs = asyncHandler(async (req, res, next) => {
 
 // ...........................findTopSongs.....................................................
 const findTopSongs = async () => {
-  const topSongsArray = await TopSongs.find().populate("songs");
+  const topSongsArray = await TopSongs.find();
   logger.info(`findTopSongs found`);
   if (topSongsArray.length > 0) return topSongsArray;
 };

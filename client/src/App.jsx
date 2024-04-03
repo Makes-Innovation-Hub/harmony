@@ -14,21 +14,16 @@ import SecureRoute from "./components/SecureRoute.jsx";
 import PlaylistPage from "./pages/PlaylistPage/PlaylistPage";
 import PlaylistSongPage from "./pages/PlaylistSongPage/PlaylistSongPage.jsx";
 import YouTubePlayer from "./components/YouTubePlayer/YouTubePlayer.jsx";
+import GlobalPlayer from "./components/GlobalPlayer/GlobalPlayer.jsx";
 
 // Check environment variable and apply secureRoute conditionally
 const conditionalRoute = (Component) => {
-  // Check if the environment variable is set to "Phone"
-  if (import.meta.env.VITE_APP_DEVICE_TYPE === "Phone") {
-    // Return the component directly without the secureRoute
-    return <Component />;
-  } else {
-    // Use the secureRoute
-    return (
-      <SecureRoute>
-        <Component />
-      </SecureRoute>
-    );
-  }
+  return (
+    <SecureRoute>
+      <Component />
+      {Component !== PlaylistSongPage ? <GlobalPlayer /> : <></>}
+    </SecureRoute>
+  );
 };
 
 const Router = createBrowserRouter([
