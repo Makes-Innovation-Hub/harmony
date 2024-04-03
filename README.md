@@ -4,14 +4,13 @@ Harmony is a music app that showcases the top 10 songs in Hebrew and the top 10 
 By clicking on a song's title, users can access its lyrics/artist as well as its translation into the other language.
 </p>
 
--------------------------------------------------------------
+---
 
 ## Project Structure
 
 ![Project Structure](./client/src/assets/screenshots/diagram.png)
 
-
-------------------------------------------------------------
+---
 
 ### Project Frontend Technologies:
 
@@ -23,7 +22,6 @@ By clicking on a song's title, users can access its lyrics/artist as well as its
 - Styled Components<br>
 - React Youtube<br>
 - React Share<br>
-
 
 ### Project Backend Technologies:
 
@@ -43,21 +41,23 @@ By clicking on a song's title, users can access its lyrics/artist as well as its
 - NodeCron<br>
 - Json Web Token<br>
 
-
 ### Screenshots
 
 ![Alt text](/client/src/assets/harmonySH.png)
 
---------------------------------
+---
+
 # [Table Of Content]()
-* [Installation](#installation)
-* [Mongo DB setup](#mongo-db-setup)
-* [Open AI setup](#open-ai-setup)
-* [YouTube Api setup](#setting-up-a-youtube-api-key)
-* [Google and PassportJS Api Setup](#setting-up-passportjs-auth)
-* [Run App](#run-the-application-by-the-following-command
-)
---------------------------------
+
+- [Installation](#installation)
+- [Mongo DB setup](#mongo-db-setup)
+- [Open AI setup](#open-ai-setup)
+- [YouTube Api setup](#setting-up-a-youtube-api-key)
+- [Google and PassportJS Api Setup](#setting-up-passportjs-auth)
+- [Cron-job Setup Guide](#cron-job-setup-guide)
+- [Run App](#run-the-application-by-the-following-command)
+
+---
 
 ### Installation
 
@@ -74,7 +74,6 @@ npm run installAll
 ```
 
 In order to config all env files in the client please enter the following command:<br>
-
 
 ```
 # Client .env example
@@ -224,9 +223,7 @@ VITE_CLIENT_ID= explanation below
 - There you can find your Spotify client ID & Spotify client secret
   ![צילום מסך 2023-06-26 ב-13 13 44](./client/src/assets/%D7%A6%D7%99%D7%9C%D7%95%D7%9D%20%D7%9E%D7%A1%D7%9A%202023-06-29%20134823.png)
 
-
-
---------------------------------------------------
+---
 
 # Setting Up a YouTube API Key
 
@@ -271,8 +268,7 @@ Save the API Key as an environment variable for the server with the name "YOUTUB
 
 ### The API key was used to fetch playlist items and channel profile pics
 
-
-------------------------------------------
+---
 
 # Setting Up PassportJS Auth
 
@@ -315,6 +311,7 @@ npm install passport passport-google-oauth20
 ![Description of Image](./client/src/assets/screenshots/LironDoc/12.PNG)
 
 # PassportJS
+
 ### Step 3: Configure Passport.js
 
 #### 1. Go to the [Passport.js](https://www.passportjs.org/) and click on Strategies
@@ -324,7 +321,6 @@ npm install passport passport-google-oauth20
 #### 2. Search for google and choose passport-google-oauth20
 
 ![Description of Image](./client/src/assets/screenshots/LironDoc/14.PNG)
-
 
 ![Description of Image](./client/src/assets/screenshots/LironDoc/15.PNG)
 
@@ -417,8 +413,8 @@ app.get('/logout', function(req, res){
 
 This ensures that users can log out of their session in your application, providing a complete authentication flow.
 
+---
 
-----------------------------------------
 ## Playlist Documentation
 
 This documentation provides an overview of the routes and functionalities of the playlist in the backend server.
@@ -509,8 +505,37 @@ This file contains controller functions for handling requests related to playlis
 3. Install dependencies using `npm install`.
 4. Start the server using `npm start`.
 
+# Cron-job Setup Guide
 
----------------------------------------------------------
+If you want to prevent the render server from sleeping, you can use the [Cron-job](https://console.cron-job.org/) website.
+
+The render server sleeps after 15 minutes of inactivity. To keep the server awake, you need to send a request every 14 minutes at least. To do that, you can create an endpoint that does nothing but sends a message back, or you can use an existing GET endpoint in your server. In our code, we define the `/keep-server-awake` endpoint for this purpose.
+
+Follow these steps to set up the Cron-job:
+
+## 1. Sign Up
+
+- Sign up on the Cron-job website.
+- Log in to your account and follow the other steps below.
+
+## 2. Create Cronjob
+
+- Click on "CREATE CRONJOB" to create the Cron-job that will send requests to the server.
+
+![Create Cron-job](./client/src/assets/screenshots/cron/cron1.png)
+
+## 3. Set The Cron-job
+
+- In the URL field, add your route/endpoint that you want to be called at specific times. For example, we use `ourRender/keep-server-awake`.
+  ![Set Cron-job URL](./client/src/assets/screenshots/cron/cron2.png)
+
+- Set the time between each request according to your server's requirements.
+  ![Set Cron-job Time](./client/src/assets/screenshots/cron/cron3.png)
+
+- Press "CREATE" after you have finished setting up.
+  ![Create Cron-job](./client/src/assets/screenshots/cron/cron4.png)
+
+---
 
 ## Run the application by the following command
 
