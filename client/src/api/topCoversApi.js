@@ -11,6 +11,9 @@ const topCoversApi = createApi({
         method: "GET",
         params: { language },
       }),
+      transformResponse: (res) => {
+        return res.sort((a, b) => b.likes.length - a.likes.length);
+      },
     }),
   }),
 });
