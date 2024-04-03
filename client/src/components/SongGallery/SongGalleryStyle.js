@@ -94,7 +94,6 @@ export const ImageBoxContainer = styled.div`
 
   @media (min-width: 701px) {
     display: flex;
-    gap: 2.7%;
     gap: 24px;
     padding-bottom: 20px;
     overflow: auto;
