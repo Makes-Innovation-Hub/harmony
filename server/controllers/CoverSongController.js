@@ -212,9 +212,7 @@ export const getTopCoverSongs = async (req, res, next) => {
     if (language === "hebrew") {
       const hebrewSongs = await CoverSong.find({
         originalLanguage: "hebrew",
-      })
-        .sort({ likes: -1 })
-        .limit(10);
+      }).limit(10);
       if (!hebrewSongs) {
         res.status(404);
         throw new Error("Hebrew songs not found");
@@ -224,9 +222,7 @@ export const getTopCoverSongs = async (req, res, next) => {
     if (language === "arabic") {
       const arabicSongs = await CoverSong.find({
         originalLanguage: "arabic",
-      })
-        .sort({ likes: -1 })
-        .limit(10);
+      }).limit(10);
       if (!arabicSongs) {
         res.status(404);
         throw new Error("Arabic songs not found");
