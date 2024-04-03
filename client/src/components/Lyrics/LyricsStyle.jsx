@@ -44,6 +44,8 @@ export const Paragraph = styled.p`
   color: black;
   width: 16ch;
   white-space: pre-line;
+  line-height: 1.7;
+  letter-spacing: 0.5px;
 `;
 
 export const WrapperDiv = styled.div`

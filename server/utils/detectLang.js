@@ -4,7 +4,7 @@ function detectLanguage(text) {
   const hebrewRegex = /^[א-ת\s]+$/;
   const arabicRegex = /^[؀-ۿ\s]+$/;
 
-  let englishCount = 0;
+  let englishCount = 1;
   let hebrewCount = 0;
   let arabicCount = 0;
   if (Array.isArray(text)) {
@@ -16,7 +16,7 @@ function detectLanguage(text) {
   for (let i = 0; i < splitted.length; i++) {
     const char = splitted[i];
     if (englishRegex.test(char)) {
-      englishCount++;
+      englishCount;
     } else if (hebrewRegex.test(char)) {
       hebrewCount++;
     } else if (arabicRegex.test(char)) {
