@@ -4,20 +4,20 @@ This documentation provides an overview of the routes and functionalities of the
 
 ## Routes
 
-### 1. `/api/v1/playlist/playlistData`
+### 1. `/api/v1/playlist/playlistData/?id=PLAYLIST_ID`
 
 - **Method:** GET
 - **Description:** Retrieves data for a specific playlist identified by its ID. It fetches data from the YouTube API, stores it in the database, and returns the playlist data.
-- **Parameters:**
+- **Query Parameters:**
   - `id`: The ID of the playlist (required).
   - `update`: Optional query parameter. If set to "true", the data will be updated from the YouTube API even if it exists in the database.
 - **Response:** Returns JSON data containing information about the playlist.
 
-### 2. `/api/v1/playlist/profilePic`
+### 2. `/api/v1/playlist/profilePic/?id=CHANNEL_ID`
 
 - **Method:** GET
 - **Description:** Retrieves the profile picture URL of a YouTube channel identified by its ID.
-- **Parameters:**
+- **Query Parameters:**
   - `id`: The ID of the YouTube channel (required).
 - **Response:** Returns JSON data containing the profile picture URL.
 
@@ -37,14 +37,14 @@ This file contains controller functions for handling requests related to playlis
 
 - **Description:** Retrieves playlist data from the YouTube API or database, updates if necessary, and returns the data.
 - **Usage:** Called when accessing the `/api/v1/playlist/playlistData` route.
-- **Parameters:** `id` (required), `update` (optional).
+- **Query Parameters:** `id` (required) (Playlist ID), `update` (optional).
 - **Returns:** JSON data containing playlist information.
 
 #### `getChannelProfilePic`
 
 - **Description:** Retrieves the profile picture URL of a YouTube channel.
 - **Usage:** Called when accessing the `/api/v1/playlist/profilePic` route.
-- **Parameters:** `id` (required).
+- **Query Parameters:** `id` (required) (Channel ID).
 - **Returns:** JSON data containing the profile picture URL.
 
 #### `getAllPlaylistsData`
